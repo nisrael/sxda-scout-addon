@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2023 BSI Business Systems Integration AG
+  ~ Copyright (c) 2023 Nils Israel
+  ~
+  ~ This program is based on work from the Eclipse Scout Project
+  ~ https://www.eclipse.org/scout/ and provides an extension for it.
+  ~
+  ~ This program and the accompanying materials are made
+  ~ available under the terms of the Eclipse Public License 2.0
+  ~ which is available at https://www.eclipse.org/legal/epl-2.0/
+  ~
+  ~ SPDX-License-Identifier: EPL-2.0
+  -->
+
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.eclipse.scout</groupId>
+    <artifactId>maven_rt_plugin_config-master</artifactId>
+    <version>23.1.0</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>base</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <org.eclipse.scout.rt.version>23.1.19</org.eclipse.scout.rt.version>
+    <logback.version>1.4.8</logback.version>
+    <!-- don't mess more than this with the node build system!!! -->
+    <!-- hint: var expansion happens late ... -->
+    <master_node_dir>${project.basedir}${file.separator}target${file.separator}node</master_node_dir>
+    <master_node_modules_dir>
+      ${project.basedir}${file.separator}target${file.separator}node${file.separator}node_modules
+    </master_node_modules_dir>
+    <master_npm_workspace_dir>${project.basedir}</master_npm_workspace_dir>
+    <master_webpack_options>--progress=false --clean=false</master_webpack_options>
+    <master_karma_output_dir>target/karma-reports</master_karma_output_dir>
+  </properties>
+
+  <modules>
+    <module>build</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>build</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>codemirror</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>codemirror.client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>codemirror.ui.html</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.scout.rt</groupId>
+        <artifactId>org.eclipse.scout.rt.client</artifactId>
+        <version>${org.eclipse.scout.rt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.scout.rt</groupId>
+        <artifactId>org.eclipse.scout.rt.ui.html</artifactId>
+        <version>${org.eclipse.scout.rt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.scout.rt</groupId>
+        <artifactId>eclipse-scout-core</artifactId>
+        <version>${org.eclipse.scout.rt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
