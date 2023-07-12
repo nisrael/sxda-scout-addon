@@ -12,14 +12,18 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-package io.sxda.scout.addon.codemirror.client.codemirrorfield;
+package io.sxda.scout.addon.monaco.ui.html;
 
-import org.eclipse.scout.rt.client.ui.IAppLinkCapable;
-import org.eclipse.scout.rt.client.ui.form.fields.IBasicField;
-import org.eclipse.scout.rt.client.ui.form.fields.IFormField;
-import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
+import org.eclipse.scout.rt.ui.html.IUiTextContributor;
 
-public interface ICodeMirrorField extends IValueField<String>, IAppLinkCapable {
-  final String OBJECT_TYPE = "sxda.CodeMirrorField";
+import java.util.Arrays;
+import java.util.Set;
 
+public class MonacoUiTextContributor implements IUiTextContributor {
+
+  @Override
+  public void contributeUiTextKeys(Set<String> textKeys) {
+    textKeys.addAll(Arrays.asList(
+      "ui.nix"));
+  }
 }

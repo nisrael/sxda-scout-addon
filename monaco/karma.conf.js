@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 BSI Business Systems Integration AG
+ * Copyright (c) 2010-2023 BSI Business Systems Integration AG
  * Copyright (c) 2023 Nils Israel
  *
  * This program is based on work from the Eclipse Scout Project
@@ -11,9 +11,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
+const baseConfig = require('@eclipse-scout/cli/scripts/karma-defaults');
 
-import {AppLinkActionEvent, BasicFieldEventMap, StringFieldEventMap, ValueFieldEventMap} from '@eclipse-scout/core';
-
-export interface CodeMirrorFieldEventMap extends ValueFieldEventMap<string> {
-  'appLinkAction': AppLinkActionEvent;
-}
+module.exports = (config, specEntryPoint) => {
+  baseConfig(config, specEntryPoint);
+};

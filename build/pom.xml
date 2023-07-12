@@ -31,5 +31,8 @@
     <module>../codemirror/pom.xml</module>
     <module>../codemirror.client/pom.xml</module>
     <module>../codemirror.ui.html/pom.xml</module>
+    <module>../monaco/pom.xml</module>
+    <module>../monaco.client/pom.xml</module>
+    <module>../monaco.ui.html/pom.xml</module>
   </modules>
 </project>

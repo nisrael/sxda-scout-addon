@@ -11,15 +11,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
+import {ObjectFactory} from '@eclipse-scout/core';
 
-package io.sxda.scout.addon.codemirror.client.codemirrorfield;
+export * from './monaco/MonacoField';
+export * from './monaco/MonacoFieldAdapter';
+export * from './monaco/MonacoFieldModel';
+export * from './monaco/MonacoFieldEventMap';
 
-import org.eclipse.scout.rt.client.ui.IAppLinkCapable;
-import org.eclipse.scout.rt.client.ui.form.fields.IBasicField;
-import org.eclipse.scout.rt.client.ui.form.fields.IFormField;
-import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
+import * as self from './index';
 
-public interface ICodeMirrorField extends IValueField<String>, IAppLinkCapable {
-  final String OBJECT_TYPE = "sxda.CodeMirrorField";
+export default self;
 
-}
+ObjectFactory.get().registerNamespace('sxda', self);

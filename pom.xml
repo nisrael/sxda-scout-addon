@@ -70,6 +70,21 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>monaco</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>monaco.client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>monaco.ui.html</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.eclipse.scout.rt</groupId>
         <artifactId>org.eclipse.scout.rt.client</artifactId>
         <version>${org.eclipse.scout.rt.version}</version>

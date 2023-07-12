@@ -1,7 +1,7 @@
 {
-  "name": "@sxda/scout-addon-codemirror",
+  "name": "@sxda/scout-addon-monaco",
   "version": "1.0.0-snapshot.20230707185550",
-  "description": "Wrapper module for the CodeMirror editor to be used as a form field for Eclipse Scout",
+  "description": "Wrapper module for the Monaco editor to be used as a form field for Eclipse Scout",
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
   "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
   "repository": {
@@ -16,9 +16,9 @@
   "keywords": [
     "scout",
     "eclipse-scout",
-    "codemirror"
+    "monaco"
   ],
-  "main": "./dist/sxda-scout-addon-codemirror.js",
+  "main": "./dist/sxda-scout-addon-monaco.js",
   "types": "./dist/d.ts/index.d.ts",
   "files": [
     "src",
@@ -53,11 +53,11 @@
   "dependencies": {
     "@eclipse-scout/core": "23.1.19",
     "jquery": "3.6.0",
-    "codemirror": "^6.0.1",
-    "@codemirror/lang-json": "^6.0.1",
-    "@codemirror/view": "^6.14.1",
-    "@codemirror/state": "^6.2.1",
-    "@codemirror/lang-sql": "^6.5.2",
-    "@codemirror/lang-markdown": "^6.2.0"
+    "monaco-editor": "0.40.0",
+    "monaco-editor-webpack-plugin": "7.1.0",
+    "webpack": "5.76.2",
+    "style-loader": "3.3.3",
+    "css-loader": "6.8.1",
+    "file-loader": "6.2.0"
   }
 }
