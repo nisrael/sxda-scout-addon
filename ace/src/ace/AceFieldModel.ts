@@ -16,4 +16,10 @@ import {ValueFieldModel} from '@eclipse-scout/core';
 
 export interface AceFieldModel extends ValueFieldModel<string> {
   theme?: string;
+  tabSize?: number;
+  useSoftTabs?: boolean;
+  useWrapMode?: boolean;
+  showPrintMargin?: boolean;
+  readOnly?: boolean;
+  highlightActiveLine?: boolean;
 }

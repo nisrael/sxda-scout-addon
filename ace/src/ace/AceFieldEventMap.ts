@@ -16,4 +16,10 @@ import {ValueFieldEventMap, PropertyChangeEvent} from '@eclipse-scout/core';
 
 export interface AceFieldEventMap extends ValueFieldEventMap<string> {
   'propertyChange:theme': PropertyChangeEvent<string>;
+  'propertyChange:tabSize': PropertyChangeEvent<number>;
+  'propertyChange:useSoftTabs': PropertyChangeEvent<boolean>;
+  'propertyChange:useWrapMode': PropertyChangeEvent<boolean>;
+  'propertyChange:showPrintMargin': PropertyChangeEvent<boolean>;
+  'propertyChange:readOnly': PropertyChangeEvent<boolean>;
+  'propertyChange:highlightActiveLine': PropertyChangeEvent<boolean>;
 }

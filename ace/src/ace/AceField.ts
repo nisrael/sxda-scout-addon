@@ -16,17 +16,32 @@ import {InitModelOf, ValueField} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-builds";
+import 'ace-builds/esm-resolver';
 
-export class AceField extends ValueField<string> implements AceFieldModel{
+export class AceField extends ValueField<string> implements AceFieldModel {
   declare model: AceFieldModel;
   declare eventMap: AceFieldEventMap;
   declare self: AceField;
 
   editor: ace.Ace.Editor;
   theme: string;
+  tabSize: number;
+  useSoftTabs: boolean;
+  useWrapMode: boolean;
+  showPrintMargin: boolean;
+  readOnly: boolean;
+  highlightActiveLine: boolean;
+
 
   constructor() {
     super();
+    this.theme = 'textmate';
+    this.tabSize = 2;
+    this.useSoftTabs = true;
+    this.useWrapMode = false;
+    this.showPrintMargin = false;
+    this.readOnly = false;
+    this.highlightActiveLine = true;
   }
 
   protected override _init(model: InitModelOf<this>) {
@@ -37,10 +52,113 @@ export class AceField extends ValueField<string> implements AceFieldModel{
     this.setProperty('theme', theme);
   }
 
-  _setTheme(theme: string){
+  _setTheme(theme: string) {
     this.theme = theme;
   }
 
+  getTheme(): string {
+    return this.theme;
+  }
+
+  _renderTheme() {
+    this.editor.setTheme("ace/theme/" + this.theme);
+  }
+
+  setTabSize(tabSize: number) {
+    this.setProperty('tabSize', tabSize);
+  }
+
+  _setTabSize(tabSize: number) {
+    this.tabSize = tabSize;
+  }
+
+  getTabSize(): number {
+    return this.tabSize;
+  }
+
+  _renderTabSize() {
+    this.editor.session.setTabSize(this.tabSize);
+  }
+
+  setUseSoftTabs(useSoftTabs: boolean) {
+    this.setProperty('useSoftTabs', useSoftTabs);
+  }
+
+  _setUseSoftTabs(useSoftTabs: boolean) {
+    this.useSoftTabs = useSoftTabs;
+  }
+
+  getUseSoftTabs(): boolean {
+    return this.useSoftTabs;
+  }
+
+  _renderUseSoftTabs() {
+    this.editor.session.setUseSoftTabs(this.useSoftTabs);
+  }
+
+  setUseWrapMode(useWrapMode: boolean) {
+    this.setProperty('useWrapMode', useWrapMode);
+  }
+
+  _setUseWrapMode(useWrapMode: boolean) {
+    this.useWrapMode = useWrapMode;
+  }
+
+  getUseWrapMode(): boolean {
+    return this.useWrapMode;
+  }
+
+  _renderUseWrapMode() {
+    this.editor.session.setUseWrapMode(this.useWrapMode);
+  }
+
+  setShowPrintMargin(showPrintMargin: boolean) {
+    this.setProperty('showPrintMargin', showPrintMargin);
+  }
+
+  _setShowPrintMargin(showPrintMargin: boolean) {
+    this.showPrintMargin = showPrintMargin;
+  }
+
+  getShowPrintMargin(): boolean {
+    return this.showPrintMargin;
+  }
+
+  _renderShowPrintMargin() {
+    this.editor.setShowPrintMargin(this.showPrintMargin);
+  }
+
+  setHighlightActiveLine(highlightActiveLine: boolean) {
+    this.setProperty('highlightActiveLine', highlightActiveLine);
+  }
+
+  _setHighlightActiveLine(highlightActiveLine: boolean) {
+    this.highlightActiveLine = highlightActiveLine;
+  }
+
+  getHighlightActiveLine(): boolean {
+    return this.highlightActiveLine;
+  }
+
+  _renderHighlightActiveLine() {
+    this.editor.setHighlightActiveLine(this.highlightActiveLine);
+  }
+
+  setReadOnly(readOnly: boolean) {
+      this.setProperty('readOnly', readOnly);
+    }
+
+    _setReadOnly(readOnly: boolean){
+      this.readOnly = readOnly;
+    }
+
+    getReadOnly(): boolean{
+      return this.readOnly;
+    }
+
+    _renderReadOnly(){
+      this.editor.setReadOnly(this.readOnly);
+    }
 
   override _renderDisplayText() {
     super._renderDisplayText();
@@ -65,12 +183,15 @@ export class AceField extends ValueField<string> implements AceFieldModel{
     this.addStatus();
   }
 
-  _renderTheme(){
-    this.editor.setTheme("ace/theme/"+this.theme);
-  }
 
   protected override _renderProperties() {
     super._renderProperties();
     this._renderTheme();
+    this._renderReadOnly();
+    this._renderHighlightActiveLine();
+    this._renderTabSize();
+    this._renderUseSoftTabs();
+    this._renderUseWrapMode();
+    this._renderShowPrintMargin();
   }
 }
