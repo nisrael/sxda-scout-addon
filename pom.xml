@@ -71,17 +71,17 @@
       </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>monaco</artifactId>
+        <artifactId>ace</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>monaco.client</artifactId>
+        <artifactId>ace.client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>monaco.ui.html</artifactId>
+        <artifactId>ace.ui.html</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
