@@ -17,4 +17,9 @@ import {AceField} from "./AceField";
 
 export class AceFieldAdapter extends ValueFieldAdapter {
   declare widget: AceField;
+
+  constructor() {
+    super();
+    this._addRemoteProperties(['value']);
+  }
 }

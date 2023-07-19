@@ -32,6 +32,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   readOnly: boolean;
   highlightActiveLine: boolean;
 
+  renderValueUpdate: boolean;
+
 
   constructor() {
     super();
@@ -160,11 +162,14 @@ export class AceField extends ValueField<string> implements AceFieldModel {
       this.editor.setReadOnly(this.readOnly);
     }
 
+
   override _renderDisplayText() {
-    super._renderDisplayText();
+    this._updateHasText();
   }
 
-
+  override _readDisplayText(): string {
+    return this.editor.getValue();
+  }
   override _render() {
     // Create the container
     this.addContainer(this.$parent, 'ace-field');
@@ -178,11 +183,26 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
     this.editor = ace.edit($field.get()[0]);
 
+    let self = this;
+
+    this.editor.session.on("change", function() {
+       self.setValue(self.editor.getValue());
+    });
+
     // Add other required form field elements
     this.addMandatoryIndicator();
     this.addStatus();
   }
 
+  _renderValue(){
+    if (this.editor.getValue()!=this.value) {
+      this.editor.setValue(this.value);
+    }
+  }
+
+  override setValue(value: string) {
+    this.setProperty('value', value);
+  }
 
   protected override _renderProperties() {
     super._renderProperties();
@@ -193,5 +213,13 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this._renderUseSoftTabs();
     this._renderUseWrapMode();
     this._renderShowPrintMargin();
+    this._renderValue();
   }
+
+  protected override _clear() {
+    this.editor.setValue('');
+  }
+
 }
+
+

@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import {ValueFieldEventMap, PropertyChangeEvent} from '@eclipse-scout/core';
+import {PropertyChangeEvent, ValueFieldEventMap} from '@eclipse-scout/core';
 
 export interface AceFieldEventMap extends ValueFieldEventMap<string> {
   'propertyChange:theme': PropertyChangeEvent<string>;
