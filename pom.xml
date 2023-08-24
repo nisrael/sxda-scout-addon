@@ -48,12 +48,10 @@
       <id>github</id>
       <name>GitHub nisrael Apache Maven Packages</name>
       <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
-    <snapshotRepository>
-      <id>github</id>
-      <name>GitHub nisrael Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <modules>

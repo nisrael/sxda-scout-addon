@@ -37,7 +37,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          server-id: github
+          server-username: GITHUB_USER_REF
+          server-password: GITHUB_TOKEN_REF
 
       - run: mvn -B --no-transfer-progress deploy -D skipTests --projects ace.client,ace.ui.html
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER_REF: ${{ secrets.GIT_USERNAME }}
+          GITHUB_TOKEN_REF: ${{ secrets.GIT_TOKEN }}
