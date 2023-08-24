@@ -1,4 +1,4 @@
-name: build and package java parts
+name: build, package and deploy java parts
 
 on:
   push:
@@ -9,27 +9,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [ 17 ]
+
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+
+      - uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
           cache: maven
-      - name: Build
-        run: mvn -B install --no-transfer-progress --file pom.xml
-  deploy:
+
+      - run: mvn -B install --no-transfer-progress --file pom.xml
+
+  publish-snapshot:
+    needs: build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+
+      - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Publish package
-        run: mvn -B deploy
+
+      - run: mvn -B --no-transfer-progress deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
