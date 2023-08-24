@@ -22,5 +22,5 @@ module.exports = (env, args) => {
   libraryConfig.entry = {
     'sxda-scout-addon-ace': './src/index.ts'
   };
-  return libraryConfig;
+    return libraryConfig;
 };

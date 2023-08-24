@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.eclipse.scout</groupId>
     <artifactId>maven_rt_plugin_config-master</artifactId>
-    <version>23.1.0</version>
+    <version>23.2.0</version>
     <relativePath/>
   </parent>
 
@@ -30,7 +30,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <org.eclipse.scout.rt.version>23.1.19</org.eclipse.scout.rt.version>
+    <org.eclipse.scout.rt.version>[23.2.13,24.0.0)</org.eclipse.scout.rt.version>
     <logback.version>1.4.8</logback.version>
     <!-- don't mess more than this with the node build system!!! -->
     <!-- hint: var expansion happens late ... -->
@@ -47,13 +47,11 @@
     <repository>
       <id>github</id>
       <name>GitHub nisrael Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/nisrael/io-sxda-scout-addon</url>
+      <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
-    <snapshotRepository>
-      <id>github</id>
-      <name>GitHub nisrael Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/nisrael/io-sxda-scout-addon</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <modules>
@@ -65,21 +63,6 @@
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
         <artifactId>build</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>codemirror</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>codemirror.client</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>codemirror.ui.html</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
