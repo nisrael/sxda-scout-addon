@@ -12,8 +12,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import {AppLinkActionEvent, FormFieldEventMap} from '@eclipse-scout/core';
+import {AppLinkActionEvent, BasicFieldEventMap, StringFieldEventMap, ValueFieldEventMap} from '@eclipse-scout/core';
 
-export interface CodeMirrorFieldEventMap extends FormFieldEventMap {
+export interface CodeMirrorFieldEventMap extends ValueFieldEventMap<string> {
   'appLinkAction': AppLinkActionEvent;
 }

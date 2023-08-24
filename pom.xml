@@ -70,6 +70,21 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.ui.html</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.eclipse.scout.rt</groupId>
         <artifactId>org.eclipse.scout.rt.client</artifactId>
         <version>${org.eclipse.scout.rt.version}</version>

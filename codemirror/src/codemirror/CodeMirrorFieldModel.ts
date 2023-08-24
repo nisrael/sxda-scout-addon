@@ -12,8 +12,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import {FormFieldModel} from '@eclipse-scout/core';
+import {StringFieldModel, ValueFieldModel} from '@eclipse-scout/core';
 
-export interface CodeMirrorFieldModel extends FormFieldModel {
+export interface CodeMirrorFieldModel extends ValueFieldModel<string> {
   demo?: string;
 }

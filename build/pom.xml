@@ -31,5 +31,8 @@
     <module>../codemirror/pom.xml</module>
     <module>../codemirror.client/pom.xml</module>
     <module>../codemirror.ui.html/pom.xml</module>
+    <module>../ace/pom.xml</module>
+    <module>../ace.client/pom.xml</module>
+    <module>../ace.ui.html/pom.xml</module>
   </modules>
 </project>

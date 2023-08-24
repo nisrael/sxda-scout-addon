@@ -14,12 +14,24 @@
 
 package io.sxda.scout.addon.codemirror.client.codemirrorfield;
 
+import org.eclipse.scout.rt.client.ui.form.fields.AbstractBasicField;
 import org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField;
+import org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField;
+import org.eclipse.scout.rt.client.ui.form.fields.IBasicFieldUIFacade;
 import org.eclipse.scout.rt.platform.classid.ClassId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ClassId("7a467b1a-e29d-4fc8-802f-0c195b5db76b")
-public abstract class AbstractCodeMirrorField extends AbstractFormField implements ICodeMirrorField {
+public abstract class AbstractCodeMirrorField extends AbstractValueField<String> implements ICodeMirrorField {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractCodeMirrorField.class);
+
+  public AbstractCodeMirrorField() {
+    super(true);
+  }
+
+  @Override
+  public void doAppLinkAction(String ref) {
+
+  }
 }

@@ -15,9 +15,11 @@
 package io.sxda.scout.addon.codemirror.client.codemirrorfield;
 
 import org.eclipse.scout.rt.client.ui.IAppLinkCapable;
+import org.eclipse.scout.rt.client.ui.form.fields.IBasicField;
 import org.eclipse.scout.rt.client.ui.form.fields.IFormField;
+import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
 
-public interface ICodeMirrorField extends IFormField, IAppLinkCapable {
+public interface ICodeMirrorField extends IValueField<String>, IAppLinkCapable {
   final String OBJECT_TYPE = "sxda.CodeMirrorField";
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2023 BSI Business Systems Integration AG
+  ~ Copyright (c) 2023 Nils Israel
+  ~
+  ~ This program is based on work from the Eclipse Scout Project
+  ~ https://www.eclipse.org/scout/ and provides an extension for it.
+  ~
+  ~ This program and the accompanying materials are made
+  ~ available under the terms of the Eclipse Public License 2.0
+  ~ which is available at https://www.eclipse.org/legal/epl-2.0/
+  ~
+  ~ SPDX-License-Identifier: EPL-2.0
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.sxda.scout.addon</groupId>
+    <artifactId>build</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../build</relativePath>
+  </parent>
+
+  <artifactId>ace.ui.html</artifactId>
+
+  <properties>
+    <scout.script.version>5.0.0</scout.script.version>
+    <master_skip_npm_build_dev>true</master_skip_npm_build_dev>
+    <master_skip_npm_build_prod>true</master_skip_npm_build_prod>
+    <master_skip_karma_test>true</master_skip_karma_test>
+    <master_skip_copy_webpack_build_output>true</master_skip_copy_webpack_build_output>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.sxda.scout.addon</groupId>
+      <artifactId>ace.client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.scout.rt</groupId>
+      <artifactId>org.eclipse.scout.rt.ui.html</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.scout.rt</groupId>
+      <artifactId>eclipse-scout-core</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+</project>

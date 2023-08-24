@@ -12,10 +12,17 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import {AppLinkActionEvent, Event, FormFieldAdapter} from '@eclipse-scout/core';
+import {
+  AppLinkActionEvent,
+  BasicFieldAdapter,
+  Event,
+  FormFieldAdapter,
+  StringFieldAdapter,
+  ValueField, ValueFieldAdapter
+} from '@eclipse-scout/core';
 import {CodeMirrorField} from '../index';
 
-export class CodeMirrorFieldAdapter extends FormFieldAdapter {
+export class CodeMirrorFieldAdapter extends ValueFieldAdapter {
 
   protected _onWidgetAppLinkAction(event: AppLinkActionEvent) {
     this._send('appLinkAction', {

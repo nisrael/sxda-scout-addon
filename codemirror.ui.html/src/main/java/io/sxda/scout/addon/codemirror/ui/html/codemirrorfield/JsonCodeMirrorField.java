@@ -17,9 +17,9 @@ package io.sxda.scout.addon.codemirror.ui.html.codemirrorfield;
 import io.sxda.scout.addon.codemirror.client.codemirrorfield.ICodeMirrorField;
 import org.eclipse.scout.rt.ui.html.IUiSession;
 import org.eclipse.scout.rt.ui.html.json.IJsonAdapter;
-import org.eclipse.scout.rt.ui.html.json.form.fields.JsonFormField;
+import org.eclipse.scout.rt.ui.html.json.form.fields.JsonValueField;
 
-public class JsonCodeMirrorField extends JsonFormField<ICodeMirrorField> {
+public class JsonCodeMirrorField extends JsonValueField<ICodeMirrorField> {
   public JsonCodeMirrorField(ICodeMirrorField model, IUiSession uiSession, String id, IJsonAdapter<?> parent) {
     super(model, uiSession, id, parent);
   }
