@@ -43,6 +43,19 @@
     <master_karma_output_dir>target/karma-reports</master_karma_output_dir>
   </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub nisrael Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/nisrael/io-sxda-scout-addon</url>
+    </repository>
+    <snapshotRepository>
+      <id>github</id>
+      <name>GitHub nisrael Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/nisrael/io-sxda-scout-addon</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <modules>
     <module>build</module>
   </modules>
