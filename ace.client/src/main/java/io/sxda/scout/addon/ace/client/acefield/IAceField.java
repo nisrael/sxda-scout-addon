@@ -30,8 +30,22 @@ public interface IAceField extends IValueField<String> {
 
   String getTheme();
 
-  void setTabSize(Integer tabSize);
+  void setTabSize(int tabSize);
 
-  Integer getTabSize();
+  int getTabSize();
 
+  void setUseSoftTabs(boolean useSoftTabs);
+  boolean getUseSoftTabs();
+
+  void setUseWrapMode(boolean useWrapMode);
+  boolean getUseWrapMode();
+
+  void setShowPrintMargin(boolean showPrintMargin);
+  boolean getShowPrintMargin();
+
+  void setReadOnly(boolean readOnly);
+  boolean getReadOnly();
+
+  void setHighlightActiveLine(boolean highlightActiveLine);
+  boolean getHighlightActiveLine();
 }

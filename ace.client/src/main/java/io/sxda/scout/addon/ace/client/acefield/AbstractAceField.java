@@ -15,7 +15,6 @@
 package io.sxda.scout.addon.ace.client.acefield;
 
 import org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField;
-import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.annotations.ConfigProperty;
 import org.eclipse.scout.rt.platform.classid.ClassId;
 import org.slf4j.Logger;
@@ -23,53 +22,6 @@ import org.slf4j.LoggerFactory;
 
 @ClassId("a35fe425-089f-4954-bdcd-cbea26e202bb")
 public abstract class AbstractAceField extends AbstractValueField<String> implements IAceField {
-  public final static String THEME_AMBIANCE = "ambiance";
-  public final static String THEME_CHAOS = "chaos";
-  public final static String THEME_CHROME = "chrome";
-  public final static String THEME_CLOUD9_DAY = "cloud9_day";
-  public final static String THEME_CLOUD9_NIGHT = "cloud9_night";
-  public final static String THEME_CLOUD9_NIGHT_LOW_COLOR = "cloud9_night_low_color";
-  public final static String THEME_CLOUDS = "clouds";
-  public final static String THEME_CLOUDS_MIDNIGHT = "clouds_midnight";
-  public final static String THEME_COBALT = "cobalt";
-  public final static String THEME_CRIMSON_EDITOR = "crimson_editor";
-  public final static String THEME_DAWN = "dawn";
-  public final static String THEME_DRACULA = "dracula";
-  public final static String THEME_DREAMWEAVER = "dreamweaver";
-  public final static String THEME_ECLIPSE = "eclipse";
-  public final static String THEME_GITHUB = "github";
-  public final static String THEME_GITHUB_DARK = "github_dark";
-  public final static String THEME_GOB = "gob";
-  public final static String THEME_GRUVBOX = "gruvbox";
-  public final static String THEME_GRUVBOX_DARK_HARD = "gruvbox_dark_hard";
-  public final static String THEME_GRUVBOX_LIGHT_HARD = "gruvbox_light_hard";
-  public final static String THEME_IDLE_FINGERS = "idle_fingers";
-  public final static String THEME_IPLASTIC = "iplastic";
-  public final static String THEME_KATZENMILCH = "katzenmilch";
-  public final static String THEME_KR_THEME = "kr_theme";
-  public final static String THEME_KUROIR = "kuroir";
-  public final static String THEME_MERBIVORE = "merbivore";
-  public final static String THEME_MERBIVORE_SOFT = "merbivore_soft";
-  public final static String THEME_MONO_INDUSTRIAL = "mono_industrial";
-  public final static String THEME_MONOKAI = "monokai";
-  public final static String THEME_NORD_DARK = "nord_dark";
-  public final static String THEME_ONE_DARK = "one_dark";
-  public final static String THEME_PASTEL_ON_DARK = "pastel_on_dark";
-  public final static String THEME_SOLARIZED_DARK = "solarized_dark";
-  public final static String THEME_SOLARIZED_LIGHT = "solarized_light";
-  public final static String THEME_SQLSERVER = "sqlserver";
-  public final static String THEME_TERMINAL = "terminal";
-  public final static String THEME_TEXTMATE = "textmate";
-  public final static String THEME_TOMORROW = "tomorrow";
-  public final static String THEME_TOMORROW_NIGHT = "tomorrow_night";
-  public final static String THEME_TOMORROW_NIGHT_BLUE = "tomorrow_night_blue";
-  public final static String THEME_TOMORROW_NIGHT_BRIGHT = "tomorrow_night_bright";
-  public final static String THEME_TOMORROW_NIGHT_EIGHTIES = "tomorrow_night_eighties";
-  public final static String THEME_TWILIGHT = "twilight";
-  public final static String THEME_VIBRANT_INK = "vibrant_ink";
-  public final static String THEME_XCODE = "xcode";
-
-
   private static final Logger LOG = LoggerFactory.getLogger(AbstractAceField.class);
 
   public AbstractAceField() {
@@ -81,6 +33,11 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
     super.initConfig();
     setTheme(getConfiguredTheme());
     setTabSize(getConfiguredTabSize());
+    setUseSoftTabs(getConfiguredUseSoftTabs());
+    setShowPrintMargin(getConfiguredShowPrintMargin());
+    setReadOnly(getConfiguredReadOnly());
+    setUseWrapMode(getConfiguredUseWrapMode());
+    setHighlightActiveLine(getConfiguredHighlightActiveLine());
   }
 
   @Override
@@ -97,24 +54,108 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
 
   @ConfigProperty(ConfigProperty.STRING)
   protected String getConfiguredTheme() {
-    return THEME_TEXTMATE;
+    return AceTheme.TEXTMATE.getConfigTerm();
   }
 
   @Override
   @ConfigProperty(ConfigProperty.INTEGER)
-  public void setTabSize(Integer tabSize) {
+  public void setTabSize(int tabSize) {
     propertySupport.setPropertyInt(PROP_TAB_SIZE, tabSize);
   }
 
   @Override
   @ConfigProperty(ConfigProperty.INTEGER)
-  public Integer getTabSize() {
+  public int getTabSize() {
     return propertySupport.getPropertyInt(PROP_TAB_SIZE);
   }
 
   @ConfigProperty(ConfigProperty.INTEGER)
-  protected Integer getConfiguredTabSize() {
+  protected int getConfiguredTabSize() {
     return 2;
   }
 
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setUseSoftTabs(boolean useSoftTabs) {
+    propertySupport.setPropertyBool(PROP_USE_SOFT_TABS, useSoftTabs);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getUseSoftTabs() {
+    return propertySupport.getPropertyBool(PROP_USE_SOFT_TABS);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredUseSoftTabs() {
+    return true;
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setUseWrapMode(boolean useWrapMode) {
+    propertySupport.setPropertyBool(PROP_USE_WRAP_MODE, useWrapMode);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getUseWrapMode() {
+    return propertySupport.getPropertyBool(PROP_USE_WRAP_MODE);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredUseWrapMode() {
+    return true;
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setShowPrintMargin(boolean showPrintMargin) {
+    propertySupport.setPropertyBool(PROP_SHOW_PRINT_MARGIN, showPrintMargin);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getShowPrintMargin() {
+    return propertySupport.getPropertyBool(PROP_SHOW_PRINT_MARGIN);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredShowPrintMargin() {
+    return false;
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setReadOnly(boolean readOnly) {
+    propertySupport.setPropertyBool(PROP_READ_ONLY, readOnly);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getReadOnly() {
+    return propertySupport.getPropertyBool(PROP_READ_ONLY);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredReadOnly() {
+    return false;
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setHighlightActiveLine(boolean highlightActiveLine) {
+    propertySupport.setPropertyBool(PROP_HIGHLIGHT_ACTIVE_LINE, highlightActiveLine);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getHighlightActiveLine() {
+    return propertySupport.getPropertyBool(PROP_HIGHLIGHT_ACTIVE_LINE);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredHighlightActiveLine() {
+    return true;
+  }
 }
