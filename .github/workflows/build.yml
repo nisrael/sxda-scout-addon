@@ -38,6 +38,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - run: mvn -B --no-transfer-progress deploy -DskipTests
+      - run: mvn -B --no-transfer-progress deploy -D skipTests --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
