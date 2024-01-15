@@ -41,6 +41,11 @@
     <master_npm_workspace_dir>${project.basedir}</master_npm_workspace_dir>
     <master_webpack_options>--progress=false --clean=false</master_webpack_options>
     <master_karma_output_dir>target/karma-reports</master_karma_output_dir>
+    <!-- setup deploy repos -->
+    <master_deploy_ReleaseId>github</master_deploy_ReleaseId>
+    <master_deploy_ReleaseUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_ReleaseUrl>
+    <master_deploy_SnapshotId>github</master_deploy_SnapshotId>
+    <master_deploy_SnapshotUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_SnapshotUrl>
   </properties>
 
   <distributionManagement>
@@ -53,6 +58,24 @@
       </snapshots>
     </repository>
   </distributionManagement>
+
+  <mailingLists/>
+
+  <scm>
+    <url>https://github.com/nisrael/sxda-scout-addon.git/</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/nisrael/sxda-scout-addon/issues</url>
+  </issueManagement>
+
+  <developers>
+    <developer>
+      <name>Nils Israel</name>
+      <email>nils@sxda.io</email>
+    </developer>
+  </developers>
 
   <modules>
     <module>build</module>

@@ -33,17 +33,6 @@
     <master_skip_copy_webpack_build_output>true</master_skip_copy_webpack_build_output>
   </properties>
 
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub nisrael Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </distributionManagement>
-
   <dependencies>
     <dependency>
       <groupId>io.sxda.scout.addon</groupId>
