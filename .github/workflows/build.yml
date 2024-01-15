@@ -11,33 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      checks: write
       contents: read
-      packages: write
-
-    strategy:
-      matrix:
-        java-version: [ 17 ]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java-version }}
-          distribution: 'temurin'
-          cache: maven
-
-      - run: mvn -B install --no-transfer-progress --file pom.xml
-
-  publish-snapshot:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -47,7 +26,55 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
+  publish-maven:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          server-id: github
+
       - name: Publish to GitHub Packages
-        run: mvn -B deploy --projects ace.client,ace.ui.html
+        run: mvn -B deploy --file pom.xml --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  publish-npm:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: build module with maven
+        run: mvn -B package --file pom.xml --projects ace
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - name: create new snapshot version
+        run: npm run version:snapshot
+        working-directory: ./ace
+
+      - run: npm publish
+        working-directory: ./ace
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
