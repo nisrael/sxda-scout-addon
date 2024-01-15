@@ -26,6 +26,17 @@
   <artifactId>ace.client</artifactId>
   <packaging>jar</packaging>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub nisrael Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </distributionManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.scout.rt</groupId>

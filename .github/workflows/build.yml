@@ -7,32 +7,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
 
     permissions:
       checks: write
       contents: read
       packages: write
-
-    strategy:
-      matrix:
-        java-version: [ 17 ]
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java-version }}
-          distribution: 'temurin'
-          cache: maven
-
-      - run: mvn -B install --no-transfer-progress --file pom.xml
-
-  publish-snapshot:
-    needs: build
-    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -48,6 +29,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Publish to GitHub Packages
-        run: mvn -B deploy --projects ace.client,ace.ui.html
+        if: github.event_name != 'pull_request'
+        run: mvn -B deploy --file pom.xml --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
