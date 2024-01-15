@@ -29,7 +29,8 @@ module.exports = (env, args) => {
     externals: {
       ...config.externals,
       'jquery': 'jQuery',
-      'ace-build': 'ace-builds',
+      'ace-builds': 'ace',
+      'ace-builds/esm-resolver': 'ace',
       '@eclipse-scout/core': 'scout'
     }
   };
