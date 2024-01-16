@@ -28,7 +28,6 @@ jobs:
       - uses: actions/setup-node@v3
         if: github.event_name != 'pull_request'
         with:
-          cache: 'pnpm'
           node-version: 18
           registry-url: https://registry.npmjs.org/
 
