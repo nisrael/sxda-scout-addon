@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-publish:
+  build:
     runs-on: ubuntu-latest
 
     permissions:
@@ -25,16 +25,6 @@ jobs:
           cache: maven
           server-id: github
 
-      - uses: actions/setup-node@v3
-        if: github.event_name != 'pull_request'
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-
-      - name: Update npm module snapshot version
-        run: npm run version:snapshot
-        working-directory: ./ace
-
       - name: Build with Maven
         run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
 
@@ -42,25 +32,72 @@ jobs:
         if: (success() || failure()) && github.event_name == 'pull_request'
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
           fail_on_test_failures: true
 
       - name: Publish Test Reports
         if: (success() || failure()) && github.event_name != 'pull_request'
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
           create_check: false
           fail_on_test_failures: true
 
+  publish-maven:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          server-id: github
+
       - name: Publish maven modules to GitHub Packages
-        if: github.event_name != 'pull_request'
         run: mvn -B deploy --file pom.xml --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+  publish-npm:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: true
+
+      - name: Update npm module snapshot version
+        run: npm run version:snapshot
+        working-directory: ./ace
+
+      - name: Build npm module
+        run: npm run build:prod -- --progress=false --clean=false
+        working-directory: ./ace
+
       - name: Publish node packages to npmjs.com
-        if: github.event_name != 'pull_request'
         run: npm publish
         working-directory: ./ace
         env:
