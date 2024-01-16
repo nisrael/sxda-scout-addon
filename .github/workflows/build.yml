@@ -67,6 +67,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: maven
+          server-id: github
 
       - name: build module with maven
         run: mvn -B package --file pom.xml --projects ace
