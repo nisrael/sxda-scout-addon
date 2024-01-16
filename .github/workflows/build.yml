@@ -68,7 +68,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
   publish-npm:
-    if: github.event_name != 'pull_request'
+    #if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     needs: build
 
@@ -94,7 +94,7 @@ jobs:
         working-directory: ./ace
 
       - name: Build npm module
-        run: npm run build:prod -- --progress=false --clean=false
+        run: npm run build:all -- --progress=false --clean=false
         working-directory: ./ace
 
       - name: Publish node packages to npmjs.com

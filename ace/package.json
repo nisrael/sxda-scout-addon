@@ -18,8 +18,13 @@
     "eclipse-scout",
     "ace"
   ],
-  "main": "./dist/sxda-scout-addon-ace.js",
-  "types": "./dist/d.ts/index.d.ts",
+  "publishConfig": {
+    "main": "./dist/sxda-scout-addon-ace.esm.js",
+    "module": "./dist/sxda-scout-addon-ace.esm.js",
+    "types": "./dist/d.ts/index.d.ts"
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "files": [
     "src",
     "dist",
