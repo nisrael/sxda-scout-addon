@@ -44,7 +44,7 @@ jobs:
           fail_on_test_failures: true
 
   publish-maven:
-    #if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     needs: build
 
@@ -68,7 +68,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
   publish-npm:
-    #if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     needs: build
 
