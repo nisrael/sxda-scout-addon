@@ -12,6 +12,7 @@ jobs:
 
     permissions:
       contents: read
+      packages: read
 
     steps:
       - uses: actions/checkout@v4
@@ -52,8 +53,13 @@ jobs:
 
   publish-npm:
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: publish-maven
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+
     steps:
       - uses: actions/checkout@v3
 
