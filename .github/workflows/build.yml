@@ -63,7 +63,6 @@ jobs:
           server-id: github
 
       - name: Publish maven modules to GitHub Packages
-        if: github.event_name != 'pull_request'
         run: mvn -B deploy --file pom.xml --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
