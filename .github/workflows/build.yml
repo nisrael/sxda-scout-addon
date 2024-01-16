@@ -48,14 +48,14 @@ jobs:
         if: (success() || failure()) && github.event_name == 'pull_request'
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
           fail_on_test_failures: true
 
       - name: Publish Test Reports
         if: (success() || failure()) && github.event_name != 'pull_request'
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
           create_check: false
           fail_on_test_failures: true
 
