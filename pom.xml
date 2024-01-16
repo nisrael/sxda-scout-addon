@@ -53,6 +53,9 @@
       <id>github</id>
       <name>GitHub nisrael Apache Maven Packages</name>
       <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

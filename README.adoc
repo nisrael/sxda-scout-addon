@@ -4,6 +4,109 @@ The modules in this repository are intended to provide wrapper modules for
 commonly used open source form field elements so that they can be used in an
 Eclipse Scout application.
 
+## Elements
+
+### Ace Code Editor
+
+The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax highlighting and
+code completion for many programming languages. The wrapper is implemented as  `AbstractAceField extends AbstractValueField<String>` and can be used in a form like any other value field.
+
+To use the field in an Eclipse Scout Classic application, add the following modules to your application:
+
+.your.app.client/pom.xml
+[source,xml]
+----
+<!-- ... -->
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.client</artifactId>
+</dependency>
+<!-- ... -->
+----
+
+.your.app.ui.html/pom.xml
+[source,xml]
+----
+<!-- ... -->
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.ui.html</artifactId>
+</dependency>
+<!-- ... -->
+----
+
+The node module `@sxda/scout-addon-ace` does not provide the contents of the transitive dependency `ace-builds`, so both modules need to be added to the `package.json` file of the ui.html module:
+
+.your.app.ui.html/packages.json
+[source,json]
+----
+{
+    "dependencies": {
+      "@sxda/scout-addon-ace": "^1.0.0-snapshot",
+      "ace-builds": "^1.32.3"
+  }
+}
+----
+
+In the `index.ts` file of the ui.html module, the ace wrapper module needs to be imported:
+
+.your.app.ui.html/src/main/js/index.ts
+[source,typescript]
+----
+import * as sxda from '@sxda/scout-addon-ace';
+Object.assign({}, sxda);
+----
+
+Finally, the ace code editor can be used in a form:
+
+[source,java]
+----
+      @Order(1000)
+      public class CodeField extends AbstractAceField {
+        @Override
+        protected int getConfiguredGridW() {
+          return 2;
+        }
+
+        @Override
+        protected String getConfiguredLabel() {
+          return TEXTS.get("Code");
+        }
+
+        @Override
+        protected String getConfiguredTheme() {
+          return AceTheme.TWILIGHT.getConfigTerm();
+        }
+
+        @Override
+        protected boolean getConfiguredShowPrintMargin() {
+          return true;
+        }
+
+                @Override
+        protected int getConfiguredTabSize() {
+          return 2;
+        }
+
+        @Override
+        protected boolean getConfiguredHighlightActiveLine() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredUseSoftTabs() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredUseWrapMode() {
+          return false;
+        }
+      }
+----
+
+## IntelliJ IDEA templates
+
 .IntelliJ IDEA templates
 [source,xml]
 ----

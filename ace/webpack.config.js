@@ -20,7 +20,7 @@ module.exports = (env, args) => {
   const config = baseConfig(env, args);
   let libraryConfig = baseConfig.libraryConfig(config);
   libraryConfig.entry = {
-    'sxda-scout-addon-ace': './src/index.ts'
+    'sxda-scout-addon-ace.esm': './src/index.ts'
   };
     return libraryConfig;
 };

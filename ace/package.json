@@ -1,11 +1,11 @@
 {
   "name": "@sxda/scout-addon-ace",
-  "version": "1.0.0-snapshot.20240115234722",
+  "version": "1.0.0-snapshot.20240116123029",
   "description": "Wrapper module for the Ace editor to be used as a form field for Eclipse Scout",
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
   "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
   "repository": {
-    "url": "https://github.com/nisrael/sxda-scout-addon"
+    "url": "git+https://github.com/nisrael/sxda-scout-addon.git"
   },
   "license": "EPL-2.0",
   "engines": {
@@ -19,9 +19,9 @@
     "ace"
   ],
   "main": "./dist/sxda-scout-addon-ace.js",
+  "module": "./dist/sxda-scout-addon-ace.esm.js",
   "types": "./dist/d.ts/index.d.ts",
   "files": [
-    "src",
     "dist",
     "README.md"
   ],

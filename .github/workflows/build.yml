@@ -1,4 +1,4 @@
-name: build, package and deploy java parts
+name: build, package and deploy
 
 on:
   push:
@@ -12,6 +12,8 @@ jobs:
 
     permissions:
       contents: read
+      checks: write
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
@@ -24,12 +26,18 @@ jobs:
           server-id: github
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
+
+      - name: Create check on PR
+        if: (success() || failure()) && github.event_name == 'pull_request'
+        uses: scacap/action-surefire-report@v1
+        with:
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
 
   publish-maven:
     if: github.event_name != 'pull_request'
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
 
     permissions:
       contents: read
@@ -45,36 +53,43 @@ jobs:
           cache: maven
           server-id: github
 
-      - name: Publish to GitHub Packages
+      - name: Publish maven modules to GitHub Packages
         run: mvn -B deploy --file pom.xml --projects ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
   publish-npm:
     if: github.event_name != 'pull_request'
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: build module with maven
-        run: mvn -B package --file pom.xml --projects ace
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
 
-      - name: create new snapshot version
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: true
+
+      - name: Update npm module snapshot version
         run: npm run version:snapshot
         working-directory: ./ace
 
-      - run: npm publish
+      - name: Build npm module
+        run: npm run build:all -- --progress=false --clean=false
+        working-directory: ./ace
+
+      - name: Publish node packages to npmjs.com
+        run: npm publish --access public
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
