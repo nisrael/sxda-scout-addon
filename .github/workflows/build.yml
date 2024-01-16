@@ -98,7 +98,7 @@ jobs:
         working-directory: ./ace
 
       - name: Publish node packages to npmjs.com
-        run: npm publish
+        run: npm publish --access public
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
