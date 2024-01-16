@@ -25,14 +25,34 @@ jobs:
           cache: maven
           server-id: github
 
+      - uses: actions/setup-node@v3
+        if: github.event_name != 'pull_request'
+        with:
+          cache: 'pnpm'
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - name: Update npm module snapshot version
+        run: npm run version:snapshot
+        working-directory: ./ace
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
 
-      - name: Publish Test Reports
-        if: success() || failure()
+      - name: Create check on PR
+        if: (success() || failure()) && github.event_name == 'pull_request'
         uses: scacap/action-surefire-report@v1
         with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/TEST-*.xml'
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          fail_on_test_failures: true
+
+      - name: Publish Test Reports
+        if: (success() || failure()) && github.event_name != 'pull_request'
+        uses: scacap/action-surefire-report@v1
+        with:
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/TEST-*.xml'
+          create_check: false
+          fail_on_test_failures: true
 
       - name: Publish maven modules to GitHub Packages
         if: github.event_name != 'pull_request'
@@ -40,18 +60,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - uses: actions/setup-node@v3
-        if: github.event_name != 'pull_request'
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-
-
       - name: Publish node packages to npmjs.com
         if: github.event_name != 'pull_request'
-        run: |
-          npm run version:snapshot
-          npm publish
+        run: npm publish
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
