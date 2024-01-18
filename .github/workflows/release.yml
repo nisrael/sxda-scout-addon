@@ -1,0 +1,37 @@
+name: release # You may choose a different name
+run-name: Release run ${{ github.run_number }} # Enumerates entries in the "workflow runs" view
+# thanks to Jan Mosig, see https://blogs.itemis.com/en/github-actions-releasing-artifacts-into-maven-central
+on:
+  workflow_dispatch:
+    branches:
+      - main
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        with:
+          java-package: 'jdk'
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          check-latest: true
+          server-id: 'ossrh' # must match the serverId configured for the nexus-staging-maven-plugin
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: SIGN_KEY_PASS
+      - name: Build & Deploy Maven modules
+        run: |
+          # -U force updates just to make sure we are using latest dependencies
+          # -B Batch mode (do not ask for user input), just in case
+          # -P activate profile
+          mvn -U -B clean deploy -P sxda-release --projects ace.client,ace.ui.html
+        env:
+          SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

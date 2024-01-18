@@ -1,4 +1,5 @@
-name: build, package and deploy
+name: build
+run-name: Build run ${{ github.run_number }} # Enumerates entries in the "workflow runs" view
 
 on:
   push:

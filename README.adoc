@@ -35,7 +35,7 @@ To use the field in an Eclipse Scout Classic application, add the following modu
 <!-- ... -->
 ----
 
-The node module `@sxda/scout-addon-ace` does not provide the contents of the transitive dependency `ace-builds`, so both modules need to be added to the `package.json` file of the ui.html module:
+The node module `@sxda/scout-addon-ace` does not redistribute the transitive dependency `ace-builds`, so both modules need to be added to the `package.json` file of the ui.html module:
 
 .your.app.ui.html/packages.json
 [source,json]
