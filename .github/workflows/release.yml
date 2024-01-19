@@ -3,10 +3,10 @@ run-name: Release run ${{ github.run_number }}
 # thanks to Jan Mosig, see https://blogs.itemis.com/en/github-actions-releasing-artifacts-into-maven-central
 on:
   workflow_dispatch:
-    branches: [ "main" ]
     inputs:
       release-type:
         description: 'Release type'
+        type: choice
         required: true
         default: 'minor'
         options: ['minor', 'hotfix']
@@ -56,4 +56,4 @@ jobs:
           SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
