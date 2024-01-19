@@ -15,14 +15,25 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      checks: write
+      packages: write
+
     env:
       RELEASE_TYPE: ${{ inputs.release-type }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_ed25519
       - name: Setup the git user
         run: |
-          git config --global user.name "Release Bot"
+          git config --global user.name "sxda-io-bot"
           git config --global user.email "release-bot@sxda.io"
       - uses: actions/setup-node@v3
         with:
@@ -60,4 +71,4 @@ jobs:
           SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

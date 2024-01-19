@@ -87,8 +87,8 @@
   <mailingLists/>
 
   <scm>
-    <connection>scm:git:https://github.com/nisrael/sxda-scout-addon.git</connection>
-    <developerConnection>scm:git:https://github.com/nisrael/sxda-scout-addon.git</developerConnection>
+    <connection>scm:git:ssh://git@github.com:nisrael/sxda-scout-addon.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:nisrael/sxda-scout-addon.git</developerConnection>
     <url>https://github.com/nisrael/sxda-scout-addon</url>
     <tag>HEAD</tag>
   </scm>
@@ -163,6 +163,7 @@
                 <tagNameFormat>v@{project.version}</tagNameFormat>
                 <preparationProfiles>sxda-build</preparationProfiles>
                 <releaseProfiles>sxda-build</releaseProfiles>
+                <scmCommentPrefix>[ci skip]</scmCommentPrefix>
                 <preparationGoals>
                   clean
                   exec:exec@sxda-npm-install
