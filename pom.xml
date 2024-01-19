@@ -207,16 +207,13 @@
               </executions>
             </plugin>
             <plugin>
-              <groupId>org.sonatype.plugins</groupId>
-              <artifactId>nexus-staging-maven-plugin</artifactId>
-              <version>${version.nexus-staging-maven-plugin}</version>
+              <groupId>org.sonatype.central</groupId>
+              <artifactId>central-publishing-maven-plugin</artifactId>
+              <version>0.2.0</version>
               <extensions>true</extensions>
               <configuration>
-                <serverId>ossrh</serverId>
-                <!-- See https://central.sonatype.org/publish/release/#login-into-ossrh for details -->
-                <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
-                <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
+                <publishingServerId>central</publishingServerId>
+                <tokenEnabled>true</tokenEnabled>
               </configuration>
             </plugin>
           </plugins>
@@ -231,8 +228,8 @@
             <artifactId>maven-gpg-plugin</artifactId>
           </plugin>
           <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
           </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>

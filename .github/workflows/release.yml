@@ -56,25 +56,25 @@ jobs:
           distribution: 'temurin'
           cache: maven
           check-latest: true
-          server-id: 'ossrh' # must match the serverId configured for the nexus-staging-maven-plugin
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-id: 'central' # must match the serverId configured for the central-publishing-maven-plugin
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: SIGN_KEY_PASS
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Prepare and tag
         run: |
           ssh-add -L
           mvn -U -B clean release:prepare -P sxda-release
         env:
-          SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
       - name: Publish
         run: |
           ssh-add -L
           mvn -U -B release:perform -P sxda-release
         env:
-          SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
