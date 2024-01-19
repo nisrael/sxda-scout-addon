@@ -87,8 +87,8 @@
   <mailingLists/>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com:nisrael/sxda-scout-addon.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:nisrael/sxda-scout-addon.git</developerConnection>
+    <connection>scm:git:ssh://git@github.com/nisrael/sxda-scout-addon.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/nisrael/sxda-scout-addon.git</developerConnection>
     <url>https://github.com/nisrael/sxda-scout-addon</url>
     <tag>HEAD</tag>
   </scm>
