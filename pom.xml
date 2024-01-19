@@ -160,8 +160,8 @@
                 <autoVersionSubmodules>true</autoVersionSubmodules>
                 <projectVersionPolicyId>${sxda-release-version-policy}</projectVersionPolicyId>
                 <tagNameFormat>v@{project.version}</tagNameFormat>
-                <preparationProfiles>sxda-build</preparationProfiles>
-                <releaseProfiles>sxda-build</releaseProfiles>
+                <!--<preparationProfiles>sxda-release</preparationProfiles>-->
+                <releaseProfiles>sxda-release</releaseProfiles>
                 <scmCommentPrefix>[ci skip]</scmCommentPrefix>
                 <preparationGoals>
                   clean
@@ -216,7 +216,7 @@
                 <!-- See https://central.sonatype.org/publish/release/#login-into-ossrh for details -->
                 <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
                 <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+                <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
               </configuration>
             </plugin>
           </plugins>
