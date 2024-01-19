@@ -139,7 +139,7 @@
               <version>${version.maven-release-plugin}</version>
               <configuration>
                 <tagNameFormat>v@{project.version}</tagNameFormat>
-                <dryRun>true</dryRun>
+                <dryRun>false</dryRun>
                 <autoVersionSubmodules>true</autoVersionSubmodules>
               </configuration>
               <executions>
