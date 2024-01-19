@@ -34,8 +34,12 @@ jobs:
           known_hosts: unnecessary # we are only connecting to github, which is already in known_hosts
       - name: Setup the git user
         run: |
-          git config --global user.name "sxda-io-bot"
-          git config --global user.email "release-bot@sxda.io"
+          git config --global user.name "${{ vars.RELEASE_BOT_NAME }}"
+          git config --global user.email "${{ vars.RELEASE_BOT_EMAIL }}"
+          git config --global gpg.format ssh
+          git config --global user.signingkey "${{ vars.SSH_PUBLIC_KEY }}"
+          git config --global commit.gpgsign true
+          git config --global tag.gpgsign true
       - uses: actions/setup-node@v3
         with:
           node-version: 18
