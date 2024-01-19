@@ -31,6 +31,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_KEY }}
           name: id_ed25519
+          known_hosts: unnecessary # we are only connecting to github, which is already in known_hosts
       - name: Setup the git user
         run: |
           git config --global user.name "sxda-io-bot"
