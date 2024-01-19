@@ -181,7 +181,7 @@
                   exec:exec@sxda-npm-snapshot-dependencies
                   exec:exec@sxda-npm-scm-add-package-json
                 </completionGoals>
-                <pushChanges>false</pushChanges>
+                <pushChanges>true</pushChanges>
               </configuration>
             </plugin>
             <!-- The key's name & passphrase are configured via GitHub's setup-java action. -->
