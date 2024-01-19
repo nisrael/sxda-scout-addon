@@ -159,7 +159,7 @@
               <version>${version.maven-release-plugin}</version>
               <configuration>
                 <autoVersionSubmodules>true</autoVersionSubmodules>
-                <projectVersionPolicyId>sxda-release-version-policy</projectVersionPolicyId>
+                <projectVersionPolicyId>${sxda-release-version-policy}</projectVersionPolicyId>
                 <tagNameFormat>v@{project.version}</tagNameFormat>
                 <preparationProfiles>sxda-build</preparationProfiles>
                 <releaseProfiles>sxda-build</releaseProfiles>
