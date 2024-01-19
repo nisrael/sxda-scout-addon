@@ -1,0 +1,59 @@
+name: release
+run-name: Release run ${{ github.run_number }}
+# thanks to Jan Mosig, see https://blogs.itemis.com/en/github-actions-releasing-artifacts-into-maven-central
+on:
+  workflow_dispatch:
+    branches: [ "main" ]
+    inputs:
+      release-type:
+        description: 'Release type'
+        required: true
+        default: 'minor'
+        options: ['minor', 'hotfix']
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TYPE: ${{ inputs.release-type }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: true
+      - name: Setup Java
+        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        with:
+          java-package: 'jdk'
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          check-latest: true
+          server-id: 'ossrh' # must match the serverId configured for the nexus-staging-maven-plugin
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: SIGN_KEY_PASS
+      - name: Prepare and tag
+        run: |
+          mvn -U -B clean release:prepare -P sxda-release
+        env:
+          SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      - name: Publish
+        run: |
+          mvn -U -B release:perform -P sxda-release
+        env:
+          SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

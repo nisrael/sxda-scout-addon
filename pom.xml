@@ -13,8 +13,8 @@
   ~ SPDX-License-Identifier: EPL-2.0
   -->
 
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -46,26 +46,51 @@
     <master_deploy_ReleaseUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_ReleaseUrl>
     <master_deploy_SnapshotId>github</master_deploy_SnapshotId>
     <master_deploy_SnapshotUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_SnapshotUrl>
+    <sxda-package-json-present>false</sxda-package-json-present>
+    <sxda-no-packagge-json-present>true</sxda-no-packagge-json-present>
+    <sxda-release-version-policy>SemVerVersionPolicy</sxda-release-version-policy>
   </properties>
 
   <distributionManagement>
-    <repository>
+    <snapshotRepository>
       <id>github</id>
-      <name>GitHub nisrael Apache Maven Packages</name>
       <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>sonatype-oss</id>
+      <url>https://oss.sonatype.org/content/repositories/releases</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>sonatype-oss</id>
+      <url>https://oss.sonatype.org/content/repositories/releases</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <mailingLists/>
 
   <scm>
-    <url>https://github.com/nisrael/sxda-scout-addon.git/</url>
+    <connection>scm:git:https://github.com/nisrael/sxda-scout-addon.git</connection>
+    <developerConnection>scm:git:https://github.com/nisrael/sxda-scout-addon.git</developerConnection>
+    <url>https://github.com/nisrael/sxda-scout-addon</url>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
@@ -73,17 +98,265 @@
     <url>https://github.com/nisrael/sxda-scout-addon/issues</url>
   </issueManagement>
 
+  <licenses>
+    <license>
+      <name>Eclipse Public License 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
+      <comments>
+        This program and the accompanying materials are made
+        available under the terms of the Eclipse Public License 2.0
+        which is available at https://www.eclipse.org/legal/epl-2.0/
+      </comments>
+    </license>
+  </licenses>
+
   <developers>
     <developer>
       <name>Nils Israel</name>
       <email>nils@sxda.io</email>
     </developer>
+    <developer>
+      <name>sxda.io release-bot</name>
+      <email>release-bot@sxda.io</email>
+    </developer>
+
   </developers>
 
   <modules>
     <module>build</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>sxda-release-hotfix</id>
+      <activation>
+        <property>
+          <!--suppress UnresolvedMavenProperty -->
+          <name>${env.RELEASE_TYPE}</name>
+          <value>hotfix</value>
+        </property>
+      </activation>
+      <properties>
+        <!-- default increases the hotfix version -->
+        <sxda-release-version-policy>default</sxda-release-version-policy>
+      </properties>
+    </profile>
+    <profile>
+      <id>sxda-release</id>
+      <properties>
+        <gpg.keyname>release-bot@sxda.io</gpg.keyname>
+        <version.maven-release-plugin>3.0.0-M7</version.maven-release-plugin>
+        <version.maven-gpg-plugin>3.0.1</version.maven-gpg-plugin>
+        <version.nexus-staging-maven-plugin>1.6.13</version.nexus-staging-maven-plugin>
+        <master_skip_npm_version_snapshot_dependencies>true</master_skip_npm_version_snapshot_dependencies>
+        <master_skip_npm_version_snapshot>true</master_skip_npm_version_snapshot>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>${version.maven-release-plugin}</version>
+              <configuration>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
+                <projectVersionPolicyId>sxda-release-version-policy</projectVersionPolicyId>
+                <tagNameFormat>v@{project.version}</tagNameFormat>
+                <preparationProfiles>sxda-build</preparationProfiles>
+                <releaseProfiles>sxda-build</releaseProfiles>
+                <preparationGoals>
+                  clean
+                  exec:exec@sxda-npm-install
+                  exec:exec@sxda-npm-release-dependencies
+                  exec:exec@sxda-npm-release-version
+                  exec:exec@sxda-npm-scm-add-package-json verify
+                </preparationGoals>
+                <!-- it is correct first setting release version, because actually it sets the package.json version
+                     to the pom version, which at this stage is already the new snapshot version but with uppercase
+                     SNAPSHOT, calling snapshot-version afterward fixes this and appends a timestamp -->
+                <completionGoals>
+                  install
+                  exec:exec@sxda-npm-install
+                  exec:exec@sxda-npm-release-version
+                  exec:exec@sxda-npm-snapshot-version
+                  exec:exec@sxda-npm-snapshot-dependencies
+                  exec:exec@sxda-npm-scm-add-package-json
+                </completionGoals>
+                <pushChanges>false</pushChanges>
+              </configuration>
+            </plugin>
+            <!-- The key's name & passphrase are configured via GitHub's setup-java action. -->
+            <plugin>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>${version.maven-gpg-plugin}</version>
+              <executions>
+                <execution>
+                  <id>sign-artifacts</id>
+                  <phase>verify</phase>
+                  <goals>
+                    <goal>sign</goal>
+                  </goals>
+                  <configuration>
+                    <!-- This is required to make sure the plugin does not stop asking for -->
+                    <!-- user input on the passphrase -->
+                    <gpgArguments>
+                      <arg>--pinentry-mode</arg>
+                      <arg>loopback</arg>
+                    </gpgArguments>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.sonatype.plugins</groupId>
+              <artifactId>nexus-staging-maven-plugin</artifactId>
+              <version>${version.nexus-staging-maven-plugin}</version>
+              <extensions>true</extensions>
+              <configuration>
+                <serverId>ossrh</serverId>
+                <!-- See https://central.sonatype.org/publish/release/#login-into-ossrh for details -->
+                <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sxda-npm-install</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>pnpm</executable>
+                  <arguments>
+                    <argument>install</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-release-dependencies</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>version:release:dependencies</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-release-version</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>version:release</argument>
+                    <argument>--</argument>
+                    <argument>--newVersion=${project.version}</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-snapshot-version</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>version:snapshot</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-snapshot-dependencies</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>version:snapshot:dependencies</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-scm-add-package-json</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>git</executable>
+                  <arguments>
+                    <argument>add</argument>
+                    <argument>${basedir}/package.json</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>sxda-npm-publish</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>deploy</phase>
+                <configuration>
+                  <skip>${sxda-no-packagge-json-present}</skip>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>publish</argument>
+                    <argument>--access</argument>
+                    <argument>public</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>sxda-npm-module</id>
+      <activation>
+        <file>
+          <exists>${basedir}/package.json</exists>
+        </file>
+      </activation>
+      <properties>
+        <sxda-package-json-present>true</sxda-package-json-present>
+        <sxda-no-packagge-json-present>false</sxda-no-packagge-json-present>
+      </properties>
+    </profile>
+  </profiles>
   <dependencyManagement>
     <dependencies>
       <dependency>
