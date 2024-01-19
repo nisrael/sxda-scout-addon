@@ -138,8 +138,22 @@
               <artifactId>maven-release-plugin</artifactId>
               <version>${version.maven-release-plugin}</version>
               <configuration>
-                <tagNameFormat>@{project.version}</tagNameFormat>
+                <tagNameFormat>v@{project.version}</tagNameFormat>
+                <dryRun>true</dryRun>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
               </configuration>
+              <executions>
+                <execution>
+                  <id>default</id>
+                  <goals>
+                    <goal>prepare</goal>
+                  </goals>
+                  <configuration>
+                    <!-- prepare the node modules for the release, too -->
+                    <releaseProfiles>npm-version-release, npm-version-release-dependencies</releaseProfiles>
+                  </configuration>
+                </execution>
+              </executions>
             </plugin>
             <!-- The key's name & passphrase are configured via GitHub's setup-java action. -->
             <plugin>
