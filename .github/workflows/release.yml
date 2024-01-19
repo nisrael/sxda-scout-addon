@@ -26,12 +26,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: Setup ssh agent and key
+        uses: tanmancan/action-setup-ssh-agent-key@1.0.0
         with:
-          key: ${{ secrets.SSH_KEY }}
-          name: id_ed25519
-          known_hosts: unnecessary # we are only connecting to github, which is already in known_hosts
+          ssh-private-key: ${{ secrets.SSH_KEY }}
       - name: Setup the git user
         run: |
           git config --global user.name "${{ vars.RELEASE_BOT_NAME }}"
@@ -65,6 +63,7 @@ jobs:
           gpg-passphrase: SIGN_KEY_PASS
       - name: Prepare and tag
         run: |
+          ssh-add -L
           mvn -U -B clean release:prepare -P sxda-release
         env:
           SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
@@ -72,6 +71,7 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
       - name: Publish
         run: |
+          ssh-add -L
           mvn -U -B release:perform -P sxda-release
         env:
           SIGN_KEY_PASS: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
