@@ -1,8 +1,16 @@
 # Additional form fields for Eclipse Scout
 
-The modules in this repository are intended to provide wrapper modules for
-commonly used open source form field elements so that they can be used in an
-Eclipse Scout application.
+The modules in this repository are intended to provide wrapper modules for commonly used open source form field elements so that they can be used in an Eclipse Scout application.
+
+## Versioning and Releases
+
+The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 23.2.x should be compatible with all Eclipse Scout 23.2.y versions.
+
+You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
+
+Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org]. The version number of the release is always the same for both repositories.
+
+Snapshot versions are (if at all) published to GitHub Packages only.
 
 ## Elements
 
@@ -20,6 +28,7 @@ To use the field in an Eclipse Scout Classic application, add the following modu
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
+  <version>23.2.1</version>
 </dependency>
 <!-- ... -->
 ----
@@ -31,6 +40,7 @@ To use the field in an Eclipse Scout Classic application, add the following modu
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
+  <version>23.2.1</version>
 </dependency>
 <!-- ... -->
 ----
@@ -42,8 +52,8 @@ The node module `@sxda/scout-addon-ace` does not redistribute the transitive dep
 ----
 {
     "dependencies": {
-      "@sxda/scout-addon-ace": "^1.0.0-snapshot",
-      "ace-builds": "^1.32.3"
+      "@sxda/scout-addon-ace": "23.2.1",
+      "ace-builds": "1.32.3"
   }
 }
 ----

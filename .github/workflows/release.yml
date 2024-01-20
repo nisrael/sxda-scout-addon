@@ -1,15 +1,7 @@
 name: release
 run-name: Release run ${{ github.run_number }}
-# thanks to Jan Mosig, see https://blogs.itemis.com/en/github-actions-releasing-artifacts-into-maven-central
 on:
   workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Release type'
-        type: choice
-        required: true
-        default: 'minor'
-        options: ['minor', 'hotfix']
 
 jobs:
   release:
@@ -21,8 +13,6 @@ jobs:
       checks: write
       packages: write
 
-    env:
-      RELEASE_TYPE: ${{ inputs.release-type }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
