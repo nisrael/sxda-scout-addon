@@ -31,9 +31,10 @@ jobs:
       - name: Validate license headers
         id: validate-license-headers
         run: |
-          mvn -U -B validate -P sxda-license-validation 2>&1 | tee ${RUNNER_TEMP}/license-headers-validation.txt
-          cat ${RUNNER_TEMP}/license-headers-validation.txt | grep -E '[(WARNING|ERROR)]' > ${RUNNER_TEMP}/license-headers-validation-warnings.txt
-          echo "{result}=$(cat ${RUNNER_TEMP}/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //')" >> $GITHUB_OUTPUT
+          mkdir target
+          mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
+          cat target/license-headers-validation.txt | grep -E '[(WARNING|ERROR)]' > target/license-headers-validation-warnings.txt
+          echo "{result}=$(cat target/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //')" >> $GITHUB_OUTPUT
 
       - uses: LouisBrunner/checks-action@v1.6.1
         if: always() && github.event_name == 'pull_request'
@@ -41,7 +42,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Validate license headers
           conclusion: ${{ job.status }}
-          output_text_description_file: ${RUNNER_TEMP}/license-headers-validation-warnings.txt
+          output_text_description_file: ${GITHUB_WORKSPACE}/target/license-headers-validation-warnings.txt
           output: |
             {"summary":"${{ steps.validate-license-headers.outputs.result }}"}
 
