@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          # we need the full history to validate license headers
+          fetch-depth: 0
       - name: Setup Java
         uses: actions/setup-java@v3 # Does also set up Maven and GPG
         with:
