@@ -49,6 +49,9 @@
     <sxda.plugin.central-publishing-maven-plugin.version>0.2.0</sxda.plugin.central-publishing-maven-plugin.version>
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>
+    <!-- default for all modules, will be overwritten in profile sxda-base-module -->
+    <sxda.build.base-module>false</sxda.build.base-module>
+    <sxda.build.not-base-module>true</sxda.build.not-base-module>
   </properties>
 
   <distributionManagement>
@@ -383,6 +386,18 @@
       </properties>
     </profile>
     <profile>
+      <id>sxda-base-module</id>
+      <activation>
+        <file>
+          <exists>${basedir}/license_files/copyright.txt</exists>
+        </file>
+      </activation>
+      <properties>
+        <sxda.build.base-module>true</sxda.build.base-module>
+        <sxda.build.not-base-module>false</sxda.build.not-base-module>
+      </properties>
+    </profile>
+    <profile>
       <id>sxda-license-validation</id>
       <build>
         <pluginManagement>
@@ -396,6 +411,8 @@
                 <failIfMissing>true</failIfMissing>
                 <strictCheck>true</strictCheck>
                 <aggregate>true</aggregate>
+                <!-- skipped for all modules except the base module, hence: aggregate=true -->
+                <skip>${sxda.build.not-base-module}</skip>
                 <mapping>
                   <java>SCOUT_JAVADOC_STYLE</java>
                   <js>SCOUT_JAVADOC_STYLE</js>
@@ -439,6 +456,7 @@
                     </excludes>
                   </licenseSet>
                 </licenseSets>
+
               </configuration>
               <executions>
                 <execution>
