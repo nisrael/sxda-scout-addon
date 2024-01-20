@@ -32,8 +32,9 @@ jobs:
         id: validate-license-headers
         run: |
           mkdir target
-          mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
-          EXIT_CODE=${PIPESTATUS[0]}
+          mvn -U -B validate -P sxda-license-validation -l target/license-headers-validation.txt
+          EXIT_CODE=$?
+          cat target/license-headers-validation.txt
           cat target/license-headers-validation.txt | grep -E '\[(WARNING|ERROR)\]' > target/license-headers-validation-warnings.txt
           cat target/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //' > target/license-headers-validation-summary.txt
           if [ $EXIT_CODE -eq 0 ] && [ ! -s target/license-headers-validation-summary.txt ]; then
