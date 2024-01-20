@@ -1,5 +1,5 @@
- Copyright (c) 2010-${year} BSI Business Systems Integration AG
- Copyright (c) ${license.git.copyrightYears} Nils Israel
+ Copyright (c) 2010-${current.year} BSI Business Systems Integration AG
+ Copyright (c) 2023-${current.year} Nils Israel
 
 This program is an extension of the original work from the Eclipse Scout Project,
 available at https://www.eclipse.org/scout/.

@@ -395,6 +395,7 @@
       <properties>
         <sxda.build.base-module>true</sxda.build.base-module>
         <sxda.build.not-base-module>false</sxda.build.not-base-module>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
       </properties>
     </profile>
     <profile>
@@ -408,6 +409,9 @@
               <version>${master_plugin_license_version}</version>
               <!-- the configuration of the parent pom is broken -->
               <configuration combine.self="override">
+                <properties>
+                  <current.year>${maven.build.timestamp}</current.year>
+                </properties>
                 <failIfMissing>true</failIfMissing>
                 <strictCheck>true</strictCheck>
                 <aggregate>true</aggregate>
