@@ -382,7 +382,96 @@
         <sxda.build.no-packagge-json-present>false</sxda.build.no-packagge-json-present>
       </properties>
     </profile>
+    <profile>
+      <id>sxda-license-validation</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.mycila</groupId>
+              <artifactId>license-maven-plugin</artifactId>
+              <version>${master_plugin_license_version}</version>
+              <!-- the configuration of the parent pom is broken -->
+              <configuration combine.self="override">
+                <failIfMissing>true</failIfMissing>
+                <strictCheck>true</strictCheck>
+                <aggregate>true</aggregate>
+                <mapping>
+                  <java>SCOUT_JAVADOC_STYLE</java>
+                  <js>SCOUT_JAVADOC_STYLE</js>
+                  <ts>SCOUT_JAVADOC_STYLE</ts>
+                  <less>SCOUT_JAVADOC_STYLE</less>
+                  <css>SCOUT_JAVADOC_STYLE</css>
+                </mapping>
+                <licenseSets>
+                  <licenseSet>
+                    <header>${project.basedir}/license_files/copyright.txt</header>
+                    <headerDefinitions>
+                      <headerDefinition>${project.basedir}/license_files/scoutLicenceHeaderJava.xml
+                      </headerDefinition>
+                    </headerDefinitions>
+                    <useDefaultExcludes>false</useDefaultExcludes>
+                    <includes>
+                      <include>**/pom.xml</include>
+                      <include>**/*.properties</include>
+                      <include>**/*.java</include>
+                      <include>**/*.js</include>
+                      <include>**/*.ts</include>
+                      <include>**/*.css</include>
+                      <include>**/*.less</include>
+                      <include>**/*.xml</include>
+                      <include>**/*.xsd</include>
+                    </includes>
+                    <excludes>
+                      <exclude>.idea/**</exclude>
+                      <exclude>**/license_files/**</exclude>
+                      <exclude>**/target/**</exclude>
+                      <exclude>**/node_modules/**</exclude>
+                      <exclude>**/test-results/**</exclude>
+                      <exclude>**/dist/**</exclude>
+                      <exclude>**/.*</exclude>
+                      <exclude>**/.settings/**</exclude>
+                      <exclude>**/release.properties</exclude>
+                      <exclude>**/pom.xml.releaseBackup</exclude>
+                      <exclude>**/*.sh</exclude>
+                      <exclude>**/src/main/resources/WebContent/**</exclude>
+                      <exclude>**/src/main/ws-stub/**</exclude>
+                    </excludes>
+                  </licenseSet>
+                </licenseSets>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>check-license-headers</id>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                  <phase>validate</phase>
+                </execution>
+              </executions>
+              <dependencies>
+                <dependency>
+                  <groupId>com.mycila</groupId>
+                  <artifactId>license-maven-plugin-git</artifactId>
+                  <!-- make sure you use the same version as license-maven-plugin -->
+                  <version>${master_plugin_license_version}</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
+  <build>
+
+  </build>
   <dependencyManagement>
     <dependencies>
       <dependency>

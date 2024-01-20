@@ -4,9 +4,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      checks: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        with:
+          java-package: 'jdk'
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          check-latest: true
+      - name: Validate license headers
+        run: mvn -U -B validate -P sxda-license-validation
+
   release:
     name: Release
     runs-on: ubuntu-latest
+    needs: validate
 
     permissions:
       contents: write

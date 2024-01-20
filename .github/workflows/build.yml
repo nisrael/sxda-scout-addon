@@ -25,6 +25,21 @@ jobs:
           cache: maven
           server-id: github
 
+      - name: Validate license headers
+        id: validate-license-headers
+        run: |
+          mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
+          echo "{result}=$(cat target/license-headers-validation.txt)" >> $GITHUB_OUTPUT
+
+      - uses: LouisBrunner/checks-action@v1.6.1
+        if: always() && github.event_name == 'pull_request'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Validate license headers
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":"${{ steps.validate-license-headers.outputs.result }}"}
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
 
