@@ -1,28 +1,44 @@
 name: release
 run-name: Release run ${{ github.run_number }}
-# thanks to Jan Mosig, see https://blogs.itemis.com/en/github-actions-releasing-artifacts-into-maven-central
 on:
   workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Release type'
-        type: choice
-        required: true
-        default: 'minor'
-        options: ['minor', 'hotfix']
 
 jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      checks: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # we need the full history to validate license headers
+          fetch-depth: 0
+      - name: Setup Java
+        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        with:
+          java-package: 'jdk'
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          check-latest: true
+      - name: Validate license headers
+        run: mvn -U -B validate -P sxda-license-validation
+
   release:
     name: Release
     runs-on: ubuntu-latest
+    needs: validate
 
     permissions:
       contents: write
       checks: write
       packages: write
 
-    env:
-      RELEASE_TYPE: ${{ inputs.release-type }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
