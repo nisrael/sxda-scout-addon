@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir target
           mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
-          cat target/license-headers-validation.txt | grep -E '[(WARNING|ERROR)]' > target/license-headers-validation-warnings.txt
+          cat target/license-headers-validation.txt | grep -E '\[(WARNING|ERROR)\]' > target/license-headers-validation-warnings.txt
           echo "{result}=$(cat target/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //')" >> $GITHUB_OUTPUT
 
       - uses: LouisBrunner/checks-action@v1.6.1
