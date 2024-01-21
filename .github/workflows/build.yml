@@ -31,18 +31,18 @@ jobs:
       - name: Validate license headers
         id: validate-license-headers
         run: |
-          mkdir target
+          mkdir -p target
           mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
+          #
+          # store the exit code of the mvn command and not the one of tee
           EXIT_CODE=${PIPESTATUS[0]}
-          cat target/license-headers-validation.txt | grep -E '\[(WARNING|ERROR)\]' > target/license-headers-validation-warnings.txt
-          cat target/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //' > target/license-headers-validation-summary.txt
-          if [ $EXIT_CODE -eq 0 ] && [ ! -s target/license-headers-validation-summary.txt ]; then
-            echo "No license header validation errors detected." > target/license-headers-validation-summary.txt
-            echo "conclusion=success" >> $GITHUB_OUTPUT
-          else
-            echo "conclusion=failure" >> $GITHUB_OUTPUT
-          fi
-          echo "result=$(cat target/license-headers-validation-summary.txt)" >> $GITHUB_OUTPUT
+          #
+          # workaround, use tee to force the exit code of the next line to be 0, even if grep finds nothing and exits with 1
+          grep -E '\[(WARNING|ERROR)\]' target/license-headers-validation.txt | tee target/license-headers-validation-warnings.txt
+          #
+          # touch to create an empty file if no warning was found
+          touch target/license-headers-validation-warnings.txt
+          #
           exit $EXIT_CODE
 
       - uses: LouisBrunner/checks-action@v1.6.1
@@ -50,10 +50,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Validate license headers
-          conclusion: ${{ steps.validate-license-headers.outputs.conclusion }}
+          conclusion: ${{ steps.validate-license-headers.outcome }}
           output_text_description_file: target/license-headers-validation-warnings.txt
           output: |
-            {"summary":"${{ steps.validate-license-headers.outputs.result }}"}
+            {"summary":"License header validation: ${{ steps.validate-license-headers.outcome }}"}
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
