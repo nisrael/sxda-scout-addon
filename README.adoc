@@ -134,6 +134,16 @@ Finally, the ace code editor can be used in a form:
 /* */
 ----
 
+The CSP directive `img-src` needs to be configured in the `config.properties` file of the application. This is necessary because the ace code editor may provide image data for themes in base64 format. The CSP directive `data:` is necessary to allow this.
+
+.config.properties
+[source,properties]
+----
+# necessary for ace code editor, may provide image data for themes in base64 format
+# https://eclipsescout.github.io/scout-docs/23.2/technical-guide/common-concepts/platform.html#sec-app.configProperties
+scout.cspDirective[img-src]='self' data:
+----
+
 == License
 
 This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0 which is available at https://www.eclipse.org/legal/epl-2.0/
