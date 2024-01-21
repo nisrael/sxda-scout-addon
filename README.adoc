@@ -1,6 +1,11 @@
 # Additional form fields for Eclipse Scout
+:toc: macro
+:toc-title: Table of Contents
+:toclevels: 4
 
-The modules in this repository are intended to provide wrapper modules for commonly used open source form field elements so that they can be used in an Eclipse Scout application.
+The modules in this project provide wrapper modules for commonly used open source form field elements as extension to the [Eclipse Scout](https://eclipse.dev/scout/) framework.
+
+toc::[]
 
 ## Versioning and Releases
 
@@ -12,14 +17,23 @@ Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.a
 
 Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org].
 
+## Contributing
+
+Contributions are welcome:
+
+* If you found a bug, please open an issue or, if you are able to fix it, open a pull request.
+* If you have an idea for a new form field element or an improvement of the existing one(s), please open an issue or even better a pull request.
+* If you have a question, please open an issue.
+
 ## Elements
 
 ### Ace Code Editor
 
-The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax highlighting and
-code completion for many programming languages. The wrapper is implemented as  `AbstractAceField extends AbstractValueField<String>` and can be used in a form like any other value field.
+The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax highlighting and code completion for many programming languages. The wrapper is implemented as  `AbstractAceField extends AbstractValueField<String>` and can be used in a form like any other value field.
 
-To use the field in an Eclipse Scout Classic application, add the following modules to your application:
+#### Usage
+
+To use the field in an Eclipse Scout Classic 23.2.y application, add the following modules to your application:
 
 .your.app.client/pom.xml
 [source,xml]
@@ -45,7 +59,9 @@ To use the field in an Eclipse Scout Classic application, add the following modu
 <!-- ... -->
 ----
 
-The node module `@sxda/scout-addon-ace` does not redistribute the transitive dependency `ace-builds`, so both modules need to be added to the `package.json` file of the ui.html module:
+The node module `@sxda/scout-addon-ace` does not redistribute the transitive dependency `ace-builds`. This means that if there is a new version of the ace code editor, you can use that right away (assuming compatibility) and don't have to wait for a new release of the addon modules. The disadvantage is, that you have to add the ace code editor as a dependency yourself in addition to the `@sxda/scout-addon-ace` module.
+
+Here are the dependencies you have to add to the `package.json` file of the ui.html module of your application :
 
 .your.app.ui.html/packages.json
 [source,json]
@@ -115,39 +131,12 @@ Finally, the ace code editor can be used in a form:
       }
 ----
 
-## IntelliJ IDEA templates
+## License
 
-.IntelliJ IDEA templates
-[source,xml]
-----
-<template name="scoutprop" value="  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public void set$Prop$($Type$ $prop$) {&#10;    propertySupport.setProperty$Type$(PROP_$PROP$, $prop$);&#10;  }&#10;&#10;  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public $Type$ get$Prop$() {&#10;    return propertySupport.getProperty$Type$(PROP_$PROP$);&#10;  }&#10;&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  protected $Type$ getConfigured$Prop$() {&#10;    return $default$;&#10;  }" toReformat="false" toShortenFQNames="true">
-  <variable name="TYPE" expression="" defaultValue="STRING" alwaysStopAt="true" />
-  <variable name="Prop" expression="" defaultValue="Name" alwaysStopAt="true" />
-  <variable name="Type" expression="" defaultValue="String" alwaysStopAt="true" />
-  <variable name="prop" expression="" defaultValue="name" alwaysStopAt="true" />
-  <variable name="PROP" expression="" defaultValue="NAME" alwaysStopAt="true" />
-  <variable name="default" expression="" defaultValue="&quot;default&quot;" alwaysStopAt="true" />
-  <context>
-    <option name="JAVA_CODE" value="true" />
-  </context>
-</template>
-
-<template name="scoutprop" value="set$Varname$($varname$: $type$) {&#10;    this.setProperty('$varname$', $varname$);&#10;  }&#10;&#10;  _set$Varname$($varname$: $type$){&#10;    this.$varname$ = $varname$;&#10;  }&#10;&#10;  get$Varname$(): $type${&#10;    return this.$varname$;&#10;  }&#10;&#10;  _render$Varname$(){&#10;    this.editor.session.set$Varname$(this.$varname$);&#10;  }" toReformat="false" toShortenFQNames="true">
-  <variable name="Varname" expression="capitalize($varname$)" defaultValue="" alwaysStopAt="true" />
-  <variable name="varname" expression="" defaultValue="" alwaysStopAt="true" />
-  <variable name="type" expression="" defaultValue="" alwaysStopAt="true" />
-  <context>
-    <option name="JAVA_SCRIPT" value="true" />
-    <option name="TS_CLASS" value="false" />
-    <option name="TS_EXPRESSION" value="false" />
-    <option name="TS_STATEMENT" value="false" />
-    <option name="TypeScript" value="true" />
-  </context>
-</template>
-----
-
-This program and the accompanying materials are made
-available under the terms of the Eclipse Public License 2.0
-which is available at https://www.eclipse.org/legal/epl-2.0/
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0 which is available at https://www.eclipse.org/legal/epl-2.0/
 
 SPDX-License-Identifier: EPL-2.0
+
+Please also refer to the link:./NOTICE.md[NOTICE] file(s) that are distributed along with this source code.
+
+To learn more about the Eclipse Public License 2.0, please refer to e.g. https://fossa.com/blog/open-source-software-licenses-101-eclipse-public-license/ or https://www.eclipse.org/legal/epl-2.0/faq.php.
