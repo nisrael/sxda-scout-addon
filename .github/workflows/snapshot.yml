@@ -75,9 +75,6 @@ jobs:
           version: 7
           run_install: true
 
-      - name: Show nom settings
-        run: cat $NPM_CONFIG_USERCONFIG
-
       - name: Update npm module snapshot version
         run: npm run version:snapshot
         working-directory: ./ace
