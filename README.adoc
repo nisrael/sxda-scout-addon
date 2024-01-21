@@ -3,7 +3,7 @@
 :toc-title: Table of Contents
 :toclevels: 4
 
-The modules in this project provide wrapper modules for commonly used open source form field elements as extension to the [Eclipse Scout](https://eclipse.dev/scout/) framework.
+The modules in this project provide wrapper modules for commonly used open source form field elements as extension to the https://eclipse.dev/scout/[Eclipse Scout] framework.
 
 toc::[]
 
