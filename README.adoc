@@ -10,7 +10,7 @@ You should override the property `org.eclipse.scout.rt.version` in your root pom
 
 Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org]. The version number of the release is always the same for both repositories.
 
-Snapshot versions are (if at all) published to GitHub Packages only.
+Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org].
 
 ## Elements
 
