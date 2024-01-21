@@ -1,0 +1,34 @@
+= IntelliJ IDEA
+
+== IntelliJ IDEA templates
+
+[source,xml]
+----
+<template name="scoutprop" value="  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public void set$Prop$($Type$ $prop$) {&#10;    propertySupport.setProperty$Type$(PROP_$PROP$, $prop$);&#10;  }&#10;&#10;  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public $Type$ get$Prop$() {&#10;    return propertySupport.getProperty$Type$(PROP_$PROP$);&#10;  }&#10;&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  protected $Type$ getConfigured$Prop$() {&#10;    return $default$;&#10;  }" toReformat="false" toShortenFQNames="true">
+  <variable name="TYPE" expression="" defaultValue="STRING" alwaysStopAt="true" />
+  <variable name="Prop" expression="" defaultValue="Name" alwaysStopAt="true" />
+  <variable name="Type" expression="" defaultValue="String" alwaysStopAt="true" />
+  <variable name="prop" expression="" defaultValue="name" alwaysStopAt="true" />
+  <variable name="PROP" expression="" defaultValue="NAME" alwaysStopAt="true" />
+  <variable name="default" expression="" defaultValue="&quot;default&quot;" alwaysStopAt="true" />
+  <context>
+    <option name="JAVA_CODE" value="true" />
+  </context>
+</template>
+----
+
+[source,xml]
+----
+<template name="scoutprop" value="set$Varname$($varname$: $type$) {&#10;    this.setProperty('$varname$', $varname$);&#10;  }&#10;&#10;  _set$Varname$($varname$: $type$){&#10;    this.$varname$ = $varname$;&#10;  }&#10;&#10;  get$Varname$(): $type${&#10;    return this.$varname$;&#10;  }&#10;&#10;  _render$Varname$(){&#10;    this.editor.session.set$Varname$(this.$varname$);&#10;  }" toReformat="false" toShortenFQNames="true">
+  <variable name="Varname" expression="capitalize($varname$)" defaultValue="" alwaysStopAt="true" />
+  <variable name="varname" expression="" defaultValue="" alwaysStopAt="true" />
+  <variable name="type" expression="" defaultValue="" alwaysStopAt="true" />
+  <context>
+    <option name="JAVA_SCRIPT" value="true" />
+    <option name="TS_CLASS" value="false" />
+    <option name="TS_EXPRESSION" value="false" />
+    <option name="TS_STATEMENT" value="false" />
+    <option name="TypeScript" value="true" />
+  </context>
+</template>
+----
