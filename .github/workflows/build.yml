@@ -35,12 +35,10 @@ jobs:
           mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
           EXIT_CODE=${PIPESTATUS[0]}
           echo "mvn exited with: $EXIT_CODE"
-          cat target/license-headers-validation.txt | grep -E '\[(WARNING|ERROR)\]' > target/license-headers-validation-warnings.txt
-          if [ $EXIT_CODE -ne 0 ]; then
-            exit $EXIT_CODE
-          fi
+          grep -E '\[(WARNING|ERROR)\]' target/license-headers-validation.txt | tee target/license-headers-validation-warnings.txt
+          echo $?
           echo $EXIT_CODE
-          echo "the end"
+          exit $EXIT_CODE
 
       - uses: LouisBrunner/checks-action@v1.6.1
         if: always() && github.event_name == 'pull_request'
