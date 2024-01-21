@@ -3,7 +3,7 @@
 :toc-title: Table of Contents
 :toclevels: 4
 
-The modules in this project provide wrapper modules for commonly used open source form field elements as extension to the [Eclipse Scout](https://eclipse.dev/scout/) framework.
+The modules in this project provide wrapper modules for commonly used open source form field elements as extensions to the [Eclipse Scout](https://eclipse.dev/scout/) framework.
 
 toc::[]
 
@@ -67,9 +67,9 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 [source,json]
 ----
 {
-    "dependencies": {
-      "@sxda/scout-addon-ace": "23.2.1",
-      "ace-builds": "1.32.3"
+  "dependencies": {
+    "@sxda/scout-addon-ace": "23.2.1",
+    "ace-builds": "1.32.3"
   }
 }
 ----
@@ -85,50 +85,53 @@ Object.assign({}, sxda);
 
 Finally, the ace code editor can be used in a form:
 
+.SomeForm.java
 [source,java]
 ----
-      @Order(1000)
-      public class CodeField extends AbstractAceField {
-        @Override
-        protected int getConfiguredGridW() {
-          return 2;
-        }
+/* */
+  @Order(1000)
+  public class CodeField extends AbstractAceField {
+    @Override
+    protected int getConfiguredGridW() {
+      return 2;
+    }
 
-        @Override
-        protected String getConfiguredLabel() {
-          return TEXTS.get("Code");
-        }
+    @Override
+    protected String getConfiguredLabel() {
+      return TEXTS.get("Code");
+    }
 
-        @Override
-        protected String getConfiguredTheme() {
-          return AceTheme.TWILIGHT.getConfigTerm();
-        }
+    @Override
+    protected String getConfiguredTheme() {
+      return AceTheme.TWILIGHT.getConfigTerm();
+    }
 
-        @Override
-        protected boolean getConfiguredShowPrintMargin() {
-          return true;
-        }
+    @Override
+    protected boolean getConfiguredShowPrintMargin() {
+      return true;
+    }
 
-                @Override
-        protected int getConfiguredTabSize() {
-          return 2;
-        }
+            @Override
+    protected int getConfiguredTabSize() {
+      return 2;
+    }
 
-        @Override
-        protected boolean getConfiguredHighlightActiveLine() {
-          return true;
-        }
+    @Override
+    protected boolean getConfiguredHighlightActiveLine() {
+      return true;
+    }
 
-        @Override
-        protected boolean getConfiguredUseSoftTabs() {
-          return true;
-        }
+    @Override
+    protected boolean getConfiguredUseSoftTabs() {
+      return true;
+    }
 
-        @Override
-        protected boolean getConfiguredUseWrapMode() {
-          return false;
-        }
-      }
+    @Override
+    protected boolean getConfiguredUseWrapMode() {
+      return false;
+    }
+  }
+/* */
 ----
 
 == License
@@ -139,4 +142,4 @@ SPDX-License-Identifier: EPL-2.0
 
 Please also refer to the link:./NOTICE.md[NOTICE] file(s) that are distributed along with this source code.
 
-To learn more about the Eclipse Public License 2.0, please refer to e.g. https://fossa.com/blog/open-source-software-licenses-101-eclipse-public-license/ or https://www.eclipse.org/legal/epl-2.0/faq.php.
+To learn more about the Eclipse Public License 2.0, please read e.g. https://fossa.com/blog/open-source-software-licenses-101-eclipse-public-license/ or https://www.eclipse.org/legal/epl-2.0/faq.php.
