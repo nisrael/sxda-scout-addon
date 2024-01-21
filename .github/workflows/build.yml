@@ -33,11 +33,16 @@ jobs:
         run: |
           mkdir -p target
           mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
+          #
+          # store the exit code of the mvn command and not the one of tee
           EXIT_CODE=${PIPESTATUS[0]}
-          echo "mvn exited with: $EXIT_CODE"
+          #
+          # workaround, use tee to force the exit code of the next line to be 0, even if grep finds nothing and exits with 1
           grep -E '\[(WARNING|ERROR)\]' target/license-headers-validation.txt | tee target/license-headers-validation-warnings.txt
-          echo $?
-          echo $EXIT_CODE
+          #
+          # touch to create an empty file if no warning was found
+          touch target/license-headers-validation-warnings.txt
+          #
           exit $EXIT_CODE
 
       - uses: LouisBrunner/checks-action@v1.6.1
