@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir -p target
           mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
-          EXIT_CODE=${PIPESTATUS[0]}EXIT_CODE=$?
+          EXIT_CODE=${PIPESTATUS[0]}
           echo "mvn exited with: $EXIT_CODE"
           cat target/license-headers-validation.txt | grep -E '\[(WARNING|ERROR)\]' > target/license-headers-validation-warnings.txt
           if [ $EXIT_CODE -ne 0 ]; then
