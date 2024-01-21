@@ -39,6 +39,8 @@ jobs:
           if [ $EXIT_CODE -ne 0 ]; then
             exit $EXIT_CODE
           fi
+          echo $EXIT_CODE
+          echo "the end"
 
       - uses: LouisBrunner/checks-action@v1.6.1
         if: always() && github.event_name == 'pull_request'
