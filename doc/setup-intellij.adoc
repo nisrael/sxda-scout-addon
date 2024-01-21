@@ -1,8 +1,7 @@
-# IntelliJ IDEA
+= IntelliJ IDEA
 
-## templates
+== IntelliJ IDEA templates
 
-.IntelliJ IDEA templates
 [source,xml]
 ----
 <template name="scoutprop" value="  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public void set$Prop$($Type$ $prop$) {&#10;    propertySupport.setProperty$Type$(PROP_$PROP$, $prop$);&#10;  }&#10;&#10;  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public $Type$ get$Prop$() {&#10;    return propertySupport.getProperty$Type$(PROP_$PROP$);&#10;  }&#10;&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  protected $Type$ getConfigured$Prop$() {&#10;    return $default$;&#10;  }" toReformat="false" toShortenFQNames="true">
@@ -16,7 +15,10 @@
     <option name="JAVA_CODE" value="true" />
   </context>
 </template>
+----
 
+[source,xml]
+----
 <template name="scoutprop" value="set$Varname$($varname$: $type$) {&#10;    this.setProperty('$varname$', $varname$);&#10;  }&#10;&#10;  _set$Varname$($varname$: $type$){&#10;    this.$varname$ = $varname$;&#10;  }&#10;&#10;  get$Varname$(): $type${&#10;    return this.$varname$;&#10;  }&#10;&#10;  _render$Varname$(){&#10;    this.editor.session.set$Varname$(this.$varname$);&#10;  }" toReformat="false" toShortenFQNames="true">
   <variable name="Varname" expression="capitalize($varname$)" defaultValue="" alwaysStopAt="true" />
   <variable name="varname" expression="" defaultValue="" alwaysStopAt="true" />

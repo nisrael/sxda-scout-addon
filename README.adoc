@@ -1,4 +1,4 @@
-# Additional form fields for Eclipse Scout
+= Additional form fields for Eclipse Scout
 :toc: macro
 :toc-title: Table of Contents
 :toclevels: 4
@@ -7,7 +7,7 @@ The modules in this project provide wrapper modules for commonly used open sourc
 
 toc::[]
 
-## Versioning and Releases
+== Versioning and Releases
 
 The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 23.2.x should be compatible with all Eclipse Scout 23.2.y versions.
 
@@ -17,7 +17,7 @@ Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.a
 
 Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org].
 
-## Contributing
+== Contributing
 
 Contributions are welcome:
 
@@ -25,13 +25,13 @@ Contributions are welcome:
 * If you have an idea for a new form field element or an improvement of the existing one(s), please open an issue or even better a pull request.
 * If you have a question, please open an issue.
 
-## Elements
+== Elements
 
-### Ace Code Editor
+=== Ace Code Editor
 
 The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax highlighting and code completion for many programming languages. The wrapper is implemented as  `AbstractAceField extends AbstractValueField<String>` and can be used in a form like any other value field.
 
-#### Usage
+==== Usage
 
 To use the field in an Eclipse Scout Classic 23.2.y application, add the following modules to your application:
 
@@ -131,7 +131,7 @@ Finally, the ace code editor can be used in a form:
       }
 ----
 
-## License
+== License
 
 This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0 which is available at https://www.eclipse.org/legal/epl-2.0/
 
