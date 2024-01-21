@@ -39,16 +39,16 @@ jobs:
           cat target/license-headers-validation.txt | grep 'goal com.mycila:license-maven-plugin' | sed 's/^\[\([^]]*\)\] //' > target/license-headers-validation-summary.txt
           if [ $EXIT_CODE -eq 0 ] && [ ! -s target/license-headers-validation-summary.txt ]; then
             echo "No license header validation errors detected." > target/license-headers-validation-summary.txt
-            echo "conclusion=success" >> $GITHUB_OUTPUT
+            echo "conclusion=success" | tee -a $GITHUB_OUTPUT
           else if [ $EXIT_CODE -eq 0 ]; then
-            echo "conclusion=failure" >> $GITHUB_OUTPUT
+            echo "conclusion=failure" | tee -a $GITHUB_OUTPUT
           else if [ -s target/license-headers-validation-summary.txt ]; then
             echo "No license header validation summary found, but maven exited with code: $EXIT_CODE." > target/license-headers-validation-summary.txt
-            echo "conclusion=failure" >> $GITHUB_OUTPUT
+            echo "conclusion=failure" | tee -a $GITHUB_OUTPUT
           else
-            echo "conclusion=failure" >> $GITHUB_OUTPUT
+            echo "conclusion=failure" | tee -a $GITHUB_OUTPUT
           fi
-          echo "result=$(cat target/license-headers-validation-summary.txt)" >> $GITHUB_OUTPUT
+          echo "result=$(cat target/license-headers-validation-summary.txt)" | tee -a $GITHUB_OUTPUT
           exit $EXIT_CODE
 
       - uses: LouisBrunner/checks-action@v1.6.1
