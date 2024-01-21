@@ -40,6 +40,11 @@ jobs:
           if [ $EXIT_CODE -eq 0 ] && [ ! -s target/license-headers-validation-summary.txt ]; then
             echo "No license header validation errors detected." > target/license-headers-validation-summary.txt
             echo "conclusion=success" >> $GITHUB_OUTPUT
+          else if [ $EXIT_CODE -eq 0 ]; then
+            echo "conclusion=failure" >> $GITHUB_OUTPUT
+          else if [ -s target/license-headers-validation-summary.txt ]; then
+            echo "No license header validation summary found, but maven exited with code: $EXIT_CODE." > target/license-headers-validation-summary.txt
+            echo "conclusion=failure" >> $GITHUB_OUTPUT
           else
             echo "conclusion=failure" >> $GITHUB_OUTPUT
           fi
