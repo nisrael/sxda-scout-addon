@@ -24,7 +24,7 @@
     <relativePath>../build</relativePath>
   </parent>
 
-  <artifactId>ace-client</artifactId>
+  <artifactId>ace.client</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
