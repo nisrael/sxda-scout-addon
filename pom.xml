@@ -509,12 +509,12 @@
       </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>ace.client</artifactId>
+        <artifactId>ace-client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>ace.ui.html</artifactId>
+        <artifactId>ace-ui-html</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
