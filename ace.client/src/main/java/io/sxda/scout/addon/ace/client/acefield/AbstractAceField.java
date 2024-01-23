@@ -34,7 +34,6 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
     setTabSize(getConfiguredTabSize());
     setUseSoftTabs(getConfiguredUseSoftTabs());
     setShowPrintMargin(getConfiguredShowPrintMargin());
-    setReadOnly(getConfiguredReadOnly());
     setUseWrapMode(getConfiguredUseWrapMode());
     setHighlightActiveLine(getConfiguredHighlightActiveLine());
   }
@@ -121,23 +120,6 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
 
   @ConfigProperty(ConfigProperty.BOOLEAN)
   protected boolean getConfiguredShowPrintMargin() {
-    return false;
-  }
-
-  @Override
-  @ConfigProperty(ConfigProperty.BOOLEAN)
-  public void setReadOnly(boolean readOnly) {
-    propertySupport.setPropertyBool(PROP_READ_ONLY, readOnly);
-  }
-
-  @Override
-  @ConfigProperty(ConfigProperty.BOOLEAN)
-  public boolean getReadOnly() {
-    return propertySupport.getPropertyBool(PROP_READ_ONLY);
-  }
-
-  @ConfigProperty(ConfigProperty.BOOLEAN)
-  protected boolean getConfiguredReadOnly() {
     return false;
   }
 

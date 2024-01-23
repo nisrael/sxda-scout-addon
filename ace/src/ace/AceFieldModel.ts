@@ -19,6 +19,5 @@ export interface AceFieldModel extends ValueFieldModel<string> {
   useSoftTabs?: boolean;
   useWrapMode?: boolean;
   showPrintMargin?: boolean;
-  readOnly?: boolean;
   highlightActiveLine?: boolean;
 }

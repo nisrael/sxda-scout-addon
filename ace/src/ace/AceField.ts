@@ -28,7 +28,6 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   useSoftTabs: boolean;
   useWrapMode: boolean;
   showPrintMargin: boolean;
-  readOnly: boolean;
   highlightActiveLine: boolean;
 
   renderValueUpdate: boolean;
@@ -41,7 +40,6 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.useSoftTabs = true;
     this.useWrapMode = false;
     this.showPrintMargin = false;
-    this.readOnly = false;
     this.highlightActiveLine = true;
   }
 
@@ -145,21 +143,10 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.editor.setHighlightActiveLine(this.highlightActiveLine);
   }
 
-  setReadOnly(readOnly: boolean) {
-      this.setProperty('readOnly', readOnly);
-    }
-
-    _setReadOnly(readOnly: boolean){
-      this.readOnly = readOnly;
-    }
-
-    getReadOnly(): boolean{
-      return this.readOnly;
-    }
-
-    _renderReadOnly(){
-      this.editor.setReadOnly(this.readOnly);
-    }
+  protected override _renderEnabled() {
+    super._renderEnabled();
+    this.editor.setReadOnly(!this.enabled);
+  }
 
 
   override _renderDisplayText() {
@@ -169,6 +156,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   override _readDisplayText(): string {
     return this.editor.getValue();
   }
+
   override _render() {
     // Create the container
     this.addContainer(this.$parent, 'ace-field');
@@ -184,8 +172,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
     let self = this;
 
-    this.editor.session.on("change", function() {
-       self.setValue(self.editor.getValue());
+    this.editor.session.on("change", function () {
+      self.setValue(self.editor.getValue());
     });
 
     // Add other required form field elements
@@ -193,8 +181,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.addStatus();
   }
 
-  _renderValue(){
-    if (this.editor.getValue()!=this.value) {
+  _renderValue() {
+    if (this.editor.getValue() !== this.value) {
       this.editor.setValue(this.value);
     }
   }
@@ -206,7 +194,6 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   protected override _renderProperties() {
     super._renderProperties();
     this._renderTheme();
-    this._renderReadOnly();
     this._renderHighlightActiveLine();
     this._renderTabSize();
     this._renderUseSoftTabs();

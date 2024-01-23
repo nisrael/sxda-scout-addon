@@ -19,6 +19,5 @@ export interface AceFieldEventMap extends ValueFieldEventMap<string> {
   'propertyChange:useSoftTabs': PropertyChangeEvent<boolean>;
   'propertyChange:useWrapMode': PropertyChangeEvent<boolean>;
   'propertyChange:showPrintMargin': PropertyChangeEvent<boolean>;
-  'propertyChange:readOnly': PropertyChangeEvent<boolean>;
   'propertyChange:highlightActiveLine': PropertyChangeEvent<boolean>;
 }
