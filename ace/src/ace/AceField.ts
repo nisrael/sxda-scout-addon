@@ -24,6 +24,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
   editor: ace.Ace.Editor;
   theme: string;
+  aceMode: string;
   tabSize: number;
   useSoftTabs: boolean;
   useWrapMode: boolean;
@@ -36,6 +37,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   constructor() {
     super();
     this.theme = 'textmate';
+    this.aceMode = 'text';
     this.tabSize = 2;
     this.useSoftTabs = true;
     this.useWrapMode = false;
@@ -61,6 +63,22 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
   _renderTheme() {
     this.editor.setTheme("ace/theme/" + this.theme);
+  }
+
+  setAceMode(aceMode: string) {
+    this.setProperty('aceMode', aceMode);
+  }
+
+  _setAceMode(aceMode: string) {
+    this.aceMode = aceMode;
+  }
+
+  getAceMode(): string {
+    return this.aceMode;
+  }
+
+  _renderAceMode() {
+    this.editor.setOption("mode", "ace/mode/" + this.aceMode);
   }
 
   setTabSize(tabSize: number) {
@@ -194,6 +212,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   protected override _renderProperties() {
     super._renderProperties();
     this._renderTheme();
+    this._renderAceMode();
     this._renderHighlightActiveLine();
     this._renderTabSize();
     this._renderUseSoftTabs();

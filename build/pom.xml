@@ -31,5 +31,6 @@
     <module>../ace/pom.xml</module>
     <module>../ace.client/pom.xml</module>
     <module>../ace.ui.html/pom.xml</module>
+    <module>../demo/pom.xml</module>
   </modules>
 </project>
