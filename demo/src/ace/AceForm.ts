@@ -11,9 +11,10 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {Form, FormModel, InitModelOf, models} from '@eclipse-scout/core';
+import {Form, FormModel, InitModelOf, KeyStroke, models} from '@eclipse-scout/core';
 import AceFormModel from './AceFormModel';
 import {AceFormWidgetMap} from '../index';
+import {AceModes, AceThemes} from "../../../ace/src";
 
 export class AceForm extends Form {
   declare widgetMap: AceFormWidgetMap;
@@ -35,13 +36,37 @@ export class AceForm extends Form {
     enableField.setValue(ace.enabled);
     enableField.on('propertyChange:value', event => ace.setEnabled(event.newValue));
 
+    let softTabsField = this.widget('SoftTabsField');
+    softTabsField.setValue(ace.useSoftTabs);
+    softTabsField.on('propertyChange:value', event => ace.setUseSoftTabs(event.newValue));
+
+    let wrapModeField = this.widget('WrapModeField');
+    wrapModeField.setValue(ace.useWrapMode);
+    wrapModeField.on('propertyChange:value', event => ace.setUseWrapMode(event.newValue));
+
+    let showPrintMarginField = this.widget('ShowPrintMarginField');
+    showPrintMarginField.setValue(ace.showPrintMargin);
+    showPrintMarginField.on('propertyChange:value', event => ace.setShowPrintMargin(event.newValue));
+
+    let selectOnSetValueField = this.widget('SelectOnSetValueField');
+    selectOnSetValueField.setValue(ace.selectOnSetValue);
+    selectOnSetValueField.on('propertyChange:value', event => ace.setSelectOnSetValue(event.newValue));
+
+    let highlightActiveLineField = this.widget('HighlightActiveLineField');
+    highlightActiveLineField.setValue(ace.highlightActiveLine);
+    highlightActiveLineField.on('propertyChange:value', event => ace.setHighlightActiveLine(event.newValue));
+
     let themeField = this.widget('ThemeField');
-    themeField.setValue(ace.theme);
-    themeField.on('propertyChange:value', event => ace.setTheme(event.newValue));
+    themeField.setValue(ace.theme.id);
+    themeField.on('propertyChange:value', event => ace.setTheme(AceThemes.getInstance().get(event.newValue)));
 
     let modeField = this.widget('ModeField');
-    modeField.setValue(ace.aceMode);
-    modeField.on('propertyChange:value', event => ace.setAceMode(event.newValue));
+    modeField.setValue(ace.aceMode.id);
+    modeField.on('propertyChange:value', event => ace.setAceMode(AceModes.getInstance().get(event.newValue)));
+
+    let setValueField = this.widget('SetValueField');
+    let setValueButton = this.widget('SetValueButton');
+    setValueButton.on('click', event => ace.setValue(setValueField.value));
 
     this.widget('EventsTab').setField(ace);
   }

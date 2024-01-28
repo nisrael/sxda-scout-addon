@@ -12,13 +12,16 @@
  *  SPDX-License-Identifier: EPL-2.0
  */
 import {ValueFieldModel} from '@eclipse-scout/core';
+import {AceTheme} from "./themes/AceTheme";
+import {AceMode} from "./modes/AceMode";
 
 export interface AceFieldModel extends ValueFieldModel<string> {
-  theme?: string;
-  aceMode?: string;
+  theme?: AceTheme;
+  aceMode?: AceMode;
   tabSize?: number;
   useSoftTabs?: boolean;
   useWrapMode?: boolean;
   showPrintMargin?: boolean;
   highlightActiveLine?: boolean;
+  selectOnSetValue?: boolean;
 }

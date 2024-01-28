@@ -22,16 +22,19 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {
+  Button,
   CheckBoxField,
   FormModel,
   GroupBox,
+  SequenceBox,
   SmartField,
+  StringField,
   TabBox,
   TabItem,
   WidgetField
 } from '@eclipse-scout/core';
-import {EventsTab, EventsTabWidgetMap, AceThemeLookupCall, AceModeLookupCall} from '../index';
-import {AceField} from "../../../ace/src";
+import {EventsTab, EventsTabWidgetMap} from '../index';
+import {AceField, AceThemeLookupCall, AceModeLookupCall} from "../../../ace/src";
 
 export default (): FormModel => ({
   id: 'sxda.AceForm',
@@ -51,8 +54,8 @@ export default (): FormModel => ({
             labelVisible: false,
             statusVisible: false,
             gridDataHints: {
-              h: 4,
-              weightY: 0
+              weightY: 1,
+              fillVertical: true
             },
             fieldWidget: {
               id: 'AceField',
@@ -66,6 +69,10 @@ export default (): FormModel => ({
         objectType: TabBox,
         cssClass: 'sxda-configuration',
         selectedTab: 'PropertiesTab',
+        gridDataHints: {
+          weightY: 0,
+          fillVertical: false
+        },
         tabItems: [
           {
             id: 'PropertiesTab',
@@ -96,7 +103,57 @@ export default (): FormModel => ({
                     objectType: SmartField<string>,
                     label: 'Mode',
                     lookupCall: AceModeLookupCall
-                  }
+                  },
+                  {
+                    id: 'SoftTabsField',
+                    objectType: CheckBoxField,
+                    label: 'Soft Tabs'
+                  },
+                  {
+                    id: 'WrapModeField',
+                    objectType: CheckBoxField,
+                    label: 'Wrap Mode'
+                  },
+                  {
+                    id: 'ShowPrintMarginField',
+                    objectType: CheckBoxField,
+                    label: 'Show Print Margin'
+                  },
+                  {
+                    id: 'HighlightActiveLineField',
+                    objectType: CheckBoxField,
+                    label: 'Highlight Active Line'
+                  },
+                  {
+                    id: 'SelectOnSetValueField',
+                    objectType: CheckBoxField,
+                    label: 'Select on Set Value'
+                  },
+                  {
+                    id: 'SetValueFieldBox',
+                    objectType: SequenceBox,
+                    label: 'Text',
+                    fields: [
+                      {
+                        id: 'SetValueField',
+                        objectType: StringField,
+                        gridDataHints: {
+                          weightX: 1
+                        }
+                      },
+                      {
+                        id: 'SetValueButton',
+                        objectType: Button,
+                        label: 'Set value',
+                        gridDataHints: {
+                          weightX: 0,
+                          useUiWidth: true
+                        }
+                      },
+
+                    ]
+                  },
+
                 ]
               }
             ]
@@ -116,10 +173,18 @@ export type AceFormWidgetMap = {
   'DetailBox': GroupBox;
   'WidgetField': WidgetField;
   'AceField': AceField;
+  'SetValueField': StringField;
   'ConfigurationBox': TabBox;
   'PropertiesTab': TabItem;
   'PropertiesBox': GroupBox;
+  'SetValueFieldBox': GroupBox;
+  'SetValueButton': Button;
+  'SelectOnSetValueField': CheckBoxField;
   'EnableField': CheckBoxField;
+  'SoftTabsField': CheckBoxField;
+  'ShowPrintMarginField': CheckBoxField;
+  'HighlightActiveLineField': CheckBoxField;
+  'WrapModeField': CheckBoxField;
   'ThemeField': SmartField<string>;
   'ModeField': SmartField<string>;
   'ActionsTab': TabItem;

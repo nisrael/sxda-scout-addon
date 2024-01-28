@@ -16,6 +16,10 @@ import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-builds";
 import 'ace-builds/esm-resolver';
+import {AceTheme} from "./themes/AceTheme";
+import {AceThemes} from "./themes/AceThemes";
+import {AceMode} from "./modes/AceMode";
+import {AceModes} from "./modes/AceModes";
 
 export class AceField extends ValueField<string> implements AceFieldModel {
   declare model: AceFieldModel;
@@ -23,58 +27,43 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   declare self: AceField;
 
   editor: ace.Ace.Editor;
-  theme: string;
-  aceMode: string;
+  theme: AceTheme;
+  aceMode: AceMode;
   tabSize: number;
   useSoftTabs: boolean;
   useWrapMode: boolean;
   showPrintMargin: boolean;
   highlightActiveLine: boolean;
+  selectOnSetValue: boolean;
 
-  renderValueUpdate: boolean;
-
+  protected _editorUpdateFromSetValue: boolean;
 
   constructor() {
     super();
-    this.theme = 'textmate';
-    this.aceMode = 'text';
+    this.theme = AceThemes.getInstance().get('textmate');
+    this.aceMode = AceModes.getInstance().get('text');
     this.tabSize = 2;
     this.useSoftTabs = true;
     this.useWrapMode = false;
     this.showPrintMargin = false;
     this.highlightActiveLine = true;
+    this.selectOnSetValue = false;
   }
 
   protected override _init(model: InitModelOf<this>) {
     super._init(model);
   }
 
-  setTheme(theme: string) {
+  setTheme(theme: AceTheme) {
     this.setProperty('theme', theme);
   }
 
-  _setTheme(theme: string) {
-    this.theme = theme;
-  }
-
-  getTheme(): string {
-    return this.theme;
-  }
-
   _renderTheme() {
-    this.editor.setTheme("ace/theme/" + this.theme);
+    this.editor.setTheme(this.theme.path);
   }
 
-  setAceMode(aceMode: string) {
-    this.setProperty('aceMode', aceMode);
-  }
-
-  _setAceMode(aceMode: string) {
-    this.aceMode = aceMode;
-  }
-
-  getAceMode(): string {
-    return this.aceMode;
+  setAceMode(mode: AceMode) {
+    this.setProperty('aceMode', mode);
   }
 
   _renderAceMode() {
@@ -85,28 +74,12 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.setProperty('tabSize', tabSize);
   }
 
-  _setTabSize(tabSize: number) {
-    this.tabSize = tabSize;
-  }
-
-  getTabSize(): number {
-    return this.tabSize;
-  }
-
   _renderTabSize() {
     this.editor.session.setTabSize(this.tabSize);
   }
 
   setUseSoftTabs(useSoftTabs: boolean) {
     this.setProperty('useSoftTabs', useSoftTabs);
-  }
-
-  _setUseSoftTabs(useSoftTabs: boolean) {
-    this.useSoftTabs = useSoftTabs;
-  }
-
-  getUseSoftTabs(): boolean {
-    return this.useSoftTabs;
   }
 
   _renderUseSoftTabs() {
@@ -117,14 +90,6 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.setProperty('useWrapMode', useWrapMode);
   }
 
-  _setUseWrapMode(useWrapMode: boolean) {
-    this.useWrapMode = useWrapMode;
-  }
-
-  getUseWrapMode(): boolean {
-    return this.useWrapMode;
-  }
-
   _renderUseWrapMode() {
     this.editor.session.setUseWrapMode(this.useWrapMode);
   }
@@ -133,28 +98,12 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.setProperty('showPrintMargin', showPrintMargin);
   }
 
-  _setShowPrintMargin(showPrintMargin: boolean) {
-    this.showPrintMargin = showPrintMargin;
-  }
-
-  getShowPrintMargin(): boolean {
-    return this.showPrintMargin;
-  }
-
   _renderShowPrintMargin() {
     this.editor.setShowPrintMargin(this.showPrintMargin);
   }
 
   setHighlightActiveLine(highlightActiveLine: boolean) {
     this.setProperty('highlightActiveLine', highlightActiveLine);
-  }
-
-  _setHighlightActiveLine(highlightActiveLine: boolean) {
-    this.highlightActiveLine = highlightActiveLine;
-  }
-
-  getHighlightActiveLine(): boolean {
-    return this.highlightActiveLine;
   }
 
   _renderHighlightActiveLine() {
@@ -166,12 +115,12 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.editor.setReadOnly(!this.enabled);
   }
 
-
-  override _renderDisplayText() {
-    this._updateHasText();
+  setSelectOnSetValue(selectOnSetValue: boolean){
+    this.setProperty('selectOnSetValue', selectOnSetValue);
   }
 
   override _readDisplayText(): string {
+    super._readDisplayText();
     return this.editor.getValue();
   }
 
@@ -185,13 +134,14 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     let $field = this.$parent.appendDiv('ace');
     this.addField($field);
 
-
     this.editor = ace.edit($field.get()[0]);
 
     let self = this;
 
     this.editor.session.on("change", function () {
-      self.setValue(self.editor.getValue());
+      if (!self._editorUpdateFromSetValue) {
+        self.setValue(self.editor.getValue());
+      }
     });
 
     // Add other required form field elements
@@ -199,14 +149,34 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.addStatus();
   }
 
-  _renderValue() {
-    if (this.editor.getValue() !== this.value) {
-      this.editor.setValue(this.value);
+  protected override _setValue(value: string) {
+    super._setValue(value);
+    if (this.editor && this.editor.getValue() !== value) {
+      this._editorUpdateFromSetValue = true;
+      this.editor.setValue(value, this.selectOnSetValue ? 0 : 1);
+      this._editorUpdateFromSetValue = false;
     }
   }
 
-  override setValue(value: string) {
-    this.setProperty('value', value);
+  protected selectAll() {
+    this.editor.selectAll();
+  }
+
+  selectLine(line: number) {
+    this.editor.selection.selectLine()
+    return this.editor.getSelectedText();
+
+  }
+  selectRange(startRow: number, startCol: number, endRow: number, endCol: number) {
+    this.editor.selection.setRange(new ace.Range(startRow, startCol, endRow, endCol));
+  }
+
+  clearSelection(): void{
+    this.editor.clearSelection();
+  }
+
+  getSelectedText(): string {
+    return this.editor.getSelectedText();
   }
 
   protected override _renderProperties() {
@@ -218,13 +188,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this._renderUseSoftTabs();
     this._renderUseWrapMode();
     this._renderShowPrintMargin();
-    this._renderValue();
   }
-
-  protected override _clear() {
-    this.editor.setValue('');
-  }
-
 }
 
 

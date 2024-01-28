@@ -11,9 +11,15 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {ValueFieldAdapter} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+export class AceMode {
+  id: string;
+  name: string;
+  path: string;
 
-export class AceFieldAdapter extends ValueFieldAdapter {
-  declare widget: AceField;
+  constructor(id: string, name: string, path: string) {
+    this.name = name;
+    this.id = id;
+    this.path = path;
+  }
 }
+

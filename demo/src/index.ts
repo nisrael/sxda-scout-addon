@@ -9,9 +9,6 @@ export * from './common/EventsTab'
 export * from './common/EventsTabModel'
 export * from './ace/AceFormModel'
 export * from './ace/AceForm'
-export * from './ace/AceThemeLookupCall'
-export * from './ace/AceModeLookupCall'
-
 
 scout.addObjectFactories({
   'Desktop': function () {

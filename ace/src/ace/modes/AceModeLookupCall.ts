@@ -11,9 +11,17 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {ValueFieldAdapter} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+import {StaticLookupCall} from '@eclipse-scout/core';
+import {AceThemes} from "../themes/AceThemes";
+import {AceTheme} from "../themes/AceTheme";
+import {AceMode} from "./AceMode";
+import {AceModes} from "./AceModes";
 
-export class AceFieldAdapter extends ValueFieldAdapter {
-  declare widget: AceField;
+export class AceModeLookupCall extends StaticLookupCall<string> {
+  protected override _data(): any[] {
+    return AceModes.getInstance().all().map((mode: AceMode) => {
+      return [mode.id, mode.name];
+    });
+  }
+
 }

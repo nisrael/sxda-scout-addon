@@ -17,6 +17,12 @@ export * from './ace/AceField';
 export * from './ace/AceFieldAdapter';
 export * from './ace/AceFieldModel';
 export * from './ace/AceFieldEventMap';
+export * from './ace/modes/AceMode';
+export * from './ace/modes/AceModes';
+export * from './ace/modes/AceModeLookupCall';
+export * from './ace/themes/AceTheme';
+export * from './ace/themes/AceThemes';
+export * from './ace/themes/AceThemeLookupCall';
 
 import * as self from './index';
 
