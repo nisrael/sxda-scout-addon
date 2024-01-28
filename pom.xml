@@ -313,6 +313,7 @@
                     <executable>git</executable>
                     <arguments>
                       <argument>add</argument>
+                      <argument>-v</argument>
                       <argument>${basedir}/package.json</argument>
                     </arguments>
                   </configuration>
