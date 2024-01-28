@@ -15,7 +15,12 @@
     "build:all": "npm run prebuild && npm run build:dev && npm run build:prod",
     "build:dev:watch": "scout-scripts build:dev:watch",
     "version:snapshot": "releng-scripts version:snapshot",
-    "serve": "live-server --mount=/:dist"
+    "serve": "live-server --mount=/:dist",
+    "test:ci": "echo skipping tests",
+    "cleanup:snapshots": "echo skipping cleanup:snapshots",
+    "version:snapshot:dependencies": "releng-scripts version:snapshot:dependencies",
+    "version:release:dependencies": "releng-scripts version:release:dependencies",
+    "version:release": "releng-scripts version:release"
   },
   "devDependencies": {
     "@eclipse-scout/cli": "23.2.15",
