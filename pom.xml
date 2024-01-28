@@ -156,24 +156,11 @@
                 <tagNameFormat>v@{project.version}</tagNameFormat>
                 <releaseProfiles>sxda-release</releaseProfiles>
                 <scmCommentPrefix>[ci skip]</scmCommentPrefix>
-                <preparationGoals>
-                  clean
-                  exec:exec@sxda-npm-install
-                  exec:exec@sxda-npm-release-dependencies
-                  exec:exec@sxda-npm-release-version
-                  exec:exec@sxda-npm-scm-add-package-json verify
-                </preparationGoals>
+                <preparationGoals>clean exec:exec@sxda-npm-install exec:exec@sxda-npm-release-dependencies exec:exec@sxda-npm-release-version exec:exec@sxda-npm-scm-add-package-json verify</preparationGoals>
                 <!-- it is correct first setting release version, because actually it sets the package.json version
                      to the pom version, which at this stage is already the new snapshot version but with uppercase
                      SNAPSHOT, calling snapshot-version afterward fixes this and appends a timestamp -->
-                <completionGoals>
-                  install
-                  exec:exec@sxda-npm-install
-                  exec:exec@sxda-npm-release-version
-                  exec:exec@sxda-npm-snapshot-version
-                  exec:exec@sxda-npm-snapshot-dependencies
-                  exec:exec@sxda-npm-scm-add-package-json
-                </completionGoals>
+                <completionGoals>install exec:exec@sxda-npm-install exec:exec@sxda-npm-release-version exec:exec@sxda-npm-snapshot-version exec:exec@sxda-npm-snapshot-dependencies exec:exec@sxda-npm-scm-add-package-json</completionGoals>
                 <pushChanges>true</pushChanges>
               </configuration>
             </plugin>
