@@ -14,20 +14,19 @@
      SPDX-License-Identifier: EPL-2.0
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.eclipse.scout</groupId>
     <artifactId>maven_rt_plugin_config-master</artifactId>
     <version>23.2.0</version>
-    <relativePath/>
+    <relativePath />
   </parent>
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>23.2.1-SNAPSHOT</version>
+  <version>23.2.1</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -92,13 +91,13 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <mailingLists/>
+  <mailingLists />
 
   <scm>
     <connection>scm:git:ssh://git@github.com/nisrael/sxda-scout-addon.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/nisrael/sxda-scout-addon.git</developerConnection>
     <url>https://github.com/nisrael/sxda-scout-addon</url>
-    <tag>HEAD</tag>
+    <tag>v23.2.1</tag>
   </scm>
 
   <issueManagement>
