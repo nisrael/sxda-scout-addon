@@ -1,4 +1,6 @@
 {
+  "name": "@sxda/scout-addon-demo",
+  "version": "23.2.1-snapshot.20240128101021",
   "engines": {
     "node": ">=18.12.1",
     "npm": ">=9.1.1",
@@ -11,11 +13,13 @@
     "build:prod": "scout-scripts build:prod",
     "build:all": "npm run build:dev && npm run build:prod",
     "build:dev:watch": "scout-scripts build:dev:watch",
+    "version:snapshot": "releng-scripts version:snapshot",
     "serve": "live-server --mount=/:dist"
   },
   "devDependencies": {
-    "@eclipse-scout/cli": "^23.2.15",
+    "@eclipse-scout/cli": "23.2.15",
     "@eclipse-scout/tsconfig": "23.2.15",
+    "@eclipse-scout/releng": "^22.0.0",
     "live-server": "^1.2.1"
   },
   "dependencies": {
