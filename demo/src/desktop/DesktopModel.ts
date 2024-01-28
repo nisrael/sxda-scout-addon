@@ -14,20 +14,50 @@
 import {AceForm} from "../ace/AceForm";
 import {Desktop} from "./Desktop";
 import {DemoOutline} from "../index";
+import {Menu} from "@eclipse-scout/core";
 
 
 export default () => ({
-  id: 'Desktop',
+  id: 'sxda.Desktop',
   objectType: Desktop,
   navigationHandleVisible: false,
   navigationVisible: true,
-  headerVisible: false,
+  headerVisible: true,
   outline: {
     objectType: DemoOutline
   },
+  menus: [
+    {
+      id: 'ThemeMenu',
+      objectType: Menu,
+      text: 'Theme',
+      childActions: [
+        {
+          id: 'DefaultThemeMenu',
+          objectType: Menu,
+          text: 'Default'
+        },
+        {
+          id: 'DarkThemeMenu',
+          objectType: Menu,
+          text: 'Dark'
+        }
+      ]
+    },
+    {
+      id: 'AboutMenu',
+      objectType: Menu,
+      text: 'About',
+      cssClass: 'about-menu'
+    }
+  ]
 });
 
 export type DesktopWidgetMap = {
   'AceForm': AceForm;
   'Desktop': Desktop;
+  'ThemeMenu': Menu;
+  'DefaultThemeMenu': Menu;
+  'DarkThemeMenu': Menu;
+  'AboutMenu': Menu;
 };

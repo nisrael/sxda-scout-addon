@@ -9,9 +9,10 @@
   "main": "src/index.ts",
   "scripts": {
     "pnpm-install": "pnpm install --ignore-scripts",
+    "prebuild": "node -p \"'export const APP_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build:dev": "scout-scripts build:dev",
     "build:prod": "scout-scripts build:prod",
-    "build:all": "npm run build:dev && npm run build:prod",
+    "build:all": "npm run prebuild && npm run build:dev && npm run build:prod",
     "build:dev:watch": "scout-scripts build:dev:watch",
     "version:snapshot": "releng-scripts version:snapshot",
     "serve": "live-server --mount=/:dist"

@@ -17,12 +17,14 @@ module.exports = (env, args) => {
     './res',
     './node_modules/@eclipse-scout/core/res',
     './node_modules/@eclipse-scout/core/dist/locales.json',
-    './node_modules/@eclipse-scout/core/dist/texts.json'
+    './node_modules/@eclipse-scout/core/dist/texts.json',
+    './node_modules/ace-builds/src-min-noconflict'
   ];
   const config = baseConfig(env, args);
   config.entry = {
     'sxda': './src/index.ts',
-    'sxda-theme': './src/index.less'
+    'sxda-theme': './src/sxda-theme.less',
+    'sxda-theme-dark': './src/sxda-theme-dark.less'
   };
   return config;
 };

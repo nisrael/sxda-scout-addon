@@ -68,6 +68,12 @@ public class JsonAceField extends JsonValueField<IAceField> {
         return model.getTheme();
       }
     });
+    putJsonProperty(new JsonProperty<>(IAceField.PROP_ACE_MODE, model) {
+      @Override
+      protected Object modelValue() {
+        return model.getAceMode();
+      }
+    });
     putJsonProperty(new JsonProperty<>(IAceField.PROP_SHOW_PRINT_MARGIN, model) {
       @Override
       protected Object modelValue() {
@@ -100,6 +106,12 @@ public class JsonAceField extends JsonValueField<IAceField> {
       @Override
       protected Object modelValue() {
         return getModel().getUseWrapMode();
+      }
+    });
+    putJsonProperty(new JsonProperty<>(IAceField.PROP_SELECT_ON_SET_VALUE, model) {
+      @Override
+      protected Object modelValue() {
+        return getModel().getSelectOnSetValue();
       }
     });
   }

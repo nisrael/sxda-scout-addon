@@ -67,7 +67,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   }
 
   _renderAceMode() {
-    this.editor.setOption("mode", "ace/mode/" + this.aceMode);
+    this.editor.setOption("mode", this.aceMode.path);
   }
 
   setTabSize(tabSize: number) {
@@ -115,7 +115,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.editor.setReadOnly(!this.enabled);
   }
 
-  setSelectOnSetValue(selectOnSetValue: boolean){
+  setSelectOnSetValue(selectOnSetValue: boolean) {
     this.setProperty('selectOnSetValue', selectOnSetValue);
   }
 
@@ -167,11 +167,12 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     return this.editor.getSelectedText();
 
   }
+
   selectRange(startRow: number, startCol: number, endRow: number, endCol: number) {
     this.editor.selection.setRange(new ace.Range(startRow, startCol, endRow, endCol));
   }
 
-  clearSelection(): void{
+  clearSelection(): void {
     this.editor.clearSelection();
   }
 

@@ -11,7 +11,16 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {Desktop as ScoutDesktop, DesktopModel as ScoutDesktopModel, models} from '@eclipse-scout/core';
+import {
+  App,
+  Desktop as ScoutDesktop,
+  DesktopModel as ScoutDesktopModel,
+  Form,
+  GroupBox, icons, InitModelOf, LabelField,
+  models,
+  scout
+} from '@eclipse-scout/core';
+import {APP_VERSION} from "../version";
 import DesktopModel, {DesktopWidgetMap} from './DesktopModel';
 
 export class Desktop extends ScoutDesktop {
@@ -19,9 +28,77 @@ export class Desktop extends ScoutDesktop {
 
   constructor() {
     super();
+    App.get().version = APP_VERSION;
   }
 
   protected override _jsonModel(): ScoutDesktopModel {
     return models.get(DesktopModel);
+  }
+
+  protected override _init(model: InitModelOf<this>) {
+    super._init(model);
+
+    let aboutMenu = this.widget('AboutMenu');
+    aboutMenu.on('action', this._onAboutMenuAction.bind(this));
+
+    let defaultThemeMenu = this.widget('DefaultThemeMenu');
+    defaultThemeMenu.on('action', this._onDefaultThemeMenuAction.bind(this));
+
+    let darkThemeMenu = this.widget('DarkThemeMenu');
+    darkThemeMenu.on('action', this._onDarkThemeMenuAction.bind(this));
+
+    if (this.theme === 'dark') {
+      darkThemeMenu.setIconId(icons.CHECKED_BOLD);
+    } else {
+      defaultThemeMenu.setIconId(icons.CHECKED_BOLD);
+    }
+  }
+
+  protected _onDefaultThemeMenuAction() {
+    this.setTheme('default');
+  }
+
+  protected _onDarkThemeMenuAction() {
+    this.setTheme('dark');
+  }
+
+  _renderTheme(): void {
+    console.log('switch theme to ' + this.theme);
+    let theme_name = 'sxda-theme.css';
+    if (this.theme && this.theme !== 'default') {
+      theme_name = 'sxda-theme-' + this.theme + '.css';
+    }
+    let link = document.getElementById('theme') as HTMLLinkElement;
+    link.href = theme_name;
+  }
+
+  protected override _render() {
+    super._render();
+    this._renderTheme();
+  }
+
+  protected _onAboutMenuAction() {
+    let form = scout.create(Form, {
+      parent: this,
+      resizable: false,
+      title: 'sxda-scut-addon Demo Application',
+      rootGroupBox: {
+        objectType: GroupBox,
+        borderDecoration: 'empty',
+        fields: [{
+          objectType: LabelField,
+          value: App.get().version,
+          labelVisible: false,
+          wrapText: true,
+          htmlEnabled: true,
+          cssClass: 'about-info',
+          statusVisible: false,
+          gridDataHints: {
+            h: 3
+          }
+        }]
+      }
+    });
+    form.open();
   }
 }

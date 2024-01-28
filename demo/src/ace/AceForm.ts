@@ -15,6 +15,9 @@ import {Form, FormModel, InitModelOf, KeyStroke, models} from '@eclipse-scout/co
 import AceFormModel from './AceFormModel';
 import {AceFormWidgetMap} from '../index';
 import {AceModes, AceThemes} from "../../../ace/src";
+import * as ace from 'ace-builds';
+import 'ace-builds/esm-resolver';
+
 
 export class AceForm extends Form {
   declare widgetMap: AceFormWidgetMap;

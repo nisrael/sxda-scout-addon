@@ -18,15 +18,22 @@ import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
 public interface IAceField extends IValueField<String> {
   final String OBJECT_TYPE = "sxda.AceField";
   String PROP_THEME = "theme";
+  String PROP_ACE_MODE = "aceMode";
   String PROP_TAB_SIZE = "tabSize";
   String PROP_USE_SOFT_TABS = "useSoftTabs";
   String PROP_USE_WRAP_MODE = "useWrapMode";
   String PROP_SHOW_PRINT_MARGIN = "showPrintMargin";
   String PROP_HIGHLIGHT_ACTIVE_LINE = "highlightActiveLine";
 
+  String PROP_SELECT_ON_SET_VALUE = "selectOnSetValue";
+
   void setTheme(String theme);
 
   String getTheme();
+
+  void setAceMode(String aceMode);
+
+  String getAceMode();
 
   void setTabSize(int tabSize);
 
@@ -41,9 +48,9 @@ public interface IAceField extends IValueField<String> {
   void setShowPrintMargin(boolean showPrintMargin);
   boolean getShowPrintMargin();
 
-  void setReadOnly(boolean readOnly);
-  boolean getReadOnly();
-
   void setHighlightActiveLine(boolean highlightActiveLine);
   boolean getHighlightActiveLine();
+
+  void setSelectOnSetValue(boolean selectOnSetValue);
+  boolean getSelectOnSetValue();
 }

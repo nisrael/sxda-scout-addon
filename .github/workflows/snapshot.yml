@@ -116,7 +116,7 @@ jobs:
         run: npm run version:snapshot
         working-directory: ./demo
       - name: Build npm module
-        run: npm run build:dev -- --progress=false --clean=false
+        run: npm run build:all -- --progress=false --clean=false
         working-directory: ./demo
       - name: Setup Pages
         uses: actions/configure-pages@v4

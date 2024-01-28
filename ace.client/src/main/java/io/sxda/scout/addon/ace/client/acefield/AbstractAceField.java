@@ -31,11 +31,13 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
   protected void initConfig() {
     super.initConfig();
     setTheme(getConfiguredTheme());
+    setAceMode(getConfiguredAceMode());
     setTabSize(getConfiguredTabSize());
     setUseSoftTabs(getConfiguredUseSoftTabs());
     setShowPrintMargin(getConfiguredShowPrintMargin());
     setUseWrapMode(getConfiguredUseWrapMode());
     setHighlightActiveLine(getConfiguredHighlightActiveLine());
+    setSelectOnSetValue(getConfiguredSelectOnSetValue());
   }
 
   @Override
@@ -55,6 +57,22 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
     return AceTheme.TEXTMATE.getConfigTerm();
   }
 
+  @Override
+  @ConfigProperty(ConfigProperty.STRING)
+  public void setAceMode(String aceMode) {
+    propertySupport.setPropertyString(PROP_ACE_MODE, aceMode);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.STRING)
+  public String getAceMode() {
+    return propertySupport.getPropertyString(PROP_ACE_MODE);
+  }
+
+  @ConfigProperty(ConfigProperty.STRING)
+  protected String getConfiguredAceMode() {
+    return AceMode.TEXT.getConfigTerm();
+  }
   @Override
   @ConfigProperty(ConfigProperty.INTEGER)
   public void setTabSize(int tabSize) {
@@ -138,5 +156,22 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
   @ConfigProperty(ConfigProperty.BOOLEAN)
   protected boolean getConfiguredHighlightActiveLine() {
     return true;
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public void setSelectOnSetValue(boolean selectOnSetValue) {
+    propertySupport.setPropertyBool(PROP_SELECT_ON_SET_VALUE, selectOnSetValue);
+  }
+
+  @Override
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  public boolean getSelectOnSetValue() {
+    return propertySupport.getPropertyBool(PROP_SELECT_ON_SET_VALUE);
+  }
+
+  @ConfigProperty(ConfigProperty.BOOLEAN)
+  protected boolean getConfiguredSelectOnSetValue() {
+    return false;
   }
 }

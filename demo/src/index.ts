@@ -37,3 +37,5 @@ new App().init({
     localesUrl: 'locales.json'
   }
 });
+
+
