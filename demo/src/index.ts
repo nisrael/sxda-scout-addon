@@ -11,21 +11,31 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {ObjectFactory} from '@eclipse-scout/core';
-
-export * from './ace/AceField';
-export * from './ace/AceFieldAdapter';
-export * from './ace/AceFieldModel';
-export * from './ace/AceFieldEventMap';
-export * from './ace/modes/AceMode';
-export * from './ace/modes/AceModes';
-export * from './ace/modes/AceModeLookupCall';
-export * from './ace/themes/AceTheme';
-export * from './ace/themes/AceThemes';
-export * from './ace/themes/AceThemeLookupCall';
+import {scout, App, ObjectFactory} from '@eclipse-scout/core';
+import {Desktop} from './desktop/Desktop'
 
 import * as self from './index';
 
-export default self;
+export * from './desktop/Desktop'
+export * from './desktop/DemoOutline'
+export * from './common/EventsTab'
+export * from './common/EventsTabModel'
+export * from './ace/AceFormModel'
+export * from './ace/AceForm'
+
+scout.addObjectFactories({
+  'Desktop': function () {
+    return new Desktop();
+  }
+});
 
 ObjectFactory.get().registerNamespace('sxda', self);
+
+new App().init({
+  bootstrap: {
+    textsUrl: 'texts.json',
+    localesUrl: 'locales.json'
+  }
+});
+
+

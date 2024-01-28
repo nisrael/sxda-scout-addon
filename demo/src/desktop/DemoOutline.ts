@@ -11,9 +11,13 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {ValueFieldAdapter} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+import {Outline, OutlineModel} from '@eclipse-scout/core';
+import DemoOutlineModel, {DemoOutlineWidgetMap} from './DemoOutlineModel';
 
-export class AceFieldAdapter extends ValueFieldAdapter {
-  declare widget: AceField;
+export class DemoOutline extends Outline {
+  declare widgetMap: DemoOutlineWidgetMap;
+
+  protected override _jsonModel(): OutlineModel {
+    return DemoOutlineModel();
+  }
 }

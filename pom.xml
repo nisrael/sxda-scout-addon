@@ -447,6 +447,7 @@
                     <excludes>
                       <exclude>.idea/**</exclude>
                       <exclude>**/license_files/**</exclude>
+                      <exclude>**/version.ts</exclude>
                       <exclude>**/target/**</exclude>
                       <exclude>**/node_modules/**</exclude>
                       <exclude>**/test-results/**</exclude>

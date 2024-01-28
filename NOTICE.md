@@ -9,8 +9,9 @@ Charts form field modules:
 * [org.eclipse.scout.rt.chart.client](https://github.com/eclipse-scout/scout.rt/tree/releases/23.1/org.eclipse.scout.rt.chart.client)
 * [org.eclipse.scout.rt.chart.ui.html](https://github.com/eclipse-scout/scout.rt/tree/releases/23.1/org.eclipse.scout.rt.chart.ui.html)
 
-It was adapted to provide a basis for other form field extensions to the
-Eclipse Scout Framework.
+It was adapted to provide a basis for other form field extensions to the Eclipse Scout Framework.
+
+The demo application borrows parts from the [ScoutJS widgets demo application](https://github.com/eclipse-scout/scout.docs/tree/releases/23.2/code/widgets).
 
 ## Trademarks
 
@@ -51,6 +52,7 @@ Eclipse Scout project
   * https://github.com/eclipse-scout/scout.ci
   * https://github.com/eclipse-scout/scout.maven-master
   * https://github.com/eclipse-scout/scout.website
+  * https://github.com/eclipse-scout/scout.docs
 
 A subset of the third-party content used from the Eclipse Scout
 project, as referenced by them:

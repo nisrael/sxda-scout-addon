@@ -12,13 +12,16 @@
  *  SPDX-License-Identifier: EPL-2.0
  */
 import {PropertyChangeEvent, ValueFieldEventMap} from '@eclipse-scout/core';
+import {AceTheme} from "./themes/AceTheme";
+import {AceMode} from "./modes/AceMode";
 
 export interface AceFieldEventMap extends ValueFieldEventMap<string> {
-  'propertyChange:theme': PropertyChangeEvent<string>;
+  'propertyChange:theme': PropertyChangeEvent<AceTheme>;
+  'propertyChange:aceMode': PropertyChangeEvent<AceMode>;
   'propertyChange:tabSize': PropertyChangeEvent<number>;
   'propertyChange:useSoftTabs': PropertyChangeEvent<boolean>;
   'propertyChange:useWrapMode': PropertyChangeEvent<boolean>;
   'propertyChange:showPrintMargin': PropertyChangeEvent<boolean>;
-  'propertyChange:readOnly': PropertyChangeEvent<boolean>;
   'propertyChange:highlightActiveLine': PropertyChangeEvent<boolean>;
+  'propertyChange:selectOnSetValue': PropertyChangeEvent<boolean>;
 }

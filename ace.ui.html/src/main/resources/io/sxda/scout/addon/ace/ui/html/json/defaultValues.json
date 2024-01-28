@@ -1,13 +1,14 @@
 {
   "defaults": {
     "AceField": {
-      "theme": "red",
+      "theme": "textmate",
+      "aceMode": "text",
       "useSoftTabs": true,
       "tabSize": 2,
       "useWrapMode": false,
       "showPrintMargin": false,
       "highlightActiveLine": true,
-      "readOnly": false
+      "selectOnSetValue": false
     }
   }
 }

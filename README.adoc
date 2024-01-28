@@ -83,6 +83,22 @@ import * as sxda from '@sxda/scout-addon-ace';
 Object.assign({}, sxda);
 ----
 
+Until I find a better solution, the ace sources needs to be exported to dist, for workers to be loadable by the corresponding modes, e.g. worker-javascript.js for the javascript mode. This can be done by adding the following to the `webpack.config.js` file of the ui.html module:
+
+.your.app.ui.html/webpack.config.js
+[source,javascript]
+----
+// ...
+module.exports = (env, args) => {
+  args.resDirArray = [
+    // ...
+    './node_modules/ace-builds/src-min-noconflict'
+  ];
+  // ...
+};
+// ...
+----
+
 Finally, the ace code editor can be used in a form:
 
 .SomeForm.java
@@ -133,6 +149,20 @@ Finally, the ace code editor can be used in a form:
   }
 /* */
 ----
+
+The CSP directive `img-src` needs to be configured in the `config.properties` file of the application. This is necessary because the ace code editor may provide image data for themes in base64 format. The CSP directive `data:` is necessary to allow this.
+
+.config.properties
+[source,properties]
+----
+# necessary for ace code editor, may provide image data for themes in base64 format
+# https://eclipsescout.github.io/scout-docs/23.2/technical-guide/common-concepts/platform.html#sec-app.configProperties
+scout.cspDirective[img-src]='self' data:
+----
+
+== Demo
+
+A Scout JS demo application of the latest snapshot version is available at: https://nisrael.github.io/sxda-scout-addon/.
 
 == License
 

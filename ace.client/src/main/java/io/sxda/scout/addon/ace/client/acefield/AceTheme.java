@@ -17,67 +17,75 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum AceTheme {
-  AMBIANCE("ambiance"),
-  CHAOS("chaos"),
-  CHROME("chrome"),
-  CLOUD9_DAY("cloud9_day"),
-  CLOUD9_NIGHT("cloud9_night"),
-  CLOUD9_NIGHT_LOW_COLOR("cloud9_night_low_color"),
-  CLOUDS("clouds"),
-  CLOUDS_MIDNIGHT("clouds_midnight"),
-  COBALT("cobalt"),
-  CRIMSON_EDITOR("crimson_editor"),
-  DAWN("dawn"),
-  DRACULA("dracula"),
-  DREAMWEAVER("dreamweaver"),
-  ECLIPSE("eclipse"),
-  GITHUB("github"),
-  GITHUB_DARK("github_dark"),
-  GOB("gob"),
-  GRUVBOX("gruvbox"),
-  GRUVBOX_DARK_HARD("gruvbox_dark_hard"),
-  GRUVBOX_LIGHT_HARD("gruvbox_light_hard"),
-  IDLE_FINGERS("idle_fingers"),
-  IPLASTIC("iplastic"),
-  KATZENMILCH("katzenmilch"),
-  KR_THEME("kr_theme"),
-  KUROIR("kuroir"),
-  MERBIVORE("merbivore"),
-  MERBIVORE_SOFT("merbivore_soft"),
-  MONO_INDUSTRIAL("mono_industrial"),
-  MONOKAI("monokai"),
-  NORD_DARK("nord_dark"),
-  ONE_DARK("one_dark"),
-  PASTEL_ON_DARK("pastel_on_dark"),
-  SOLARIZED_DARK("solarized_dark"),
-  SOLARIZED_LIGHT("solarized_light"),
-  SQLSERVER("sqlserver"),
-  TERMINAL("terminal"),
-  TEXTMATE("textmate"),
-  TOMORROW("tomorrow"),
-  TOMORROW_NIGHT("tomorrow_night"),
-  TOMORROW_NIGHT_BLUE("tomorrow_night_blue"),
-  TOMORROW_NIGHT_BRIGHT("tomorrow_night_bright"),
-  TOMORROW_NIGHT_EIGHTIES("tomorrow_night_eighties"),
-  TWILIGHT("twilight"),
-  VIBRANT_INK("vibrant_ink"),
-  XCODE("xcode");
+  AMBIANCE("ambiance", "Ambiance"),
+  CHAOS("chaos", "Chaos"),
+  CHROME("chrome", "Chrome"),
+  CLOUD9_DAY("cloud9_day", "Cloud9 Day"),
+  CLOUD9_NIGHT("cloud9_night", "Cloud9 Night"),
+  CLOUD9_NIGHT_LOW_COLOR("cloud9_night_low_color", "Cloud9 Night Low Color"),
+  CLOUD_EDITOR("cloud_editor", "Cloud Editor"),
+  CLOUD_EDITOR_DARK("cloud_editor_dark", "Cloud Editor Dark"),
+  CLOUDS("clouds", "Clouds"),
+  CLOUDS_MIDNIGHT("clouds_midnight", "Clouds Midnight"),
+  COBALT("cobalt", "Cobalt"),
+  CRIMSON_EDITOR("crimson_editor", "Crimson Editor"),
+  DAWN("dawn", "Dawn"),
+  DRACULA("dracula", "Dracula"),
+  DREAMWEAVER("dreamweaver", "Dreamweaver"),
+  ECLIPSE("eclipse", "Eclipse"),
+  GITHUB("github", "GitHub"),
+  GITHUB_DARK("github_dark", "GitHub dark"),
+  GOB("gob", "Gob"),
+  GRUVBOX("gruvbox", "Gruvbox"),
+  GRUVBOX_DARK_HARD("gruvbox_dark_hard", "Gruvbox Dark Hard"),
+  GRUVBOX_LIGHT_HARD("gruvbox_light_hard", "Gruvbox Light Hard"),
+  IDLE_FINGERS("idle_fingers", "Idle Fingers"),
+  IPLASTIC("iplastic", "IPlastic"),
+  KATZENMILCH("katzenmilch", "Katzenmilch"),
+  KR_THEME("kr_theme", "krTheme"),
+  KUROIR("kuroir", "Kuroir"),
+  MERBIVORE("merbivore", "Merbivore"),
+  MERBIVORE_SOFT("merbivore_soft", "Merbivore soft"),
+  MONO_INDUSTRIAL("mono_industrial", "Mono Industrial"),
+  MONOKAI("monokai", "Monokai"),
+  NORD_DARK("nord_dark", "Nord dark"),
+  ONE_DARK("one_dark", "One Dark"),
+  PASTEL_ON_DARK("pastel_on_dark", "Pastel On Dark"),
+  SOLARIZED_DARK("solarized_dark", "Solarized Dark"),
+  SOLARIZED_LIGHT("solarized_light", "Solarized Light"),
+  SQLSERVER("sqlserver", "SQL Server"),
+  TERMINAL("terminal", "Terminal"),
+  TEXTMATE("textmate", "Textmate"),
+  TOMORROW("tomorrow", "Tomorrow"),
+  TOMORROW_NIGHT("tomorrow_night", "Tomorrow Night"),
+  TOMORROW_NIGHT_BLUE("tomorrow_night_blue", "Tomorrow Night Blue"),
+  TOMORROW_NIGHT_BRIGHT("tomorrow_night_bright", "Tomorrow Night Bright"),
+  TOMORROW_NIGHT_EIGHTIES("tomorrow_night_eighties", "Tomorrow Night Eighties"),
+  TWILIGHT("twilight", "Twilight"),
+  VIBRANT_INK("vibrant_ink", "Vibrant Ink"),
+  XCODE("xcode", "XCode");
 
   private final String configTerm;
+  private final String displayName;
 
-  public String getConfigTerm(){
+  public String getConfigTerm() {
     return configTerm;
   }
 
-  AceTheme(String configTerm) {
-    this.configTerm = configTerm;
+  public String getDisplayName() {
+    return displayName;
   }
 
-  private static Optional<AceTheme> fromConfigTerm(String value){
+  AceTheme(String configTerm, String displayName) {
+    this.configTerm = configTerm;
+    this.displayName = displayName;
+  }
+
+  private static Optional<AceTheme> fromConfigTerm(String value) {
     return Arrays.stream(AceTheme.values()).filter(aceTheme -> aceTheme.configTerm.equals(value)).findFirst();
   }
 
 
-}
+  }
 
 
