@@ -53,6 +53,10 @@
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.base-module>false</sxda.build.base-module>
     <sxda.build.not-base-module>true</sxda.build.not-base-module>
+    <sxda.build.npm-deploy>false</sxda.build.npm-deploy>
+    <sxda.build.no-npm-deploy>true</sxda.build.no-npm-deploy>
+    <sxda.build.npm-build>false</sxda.build.npm-build>
+    <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
   </properties>
 
   <distributionManagement>
@@ -247,7 +251,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>pnpm</executable>
                     <arguments>
                       <argument>install</argument>
@@ -260,7 +264,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>npm</executable>
                     <arguments>
                       <argument>run</argument>
@@ -274,7 +278,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>npm</executable>
                     <arguments>
                       <argument>run</argument>
@@ -290,7 +294,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>npm</executable>
                     <arguments>
                       <argument>run</argument>
@@ -304,7 +308,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>npm</executable>
                     <arguments>
                       <argument>run</argument>
@@ -318,7 +322,7 @@
                     <goal>exec</goal>
                   </goals>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-build}</skip>
                     <executable>git</executable>
                     <arguments>
                       <argument>add</argument>
@@ -333,7 +337,7 @@
                   </goals>
                   <phase>deploy</phase>
                   <configuration>
-                    <skip>${sxda.build.no-packagge-json-present}</skip>
+                    <skip>${sxda.build.no-npm-deploy}</skip>
                     <executable>npm</executable>
                     <arguments>
                       <argument>publish</argument>
@@ -384,6 +388,30 @@
       <properties>
         <sxda.build.package-json-present>true</sxda.build.package-json-present>
         <sxda.build.no-packagge-json-present>false</sxda.build.no-packagge-json-present>
+      </properties>
+    </profile>
+    <profile>
+      <id>sxda-build-npm-build</id>
+      <activation>
+        <file>
+          <exists>${basedir}/.profile-sxda-build-npm-build</exists>
+        </file>
+      </activation>
+      <properties>
+        <sxda.build.npm-build>true</sxda.build.npm-build>
+        <sxda.build.no-npm-build>false</sxda.build.no-npm-build>
+      </properties>
+    </profile>
+    <profile>
+      <id>sxda-build-npm-deploy</id>
+      <activation>
+        <file>
+          <exists>${basedir}/.profile-sxda-build-npm-deploy</exists>
+        </file>
+      </activation>
+      <properties>
+        <sxda.build.npm-deploy>true</sxda.build.npm-deploy>
+        <sxda.build.no-npm-deploy>false</sxda.build.no-npm-deploy>
       </properties>
     </profile>
     <profile>
