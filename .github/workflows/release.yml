@@ -87,8 +87,8 @@ jobs:
           git commit -m "Release $RELEASE_VERSION"
           git tag -a v$RELEASE_VERSION -m "Release $RELEASE_VERSION"
           echo "TAG_NAME=v$RELEASE_VERSION" >> $GITHUB_ENV
-          git push origin $RELEASE_VERSION
-          git push origin main
+          git push --tags
+          git push
           cd ace && npm run build:all && npm publish --access public && cd ..
           mvn -U -B clean deploy -P sxda.build.release -pl ace.client,ace.ui.html
           npm install -g semver
@@ -97,7 +97,7 @@ jobs:
           mvn -U -B versions:set -D newVersion=$NEXT_SNAPSHOT_VERSION-SNAPSHOT -D generateBackupPoms=false
           git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
           git commit -m "Prepare next snapshot version $NEXT_SNAPSHOT_VERSION-SNAPSHOT"
-          git push origin main
+          git push
         env:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
