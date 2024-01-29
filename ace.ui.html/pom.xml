@@ -49,6 +49,10 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
+            <configuration>
+              <doclint>none</doclint>
+              <quiet>true</quiet>
+            </configuration>
             <goals>
               <goal>jar</goal>
             </goals>
