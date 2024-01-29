@@ -11,7 +11,6 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-
 package io.sxda.scout.addon.ace.client.acefield;
 
 import org.eclipse.scout.rt.shared.services.lookup.ILookupRow;

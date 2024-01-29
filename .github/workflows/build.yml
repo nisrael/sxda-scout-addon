@@ -21,6 +21,17 @@ jobs:
           # we need the full history to validate license headers
           fetch-depth: 0
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: true
+
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -28,35 +39,10 @@ jobs:
           cache: maven
           server-id: github
 
-      - name: Validate license headers
-        id: validate-license-headers
-        run: |
-          mkdir -p target
-          mvn -U -B validate -P sxda-license-validation 2>&1 | tee target/license-headers-validation.txt
-          #
-          # store the exit code of the mvn command and not the one of tee
-          EXIT_CODE=${PIPESTATUS[0]}
-          #
-          # workaround, use tee to force the exit code of the next line to be 0, even if grep finds nothing and exits with 1
-          grep -E '\[(WARNING|ERROR)\]' target/license-headers-validation.txt | tee target/license-headers-validation-warnings.txt
-          #
-          # touch to create an empty file if no warning was found
-          touch target/license-headers-validation-warnings.txt
-          #
-          exit $EXIT_CODE
-
-      - uses: LouisBrunner/checks-action@v1.6.1
-        if: always() && github.event_name == 'pull_request'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Validate license headers
-          conclusion: ${{ steps.validate-license-headers.outcome }}
-          output_text_description_file: target/license-headers-validation-warnings.txt
-          output: |
-            {"summary":"License header validation: ${{ steps.validate-license-headers.outcome }}"}
-
       - name: Build with Maven
-        run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
+        run: |
+          mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
+          cd ace && npm run test:ci && cd ..
 
       - name: Create check on PR
         if: (success() || failure()) && github.event_name == 'pull_request'

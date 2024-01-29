@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-demo",
-  "version": "23.2.1-snapshot.20240128101021",
+  "version": "23.2.1",
   "engines": {
     "node": ">=18.12.1",
     "npm": ">=9.1.1",
@@ -10,8 +10,8 @@
   "scripts": {
     "pnpm-install": "pnpm install --ignore-scripts",
     "prebuild": "node -p \"'export const APP_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
-    "build:dev": "scout-scripts build:dev",
-    "build:prod": "scout-scripts build:prod",
+    "build:dev": "scout-scripts build:dev --progress=false --clean=false",
+    "build:prod": "scout-scripts build:prod --progress=false --clean=false",
     "build:all": "npm run prebuild && npm run build:dev && npm run build:prod",
     "build:dev:watch": "scout-scripts build:dev:watch",
     "version:snapshot": "releng-scripts version:snapshot",
@@ -26,11 +26,13 @@
     "@eclipse-scout/cli": "23.2.15",
     "@eclipse-scout/tsconfig": "23.2.15",
     "@eclipse-scout/releng": "^22.0.0",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "file-loader": "^6.2.0"
   },
   "dependencies": {
     "@eclipse-scout/core": "^23.2.15",
     "ace-builds": "1.32.3",
-    "jquery": "3.6.0"
+    "jquery": "3.6.0",
+    "webpack": "5.80.0"
   }
 }

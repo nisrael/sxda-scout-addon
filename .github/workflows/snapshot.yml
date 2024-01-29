@@ -28,7 +28,7 @@ jobs:
           cache: maven
           check-latest: true
       - name: Validate license headers
-        run: mvn -U -B validate -P sxda-license-validation
+        run: mvn -U -B license:check -P sxda.build.license-validation
 
   publish-maven:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
           server-id: github
 
       - name: Publish maven modules to GitHub Packages
-        run: mvn -B deploy --file pom.xml
+        run: mvn -B deploy -pl ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -80,7 +80,7 @@ jobs:
         working-directory: ./ace
 
       - name: Build npm module
-        run: npm run build:all -- --progress=false --clean=false
+        run: npm run build:all
         working-directory: ./ace
 
       - name: Publish node packages to npmjs.com
@@ -116,7 +116,7 @@ jobs:
         run: npm run version:snapshot
         working-directory: ./demo
       - name: Build npm module
-        run: npm run build:all -- --progress=false --clean=false
+        run: npm run build:all
         working-directory: ./demo
       - name: Setup Pages
         uses: actions/configure-pages@v4

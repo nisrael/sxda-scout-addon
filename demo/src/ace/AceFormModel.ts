@@ -11,7 +11,6 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-
 /*
  * Copyright (c) 2010, 2023 BSI Business Systems Integration AG
  *

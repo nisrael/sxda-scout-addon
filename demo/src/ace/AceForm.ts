@@ -16,7 +16,7 @@ import AceFormModel from './AceFormModel';
 import {AceFormWidgetMap} from '../index';
 import {AceModes, AceThemes} from "../../../ace/src";
 import * as ace from 'ace-builds';
-import 'ace-builds/esm-resolver';
+import 'ace-builds/webpack-resolver';
 
 
 export class AceForm extends Form {

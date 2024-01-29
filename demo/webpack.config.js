@@ -17,8 +17,7 @@ module.exports = (env, args) => {
     './res',
     './node_modules/@eclipse-scout/core/res',
     './node_modules/@eclipse-scout/core/dist/locales.json',
-    './node_modules/@eclipse-scout/core/dist/texts.json',
-    './node_modules/ace-builds/src-min-noconflict'
+    './node_modules/@eclipse-scout/core/dist/texts.json'
   ];
   const config = baseConfig(env, args);
   config.entry = {
