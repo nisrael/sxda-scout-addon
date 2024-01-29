@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-     Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
-     Copyright (c) 2023-20240129-202419 Nils Israel
+     Copyright (c) 2010-2024 BSI Business Systems Integration AG
+     Copyright (c) 2023-2024 Nils Israel
 
     This program is an extension of the original work from the Eclipse Scout Project,
     available at https://www.eclipse.org/scout/.
@@ -46,6 +46,7 @@
     <sxda.build.npm-build>false</sxda.build.npm-build>
     <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
     <sxda.build.skip-license-validation>true</sxda.build.skip-license-validation>
+    <sxda.build.skip-mvn-deploy>true</sxda.build.skip-mvn-deploy>
   </properties>
 
   <distributionManagement>
@@ -160,19 +161,32 @@
           <version>3.1.1</version>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.16.2</version>
+        </plugin>
+        <plugin>
           <groupId>io.smallrye</groupId>
           <artifactId>jandex-maven-plugin</artifactId>
           <version>3.1.6</version>
+        </plugin>
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>4.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>4.3</version>
-        <!-- the configuration of the parent pom is broken -->
         <configuration>
+          <skip>${sxda.build.skip-license-validation}</skip>
           <properties>
             <current.year>${maven.build.timestamp}</current.year>
           </properties>
@@ -218,21 +232,13 @@
                 <exclude>**/release.properties</exclude>
                 <exclude>**/pom.xml.releaseBackup</exclude>
                 <exclude>**/*.sh</exclude>
+                <exclude>.run/**</exclude>
                 <exclude>**/src/main/resources/WebContent/**</exclude>
                 <exclude>**/src/main/ws-stub/**</exclude>
               </excludes>
             </licenseSet>
           </licenseSets>
-
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.mycila</groupId>
-            <artifactId>license-maven-plugin-git</artifactId>
-            <!-- make sure you use the same version as license-maven-plugin -->
-            <version>4.3</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
@@ -403,9 +409,109 @@
       </build>
     </profile>
     <profile>
-      <id>sxda-license-validation</id>
+      <id>sxda.build.license-validation</id>
       <properties>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <sxda.build.skip-license-validation>false</sxda.build.skip-license-validation>
+      </properties>
+    </profile>
+    <profile>
+      <id>sxda.build.release</id>
+      <properties>
+        <gpg.keyname>release-bot@sxda.io</gpg.keyname>
+      </properties>
+      <modules>
+        <module>ace.client</module>
+        <module>ace.ui.html</module>
+      </modules>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <version>3.3.0</version>
+              <executions>
+                <execution>
+                  <id>attach-sources</id>
+                  <goals>
+                    <goal>jar-no-fork</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>3.6.3</version>
+              <executions>
+                <execution>
+                  <id>attach-javadocs</id>
+                  <goals>
+                    <goal>jar</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>3.1.0</version>
+              <executions>
+                <execution>
+                  <id>sign-artifacts</id>
+                  <phase>verify</phase>
+                  <goals>
+                    <goal>sign</goal>
+                  </goals>
+                  <configuration>
+                    <!-- This is required to make sure the plugin does not stop asking for -->
+                    <!-- user input on the passphrase -->
+                    <gpgArguments>
+                      <arg>--pinentry-mode</arg>
+                      <arg>loopback</arg>
+                    </gpgArguments>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.sonatype.central</groupId>
+              <artifactId>central-publishing-maven-plugin</artifactId>
+              <version>0.2.0</version>
+              <extensions>true</extensions>
+              <configuration>
+                <skipPublishing>true</skipPublishing>
+                <publishingServerId>central</publishingServerId>
+                <tokenEnabled>true</tokenEnabled>
+                <excludeArtifacts>
+                  <artifact>demo</artifact>
+                  <artifact>base</artifact>
+                  <artifact>ace</artifact>
+                </excludeArtifacts>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>sxda.build.mvn-deploy</id>
+      <activation>
+        <file>
+          <exists>.profile-sxda-build-mvn-deploy</exists>
+        </file>
+      </activation>
+      <properties>
+        <sxda.build.skip-mvn-deploy>false</sxda.build.skip-mvn-deploy>
       </properties>
     </profile>
   </profiles>
