@@ -283,7 +283,7 @@
       <id>sxda.build.npm-build</id>
       <activation>
         <file>
-          <exists>${project.basedir}/.profile-sxda-build-npm-build</exists>
+          <exists>${basedir}/.profile-sxda-build-npm-build</exists>
         </file>
       </activation>
       <build>
@@ -346,7 +346,7 @@
       <id>jandex-idx</id>
       <activation>
         <file>
-          <exists>${project.basedir}/src/main/resources/META-INF/scout.xml</exists>
+          <exists>${basedir}/src/main/resources/META-INF/scout.xml</exists>
         </file>
       </activation>
       <build>
@@ -376,7 +376,7 @@
       <id>jandex-test-idx</id>
       <activation>
         <file>
-          <exists>${project.basedir}/src/test/resources/META-INF/scout.xml</exists>
+          <exists>${basedir}/src/test/resources/META-INF/scout.xml</exists>
         </file>
       </activation>
       <build>
