@@ -89,7 +89,7 @@ jobs:
           echo "TAG_NAME=v$RELEASE_VERSION" >> $GITHUB_ENV
           git push --tags
           git push
-          mvn -U -B clean deploy -P sxda.build.release -pl ace.client,ace.ui.html
+          mvn -U -B clean deploy -P sxda.build.release
           npm install -g semver
           export NEXT_SNAPSHOT_VERSION=$(semver inc $RELEASE_VERSION patch)
           cd ace && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
