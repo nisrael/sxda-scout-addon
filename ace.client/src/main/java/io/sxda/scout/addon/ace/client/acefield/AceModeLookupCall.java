@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2010-2024 BSI Business Systems Integration AG
- *  Copyright (c) 2023-2024 Nils Israel
+ *  Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+ *  Copyright (c) 2023-20240129-202419 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -11,7 +11,6 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-
 package io.sxda.scout.addon.ace.client.acefield;
 
 import org.eclipse.scout.rt.shared.services.lookup.ILookupRow;

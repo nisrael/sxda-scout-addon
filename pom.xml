@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-     Copyright (c) 2010-2024 BSI Business Systems Integration AG
-     Copyright (c) 2023-2024 Nils Israel
+     Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+     Copyright (c) 2023-20240129-202419 Nils Israel
 
     This program is an extension of the original work from the Eclipse Scout Project,
     available at https://www.eclipse.org/scout/.
@@ -18,45 +18,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.eclipse.scout</groupId>
-    <artifactId>maven_rt_plugin_config-master</artifactId>
-    <version>23.2.0</version>
-    <relativePath/>
-  </parent>
-
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
   <version>23.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
+    <jdk.min.version>17</jdk.min.version>
+    <jdk.source.version>17</jdk.source.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
+    <maven.min.version>3.6.3</maven.min.version>
+    <maven.api.version>3.6.3</maven.api.version>
+
+
     <org.eclipse.scout.rt.version>23.2.15</org.eclipse.scout.rt.version>
-    <!-- don't mess more than this with the node build system!!! -->
-    <!-- hint: var expansion happens late ... -->
-    <master_node_dir>${project.basedir}${file.separator}target${file.separator}node</master_node_dir>
-    <master_node_modules_dir>
-      ${project.basedir}${file.separator}target${file.separator}node${file.separator}node_modules
-    </master_node_modules_dir>
-    <master_npm_workspace_dir>${project.basedir}</master_npm_workspace_dir>
-    <master_webpack_options>--progress=false --clean=false</master_webpack_options>
-    <master_karma_output_dir>target/karma-reports</master_karma_output_dir>
-    <!-- setup deploy repos -->
-    <master_deploy_ReleaseId>github</master_deploy_ReleaseId>
-    <master_deploy_ReleaseUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_ReleaseUrl>
-    <master_deploy_SnapshotId>github</master_deploy_SnapshotId>
-    <master_deploy_SnapshotUrl>https://maven.pkg.github.com/nisrael/sxda-scout-addon</master_deploy_SnapshotUrl>
     <sxda.dependency.logback.version>1.4.8</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.2.0</sxda.plugin.central-publishing-maven-plugin.version>
+    <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>
-    <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.base-module>false</sxda.build.base-module>
     <sxda.build.not-base-module>true</sxda.build.not-base-module>
     <sxda.build.npm-deploy>false</sxda.build.npm-deploy>
     <sxda.build.no-npm-deploy>true</sxda.build.no-npm-deploy>
     <sxda.build.npm-build>false</sxda.build.npm-build>
     <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
+    <sxda.build.skip-license-validation>true</sxda.build.skip-license-validation>
   </properties>
 
   <distributionManagement>
@@ -131,399 +120,125 @@
   </developers>
 
   <modules>
-    <module>build</module>
+    <module>ace</module>
+    <module>ace.client</module>
+    <module>ace.ui.html</module>
+    <module>demo</module>
   </modules>
 
-  <profiles>
-    <profile>
-      <id>sxda-release</id>
-      <properties>
-        <gpg.keyname>release-bot@sxda.io</gpg.keyname>
-        <master_skip_npm_version_snapshot_dependencies>true</master_skip_npm_version_snapshot_dependencies>
-        <master_skip_npm_version_snapshot>true</master_skip_npm_version_snapshot>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <artifactId>maven-release-plugin</artifactId>
-              <version>${master_plugin_release_version}</version>
-              <configuration>
-                <autoVersionSubmodules>true</autoVersionSubmodules>
-                <!-- we are using the major and minor version of the eclipse scout release and increase the patch
-                     version for the subsequent addon releases -->
-                <projectVersionPolicyId>default</projectVersionPolicyId>
-                <tagNameFormat>v@{project.version}</tagNameFormat>
-                <releaseProfiles>sxda-release</releaseProfiles>
-                <scmCommentPrefix>[ci skip]</scmCommentPrefix>
-                <preparationGoals>clean exec:exec@sxda-npm-install exec:exec@sxda-npm-release-dependencies exec:exec@sxda-npm-release-version exec:exec@sxda-npm-scm-add-package-json verify</preparationGoals>
-                <!-- it is correct first setting release version, because actually it sets the package.json version
-                     to the pom version, which at this stage is already the new snapshot version but with uppercase
-                     SNAPSHOT, calling snapshot-version afterward fixes this and appends a timestamp -->
-                <completionGoals>install exec:exec@sxda-npm-install exec:exec@sxda-npm-release-version exec:exec@sxda-npm-snapshot-version exec:exec@sxda-npm-snapshot-dependencies exec:exec@sxda-npm-scm-add-package-json</completionGoals>
-                <pushChanges>true</pushChanges>
-              </configuration>
-            </plugin>
-            <!-- The key's name & passphrase are configured via GitHub's setup-java action. -->
-            <plugin>
-              <artifactId>maven-gpg-plugin</artifactId>
-              <version>${master_plugin_gpg_version}</version>
-              <executions>
-                <execution>
-                  <id>sign-artifacts</id>
-                  <phase>verify</phase>
-                  <goals>
-                    <goal>sign</goal>
-                  </goals>
-                  <configuration>
-                    <!-- This is required to make sure the plugin does not stop asking for -->
-                    <!-- user input on the passphrase -->
-                    <gpgArguments>
-                      <arg>--pinentry-mode</arg>
-                      <arg>loopback</arg>
-                    </gpgArguments>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.sonatype.central</groupId>
-              <artifactId>central-publishing-maven-plugin</artifactId>
-              <version>${sxda.plugin.central-publishing-maven-plugin.version}</version>
-              <extensions>true</extensions>
-              <configuration>
-                <publishingServerId>central</publishingServerId>
-                <tokenEnabled>true</tokenEnabled>
-              </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-source-plugin</artifactId>
-              <version>${master_plugin_source_version}</version>
-              <executions>
-                <execution>
-                  <id>attach-sources</id>
-                  <goals>
-                    <goal>jar-no-fork</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-javadoc-plugin</artifactId>
-              <version>${master_plugin_javadoc_version}</version>
-              <executions>
-                <execution>
-                  <id>attach-javadocs</id>
-                  <goals>
-                    <goal>jar</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>${master_plugin_surefire_version}</version>
-            </plugin>
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>exec-maven-plugin</artifactId>
-              <version>${master_plugin_exec_version}</version>
-              <executions>
-                <execution>
-                  <id>sxda-npm-install</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>pnpm</executable>
-                    <arguments>
-                      <argument>install</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-release-dependencies</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>npm</executable>
-                    <arguments>
-                      <argument>run</argument>
-                      <argument>version:release:dependencies</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-release-version</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>npm</executable>
-                    <arguments>
-                      <argument>run</argument>
-                      <argument>version:release</argument>
-                      <argument>--</argument>
-                      <argument>--newVersion=${project.version}</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-snapshot-version</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>npm</executable>
-                    <arguments>
-                      <argument>run</argument>
-                      <argument>version:snapshot</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-snapshot-dependencies</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>npm</executable>
-                    <arguments>
-                      <argument>run</argument>
-                      <argument>version:snapshot:dependencies</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-scm-add-package-json</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-build}</skip>
-                    <executable>git</executable>
-                    <arguments>
-                      <argument>add</argument>
-                      <argument>-v</argument>
-                      <argument>${basedir}/package.json</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>sxda-npm-publish</id>
-                  <goals>
-                    <goal>exec</goal>
-                  </goals>
-                  <phase>deploy</phase>
-                  <configuration>
-                    <skip>${sxda.build.no-npm-deploy}</skip>
-                    <executable>npm</executable>
-                    <arguments>
-                      <argument>publish</argument>
-                      <argument>--access</argument>
-                      <argument>public</argument>
-                    </arguments>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.central</groupId>
-            <artifactId>central-publishing-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>sxda-npm-module</id>
-      <activation>
-        <file>
-          <exists>${basedir}/package.json</exists>
-        </file>
-      </activation>
-      <properties>
-        <sxda.build.package-json-present>true</sxda.build.package-json-present>
-        <sxda.build.no-packagge-json-present>false</sxda.build.no-packagge-json-present>
-      </properties>
-    </profile>
-    <profile>
-      <id>sxda-build-npm-build</id>
-      <activation>
-        <file>
-          <exists>${basedir}/.profile-sxda-build-npm-build</exists>
-        </file>
-      </activation>
-      <properties>
-        <sxda.build.npm-build>true</sxda.build.npm-build>
-        <sxda.build.no-npm-build>false</sxda.build.no-npm-build>
-      </properties>
-    </profile>
-    <profile>
-      <id>sxda-build-npm-deploy</id>
-      <activation>
-        <file>
-          <exists>${basedir}/.profile-sxda-build-npm-deploy</exists>
-        </file>
-      </activation>
-      <properties>
-        <sxda.build.npm-deploy>true</sxda.build.npm-deploy>
-        <sxda.build.no-npm-deploy>false</sxda.build.no-npm-deploy>
-      </properties>
-    </profile>
-    <profile>
-      <id>sxda-base-module</id>
-      <activation>
-        <file>
-          <exists>${basedir}/license_files/copyright.txt</exists>
-        </file>
-      </activation>
-      <properties>
-        <sxda.build.base-module>true</sxda.build.base-module>
-        <sxda.build.not-base-module>false</sxda.build.not-base-module>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-      </properties>
-    </profile>
-    <profile>
-      <id>sxda-license-validation</id>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>com.mycila</groupId>
-              <artifactId>license-maven-plugin</artifactId>
-              <version>${master_plugin_license_version}</version>
-              <!-- the configuration of the parent pom is broken -->
-              <configuration combine.self="override">
-                <properties>
-                  <current.year>${maven.build.timestamp}</current.year>
-                </properties>
-                <failIfMissing>true</failIfMissing>
-                <strictCheck>true</strictCheck>
-                <aggregate>true</aggregate>
-                <!-- skipped for all modules except the base module, hence: aggregate=true -->
-                <skip>${sxda.build.not-base-module}</skip>
-                <mapping>
-                  <java>SCOUT_JAVADOC_STYLE</java>
-                  <js>SCOUT_JAVADOC_STYLE</js>
-                  <ts>SCOUT_JAVADOC_STYLE</ts>
-                  <less>SCOUT_JAVADOC_STYLE</less>
-                  <css>SCOUT_JAVADOC_STYLE</css>
-                </mapping>
-                <licenseSets>
-                  <licenseSet>
-                    <header>${project.basedir}/license_files/copyright.txt</header>
-                    <headerDefinitions>
-                      <headerDefinition>${project.basedir}/license_files/scoutLicenceHeaderJava.xml
-                      </headerDefinition>
-                    </headerDefinitions>
-                    <useDefaultExcludes>false</useDefaultExcludes>
-                    <includes>
-                      <include>**/pom.xml</include>
-                      <include>**/*.properties</include>
-                      <include>**/*.java</include>
-                      <include>**/*.js</include>
-                      <include>**/*.ts</include>
-                      <include>**/*.css</include>
-                      <include>**/*.less</include>
-                      <include>**/*.xml</include>
-                      <include>**/*.xsd</include>
-                    </includes>
-                    <excludes>
-                      <exclude>.idea/**</exclude>
-                      <exclude>**/license_files/**</exclude>
-                      <exclude>**/version.ts</exclude>
-                      <exclude>**/target/**</exclude>
-                      <exclude>**/node_modules/**</exclude>
-                      <exclude>**/test-results/**</exclude>
-                      <exclude>**/dist/**</exclude>
-                      <exclude>**/.*</exclude>
-                      <exclude>**/.settings/**</exclude>
-                      <exclude>**/release.properties</exclude>
-                      <exclude>**/pom.xml.releaseBackup</exclude>
-                      <exclude>**/*.sh</exclude>
-                      <exclude>**/src/main/resources/WebContent/**</exclude>
-                      <exclude>**/src/main/ws-stub/**</exclude>
-                    </excludes>
-                  </licenseSet>
-                </licenseSets>
-
-              </configuration>
-              <executions>
-                <execution>
-                  <id>check-license-headers</id>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                  <phase>validate</phase>
-                </execution>
-              </executions>
-              <dependencies>
-                <dependency>
-                  <groupId>com.mycila</groupId>
-                  <artifactId>license-maven-plugin-git</artifactId>
-                  <!-- make sure you use the same version as license-maven-plugin -->
-                  <version>${master_plugin_license_version}</version>
-                </dependency>
-              </dependencies>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-        <plugins>
-          <plugin>
-            <groupId>com.mycila</groupId>
-            <artifactId>license-maven-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.12.1</version>
+          <configuration>
+            <source>${jdk.source.version}</source>
+            <target>${jdk.source.version}</target>
+            <release>${jdk.source.version}</release>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.3.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.1.1</version>
+        </plugin>
+        <plugin>
+          <groupId>io.smallrye</groupId>
+          <artifactId>jandex-maven-plugin</artifactId>
+          <version>3.1.6</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>4.3</version>
+        <!-- the configuration of the parent pom is broken -->
+        <configuration>
+          <properties>
+            <current.year>${maven.build.timestamp}</current.year>
+          </properties>
+          <failIfMissing>true</failIfMissing>
+          <strictCheck>true</strictCheck>
+          <aggregate>true</aggregate>
+          <mapping>
+            <java>SCOUT_JAVADOC_STYLE</java>
+            <js>SCOUT_JAVADOC_STYLE</js>
+            <ts>SCOUT_JAVADOC_STYLE</ts>
+            <less>SCOUT_JAVADOC_STYLE</less>
+            <css>SCOUT_JAVADOC_STYLE</css>
+          </mapping>
+          <licenseSets>
+            <licenseSet>
+              <header>license_files/copyright.txt</header>
+              <headerDefinitions>
+                <headerDefinition>license_files/scoutLicenceHeaderJava.xml
+                </headerDefinition>
+              </headerDefinitions>
+              <useDefaultExcludes>false</useDefaultExcludes>
+              <includes>
+                <include>**/pom.xml</include>
+                <include>**/*.properties</include>
+                <include>**/*.java</include>
+                <include>**/*.js</include>
+                <include>**/*.ts</include>
+                <include>**/*.css</include>
+                <include>**/*.less</include>
+                <include>**/*.xml</include>
+                <include>**/*.xsd</include>
+              </includes>
+              <excludes>
+                <exclude>.idea/**</exclude>
+                <exclude>**/license_files/**</exclude>
+                <exclude>**/version.ts</exclude>
+                <exclude>**/target/**</exclude>
+                <exclude>**/node_modules/**</exclude>
+                <exclude>**/test-results/**</exclude>
+                <exclude>**/dist/**</exclude>
+                <exclude>**/.*</exclude>
+                <exclude>**/.settings/**</exclude>
+                <exclude>**/release.properties</exclude>
+                <exclude>**/pom.xml.releaseBackup</exclude>
+                <exclude>**/*.sh</exclude>
+                <exclude>**/src/main/resources/WebContent/**</exclude>
+                <exclude>**/src/main/ws-stub/**</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
 
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin-git</artifactId>
+            <!-- make sure you use the same version as license-maven-plugin -->
+            <version>4.3</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
   </build>
+
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>build</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.sxda.scout.addon</groupId>
-        <artifactId>ace</artifactId>
-        <version>${project.version}</version>
-      </dependency>
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
         <artifactId>ace.client</artifactId>
@@ -556,4 +271,142 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <profiles>
+    <profile>
+      <id>sxda.build.npm-build</id>
+      <activation>
+        <file>
+          <exists>${project.basedir}/.profile-sxda-build-npm-build</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>dist</directory>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
+                  <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>npm-pnpm-install</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>pnpm-install</argument>
+                  </arguments>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm-build-all</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>build:all</argument>
+                  </arguments>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- Only create the jandex.idx when a scout.xml is found -->
+      <id>jandex-idx</id>
+      <activation>
+        <file>
+          <exists>${project.basedir}/src/main/resources/META-INF/scout.xml</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <!-- Create META-INF/jandex.idx -->
+          <plugin>
+            <groupId>io.smallrye</groupId>
+            <artifactId>jandex-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>make-index</id>
+                <goals>
+                  <goal>jandex</goal>
+                </goals>
+                <!-- phase is 'process-classes by default' -->
+                <configuration>
+                  <!-- Nothing needed here for simple cases -->
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- Only create the jandex.idx when a scout.xml is found -->
+      <id>jandex-test-idx</id>
+      <activation>
+        <file>
+          <exists>${project.basedir}/src/test/resources/META-INF/scout.xml</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <!-- Create META-INF/jandex.idx -->
+          <plugin>
+            <groupId>io.smallrye</groupId>
+            <artifactId>jandex-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>make-test-index</id>
+                <goals>
+                  <goal>jandex</goal>
+                </goals>
+                <!-- phase is 'process-classes by default' -->
+                <phase>process-test-classes</phase>
+                <configuration>
+                  <processDefaultFileSet>false</processDefaultFileSet>
+                  <fileSets>
+                    <fileSet>
+                      <directory>${project.build.directory}/test-classes/</directory>
+                    </fileSet>
+                  </fileSets>
+                  <indexDir>${project.build.testOutputDirectory}</indexDir>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>sxda-license-validation</id>
+      <properties>
+        <sxda.build.skip-license-validation>false</sxda.build.skip-license-validation>
+      </properties>
+    </profile>
+  </profiles>
 </project>

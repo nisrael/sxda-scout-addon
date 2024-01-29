@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-     Copyright (c) 2010-2024 BSI Business Systems Integration AG
-     Copyright (c) 2023-2024 Nils Israel
+     Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+     Copyright (c) 2023-20240129-202419 Nils Israel
 
     This program is an extension of the original work from the Eclipse Scout Project,
     available at https://www.eclipse.org/scout/.
@@ -19,20 +19,11 @@
 
   <parent>
     <groupId>io.sxda.scout.addon</groupId>
-    <artifactId>build</artifactId>
+    <artifactId>base</artifactId>
     <version>23.2.1-SNAPSHOT</version>
-    <relativePath>../build</relativePath>
   </parent>
 
   <artifactId>ace.ui.html</artifactId>
-
-  <properties>
-    <scout.script.version>5.0.0</scout.script.version>
-    <master_skip_npm_build_dev>true</master_skip_npm_build_dev>
-    <master_skip_npm_build_prod>true</master_skip_npm_build_prod>
-    <master_skip_karma_test>true</master_skip_karma_test>
-    <master_skip_copy_webpack_build_output>true</master_skip_copy_webpack_build_output>
-  </properties>
 
   <dependencies>
     <dependency>

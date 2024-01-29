@@ -1,7 +1,7 @@
 <!--
 
-     Copyright (c) 2010-2024 BSI Business Systems Integration AG
-     Copyright (c) 2023-2024 Nils Israel
+     Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+     Copyright (c) 2023-20240129-202419 Nils Israel
 
     This program is an extension of the original work from the Eclipse Scout Project,
     available at https://www.eclipse.org/scout/.
@@ -13,7 +13,6 @@
      SPDX-License-Identifier: EPL-2.0
 
 -->
-<!-- This config file is only needed for the ResourceBuilder, mainly to change the log level from debug to info -->
 <configuration>
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2010-2024 BSI Business Systems Integration AG
- *  Copyright (c) 2023-2024 Nils Israel
+ *  Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+ *  Copyright (c) 2023-20240129-202419 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -16,7 +16,7 @@ import AceFormModel from './AceFormModel';
 import {AceFormWidgetMap} from '../index';
 import {AceModes, AceThemes} from "../../../ace/src";
 import * as ace from 'ace-builds';
-import 'ace-builds/esm-resolver';
+import 'ace-builds/webpack-resolver';
 
 
 export class AceForm extends Form {

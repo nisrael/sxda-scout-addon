@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2010-2024 BSI Business Systems Integration AG
- *  Copyright (c) 2023-2024 Nils Israel
+ *  Copyright (c) 2010-20240129-202419 BSI Business Systems Integration AG
+ *  Copyright (c) 2023-20240129-202419 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -17,8 +17,7 @@ module.exports = (env, args) => {
     './res',
     './node_modules/@eclipse-scout/core/res',
     './node_modules/@eclipse-scout/core/dist/locales.json',
-    './node_modules/@eclipse-scout/core/dist/texts.json',
-    './node_modules/ace-builds/src-min-noconflict'
+    './node_modules/@eclipse-scout/core/dist/texts.json'
   ];
   const config = baseConfig(env, args);
   config.entry = {

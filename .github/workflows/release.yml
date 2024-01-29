@@ -80,6 +80,8 @@ jobs:
       - name: Prepare and tag
         run: |
           ssh-add -L
+          cd ace && npm run version:release -- --newVersion=$(mvn help:evaluate -D expression=project.version -q -D forceStdout | sed 's/-SNAPSHOT//') && cd ..
+          git add -v ace/package.json demo/package.json
           mvn -U -B clean release:prepare -P sxda-release
         env:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
