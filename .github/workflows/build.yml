@@ -21,6 +21,17 @@ jobs:
           # we need the full history to validate license headers
           fetch-depth: 0
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: true
+
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
