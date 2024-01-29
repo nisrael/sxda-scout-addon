@@ -32,6 +32,7 @@
   "dependencies": {
     "@eclipse-scout/core": "^23.2.15",
     "ace-builds": "1.32.3",
-    "jquery": "3.6.0"
+    "jquery": "3.6.0",
+    "webpack": "5.80.0"
   }
 }
