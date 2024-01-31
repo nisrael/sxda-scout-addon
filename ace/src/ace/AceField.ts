@@ -15,10 +15,8 @@ import {InitModelOf, ValueField} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-builds";
-import 'ace-builds/esm-resolver';
-import {AceTheme} from "./themes/AceTheme";
+import 'ace-builds/webpack-resolver';
 import {AceThemes} from "./themes/AceThemes";
-import {AceMode} from "./modes/AceMode";
 import {AceModes} from "./modes/AceModes";
 
 export class AceField extends ValueField<string> implements AceFieldModel {
@@ -27,8 +25,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   declare self: AceField;
 
   editor: ace.Ace.Editor;
-  theme: AceTheme;
-  aceMode: AceMode;
+  theme: string;
+  aceMode: string;
   tabSize: number;
   useSoftTabs: boolean;
   useWrapMode: boolean;
@@ -40,8 +38,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
   constructor() {
     super();
-    this.theme = AceThemes.getInstance().get('textmate');
-    this.aceMode = AceModes.getInstance().get('text');
+    this.theme = 'textmate';
+    this.aceMode = 'text';
     this.tabSize = 2;
     this.useSoftTabs = true;
     this.useWrapMode = false;
@@ -54,20 +52,20 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     super._init(model);
   }
 
-  setTheme(theme: AceTheme) {
+  setTheme(theme: string) {
     this.setProperty('theme', theme);
   }
 
   _renderTheme() {
-    this.editor.setTheme(this.theme.path);
+    this.editor.setTheme(AceThemes.getInstance().get(this.theme).path);
   }
 
-  setAceMode(mode: AceMode) {
+  setAceMode(mode: string) {
     this.setProperty('aceMode', mode);
   }
 
   _renderAceMode() {
-    this.editor.setOption("mode", this.aceMode.path);
+    this.editor.setOption("mode", AceModes.getInstance().get(this.aceMode).path);
   }
 
   setTabSize(tabSize: number) {
@@ -135,6 +133,8 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.addField($field);
 
     this.editor = ace.edit($field.get()[0]);
+    // value was set before editor was created
+    this.editor.setValue(this.value)
 
     let self = this;
 

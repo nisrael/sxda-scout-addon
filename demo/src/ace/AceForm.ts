@@ -11,13 +11,9 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {Form, FormModel, InitModelOf, KeyStroke, models} from '@eclipse-scout/core';
+import {Form, FormModel, InitModelOf, models} from '@eclipse-scout/core';
 import AceFormModel from './AceFormModel';
 import {AceFormWidgetMap} from '../index';
-import {AceModes, AceThemes} from "../../../ace/src";
-import * as ace from 'ace-builds';
-import 'ace-builds/webpack-resolver';
-
 
 export class AceForm extends Form {
   declare widgetMap: AceFormWidgetMap;
@@ -60,12 +56,12 @@ export class AceForm extends Form {
     highlightActiveLineField.on('propertyChange:value', event => ace.setHighlightActiveLine(event.newValue));
 
     let themeField = this.widget('ThemeField');
-    themeField.setValue(ace.theme.id);
-    themeField.on('propertyChange:value', event => ace.setTheme(AceThemes.getInstance().get(event.newValue)));
+    themeField.setValue(ace.theme);
+    themeField.on('propertyChange:value', event => ace.setTheme(event.newValue));
 
     let modeField = this.widget('ModeField');
-    modeField.setValue(ace.aceMode.id);
-    modeField.on('propertyChange:value', event => ace.setAceMode(AceModes.getInstance().get(event.newValue)));
+    modeField.setValue(ace.aceMode);
+    modeField.on('propertyChange:value', event => ace.setAceMode(event.newValue));
 
     let setValueField = this.widget('SetValueField');
     let setValueButton = this.widget('SetValueButton');

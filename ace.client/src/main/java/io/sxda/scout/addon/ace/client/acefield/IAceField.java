@@ -24,7 +24,6 @@ public interface IAceField extends IValueField<String> {
   String PROP_USE_WRAP_MODE = "useWrapMode";
   String PROP_SHOW_PRINT_MARGIN = "showPrintMargin";
   String PROP_HIGHLIGHT_ACTIVE_LINE = "highlightActiveLine";
-
   String PROP_SELECT_ON_SET_VALUE = "selectOnSetValue";
 
   void setTheme(String theme);

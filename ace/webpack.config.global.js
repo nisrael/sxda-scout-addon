@@ -30,7 +30,7 @@ module.exports = (env, args) => {
       ...config.externals,
       'jquery': 'jQuery',
       'ace-builds': 'ace',
-      'ace-builds/esm-resolver': 'ace',
+      'ace-builds/webpack-resolver': 'ace',
       '@eclipse-scout/core': 'scout'
     }
   };

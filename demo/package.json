@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-demo",
-  "version": "23.2.1-snapshot.20240129232146",
+  "version": "23.2.2-snapshot.20240129232146",
   "engines": {
     "node": ">=18.12.1",
     "npm": ">=9.1.1",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@eclipse-scout/core": "^23.2.15",
-    "ace-builds": "1.32.3",
+    "ace-builds": "1.32.5",
     "jquery": "3.6.0",
     "webpack": "5.80.0"
   }

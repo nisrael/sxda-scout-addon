@@ -42,7 +42,7 @@ To use the field in an Eclipse Scout Classic 23.2.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
-  <version>23.2.1</version>
+  <version>23.2.2</version>
 </dependency>
 <!-- ... -->
 ----
@@ -54,7 +54,7 @@ To use the field in an Eclipse Scout Classic 23.2.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
-  <version>23.2.1</version>
+  <version>23.2.2</version>
 </dependency>
 <!-- ... -->
 ----
@@ -68,8 +68,8 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-ace": "23.2.1",
-    "ace-builds": "1.32.3"
+    "@sxda/scout-addon-ace": "23.2.2",
+    "ace-builds": "1.32.5"
   }
 }
 ----
@@ -81,22 +81,6 @@ In the `index.ts` file of the ui.html module, the ace wrapper module needs to be
 ----
 import * as sxda from '@sxda/scout-addon-ace';
 Object.assign({}, sxda);
-----
-
-Until I find a better solution, the ace sources needs to be exported to dist, for workers to be loadable by the corresponding modes, e.g. worker-javascript.js for the javascript mode. This can be done by adding the following to the `webpack.config.js` file of the ui.html module:
-
-.your.app.ui.html/webpack.config.js
-[source,javascript]
-----
-// ...
-module.exports = (env, args) => {
-  args.resDirArray = [
-    // ...
-    './node_modules/ace-builds/src-min-noconflict'
-  ];
-  // ...
-};
-// ...
 ----
 
 Finally, the ace code editor can be used in a form:
@@ -127,7 +111,7 @@ Finally, the ace code editor can be used in a form:
       return true;
     }
 
-            @Override
+    @Override
     protected int getConfiguredTabSize() {
       return 2;
     }
@@ -162,7 +146,9 @@ scout.cspDirective[img-src]='self' data:
 
 == Demo
 
-A Scout JS demo application of the latest snapshot version is available at: https://nisrael.github.io/sxda-scout-addon/.
+A Scout JS demo application is located in the link:./demo[demo directory]. An instance of the latest snapshot version is available at: https://nisrael.github.io/sxda-scout-addon/.
+
+And a demo Scout Classic application can be found at: https://github.com/nisrael/sxda-scout-apps-addondemo.
 
 == License
 

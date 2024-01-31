@@ -155,7 +155,7 @@ public enum AceMode {
   }
 
   private static Optional<AceMode> fromConfigTerm(String value) {
-    return Arrays.stream(AceMode.values()).filter(aceTheme -> aceTheme.configTerm.equals(value)).findFirst();
+    return Arrays.stream(AceMode.values()).filter(aceMode -> aceMode.configTerm.equals(value)).findFirst();
   }
 
 
