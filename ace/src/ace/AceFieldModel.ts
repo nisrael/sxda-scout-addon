@@ -16,8 +16,8 @@ import {AceTheme} from "./themes/AceTheme";
 import {AceMode} from "./modes/AceMode";
 
 export interface AceFieldModel extends ValueFieldModel<string> {
-  theme?: AceTheme;
-  aceMode?: AceMode;
+  theme?: string;
+  aceMode?: string;
   tabSize?: number;
   useSoftTabs?: boolean;
   useWrapMode?: boolean;

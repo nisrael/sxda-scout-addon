@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-ace",
-  "version": "23.2.1-snapshot.20240129232146",
+  "version": "23.2.2-snapshot.20240129232146",
   "description": "Wrapper module for the Ace editor to be used as a form field for Eclipse Scout",
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
   "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
@@ -53,12 +53,14 @@
     "webpack-bundle-analyzer": "^4.10.1",
     "@eclipse-scout/core": "23.2.15",
     "jquery": "3.6.0",
-    "ace-builds": "1.32.3"
+    "ace-builds": "1.32.5",
+    "webpack": "~5.80.0"
   },
   "peerDependencies": {
-    "@eclipse-scout/core": "^23.2",
+    "@eclipse-scout/core": "^23.2.15",
     "jquery": "^3.6",
-    "ace-builds": "^1",
+    "ace-builds": "^1.32.5",
+    "webpack": "~5.80.0",
     "file-loader": "^6.2.0"
   }
 }
