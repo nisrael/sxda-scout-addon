@@ -57,11 +57,19 @@ export class AceForm extends Form {
 
     let themeField = this.widget('ThemeField');
     themeField.setValue(ace.theme);
-    themeField.on('propertyChange:value', event => ace.setTheme(event.newValue));
+    themeField.on('propertyChange:value', event => {
+      if (event.newValue) {
+        ace.setTheme(event.newValue);
+      }
+    });
 
     let modeField = this.widget('ModeField');
     modeField.setValue(ace.aceMode);
-    modeField.on('propertyChange:value', event => ace.setAceMode(event.newValue));
+    modeField.on('propertyChange:value', event => {
+      if (event.newValue){
+        ace.setAceMode(event.newValue);
+      }
+    });
 
     let setValueField = this.widget('SetValueField');
     let setValueButton = this.widget('SetValueButton');
