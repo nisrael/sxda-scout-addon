@@ -15,18 +15,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # we need the full history to validate license headers
           fetch-depth: 0
+
       - name: Setup Java
-        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        uses: actions/setup-java@v4 # Does also set up Maven and GPG
         with:
           java-package: 'jdk'
           java-version: '17'
           distribution: 'temurin'
           cache: maven
           check-latest: true
+
       - name: Validate license headers
         run: mvn -U -B license:check -P sxda.build.license-validation
 
@@ -115,10 +117,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
           version: 8
