@@ -54,7 +54,8 @@
     "@eclipse-scout/core": "24.1.10",
     "jquery": "3.7.1",
     "ace-code": "^1.33.1",
-    "webpack": "~5.88.0"
+    "webpack": "~5.88.0",
+    "semver": "^7.6.0"
   },
   "peerDependencies": {
     "@eclipse-scout/core": "^24.1.10",

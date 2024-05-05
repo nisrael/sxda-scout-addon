@@ -58,7 +58,6 @@ jobs:
           git config --global user.signingkey "${{ vars.SSH_PUBLIC_KEY }}"
           git config --global commit.gpgsign true
           git config --global tag.gpgsign true
-          ssh-add -L
 
       - uses: actions/setup-node@v4
         with:
@@ -87,22 +86,26 @@ jobs:
 
       - name: Prepare and tag
         run: |
-          ssh-add -L
+          # define and set the release version
           export RELEASE_VERSION=$(mvn help:evaluate -D expression=project.version -q -D forceStdout | sed 's/-SNAPSHOT//')
           git checkout -b release/$RELEASE_VERSION
           cd ace && npm run version:release -- --newVersion=$RELEASE_VERSION && cd ..
           mvn -U -B versions:set -D newVersion=$RELEASE_VERSION -D generateBackupPoms=false
+
+          # publish to maven central and npm
+          mvn -U -B clean deploy -P sxda.build.release
+          cd ace && npm run build:prod && npm publish --access public && cd ..
+
+          # commit and tag the release
           git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
           git commit -m "Release $RELEASE_VERSION"
           git tag -a v$RELEASE_VERSION -m "Release $RELEASE_VERSION"
           echo "TAG_NAME=v$RELEASE_VERSION" >> $GITHUB_ENV
           git push --tags --set-upstream origin release/$RELEASE_VERSION
-          git push
+
+          # prepare next snapshot version
           git checkout main
-          cd ace && npm run build:prod && npm publish --access public && cd ..
-          mvn -U -B clean deploy -P sxda.build.release
-          npm install -g semver
-          export NEXT_SNAPSHOT_VERSION=$(semver -i patch $RELEASE_VERSION)
+          export NEXT_SNAPSHOT_VERSION=$(npx semver -i patch $RELEASE_VERSION)
           cd ace && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
           mvn -U -B versions:set -D newVersion=$NEXT_SNAPSHOT_VERSION-SNAPSHOT -D generateBackupPoms=false
           git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
