@@ -49,7 +49,7 @@ jobs:
           server-id: github
 
       - name: Publish maven modules to GitHub Packages
-        run: mvn -B deploy
+        run: mvn -B deploy -pl base,ace.client,ace.ui.html
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
