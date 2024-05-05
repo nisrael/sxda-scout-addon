@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup ssh agent and key
         uses: tanmancan/action-setup-ssh-agent-key@1.0.0
