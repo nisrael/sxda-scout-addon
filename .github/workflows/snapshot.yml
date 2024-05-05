@@ -129,7 +129,7 @@ jobs:
         run: npm run version:snapshot
         working-directory: ./demo
       - name: Build npm module
-        run: npm run build:all
+        run: npm run build:prod
         working-directory: ./demo
       - name: Setup Pages
         uses: actions/configure-pages@v4

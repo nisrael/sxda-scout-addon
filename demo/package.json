@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-demo",
-  "version": "24.1.0",
+  "version": "24.1.0-snapshot.20240505205500",
   "engines": {
     "node": ">=20.10.0",
     "npm": ">=10.2.3",
