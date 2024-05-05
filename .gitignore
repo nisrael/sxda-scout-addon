@@ -166,3 +166,5 @@ test-results
 .idea
 *.iml
 pnpm-lock.yaml
+
+.vscode/
