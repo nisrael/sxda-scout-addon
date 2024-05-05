@@ -52,7 +52,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-          
+
       - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
@@ -60,7 +60,7 @@ jobs:
           run_install: true
 
       - name: Publish maven modules to GitHub Packages
-        run: mvn -B deploy -pl base,ace.client,ace.ui.html
+        run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
