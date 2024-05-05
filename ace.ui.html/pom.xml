@@ -21,7 +21,7 @@
   <parent>
     <groupId>io.sxda.scout.addon</groupId>
     <artifactId>base</artifactId>
-    <version>24.1.1-SNAPSHOT</version>
+    <version>-SNAPSHOT</version>
   </parent>
 
   <artifactId>ace.ui.html</artifactId>
