@@ -33,13 +33,25 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
-    <maven.min.version>3.6.3</maven.min.version>
-    <maven.api.version>3.6.3</maven.api.version>
-
+    <sxda.build.require-maven-version>3.6.3</sxda.build.require-maven-version>
+    <maven.min.version>${sxda.build.require-maven-version}</maven.min.version>
+    <maven.api.version>${sxda.build.require-maven-version}</maven.api.version>
 
     <org.eclipse.scout.rt.version>24.1.10</org.eclipse.scout.rt.version>
-    <sxda.dependency.logback.version>1.4.8</sxda.dependency.logback.version>
-    <sxda.plugin.central-publishing-maven-plugin.version>0.2.0</sxda.plugin.central-publishing-maven-plugin.version>
+    <sxda.dependency.logback.version>1.5.6</sxda.dependency.logback.version>
+    <sxda.plugin.central-publishing-maven-plugin.version>0.4.0</sxda.plugin.central-publishing-maven-plugin.version>
+    <sxda.plugin.maven-gpg-plugin.version>3.2.4</sxda.plugin.maven-gpg-plugin.version>
+    <sxda.plugin.maven-compiler-plugin.version>3.13.0</sxda.plugin.maven-compiler-plugin.version>
+    <sxda.plugin.maven-clean-plugin.version>3.3.2</sxda.plugin.maven-clean-plugin.version>
+    <sxda.plugin.maven-resources-plugin.version>3.3.1</sxda.plugin.maven-resources-plugin.version>
+    <sxda.plugin.maven-surefire-plugin.version>3.2.5</sxda.plugin.maven-surefire-plugin.version>
+    <sxda.plugin.maven-enforcer-plugin.version>3.4.1</sxda.plugin.maven-enforcer-plugin.version>
+    <sxda.plugin.maven-javadoc-plugin.version>3.6.3</sxda.plugin.maven-javadoc-plugin.version>
+    <sxda.plugin.maven-source-plugin.version>3.3.1</sxda.plugin.maven-source-plugin.version>
+    <sxda.plugin.exec-maven-plugin.version>3.2.0</sxda.plugin.exec-maven-plugin.version>
+    <sxda.plugin.versions-maven-plugin.version>2.16.2</sxda.plugin.versions-maven-plugin.version>
+    <sxda.plugin.jandex-maven-plugin.version>3.1.7</sxda.plugin.jandex-maven-plugin.version>
+    <sxda.plugin.license-maven-plugin.version>4.3</sxda.plugin.license-maven-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>
@@ -51,6 +63,8 @@
     <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
     <sxda.build.skip-license-validation>true</sxda.build.skip-license-validation>
     <sxda.build.skip-mvn-deploy>true</sxda.build.skip-mvn-deploy>
+
+
   </properties>
 
   <distributionManagement>
@@ -137,7 +151,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.12.1</version>
+          <version>${sxda.plugin.maven-compiler-plugin.version}</version>
           <configuration>
             <source>${jdk.source.version}</source>
             <target>${jdk.source.version}</target>
@@ -147,41 +161,61 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.3.2</version>
+          <version>${sxda.plugin.maven-clean-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.1</version>
+          <version>${sxda.plugin.maven-resources-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>${sxda.plugin.maven-surefire-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>${sxda.plugin.exec-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.16.2</version>
+          <version>${sxda.plugin.versions-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>io.smallrye</groupId>
           <artifactId>jandex-maven-plugin</artifactId>
-          <version>3.1.6</version>
+          <version>${sxda.plugin.jandex-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
-          <version>4.3</version>
+          <version>${sxda.plugin.license-maven-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${sxda.plugin.maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>${sxda.build.require-maven-version}</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
@@ -433,7 +467,7 @@
           <plugins>
             <plugin>
               <artifactId>maven-gpg-plugin</artifactId>
-              <version>3.1.0</version>
+              <version>${sxda.plugin.maven-gpg-plugin.version}</version>
               <executions>
                 <execution>
                   <id>sign-artifacts</id>
@@ -455,7 +489,7 @@
             <plugin>
               <groupId>org.sonatype.central</groupId>
               <artifactId>central-publishing-maven-plugin</artifactId>
-              <version>0.2.0</version>
+              <version>${sxda.plugin.central-publishing-maven-plugin.version}</version>
               <extensions>true</extensions>
               <configuration>
                 <publishingServerId>central</publishingServerId>
