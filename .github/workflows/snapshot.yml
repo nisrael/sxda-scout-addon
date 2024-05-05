@@ -48,6 +48,17 @@ jobs:
           cache: maven
           server-id: github
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: true
+
       - name: Publish maven modules to GitHub Packages
         run: mvn -B deploy -pl base,ace.client,ace.ui.html
         env:
@@ -64,12 +75,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
           registry-url: https://registry.npmjs.org/
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
           version: 8

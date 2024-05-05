@@ -18,6 +18,7 @@ jobs:
         with:
           # we need the full history to validate license headers
           fetch-depth: 0
+
       - name: Setup Java
         uses: actions/setup-java@v3 # Does also set up Maven and GPG
         with:
@@ -26,6 +27,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
           check-latest: true
+
       - name: Validate license headers
         run: mvn -U -B license:check -P sxda.build.license-validation
 
@@ -42,10 +44,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup ssh agent and key
         uses: tanmancan/action-setup-ssh-agent-key@1.0.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
+
       - name: Setup the git user
         run: |
           git config --global user.name "${{ vars.RELEASE_BOT_NAME }}"
@@ -55,15 +59,18 @@ jobs:
           git config --global commit.gpgsign true
           git config --global tag.gpgsign true
           ssh-add -L
-      - uses: actions/setup-node@v3
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - uses: pnpm/action-setup@v2
+
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
           version: 8
           run_install: true
+
       - name: Setup Java
         uses: actions/setup-java@v3 # Does also set up Maven and GPG
         with:
@@ -77,6 +84,7 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
       - name: Prepare and tag
         run: |
           ssh-add -L
