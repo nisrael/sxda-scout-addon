@@ -80,8 +80,7 @@ In the `index.ts` file of the ui.html module, the ace wrapper module needs to be
 .your.app.ui.html/src/main/js/index.ts
 [source,typescript]
 ----
-import * as sxda from '@sxda/scout-addon-ace';
-Object.assign({}, sxda);
+import '@sxda/scout-addon-ace';
 ----
 
 Finally, the ace code editor can be used in a form:
