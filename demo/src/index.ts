@@ -13,8 +13,10 @@
  */
 import {scout, App, ObjectFactory} from '@eclipse-scout/core';
 import {Desktop} from './desktop/Desktop'
-
+import '@sxda/scout-addon-ace';
+require('ace-code/esm-resolver');
 import * as self from './index';
+import {require} from "ace-code";
 
 export * from './desktop/Desktop'
 export * from './desktop/DemoOutline'
