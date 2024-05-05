@@ -93,11 +93,11 @@ jobs:
         working-directory: ./ace
 
       - name: Build npm module
-        run: npm run build:all
+        run: npm run build:prod
         working-directory: ./ace
 
       - name: Publish node packages to npmjs.com
-        run: npm publish --access public
+        run: npm publish --access public --tag snapshot
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -129,7 +129,7 @@ jobs:
         run: npm run version:snapshot
         working-directory: ./demo
       - name: Build npm module
-        run: npm run build:prod
+        run: npm run build:all
         working-directory: ./demo
       - name: Setup Pages
         uses: actions/configure-pages@v4
