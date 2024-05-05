@@ -42,7 +42,7 @@ To use the field in an Eclipse Scout Classic 24.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
-  <version>24.1.0</version>
+  <version>24.1.1</version>
 </dependency>
 <!-- ... -->
 ----
@@ -54,7 +54,7 @@ To use the field in an Eclipse Scout Classic 24.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
-  <version>24.1.0</version>
+  <version>24.1.1</version>
 </dependency>
 <!-- ... -->
 ----
@@ -68,7 +68,7 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-ace": "24.1.0",
+    "@sxda/scout-addon-ace": "24.1.1",
     "ace-code": "1.33.1",
     "webpack": "5.88.0"
   }
