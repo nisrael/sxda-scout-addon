@@ -15,7 +15,6 @@ import {InitModelOf, ValueField} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-code";
-import 'ace-code/esm-resolver';
 import {AceThemes} from "./themes/AceThemes";
 import {AceModes} from "./modes/AceModes";
 

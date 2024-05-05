@@ -81,6 +81,7 @@ In the `index.ts` file of the ui.html module, the ace wrapper module needs to be
 [source,typescript]
 ----
 import '@sxda/scout-addon-ace';
+import 'ace-code/esm-resolver';
 ----
 
 Finally, the ace code editor can be used in a form:
