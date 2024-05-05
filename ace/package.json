@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-ace",
-  "version": "23.2.2",
+  "version": "24.1.0-snapshot.20240505135400",
   "description": "Wrapper module for the Ace editor to be used as a form field for Eclipse Scout",
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
   "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
@@ -9,9 +9,9 @@
   },
   "license": "EPL-2.0",
   "engines": {
-    "node": ">=18.12.1",
-    "npm": ">=9.1.1",
-    "pnpm": ">=7.16.0"
+    "node": ">=20.10.0",
+    "npm": ">=10.2.3",
+    "pnpm": ">=8.11.0"
   },
   "keywords": [
     "scout",
@@ -41,26 +41,25 @@
     "version:release": "releng-scripts version:release"
   },
   "devDependencies": {
-    "@eclipse-scout/cli": "23.2.15",
-    "@eclipse-scout/tsconfig": "23.2.15",
-    "@eclipse-scout/releng": "^22.0.0",
-    "jasmine-core": "4.6.0",
+    "@eclipse-scout/cli": "24.1.10",
+    "@eclipse-scout/releng": "^24.1.0",
+    "@eclipse-scout/tsconfig": "24.1.10",
+    "@types/jquery": "3.5.29",
+    "jasmine-core": "5.1.1",
     "jasmine-jquery": "2.1.1",
-    "karma": "6.4.1",
-    "@types/jquery": "3.5.16",
-    "@types/jasmine": "4.3.1",
-    "@types/jasmine-jquery": "1.5.34",
+    "karma": "6.4.2",
+    "@types/jasmine": "5.1.4",
+    "@types/jasmine-jquery": "1.5.37",
     "webpack-bundle-analyzer": "^4.10.1",
-    "@eclipse-scout/core": "23.2.15",
-    "jquery": "3.6.0",
-    "ace-builds": "1.32.5",
-    "webpack": "~5.80.0"
+    "@eclipse-scout/core": "24.1.10",
+    "jquery": "3.7.1",
+    "ace-code": "^1.33.1",
+    "webpack": "~5.89.0"
   },
   "peerDependencies": {
-    "@eclipse-scout/core": "^23.2.15",
-    "jquery": "^3.6",
-    "ace-builds": "^1.32.5",
-    "webpack": "~5.80.0",
-    "file-loader": "^6.2.0"
+    "@eclipse-scout/core": "^24.1.10",
+    "jquery": "^3.7",
+    "ace-code": "^1.33.1",
+    "webpack": "~5.89.0"
   }
 }

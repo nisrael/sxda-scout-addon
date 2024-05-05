@@ -21,7 +21,7 @@ import java.util.Set;
 public class AceUiTextContributor implements IUiTextContributor {
 
   @Override
-  public void contributeUiTextKeys(Set<String> textKeys) {
+  public void contribute(Set<String> textKeys) {
     textKeys.addAll(Arrays.asList(
       "ui.nix"));
   }
