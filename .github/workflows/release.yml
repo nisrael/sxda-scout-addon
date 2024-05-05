@@ -57,12 +57,12 @@ jobs:
           ssh-add -L
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 7
+          version: 8
           run_install: true
       - name: Setup Java
         uses: actions/setup-java@v3 # Does also set up Maven and GPG
