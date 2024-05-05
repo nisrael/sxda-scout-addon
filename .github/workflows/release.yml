@@ -106,7 +106,8 @@ jobs:
 
           # prepare next snapshot version
           git checkout main
-          export NEXT_SNAPSHOT_VERSION=$(npx semver -i patch $RELEASE_VERSION)
+          npm install -g semver
+          export NEXT_SNAPSHOT_VERSION=$(semver -i patch $RELEASE_VERSION)
           cd ace && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
           mvn -U -B versions:set -D newVersion=$NEXT_SNAPSHOT_VERSION-SNAPSHOT -D generateBackupPoms=false
           git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml

@@ -1,6 +1,6 @@
 {
   "name": "@sxda/scout-addon-ace",
-  "version": "-snapshot.20240505200847",
+  "version": "24.1.2-snapshot.20240505200847",
   "description": "Wrapper module for the Ace editor to be used as a form field for Eclipse Scout",
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
   "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
