@@ -491,7 +491,8 @@
               <configuration>
                 <skipPublishing>${sxda.build.skip-publishing}</skipPublishing>
                 <publishingServerId>central</publishingServerId>
-                <tokenEnabled>true</tokenEnabled>
+                <tokenAuth>true</tokenAuth>
+                <autoPublish>false</autoPublish>
                 <excludeArtifacts>
                   <artifact>demo</artifact>
                   <artifact>ace</artifact>

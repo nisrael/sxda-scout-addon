@@ -89,6 +89,7 @@ jobs:
         run: |
           ssh-add -L
           export RELEASE_VERSION=$(mvn help:evaluate -D expression=project.version -q -D forceStdout | sed 's/-SNAPSHOT//')
+          git checkout -b release/$RELEASE_VERSION
           cd ace && npm run version:release -- --newVersion=$RELEASE_VERSION && cd ..
           mvn -U -B versions:set -D newVersion=$RELEASE_VERSION -D generateBackupPoms=false
           git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
@@ -97,6 +98,7 @@ jobs:
           echo "TAG_NAME=v$RELEASE_VERSION" >> $GITHUB_ENV
           git push --tags
           git push
+          git checkout main
           cd ace && npm run build:prod && npm publish --access public && cd ..
           mvn -U -B clean deploy -P sxda.build.release
           npm install -g semver
