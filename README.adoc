@@ -9,7 +9,7 @@ toc::[]
 
 == Versioning and Releases
 
-The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 23.2.x should be compatible with all Eclipse Scout 23.2.y versions.
+The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 24.1.x should be compatible with all Eclipse Scout 24.1.y versions.
 
 You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
 
@@ -33,7 +33,7 @@ The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax hi
 
 ==== Usage
 
-To use the field in an Eclipse Scout Classic 23.2.y application, add the following modules to your application:
+To use the field in an Eclipse Scout Classic 24.1.y application, add the following modules to your application:
 
 .your.app.client/pom.xml
 [source,xml]
@@ -42,7 +42,7 @@ To use the field in an Eclipse Scout Classic 23.2.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
-  <version>23.2.2</version>
+  <version>24.1.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -54,7 +54,7 @@ To use the field in an Eclipse Scout Classic 23.2.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
-  <version>23.2.2</version>
+  <version>24.1.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -68,10 +68,9 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-ace": "23.2.2",
-    "ace-builds": "1.32.5",
-    "webpack": "5.80.0",
-    "file-loader": "^6.2.0"
+    "@sxda/scout-addon-ace": "24.1.0",
+    "ace-code": "1.33.1",
+    "webpack": "5.88.0"
   }
 }
 ----
@@ -134,16 +133,6 @@ Finally, the ace code editor can be used in a form:
     }
   }
 /* */
-----
-
-The CSP directive `img-src` needs to be configured in the `config.properties` file of the application. This is necessary because the ace code editor may provide image data for themes in base64 format. The CSP directive `data:` is necessary to allow this.
-
-.config.properties
-[source,properties]
-----
-# necessary for ace code editor, may provide image data for themes in base64 format
-# https://eclipsescout.github.io/scout-docs/23.2/technical-guide/common-concepts/platform.html#sec-app.configProperties
-scout.cspDirective[img-src]='self' data:
 ----
 
 == Demo

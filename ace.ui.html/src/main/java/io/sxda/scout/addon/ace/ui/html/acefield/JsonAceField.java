@@ -16,10 +16,7 @@ package io.sxda.scout.addon.ace.ui.html.acefield;
 import io.sxda.scout.addon.ace.client.acefield.IAceField;
 import org.eclipse.scout.rt.ui.html.IUiSession;
 import org.eclipse.scout.rt.ui.html.json.IJsonAdapter;
-import org.eclipse.scout.rt.ui.html.json.JsonEvent;
 import org.eclipse.scout.rt.ui.html.json.JsonProperty;
-import org.eclipse.scout.rt.ui.html.json.form.fields.JsonAdapterProperty;
-import org.eclipse.scout.rt.ui.html.json.form.fields.JsonBasicField;
 import org.eclipse.scout.rt.ui.html.json.form.fields.JsonValueField;
 import org.json.JSONObject;
 

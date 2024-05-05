@@ -1,1 +1,1 @@
-export const APP_VERSION = "23.2.2-snapshot.20240129232146";
+export const APP_VERSION = "24.1.0-snapshot.20240505135400";
