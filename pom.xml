@@ -20,7 +20,7 @@
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>23.2.3-SNAPSHOT</version>
+  <version>24.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
 
@@ -37,7 +37,7 @@
     <maven.api.version>3.6.3</maven.api.version>
 
 
-    <org.eclipse.scout.rt.version>23.2.15</org.eclipse.scout.rt.version>
+    <org.eclipse.scout.rt.version>24.1.10</org.eclipse.scout.rt.version>
     <sxda.dependency.logback.version>1.4.8</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.2.0</sxda.plugin.central-publishing-maven-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->

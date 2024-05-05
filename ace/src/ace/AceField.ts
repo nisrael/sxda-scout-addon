@@ -14,8 +14,8 @@
 import {InitModelOf, ValueField} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
-import * as ace from "ace-builds";
-import 'ace-builds/webpack-resolver';
+import * as ace from "ace-code";
+import 'ace-code/esm-resolver';
 import {AceThemes} from "./themes/AceThemes";
 import {AceModes} from "./modes/AceModes";
 
@@ -133,6 +133,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.addField($field);
 
     this.editor = ace.edit($field.get()[0]);
+
     // value was set before editor was created
     this.editor.setValue(this.value)
 
