@@ -93,7 +93,7 @@ jobs:
         working-directory: ./ace
 
       - name: Build npm module
-        run: npm run build:prod
+        run: npm run build:all
         working-directory: ./ace
 
       - name: Publish node packages to npmjs.com

@@ -94,7 +94,7 @@ jobs:
 
           # publish to maven central and npm
           mvn -U -B clean deploy -P sxda.build.release
-          cd ace && npm run build:prod && npm publish --access public
+          cd ace && npm run build:all && npm publish --access public
           cd ..
 
           # commit and tag the release
