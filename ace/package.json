@@ -18,9 +18,13 @@
     "eclipse-scout",
     "ace"
   ],
-  "main": "./dist/sxda-scout-addon-ace.js",
-  "module": "./dist/sxda-scout-addon-ace.esm.js",
-  "types": "./dist/d.ts/index.d.ts",
+  "publishConfig": {
+    "main": "./dist/sxda-scout-addon-ace.esm.js",
+    "module": "./dist/sxda-scout-addon-ace.esm.js",
+    "types": "./dist/d.ts/index.d.ts"
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "files": [
     "dist",
     "README.md"
@@ -58,7 +62,7 @@
     "semver": "^7.6.0"
   },
   "peerDependencies": {
-    "@eclipse-scout/core": "^24.1.10",
+    "@eclipse-scout/core": ">=24.1.0",
     "ace-code": "^1.33.1"
   }
 }

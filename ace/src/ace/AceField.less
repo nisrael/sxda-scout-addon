@@ -15,4 +15,44 @@
   overflow: hidden;
 }
 
+.ace_editor {
+  background-color: @control-background-color;
+  color: @control-color;
+  border: 1px solid @control-border-color;
+  border-radius: @control-border-radius;
 
+  &.disabled {
+    background-color: @control-disabled-background-color;
+    border-color: @control-disabled-border-color;
+    color: @control-disabled-color;
+  }
+
+  &:focus,
+  &.focused,
+  &.ace_focus{
+    border-color: @focus-border-color;
+  }
+
+  &.has-error {
+    border-color: @error-border-color;
+    background-color: @error-background-color;
+  }
+
+  &.has-error:focus,
+  &.has-error.focused,
+  &.has-error.ace_focus{
+    border-color: @error-focus-box-shadow-color;
+  }
+
+  &.read-only {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: dashed 1px @border-color;
+    color: @read-only-color;
+  }
+}
+
+.ace_editor.read-only {
+  // full border around text area not only on the bottom, same as for alternative style
+  border: 1px dashed @border-color;
+}

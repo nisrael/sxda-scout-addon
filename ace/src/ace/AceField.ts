@@ -11,12 +11,13 @@
  *
  *  SPDX-License-Identifier: EPL-2.0
  */
-import {InitModelOf, ValueField} from '@eclipse-scout/core';
+import {InitModelOf, InputFieldKeyStrokeContext, ValueField} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-code";
 import {AceThemes} from "./themes/AceThemes";
 import {AceModes} from "./modes/AceModes";
+import {AceFieldEnterKeyStroke} from "./AceFieldEnterKeyStroke";
 
 export class AceField extends ValueField<string> implements AceFieldModel {
   declare model: AceFieldModel;
@@ -49,6 +50,18 @@ export class AceField extends ValueField<string> implements AceFieldModel {
 
   protected override _init(model: InitModelOf<this>) {
     super._init(model);
+  }
+
+  protected override _initKeyStrokeContext() {
+    super._initKeyStrokeContext();
+
+    this.keyStrokeContext.registerKeyStrokes([
+      new AceFieldEnterKeyStroke(this)
+    ]);
+  }
+
+  protected override _createKeyStrokeContext(): InputFieldKeyStrokeContext {
+    return new InputFieldKeyStrokeContext(true);
   }
 
   setTheme(theme: string) {
