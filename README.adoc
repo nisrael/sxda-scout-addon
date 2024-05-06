@@ -75,12 +75,13 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 }
 ----
 
-In the `index.ts` file of the ui.html module, the ace wrapper module needs to be imported:
+In the `index.ts` file of the ui.html module, the AceField need to be imported and registered. Also, the loader for the Ace mode and theme files have to be defined by importing the `ace-code/esm-resolver` module.
 
 .your.app.ui.html/src/main/js/index.ts
 [source,typescript]
 ----
-import '@sxda/scout-addon-ace';
+import {AceField} from "@sxda/scout-addon-ace";
+ObjectFactory.get().registerNamespace('sxda', AceField);
 import 'ace-code/esm-resolver';
 ----
 
