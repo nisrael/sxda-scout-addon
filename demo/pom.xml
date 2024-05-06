@@ -20,7 +20,7 @@
   <parent>
     <groupId>io.sxda.scout.addon</groupId>
     <artifactId>base</artifactId>
-    <version>24.1.2-SNAPSHOT</version>
+    <version>24.1.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>demo</artifactId>
