@@ -85,6 +85,18 @@ ObjectFactory.get().registerNamespace('sxda', AceField);
 import 'ace-code/esm-resolver';
 ----
 
+.your.app.ui.html/src/main/js/index.less
+[source,less]
+----
+@import "@sxda/scout-addon-ace/dist/ace-theme.css";
+----
+
+.your.app.ui.html/src/main/js/index-dark.less
+[source,less]
+----
+@import "@sxda/scout-addon-ace/dist/ace-theme-dark.css";
+----
+
 Finally, the ace code editor can be used in a form:
 
 .SomeForm.java
