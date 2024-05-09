@@ -58,15 +58,6 @@ public interface IAceField extends IBasicField<String> {
 
   boolean getSelectOnSetValue();
 
-  void doAction();
-
-  /**
-   * AceField set the property to false while executing an action.
-   *
-   * @return true if the AceField is not in {@link #doAction()}.
-   */
-  boolean isEnabledProcessing();
-
   @Override
   IAceFieldUIFacade getUIFacade();
 }
