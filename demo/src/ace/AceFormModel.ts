@@ -58,6 +58,7 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'AceField',
+              updateDisplayTextOnModify: true,
               objectType: AceField,
             }
           }

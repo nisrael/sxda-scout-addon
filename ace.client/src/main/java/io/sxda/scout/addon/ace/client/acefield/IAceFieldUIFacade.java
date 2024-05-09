@@ -11,9 +11,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {BasicFieldAdapter} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+package io.sxda.scout.addon.ace.client.acefield;
 
-export class AceFieldAdapter extends BasicFieldAdapter {
-  declare widget: AceField;
+import org.eclipse.scout.rt.client.ui.form.fields.IBasicFieldUIFacade;
+
+public interface IAceFieldUIFacade extends IBasicFieldUIFacade {
 }

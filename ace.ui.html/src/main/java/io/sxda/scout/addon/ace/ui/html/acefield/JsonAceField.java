@@ -17,12 +17,11 @@ import io.sxda.scout.addon.ace.client.acefield.IAceField;
 import org.eclipse.scout.rt.ui.html.IUiSession;
 import org.eclipse.scout.rt.ui.html.json.IJsonAdapter;
 import org.eclipse.scout.rt.ui.html.json.JsonProperty;
-import org.eclipse.scout.rt.ui.html.json.form.fields.JsonValueField;
-import org.json.JSONObject;
+import org.eclipse.scout.rt.ui.html.json.form.fields.JsonBasicField;
 
 import static org.eclipse.scout.rt.client.ui.form.fields.IValueField.PROP_VALUE;
 
-public class JsonAceField extends JsonValueField<IAceField> {
+public class JsonAceField extends JsonBasicField<IAceField> {
   public JsonAceField(IAceField model, IUiSession uiSession, String id, IJsonAdapter<?> parent) {
     super(model, uiSession, id, parent);
   }
@@ -32,17 +31,14 @@ public class JsonAceField extends JsonValueField<IAceField> {
     return IAceField.OBJECT_TYPE;
   }
 
-
   @Override
-  protected void handleUiValueChange(JSONObject data) {
-    super.handleUiValueChange(data);
+  protected void handleUiAcceptInputWhileTyping(String displayText) {
+    getModel().getUIFacade().setDisplayTextFromUI(displayText);
   }
 
   @Override
-  protected void handleUiPropertyChange(String propertyName, JSONObject data) {
-    if (PROP_VALUE.equals(propertyName)){
-      handleUiValueChange(data);
-    }
+  protected void handleUiAcceptInputAfterTyping(String displayText) {
+    getModel().getUIFacade().parseAndSetValueFromUI(displayText);
   }
 
   @Override

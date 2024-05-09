@@ -11,15 +11,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {InitModelOf, InputFieldKeyStrokeContext, ValueField} from '@eclipse-scout/core';
+import {BasicField, InitModelOf, InputFieldKeyStrokeContext, StringField, strings} from '@eclipse-scout/core';
 import {AceFieldModel} from "./AceFieldModel";
 import {AceFieldEventMap} from "./AceFieldEventMap";
 import * as ace from "ace-code";
+import {Range} from "ace-code";
 import {AceThemes} from "./themes/AceThemes";
 import {AceModes} from "./modes/AceModes";
 import {AceFieldEnterKeyStroke} from "./AceFieldEnterKeyStroke";
 
-export class AceField extends ValueField<string> implements AceFieldModel {
+export class AceField extends BasicField<string> implements AceFieldModel {
   declare model: AceFieldModel;
   declare eventMap: AceFieldEventMap;
   declare self: AceField;
@@ -34,7 +35,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   highlightActiveLine: boolean;
   selectOnSetValue: boolean;
 
-  protected _editorUpdateFromSetValue: boolean;
+  protected _editorUpdateFromRenderDisplayText: boolean;
 
   constructor() {
     super();
@@ -130,7 +131,6 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   }
 
   override _readDisplayText(): string {
-    super._readDisplayText();
     return this.editor.getValue();
   }
 
@@ -147,27 +147,39 @@ export class AceField extends ValueField<string> implements AceFieldModel {
     this.editor = ace.edit($field.get()[0]);
 
     // value was set before editor was created
-    this.editor.setValue(this.value)
-
-    let self = this;
-
-    this.editor.session.on("change", function () {
-      if (!self._editorUpdateFromSetValue) {
-        self.setValue(self.editor.getValue());
-      }
-    });
+    this.editor.setValue(this.displayText);
 
     // Add other required form field elements
     this.addMandatoryIndicator();
     this.addStatus();
   }
 
-  protected override _setValue(value: string) {
-    super._setValue(value);
-    if (this.editor && this.editor.getValue() !== value) {
-      this._editorUpdateFromSetValue = true;
-      this.editor.setValue(value, this.selectOnSetValue ? 0 : 1);
-      this._editorUpdateFromSetValue = false;
+  protected override _renderDisplayText() {
+    if (this.$disabledCopyOverlay) {
+      // Changing the value might change the visibility of the scrollbars -> overlay size needs to be adjusted
+      this.invalidateLayoutTree(false);
+    }
+    let displayText = strings.nvl(this.displayText);
+    let oldDisplayText = strings.nvl(this.editor.getValue());
+    if (this.editor && displayText !== oldDisplayText) {
+      this._editorUpdateFromRenderDisplayText = true;
+      let oldSelectionRange = this.editor.getSelectionRange();
+      this.editor.setValue(displayText,this.selectOnSetValue ? 0 : 1);
+      this._updateHasText();
+      // Try to keep the current selection for cases where the old and new display
+      // text only differ because of the automatic trimming.
+      if (oldDisplayText !== displayText) {
+        let matches = oldDisplayText.match(StringField.TRIM_REGEXP);
+        if (!this.selectOnSetValue && matches && matches[2] === displayText) {
+          let oldSelectionStart = this.editor.session.doc.positionToIndex(oldSelectionRange.start, 0);
+          let oldSelectionEnd = this.editor.session.doc.positionToIndex(oldSelectionRange.end, 0);
+          this.editor.selection.setRange(Range.fromPoints(
+            this.editor.session.doc.indexToPosition(Math.max(oldSelectionStart - matches[1].length, 0), 0),
+            this.editor.session.doc.indexToPosition(Math.min(oldSelectionEnd - matches[1].length, displayText.length), 0)
+          ));
+        }
+        this._editorUpdateFromRenderDisplayText = false;
+      }
     }
   }
 
@@ -176,7 +188,7 @@ export class AceField extends ValueField<string> implements AceFieldModel {
   }
 
   selectLine(line: number) {
-    this.editor.selection.selectLine()
+    this.editor.selection.setRange(new ace.Range(line, 0, line, this.editor.session.getLine(line).length));
     return this.editor.getSelectedText();
 
   }

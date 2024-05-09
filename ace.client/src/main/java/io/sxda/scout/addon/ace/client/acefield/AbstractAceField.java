@@ -13,15 +13,19 @@
  */
 package io.sxda.scout.addon.ace.client.acefield;
 
-import org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField;
+import org.eclipse.scout.rt.client.ModelContextProxy;
+import org.eclipse.scout.rt.client.ui.form.fields.AbstractBasicField;
+import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.annotations.ConfigProperty;
 import org.eclipse.scout.rt.platform.classid.ClassId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ClassId("a35fe425-089f-4954-bdcd-cbea26e202bb")
-public abstract class AbstractAceField extends AbstractValueField<String> implements IAceField {
+public abstract class AbstractAceField extends AbstractBasicField<String> implements IAceField {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractAceField.class);
+  private IAceFieldUIFacade m_uiFacade;
+  private boolean m_enabledProcessing;
 
   public AbstractAceField() {
     super(true);
@@ -29,6 +33,7 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
 
   @Override
   protected void initConfig() {
+    m_uiFacade = BEANS.get(ModelContextProxy.class).newProxy(new AbstractAceField.P_UIFacade(), ModelContextProxy.ModelContext.copyCurrent());
     super.initConfig();
     setTheme(getConfiguredTheme());
     setAceMode(getConfiguredAceMode());
@@ -73,6 +78,7 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
   protected String getConfiguredAceMode() {
     return AceMode.TEXT.getConfigTerm();
   }
+
   @Override
   @ConfigProperty(ConfigProperty.INTEGER)
   public void setTabSize(int tabSize) {
@@ -173,5 +179,21 @@ public abstract class AbstractAceField extends AbstractValueField<String> implem
   @ConfigProperty(ConfigProperty.BOOLEAN)
   protected boolean getConfiguredSelectOnSetValue() {
     return false;
+  }
+
+  @Override
+  protected String parseValueInternal(String text) {
+    if (text != null && text.isEmpty()) {
+      text = null;
+    }
+    return text;
+  }
+
+  @Override
+  public IAceFieldUIFacade getUIFacade() {
+    return m_uiFacade;
+  }
+
+  protected class P_UIFacade extends AbstractBasicField.P_UIFacade implements IAceFieldUIFacade {
   }
 }

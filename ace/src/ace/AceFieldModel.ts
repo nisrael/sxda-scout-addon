@@ -11,11 +11,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {ValueFieldModel} from '@eclipse-scout/core';
+import {BasicFieldModel, ValueFieldModel} from '@eclipse-scout/core';
 import {AceTheme} from "./themes/AceTheme";
 import {AceMode} from "./modes/AceMode";
 
-export interface AceFieldModel extends ValueFieldModel<string> {
+export interface AceFieldModel extends BasicFieldModel<string> {
   theme?: string;
   aceMode?: string;
   tabSize?: number;

@@ -30,7 +30,8 @@
   &:focus,
   &.focused,
   &.ace_focus{
-    border-color: @focus-border-color;
+    #scout.focus-border();
+    margin-bottom: 3px;
   }
 
   &.has-error {
@@ -41,18 +42,11 @@
   &.has-error:focus,
   &.has-error.focused,
   &.has-error.ace_focus{
-    border-color: @error-focus-box-shadow-color;
+    #scout.focus-box-shadow(@box-shadow-color: @error-focus-box-shadow-color);
   }
 
   &.read-only {
-    background-color: transparent;
-    border-color: transparent;
-    border-bottom: dashed 1px @border-color;
-    color: @read-only-color;
+    #scout.read-only();
+    border: 1px dashed @border-color;
   }
-}
-
-.ace_editor.read-only {
-  // full border around text area not only on the bottom, same as for alternative style
-  border: 1px dashed @border-color;
 }
