@@ -1,0 +1,62 @@
+{
+  "name": "@sxda/scout-addon-codemirror",
+  "version": "24.1.4-snapshot.20240509162240",
+  "description": "Wrapper module for the CodeMirror editor to be used as a form field for Eclipse Scout",
+  "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
+  "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
+  "repository": {
+    "url": "git+https://github.com/nisrael/sxda-scout-addon.git"
+  },
+  "license": "EPL-2.0",
+  "engines": {
+    "node": ">=20.10.0",
+    "npm": ">=10.2.3",
+    "pnpm": ">=8.11.0"
+  },
+  "keywords": [
+    "scout",
+    "eclipse-scout",
+    "ace"
+  ],
+  "main": "./dist/sxda-scout-addon-codemirror.js",
+  "module": "./dist/sxda-scout-addon-codemirror.esm.js",
+  "types": "./dist/d.ts/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "pnpm-install": "pnpm install --ignore-scripts",
+    "testserver:start": "scout-scripts test-server:start",
+    "testserver:stop": "scout-scripts test-server:stop",
+    "test:ci": "scout-scripts test:ci --junitReporter.outputDir=target/karma-reports --junitReporter.outputFile=test-results.xml",
+    "build:dev": "scout-scripts build:dev --run default global --progress=false --clean=false",
+    "build:prod": "scout-scripts build:prod --run default global --progress=false --clean=false",
+    "build:all": "npm run build:dev && npm run build:prod",
+    "build:dev:watch": "scout-scripts build:dev:watch",
+    "cleanup:snapshots": "releng-scripts cleanup:snapshots",
+    "version:snapshot:dependencies": "releng-scripts version:snapshot:dependencies",
+    "version:snapshot": "releng-scripts version:snapshot",
+    "version:release:dependencies": "releng-scripts version:release:dependencies",
+    "version:release": "releng-scripts version:release"
+  },
+  "devDependencies": {
+    "@eclipse-scout/cli": "24.1.10",
+    "@eclipse-scout/releng": "^24.1.0",
+    "@eclipse-scout/tsconfig": "24.1.10",
+    "@types/jquery": "3.5.29",
+    "jasmine-core": "5.1.1",
+    "jasmine-jquery": "2.1.1",
+    "karma": "6.4.2",
+    "@types/jasmine": "5.1.4",
+    "@types/jasmine-jquery": "1.5.37",
+    "webpack-bundle-analyzer": "^4.10.1",
+    "@eclipse-scout/core": "24.1.10",
+    "jquery": "3.7.1",
+    "webpack": "~5.88.0",
+    "semver": "^7.6.0"
+  },
+  "peerDependencies": {
+    "@eclipse-scout/core": ">=24.1.0"
+  }
+}
