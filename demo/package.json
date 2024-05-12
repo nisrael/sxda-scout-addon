@@ -26,13 +26,18 @@
     "@eclipse-scout/cli": "24.1.10",
     "@eclipse-scout/releng": "^24.1.0",
     "@eclipse-scout/tsconfig": "24.1.10",
+
     "@types/jquery": "3.5.29",
     "live-server": "^1.2.1"
   },
   "dependencies": {
     "@eclipse-scout/core": "24.1.10",
     "jquery": "3.7.1",
+    "webpack": "~5.89.0",
     "ace-code": "1.33.1",
-    "webpack": "~5.89.0"
+    "@uiw/codemirror-extensions-basic-setup": "^4.22.0",
+    "@codemirror/view": "^6.26.3",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/language": "^6.10.1"
   }
 }

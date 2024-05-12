@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2010-2024 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2024 Nils Israel
+ *
+ * This program is an extension of the original work from the Eclipse Scout Project,
+ * available at https://www.eclipse.org/scout/.
+ *
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
+
+.cm-editor {
+  background-color: @control-background-color;
+  color: @control-color;
+  border: 1px solid @control-border-color;
+  border-radius: @control-border-radius;
+  height: 100%;
+
+  &.disabled {
+    background-color: @control-disabled-background-color;
+    border-color: @control-disabled-border-color;
+    color: @control-disabled-color;
+  }
+
+  &:focus,
+  &.focused,
+  &.cm-focused{
+    #scout.focus-border();
+    margin-bottom: 3px;
+    height: calc(100% - 3px);
+  }
+
+  &.has-error {
+    border-color: @error-border-color;
+    background-color: @error-background-color;
+  }
+
+  &.has-error:focus,
+  &.has-error.focused,
+  &.has-error.cm-focused{
+    #scout.focus-box-shadow(@box-shadow-color: @error-focus-box-shadow-color);
+  }
+
+  &.read-only {
+    #scout.read-only();
+    border: 1px dashed @border-color;
+  }
+}

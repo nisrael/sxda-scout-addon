@@ -11,17 +11,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {scout, App, ObjectFactory} from '@eclipse-scout/core';
+import {App, ObjectFactory, scout} from '@eclipse-scout/core';
 import {Desktop} from './desktop/Desktop'
 
 import * as self from './index';
 import 'ace-code/esm-resolver'
+
 export * from './desktop/Desktop'
 export * from './desktop/DemoOutline'
 export * from './common/EventsTab'
 export * from './common/EventsTabModel'
 export * from './ace/AceFormModel'
 export * from './ace/AceForm'
+export * from './codemirror/CodeMirrorFormModel'
+export * from './codemirror/CodeMirrorForm'
 
 scout.addObjectFactories({
   'Desktop': function () {

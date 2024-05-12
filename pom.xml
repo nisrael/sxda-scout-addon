@@ -143,6 +143,7 @@
     <module>ace</module>
     <module>ace.client</module>
     <module>ace.ui.html</module>
+    <module>codemirror</module>
     <module>demo</module>
   </modules>
 
