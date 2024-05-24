@@ -24,7 +24,7 @@ import {
   Button,
   CheckBoxField,
   FormModel,
-  GroupBox,
+  GroupBox, NumberField,
   SequenceBox,
   SmartField,
   StringField,
@@ -33,8 +33,8 @@ import {
   WidgetField
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {AceField, AceThemeLookupCall, AceModeLookupCall} from "../../../ace/src";
 import {CodeMirrorField} from "../../../codemirror/src";
+import {LanguagesLookupCall} from "../../../codemirror/src/codemirror/languages/LanguagesLookupCall";
 
 export default (): FormModel => ({
   id: 'sxda.CodeMirrorForm',
@@ -94,19 +94,15 @@ export default (): FormModel => ({
                     labelVisible: false
                   },
                   {
-                    id: 'SoftTabsField',
-                    objectType: CheckBoxField,
-                    label: 'Soft Tabs'
+                    id: 'LanguageField',
+                    objectType: SmartField<string>,
+                    label: 'Mode',
+                    lookupCall: LanguagesLookupCall
                   },
                   {
-                    id: 'WrapModeField',
+                    id: 'SyntaxHighlightingField',
                     objectType: CheckBoxField,
-                    label: 'Wrap Mode'
-                  },
-                  {
-                    id: 'ShowPrintMarginField',
-                    objectType: CheckBoxField,
-                    label: 'Show Print Margin'
+                    label: 'Syntax Highlighting'
                   },
                   {
                     id: 'HighlightActiveLineField',
@@ -114,9 +110,124 @@ export default (): FormModel => ({
                     label: 'Highlight Active Line'
                   },
                   {
-                    id: 'SelectOnSetValueField',
+                    id: 'TabSizeField',
+                    objectType: NumberField,
+                    label: 'TabSize'
+                  },
+                  {
+                    id: 'LineNumbersField',
                     objectType: CheckBoxField,
-                    label: 'Select on Set Value'
+                    label: 'lineNumbers'
+                  },
+                  {
+                    id: 'HighlightActiveLineGutterField',
+                    objectType: CheckBoxField,
+                    label: 'highlightActiveLineGutter'
+                  },
+                  {
+                    id: 'FoldGutterField',
+                    objectType: CheckBoxField,
+                    label: 'foldGutter'
+                  },
+                  {
+                    id: 'DropCursorField',
+                    objectType: CheckBoxField,
+                    label: 'dropCursor'
+                  },
+                  {
+                    id: 'AllowMultipleSelectionsField',
+                    objectType: CheckBoxField,
+                    label: 'allowMultipleSelections'
+                  },
+                  {
+                    id: 'IndentOnInputField',
+                    objectType: CheckBoxField,
+                    label: 'indentOnInput'
+                  },
+                  {
+                    id: 'BracketMatchingField',
+                    objectType: CheckBoxField,
+                    label: 'bracketMatching'
+                  },
+                  {
+                    id: 'CloseBracketsField',
+                    objectType: CheckBoxField,
+                    label: 'closeBrackets'
+                  },
+                  {
+                    id: 'AutocompletionField',
+                    objectType: CheckBoxField,
+                    label: 'autocompletion'
+                  },
+                  {
+                    id: 'RectangularSelectionField',
+                    objectType: CheckBoxField,
+                    label: 'rectangularSelection'
+                  },
+                  {
+                    id: 'CrosshairCursorField',
+                    objectType: CheckBoxField,
+                    label: 'crosshairCursor'
+                  },
+                  {
+                    id: 'HighlightSelectionMatchesField',
+                    objectType: CheckBoxField,
+                    label: 'highlightSelectionMatches'
+                  },
+                  {
+                    id: 'CloseBracketsKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'closeBracketsKeymap'
+                  },
+                  {
+                    id: 'SearchKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'searchKeymap'
+                  },
+                  {
+                    id: 'FoldKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'foldKeymap'
+                  },
+                  {
+                    id: 'CompletionKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'completionKeymap'
+                  },
+                  {
+                    id: 'LintKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'lintKeymap'
+                  },
+                  {
+                    id: 'HighlightSpecialCharsField',
+                    objectType: CheckBoxField,
+                    label: 'highlightSpecialChars'
+                  },
+                  {
+                    id: 'HistoryField',
+                    objectType: CheckBoxField,
+                    label: 'history'
+                  },
+                  {
+                    id: 'DrawSelectionField',
+                    objectType: CheckBoxField,
+                    label: 'drawSelection'
+                  },
+                  {
+                    id: 'DefaultKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'defaultKeymap'
+                  },
+                  {
+                    id: 'HistoryKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'historyKeymap'
+                  },
+                  {
+                    id: 'IndentWithTabKeymapField',
+                    objectType: CheckBoxField,
+                    label: 'indentWithTabKeymap'
                   },
                   {
                     id: 'SetValueFieldBox',
@@ -168,14 +279,34 @@ export type CodeMirrorFormWidgetMap = {
   'PropertiesBox': GroupBox;
   'SetValueFieldBox': GroupBox;
   'SetValueButton': Button;
-  'SelectOnSetValueField': CheckBoxField;
   'EnableField': CheckBoxField;
-  'SoftTabsField': CheckBoxField;
-  'ShowPrintMarginField': CheckBoxField;
+  'SyntaxHighlightingField': CheckBoxField;
   'HighlightActiveLineField': CheckBoxField;
-  'WrapModeField': CheckBoxField;
-  'ThemeField': SmartField<string>;
-  'ModeField': SmartField<string>;
+  'LanguageField': SmartField<string>;
+  'TabSizeField': NumberField;
+  'LineNumbersField': CheckBoxField;
+  'HighlightActiveLineGutterField': CheckBoxField;
+  'FoldGutterField': CheckBoxField;
+  'DropCursorField': CheckBoxField;
+  'AllowMultipleSelectionsField': CheckBoxField;
+  'IndentOnInputField': CheckBoxField;
+  'BracketMatchingField': CheckBoxField;
+  'CloseBracketsField': CheckBoxField;
+  'AutocompletionField': CheckBoxField;
+  'RectangularSelectionField': CheckBoxField;
+  'CrosshairCursorField': CheckBoxField;
+  'HighlightSelectionMatchesField': CheckBoxField;
+  'CloseBracketsKeymapField': CheckBoxField;
+  'SearchKeymapField': CheckBoxField;
+  'FoldKeymapField': CheckBoxField;
+  'CompletionKeymapField': CheckBoxField;
+  'LintKeymapField': CheckBoxField;
+  'HighlightSpecialCharsField': CheckBoxField;
+  'HistoryField': CheckBoxField;
+  'DrawSelectionField': CheckBoxField;
+  'DefaultKeymapField': CheckBoxField;
+  'HistoryKeymapField': CheckBoxField;
+  'IndentWithTabKeymapField': CheckBoxField;
   'ActionsTab': TabItem;
   'EventsTab': EventsTab;
 } & EventsTabWidgetMap;

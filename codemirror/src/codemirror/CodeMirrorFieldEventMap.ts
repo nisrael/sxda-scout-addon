@@ -14,12 +14,31 @@
 import {BasicFieldEventMap, PropertyChangeEvent} from '@eclipse-scout/core';
 
 export interface CodeMirrorFieldEventMap extends BasicFieldEventMap<string> {
-  'propertyChange:theme': PropertyChangeEvent<string>;
-  'propertyChange:aceMode': PropertyChangeEvent<string>;
-  'propertyChange:tabSize': PropertyChangeEvent<number>;
-  'propertyChange:useSoftTabs': PropertyChangeEvent<boolean>;
-  'propertyChange:useWrapMode': PropertyChangeEvent<boolean>;
-  'propertyChange:showPrintMargin': PropertyChangeEvent<boolean>;
+  'propertyChange:language': PropertyChangeEvent<string>;
   'propertyChange:highlightActiveLine': PropertyChangeEvent<boolean>;
-  'propertyChange:selectOnSetValue': PropertyChangeEvent<boolean>;
+  'propertyChange:syntaxHighlighting': PropertyChangeEvent<boolean>;
+  'propertyChange:lineNumbers': PropertyChangeEvent<boolean>;
+  'propertyChange:highlightActiveLineGutter': PropertyChangeEvent<boolean>;
+  'propertyChange:foldGutter': PropertyChangeEvent<boolean>;
+  'propertyChange:dropCursor': PropertyChangeEvent<boolean>;
+  'propertyChange:allowMultipleSelections': PropertyChangeEvent<boolean>;
+  'propertyChange:indentOnInput': PropertyChangeEvent<boolean>;
+  'propertyChange:bracketMatching': PropertyChangeEvent<boolean>;
+  'propertyChange:closeBrackets': PropertyChangeEvent<boolean>;
+  'propertyChange:autocompletion': PropertyChangeEvent<boolean>;
+  'propertyChange:rectangularSelection': PropertyChangeEvent<boolean>;
+  'propertyChange:crosshairCursor': PropertyChangeEvent<boolean>;
+  'propertyChange:highlightSelectionMatches': PropertyChangeEvent<boolean>;
+  'propertyChange:tabSize': PropertyChangeEvent<number>;
+  'propertyChange:highlightSpecialChars': PropertyChangeEvent<boolean>;
+  'propertyChange:history': PropertyChangeEvent<boolean>;
+  'propertyChange:drawSelection': PropertyChangeEvent<boolean>;
+  'propertyChange:foldKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:searchKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:closeBracketsKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:completionKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:lintKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:defaultKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:historyKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:indentWithTabKeymap': PropertyChangeEvent<boolean>;
 }

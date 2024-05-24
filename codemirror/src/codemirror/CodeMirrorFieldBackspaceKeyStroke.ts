@@ -14,13 +14,13 @@
 import {keys, KeyStroke, ScoutKeyboardEvent} from '@eclipse-scout/core';
 import {CodeMirrorField} from "./CodeMirrorField";
 
-export class CodeMirrorFieldEnterKeyStroke extends KeyStroke {
+export class CodeMirrorFieldBackspaceKeyStroke extends KeyStroke {
   declare field: CodeMirrorField;
 
-  constructor(codeMirrorField: CodeMirrorField) {
+  constructor(field: CodeMirrorField) {
     super();
-    this.field = codeMirrorField;
-    this.which = [keys.ENTER];
+    this.field = field;
+    this.which = [keys.BACKSPACE];
     this.renderingHints.render = false;
     this.preventDefault = false;
   }
@@ -29,7 +29,7 @@ export class CodeMirrorFieldEnterKeyStroke extends KeyStroke {
     super._applyPropagationFlags(event);
 
     let activeElement = this.field.$container.activeElement(true);
-    this.preventInvokeAcceptInputOnActiveValueField = !event.isPropagationStopped() && activeElement.tagName.toLowerCase() === 'textarea';
+    this.preventInvokeAcceptInputOnActiveValueField = !event.isPropagationStopped() && activeElement.getAttribute('role').toLowerCase() === 'textbox';
     if (this.preventInvokeAcceptInputOnActiveValueField) {
       event.stopPropagation();
     }

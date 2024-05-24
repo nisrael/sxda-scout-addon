@@ -14,12 +14,31 @@
 import {BasicFieldModel} from '@eclipse-scout/core';
 
 export interface CodeMirrorFieldModel extends BasicFieldModel<string> {
-  theme?: string;
-  aceMode?: string;
+  language?: string;
   tabSize?: number;
-  useSoftTabs?: boolean;
-  useWrapMode?: boolean;
-  showPrintMargin?: boolean;
   highlightActiveLine?: boolean;
-  selectOnSetValue?: boolean;
+  syntaxHighlighting?: boolean;
+  lineNumbers?: boolean;
+  highlightActiveLineGutter?: boolean;
+  foldGutter?: boolean;
+  dropCursor?: boolean;
+  allowMultipleSelections?: boolean;
+  indentOnInput?: boolean;
+  bracketMatching?: boolean;
+  closeBrackets?: boolean;
+  autocompletion?: boolean;
+  rectangularSelection?: boolean;
+  crosshairCursor?: boolean;
+  highlightSelectionMatches?: boolean;
+  closeBracketsKeymap?: boolean;
+  searchKeymap?: boolean;
+  foldKeymap?: boolean;
+  completionKeymap?: boolean;
+  lintKeymap?: boolean;
+  highlightSpecialChars?: boolean;
+  history?: boolean;
+  drawSelection?: boolean;
+  defaultKeymap?: boolean;
+  historyKeymap?: boolean;
+  indentWithTabKeymap?: boolean;
 }
