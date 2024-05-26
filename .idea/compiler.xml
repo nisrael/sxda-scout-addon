@@ -6,8 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ace.client" />
+        <module name="codemirror.ui.html" />
         <module name="ace.ui.html" />
+        <module name="codemirror.client" />
+        <module name="ace.client" />
       </profile>
     </annotationProcessing>
   </component>

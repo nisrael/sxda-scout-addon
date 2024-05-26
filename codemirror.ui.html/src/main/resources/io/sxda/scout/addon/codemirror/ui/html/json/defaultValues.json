@@ -1,0 +1,35 @@
+{
+  "defaults": {
+    "CodeMirrorField": {
+      "language": "none",
+      "theme": "none",
+      "tabSize": 2,
+      "highlightActiveLine": true,
+      "syntaxHighlighting": true,
+      "lineNumbers": true,
+      "highlightActiveLineGutter": true,
+      "foldGutter": true,
+      "dropCursor": true,
+      "allowMultipleSelections": true,
+      "indentOnInput": true,
+      "bracketMatching": true,
+      "closeBrackets": true,
+      "autocompletion": true,
+      "rectangularSelection": true,
+      "crosshairCursor": true,
+      "highlightSelectionMatches": true,
+      "closeBracketsKeymap": true,
+      "searchKeymap": true,
+      "foldKeymap": true,
+      "completionKeymap": true,
+      "lintKeymap": true,
+      "highlightSpecialChars": true,
+      "history": true,
+      "drawSelection": true,
+      "defaultKeymap": true,
+      "historyKeymap": true,
+      "indentWithTabKeymap": true,
+      "lineWrapping": false
+    }
+  }
+}
