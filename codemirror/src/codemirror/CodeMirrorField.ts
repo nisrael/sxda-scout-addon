@@ -308,7 +308,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   }
 
   protected async getThemeExtension(): Promise<any> {
-    const themeDescription = ThemeList.find(l => l.name === this.theme);
+    const themeDescription = ThemeList.find(l => l.id === this.theme);
     const extension = themeDescription ? themeDescription.extension ? themeDescription.extension : await themeDescription.load() : [];
     return Promise.resolve(extension);
   }

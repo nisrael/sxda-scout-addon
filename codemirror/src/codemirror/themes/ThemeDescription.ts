@@ -30,6 +30,7 @@ export class ThemeDescription {
     this.name = name;
     this.dark = dark;
     this.loadFunc = load;
+    this.syntaxHighlightStyle = syntaxHighlightStyle;
     this.loading = null;
   }
 
@@ -56,7 +57,7 @@ export class ThemeDescription {
     }
     let name = spec.name ? spec.name : spec.id;
     let syntaxHighlightStyle = spec.syntaxHighlightStyle ? spec.syntaxHighlightStyle : defaultHighlightStyle;
-    return new ThemeDescription(spec.id, name, spec.dark, load, syntaxHighlightStyle);
+    return new ThemeDescription(spec.id.toString(), name, spec.dark, load, syntaxHighlightStyle);
   }
 
 }
