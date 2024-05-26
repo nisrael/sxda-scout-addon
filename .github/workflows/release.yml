@@ -90,11 +90,13 @@ jobs:
           export RELEASE_VERSION=$(mvn help:evaluate -D expression=project.version -q -D forceStdout | sed 's/-SNAPSHOT//')
           git checkout -b release/$RELEASE_VERSION
           cd ace && npm run version:release -- --newVersion=$RELEASE_VERSION && cd ..
+          cd codemirror && npm run version:release -- --newVersion=$RELEASE_VERSION && cd ..
           mvn -U -B versions:set -D newVersion=$RELEASE_VERSION -D generateBackupPoms=false
 
           # publish to maven central and npm
           mvn -U -B clean deploy -P sxda.build.release
           cd ace && npm run build:all && npm publish --access public
+          cd codemirror && npm run build:all && npm publish --access public
           cd ..
 
           # commit and tag the release
@@ -109,8 +111,9 @@ jobs:
           npm install -g semver
           export NEXT_SNAPSHOT_VERSION=$(semver -i patch $RELEASE_VERSION)
           cd ace && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
+          cd codemirror && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
           mvn -U -B versions:set -D newVersion=$NEXT_SNAPSHOT_VERSION-SNAPSHOT -D generateBackupPoms=false
-          git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
+          git add -v ace/package.json codemirror/package.json demo/package.json ace/pom.xml codemirror/pom.xml demo/pom.xml ace.client/pom.xml codemirror.client/pom.xml ace.ui.html/pom.xml codemirror.ui.html/pom.xml pom.xml
           git commit -m "Prepare next snapshot version $NEXT_SNAPSHOT_VERSION-SNAPSHOT"
           git push
         env:
