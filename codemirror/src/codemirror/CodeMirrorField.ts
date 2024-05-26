@@ -35,6 +35,7 @@ import {
   defaultHighlightStyle,
   foldGutter,
   foldKeymap,
+  HighlightStyle,
   indentOnInput,
   indentUnit,
   syntaxHighlighting
@@ -43,6 +44,7 @@ import {languages} from '@codemirror/language-data';
 import {autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete';
 import {highlightSelectionMatches, searchKeymap} from '@codemirror/search';
 import {lintKeymap} from '@codemirror/lint';
+import {ThemeList} from "./themes/Themes";
 
 export class CodeMirrorField extends BasicField<string> implements CodeMirrorFieldModel {
   declare model: CodeMirrorFieldModel;
@@ -73,8 +75,11 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   protected _highlightSpecialCharsCompartment: Compartment;
   protected _historyCompartment: Compartment;
   protected _drawSelectionCompartment: Compartment;
+  protected _lineWrappingCompartment: Compartment;
+  protected _themeCompartment: Compartment;
 
   language: string;
+  theme: string;
   highlightActiveLine: boolean;
   syntaxHighlighting: boolean;
   lineNumbers: boolean;
@@ -101,6 +106,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   defaultKeymap: boolean;
   historyKeymap: boolean;
   indentWithTabKeymap: boolean;
+  lineWrapping: boolean;
 
   constructor() {
     super();
@@ -131,6 +137,8 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this.lintKeymap = true;
     this.defaultKeymap = true;
     this.historyKeymap = true;
+    this.lineWrapping = false;
+    this.theme = 'None'
 
     this._enabledCompartment = new Compartment();
     this._syntaxHighlightingCompartment = new Compartment();
@@ -153,6 +161,8 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this._historyCompartment = new Compartment();
     this._drawSelectionCompartment = new Compartment();
     this._keymapCompartment = new Compartment();
+    this._lineWrappingCompartment = new Compartment();
+    this._themeCompartment = new Compartment();
   }
 
   protected override _initKeyStrokeContext() {
@@ -196,6 +206,8 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
         this._highlightSpecialCharsCompartment.of([]),
         this._historyCompartment.of([]),
         this._drawSelectionCompartment.of([]),
+        this._lineWrappingCompartment.of([]),
+        this._themeCompartment.of([])
       ]
     });
 
@@ -224,6 +236,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   protected override _renderProperties() {
     super._renderProperties();
     this._renderLanguage();
+    this._renderTheme();
     this._renderSyntaxHighlighting()
     this._renderHighlightActiveLine();
     this._renderLineNumbers();
@@ -243,6 +256,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this._renderHistory();
     this._renderDrawSelection();
     this._renderKeymaps();
+    this._renderLineWrapping();
   }
 
   setSyntaxHighlighting(syntaxHighlighting: boolean) {
@@ -254,7 +268,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   }
 
   protected _renderSyntaxHighlighting() {
-    this._editorView.dispatch({effects: this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(defaultHighlightStyle)] : [])});
+    this._editorView.dispatch({effects: this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlighStyle())] : [])});
   }
 
   setLanguage(language: string) {
@@ -267,12 +281,42 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
 
   protected async getLanguageExtension(): Promise<any> {
     const languageDescription = languages.find(l => l.name === this.language);
-    const extension = languageDescription ? await languageDescription.load() : [];
+    const extension = languageDescription ? languageDescription.support ? languageDescription.support : await languageDescription.load() : [];
     return Promise.resolve(extension);
   }
 
   protected async _renderLanguage() {
     this._editorView.dispatch({effects: this._languageCompartment.reconfigure(await this.getLanguageExtension())});
+  }
+
+  setTheme(theme: string) {
+    this.setProperty('theme', theme);
+  }
+
+  getTheme(): string {
+    return this.getProperty('theme');
+  }
+
+  protected async _renderTheme() {
+    this._editorView.dispatch({
+        effects: [
+          this._themeCompartment.reconfigure(await this.getThemeExtension()),
+          this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlighStyle())] : [])
+        ]
+      }
+    );
+  }
+
+  protected async getThemeExtension(): Promise<any> {
+    const themeDescription = ThemeList.find(l => l.name === this.theme);
+    const extension = themeDescription ? themeDescription.extension ? themeDescription.extension : await themeDescription.load() : [];
+    return Promise.resolve(extension);
+  }
+
+  protected getSyntaxHighlighStyle(): HighlightStyle {
+    const themeDescription = ThemeList.find(l => l.id === this.theme);
+    let syntaxHighlightStyle = themeDescription && themeDescription.syntaxHighlightStyle ? themeDescription.syntaxHighlightStyle : defaultHighlightStyle;
+    return syntaxHighlightStyle;
   }
 
   protected override _renderDisplayText() {
@@ -643,5 +687,17 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
 
   protected _renderLineNumbers() {
     this._editorView.dispatch({effects: this._lineNumbersCompartment.reconfigure(this.lineNumbers ? [lineNumbers()] : [])});
+  }
+
+  setLineWrapping(lineWrapping: boolean) {
+    this.setProperty('lineWrapping', lineWrapping);
+  }
+
+  getLineWrapping(): boolean {
+    return this.getProperty('lineWrapping');
+  }
+
+  protected _renderLineWrapping() {
+    this._editorView.dispatch({effects: this._lineWrappingCompartment.reconfigure(this.lineWrapping ? [EditorView.lineWrapping] : [])});
   }
 }

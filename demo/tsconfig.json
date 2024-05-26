@@ -2,7 +2,7 @@
   "extends": "@eclipse-scout/tsconfig/tsconfig.json",
   "compilerOptions": {
     "outDir": "dist/d.ts",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
   },
   "include": [
     "./src/**/*"

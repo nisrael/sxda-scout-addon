@@ -23,20 +23,17 @@
     "version:release": "releng-scripts version:release"
   },
   "devDependencies": {
-    "@eclipse-scout/cli": "24.1.10",
+    "@eclipse-scout/cli": "24.1.12",
     "@eclipse-scout/releng": "^24.1.0",
-    "@eclipse-scout/tsconfig": "24.1.10",
-
+    "@eclipse-scout/tsconfig": "24.1.12",
     "@types/jquery": "3.5.29",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@eclipse-scout/core": "24.1.10",
-    "jquery": "3.7.1",
-    "webpack": "~5.89.0",
-    "ace-code": "1.33.1",
-    "@uiw/codemirror-extensions-basic-setup": "^4.22.0",
     "@codemirror/autocomplete": "^6.16.0",
+    "@codemirror/search": "^6.5.6",
     "@codemirror/commands": "^6.4.1",
     "@codemirror/lang-java": "^6.0.1",
     "@codemirror/lang-javascript": "^6.2.2",
@@ -46,6 +43,14 @@
     "@codemirror/language-data": "^6.5.1",
     "@codemirror/lint": "^6.8.0",
     "@codemirror/state": "^6.4.1",
-    "@codemirror/view": "^6.26.3"
+    "@codemirror/view": "^6.26.3",
+    "@eclipse-scout/core": "24.1.12",
+    "@uiw/codemirror-extensions-basic-setup": "^4.22.0",
+    "ace-code": "1.33.1",
+    "jquery": "^3.7.1",
+    "thememirror": "^2.0.1",
+    "@ddietr/codemirror-themes": "^1.4.2",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "webpack": "~5.91.0"
   }
 }

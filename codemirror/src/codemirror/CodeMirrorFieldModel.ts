@@ -15,6 +15,7 @@ import {BasicFieldModel} from '@eclipse-scout/core';
 
 export interface CodeMirrorFieldModel extends BasicFieldModel<string> {
   language?: string;
+  theme?: string;
   tabSize?: number;
   highlightActiveLine?: boolean;
   syntaxHighlighting?: boolean;
@@ -41,4 +42,5 @@ export interface CodeMirrorFieldModel extends BasicFieldModel<string> {
   defaultKeymap?: boolean;
   historyKeymap?: boolean;
   indentWithTabKeymap?: boolean;
+  lineWrapping?: boolean;
 }

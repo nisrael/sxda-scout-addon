@@ -55,6 +55,14 @@ export class CodeMirrorForm extends Form {
       }
     });
 
+    let themeField = this.widget('ThemeField');
+    themeField.setValue(codeMirror.theme);
+    themeField.on('propertyChange:value', event => {
+      if (event.newValue){
+        codeMirror.setTheme(event.newValue);
+      }
+    });
+
     let tabSizeField = this.widget('TabSizeField');
     tabSizeField.setValue(codeMirror.getTabSize());
     tabSizeField.on('propertyChange:value', event => codeMirror.setTabSize(event.newValue));
@@ -151,9 +159,9 @@ export class CodeMirrorForm extends Form {
     indentWithTabKeymapField.setValue(codeMirror.getIndentWithTabKeymap());
     indentWithTabKeymapField.on('propertyChange:value', event => codeMirror.setIndentWithTabKeymap(event.newValue));
 
-
-
-
+    let lineWrappingField = this.widget('LineWrappingField');
+    lineWrappingField.setValue(codeMirror.getLineWrapping());
+    lineWrappingField.on('propertyChange:value', event => codeMirror.setLineWrapping(event.newValue));
 
     this.widget('EventsTab').setField(codeMirror);
   }

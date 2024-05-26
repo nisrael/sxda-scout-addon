@@ -15,6 +15,7 @@ import {BasicFieldEventMap, PropertyChangeEvent} from '@eclipse-scout/core';
 
 export interface CodeMirrorFieldEventMap extends BasicFieldEventMap<string> {
   'propertyChange:language': PropertyChangeEvent<string>;
+  'propertyChange:theme': PropertyChangeEvent<string>;
   'propertyChange:highlightActiveLine': PropertyChangeEvent<boolean>;
   'propertyChange:syntaxHighlighting': PropertyChangeEvent<boolean>;
   'propertyChange:lineNumbers': PropertyChangeEvent<boolean>;
@@ -41,4 +42,5 @@ export interface CodeMirrorFieldEventMap extends BasicFieldEventMap<string> {
   'propertyChange:defaultKeymap': PropertyChangeEvent<boolean>;
   'propertyChange:historyKeymap': PropertyChangeEvent<boolean>;
   'propertyChange:indentWithTabKeymap': PropertyChangeEvent<boolean>;
+  'propertyChange:lineWrapping': PropertyChangeEvent<boolean>;
 }

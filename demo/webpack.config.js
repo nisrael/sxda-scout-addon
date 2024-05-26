@@ -25,5 +25,8 @@ module.exports = (env, args) => {
     'sxda-theme': './src/sxda-theme.less',
     'sxda-theme-dark': './src/sxda-theme-dark.less'
   };
+  config.optimization = {
+    ...config.optimization
+  };
   return config;
 };

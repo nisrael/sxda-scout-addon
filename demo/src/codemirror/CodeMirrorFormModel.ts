@@ -35,6 +35,7 @@ import {
 import {EventsTab, EventsTabWidgetMap} from '../index';
 import {CodeMirrorField} from "../../../codemirror/src";
 import {LanguagesLookupCall} from "../../../codemirror/src/codemirror/languages/LanguagesLookupCall";
+import {ThemesLookupCall} from "../../../codemirror/src/codemirror/themes/ThemesLookupCall";
 
 export default (): FormModel => ({
   id: 'sxda.CodeMirrorForm',
@@ -98,6 +99,12 @@ export default (): FormModel => ({
                     objectType: SmartField<string>,
                     label: 'Mode',
                     lookupCall: LanguagesLookupCall
+                  },
+                  {
+                    id: 'ThemeField',
+                    objectType: SmartField<string>,
+                    label: 'Theme',
+                    lookupCall: ThemesLookupCall
                   },
                   {
                     id: 'SyntaxHighlightingField',
@@ -230,6 +237,11 @@ export default (): FormModel => ({
                     label: 'indentWithTabKeymap'
                   },
                   {
+                    id: 'LineWrappingField',
+                    objectType: CheckBoxField,
+                    label: 'lineWrapping'
+                  },
+                  {
                     id: 'SetValueFieldBox',
                     objectType: SequenceBox,
                     label: 'Text',
@@ -283,6 +295,7 @@ export type CodeMirrorFormWidgetMap = {
   'SyntaxHighlightingField': CheckBoxField;
   'HighlightActiveLineField': CheckBoxField;
   'LanguageField': SmartField<string>;
+  'ThemeField': SmartField<string>;
   'TabSizeField': NumberField;
   'LineNumbersField': CheckBoxField;
   'HighlightActiveLineGutterField': CheckBoxField;
@@ -307,6 +320,7 @@ export type CodeMirrorFormWidgetMap = {
   'DefaultKeymapField': CheckBoxField;
   'HistoryKeymapField': CheckBoxField;
   'IndentWithTabKeymapField': CheckBoxField;
+  'LineWrappingField': CheckBoxField;
   'ActionsTab': TabItem;
   'EventsTab': EventsTab;
 } & EventsTabWidgetMap;

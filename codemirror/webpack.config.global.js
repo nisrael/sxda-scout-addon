@@ -28,7 +28,19 @@ module.exports = (env, args) => {
     externals: {
       ...config.externals,
       'jquery': 'jQuery',
-      '@eclipse-scout/core': 'scout'
+      '@eclipse-scout/core': 'scout',
+      '@codemirror/autocomplete': 'autocomplete',
+      '@codemirror/commands': 'commands',
+      '@codemirror/lang-java': 'langJava',
+      '@codemirror/lang-javascript': 'langJavascript',
+      '@codemirror/lang-json': 'langJson',
+      '@codemirror/lang-markdown': 'langMarkdown',
+      '@codemirror/language"': 'language',
+      '@codemirror/language-data': 'languageData',
+      'thememirror': 'thememirror',
+      '@codemirror/lint': 'lint',
+      '@codemirror/state': 'state',
+      '@codemirror/view"': 'view',
     }
   };
 };

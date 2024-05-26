@@ -41,9 +41,9 @@
     "version:release": "releng-scripts version:release"
   },
   "devDependencies": {
-    "@eclipse-scout/cli": "24.1.10",
+    "@eclipse-scout/cli": "24.1.12",
     "@eclipse-scout/releng": "^24.1.0",
-    "@eclipse-scout/tsconfig": "24.1.10",
+    "@eclipse-scout/tsconfig": "24.1.12",
     "@types/jquery": "3.5.29",
     "jasmine-core": "5.1.1",
     "jasmine-jquery": "2.1.1",
@@ -51,10 +51,10 @@
     "@types/jasmine": "5.1.4",
     "@types/jasmine-jquery": "1.5.37",
     "webpack-bundle-analyzer": "^4.10.1",
-    "@eclipse-scout/core": "24.1.10",
+    "@eclipse-scout/core": "24.1.12",
     "jquery": "3.7.1",
     "ace-code": "^1.33.1",
-    "webpack": "~5.88.0",
+    "webpack": "~5.91.0",
     "semver": "^7.6.0"
   },
   "peerDependencies": {
