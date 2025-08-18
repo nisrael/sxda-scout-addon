@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
-    Copyright (c) 2010-2024 BSI Business Systems Integration AG
-    Copyright (c) 2023-2024 Nils Israel
-
-    This program is an extension of the original work from the Eclipse Scout Project,
-    available at https://www.eclipse.org/scout/.
-
-    This program and the accompanying materials are made
-    available under the terms of the Eclipse Public License 2.0
-    which is available at https://www.eclipse.org/legal/epl-2.0/
-
-    SPDX-License-Identifier: EPL-2.0
-
--->
+  ~ Copyright (c) 2010-2025 BSI Business Systems Integration AG
+  ~ Copyright (c) 2023-2025 Nils Israel
+  ~
+  ~ This program is an extension of the original work from the Eclipse Scout Project,
+  ~ available at https://www.eclipse.org/scout/.
+  ~
+  ~ This program and the accompanying materials are made
+  ~ available under the terms of the Eclipse Public License 2.0
+  ~ which is available at https://www.eclipse.org/legal/epl-2.0/
+  ~
+  ~ SPDX-License-Identifier: EPL-2.0
+  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>24.1.4-SNAPSHOT</version>
+  <version>25.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
 
@@ -28,31 +26,31 @@
   <description>Additional form fields for the Eclipse Scout framework.</description>
 
   <properties>
-    <jdk.min.version>17</jdk.min.version>
-    <jdk.source.version>17</jdk.source.version>
+    <jdk.min.version>21</jdk.min.version>
+    <jdk.source.version>21</jdk.source.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
-    <sxda.build.require-maven-version>3.6.3</sxda.build.require-maven-version>
+    <sxda.build.require-maven-version>3.9.9</sxda.build.require-maven-version>
     <maven.min.version>${sxda.build.require-maven-version}</maven.min.version>
     <maven.api.version>${sxda.build.require-maven-version}</maven.api.version>
 
     <sxda.build.skip-publishing>false</sxda.build.skip-publishing>
-    <org.eclipse.scout.rt.version>24.1.10</org.eclipse.scout.rt.version>
-    <sxda.dependency.logback.version>1.5.6</sxda.dependency.logback.version>
+    <org.eclipse.scout.rt.version>25.1.14</org.eclipse.scout.rt.version>
+    <sxda.dependency.logback.version>1.5.18</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.4.0</sxda.plugin.central-publishing-maven-plugin.version>
     <sxda.plugin.maven-gpg-plugin.version>3.2.4</sxda.plugin.maven-gpg-plugin.version>
-    <sxda.plugin.maven-compiler-plugin.version>3.13.0</sxda.plugin.maven-compiler-plugin.version>
-    <sxda.plugin.maven-clean-plugin.version>3.3.2</sxda.plugin.maven-clean-plugin.version>
+    <sxda.plugin.maven-compiler-plugin.version>3.14.0</sxda.plugin.maven-compiler-plugin.version>
+    <sxda.plugin.maven-clean-plugin.version>3.5.0</sxda.plugin.maven-clean-plugin.version>
     <sxda.plugin.maven-resources-plugin.version>3.3.1</sxda.plugin.maven-resources-plugin.version>
-    <sxda.plugin.maven-surefire-plugin.version>3.2.5</sxda.plugin.maven-surefire-plugin.version>
-    <sxda.plugin.maven-enforcer-plugin.version>3.4.1</sxda.plugin.maven-enforcer-plugin.version>
-    <sxda.plugin.maven-javadoc-plugin.version>3.6.3</sxda.plugin.maven-javadoc-plugin.version>
+    <sxda.plugin.maven-surefire-plugin.version>3.5.3</sxda.plugin.maven-surefire-plugin.version>
+    <sxda.plugin.maven-enforcer-plugin.version>3.6.1</sxda.plugin.maven-enforcer-plugin.version>
+    <sxda.plugin.maven-javadoc-plugin.version>3.11.3</sxda.plugin.maven-javadoc-plugin.version>
     <sxda.plugin.maven-source-plugin.version>3.3.1</sxda.plugin.maven-source-plugin.version>
-    <sxda.plugin.exec-maven-plugin.version>3.2.0</sxda.plugin.exec-maven-plugin.version>
-    <sxda.plugin.versions-maven-plugin.version>2.16.2</sxda.plugin.versions-maven-plugin.version>
-    <sxda.plugin.jandex-maven-plugin.version>3.1.7</sxda.plugin.jandex-maven-plugin.version>
-    <sxda.plugin.license-maven-plugin.version>4.3</sxda.plugin.license-maven-plugin.version>
+    <sxda.plugin.exec-maven-plugin.version>3.5.1</sxda.plugin.exec-maven-plugin.version>
+    <sxda.plugin.versions-maven-plugin.version>2.18.0</sxda.plugin.versions-maven-plugin.version>
+    <sxda.plugin.jandex-maven-plugin.version>3.4.0</sxda.plugin.jandex-maven-plugin.version>
+    <sxda.plugin.license-maven-plugin.version>4.6</sxda.plugin.license-maven-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>

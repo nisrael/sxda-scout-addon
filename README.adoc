@@ -9,7 +9,7 @@ toc::[]
 
 == Versioning and Releases
 
-The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 24.1.x should be compatible with all Eclipse Scout 24.1.y versions.
+The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 25.1.x should be compatible with all Eclipse Scout 25.1.y versions.
 
 You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
 
@@ -33,7 +33,7 @@ The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax hi
 
 ==== Usage
 
-To use the field in an Eclipse Scout Classic 24.1.y application, add the following modules to your application:
+To use the field in an Eclipse Scout Classic 25.1.y application, add the following modules to your application:
 
 .your.app.client/pom.xml
 [source,xml]
@@ -42,7 +42,7 @@ To use the field in an Eclipse Scout Classic 24.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
-  <version>24.1.1</version>
+  <version>25.1.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -54,7 +54,7 @@ To use the field in an Eclipse Scout Classic 24.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
-  <version>24.1.1</version>
+  <version>25.1.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -68,9 +68,9 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-ace": "24.1.1",
-    "ace-code": "1.33.1",
-    "webpack": "5.88.0"
+    "@sxda/scout-addon-ace": "25.1.0",
+    "ace-code": "1.43.2",
+    "webpack": "5.101.2"
   }
 }
 ----
