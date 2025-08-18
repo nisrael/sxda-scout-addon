@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v4 # Does also set up Maven and GPG
         with:
           java-package: 'jdk'
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
           check-latest: true
@@ -74,7 +74,7 @@ jobs:
         uses: actions/setup-java@v4 # Does also set up Maven and GPG
         with:
           java-package: 'jdk'
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
           check-latest: true
