@@ -1,0 +1,44 @@
+# .github/actions/setup-java/action.yml
+name: 'Setup Java with Maven'
+description: 'Setup Java 21 with Temurin distribution and Maven caching'
+inputs:
+  java-package:
+    description: 'Java package type'
+    required: false
+    default: 'jdk'
+  check-latest:
+    description: 'Check for latest version'
+    required: false
+    default: 'true'
+  server-id:
+    description: 'Maven server ID'
+    required: false
+    default: 'github'
+  server-username:
+    description: 'Maven server username environment variable'
+    required: false
+  server-password:
+    description: 'Maven server password environment variable'
+    required: false
+  gpg-private-key:
+    description: 'GPG private key for signing'
+    required: false
+  gpg-passphrase:
+    description: 'GPG passphrase environment variable'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        java-package: ${{ inputs.java-package }}
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+        check-latest: ${{ inputs.check-latest }}
+        server-id: ${{ inputs.server-id }}
+        server-username: ${{ inputs.server-username }}
+        server-password: ${{ inputs.server-password }}
+        gpg-private-key: ${{ inputs.gpg-private-key }}
+        gpg-passphrase: ${{ inputs.gpg-passphrase }}

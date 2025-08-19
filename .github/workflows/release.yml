@@ -19,14 +19,7 @@ jobs:
           # we need the full history to validate license headers
           fetch-depth: 0
 
-      - name: Setup Java
-        uses: actions/setup-java@v4 # Does also set up Maven and GPG
-        with:
-          java-package: 'jdk'
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-          check-latest: true
+      - uses: ./.github/actions/setup-java
 
       - name: Validate license headers
         run: mvn -U -B license:check -P sxda.build.license-validation
@@ -59,26 +52,11 @@ jobs:
           git config --global commit.gpgsign true
           git config --global tag.gpgsign true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org/
+      - uses: ./.github/actions/setup-node-pnpm
 
-      - uses: pnpm/action-setup@v3
-        name: Install pnpm
+      - uses: ./.github/actions/setup-java
         with:
-          version: 10
-          run_install: true
-
-      - name: Setup Java
-        uses: actions/setup-java@v4 # Does also set up Maven and GPG
-        with:
-          java-package: 'jdk'
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-          check-latest: true
-          server-id: 'central' # must match the serverId configured for the central-publishing-maven-plugin
+          server-id: 'central'
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -122,11 +100,11 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
+          generate_release_notes: true
           draft: false
           prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
