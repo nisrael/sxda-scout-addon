@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-2024 BSI Business Systems Integration AG
- * Copyright (c) 2023-2024 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -16,7 +16,7 @@ package io.sxda.scout.addon.codemirror.client.codemirrorfield;
 import org.eclipse.scout.rt.client.ui.form.fields.IBasicField;
 
 public interface ICodeMirrorField extends IBasicField<String> {
-  final String OBJECT_TYPE = "sxda.CodeMirrorField";
+  String OBJECT_TYPE = "sxda.CodeMirrorField";
 
   String PROP_LANGUAGE="language";
   String PROP_THEME="theme";

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-2024 BSI Business Systems Integration AG
- * Copyright (c) 2023-2024 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -11,18 +11,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {CodemirrorField} from '../../src/index';
+import {CodeMirrorField} from '../../src/index';
 
 describe('CodemirrorSpec', () => {
 
   describe('click and check', () => {
 
     it('touch', () => {
-      let codemirrorField = new CodemirrorField();
+      let codeMirrorField = new CodeMirrorField();
 
-      codemirrorField.touch();
+      codeMirrorField.touch();
 
-      expect(codemirrorField.touched).toEqual(true);
+      expect(codeMirrorField.touched).toEqual(true);
 
     });
   });

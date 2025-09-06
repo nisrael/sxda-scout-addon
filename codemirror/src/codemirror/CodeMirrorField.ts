@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-2024 BSI Business Systems Integration AG
- * Copyright (c) 2023-2024 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -268,7 +268,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   }
 
   protected _renderSyntaxHighlighting() {
-    this._editorView.dispatch({effects: this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlighStyle())] : [])});
+    this._editorView.dispatch({effects: this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlightStyle())] : [])});
   }
 
   setLanguage(language: string) {
@@ -301,7 +301,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this._editorView.dispatch({
         effects: [
           this._themeCompartment.reconfigure(await this.getThemeExtension()),
-          this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlighStyle())] : [])
+          this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlightStyle())] : [])
         ]
       }
     );
@@ -313,10 +313,9 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     return Promise.resolve(extension);
   }
 
-  protected getSyntaxHighlighStyle(): HighlightStyle {
+  protected getSyntaxHighlightStyle(): HighlightStyle {
     const themeDescription = ThemeList.find(l => l.id === this.theme);
-    let syntaxHighlightStyle = themeDescription && themeDescription.syntaxHighlightStyle ? themeDescription.syntaxHighlightStyle : defaultHighlightStyle;
-    return syntaxHighlightStyle;
+    return themeDescription && themeDescription.syntaxHighlightStyle ? themeDescription.syntaxHighlightStyle : defaultHighlightStyle;
   }
 
   protected override _renderDisplayText() {

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-2024 BSI Business Systems Integration AG
- * Copyright (c) 2023-2024 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -17,11 +17,13 @@ import org.eclipse.scout.rt.shared.services.lookup.ILookupRow;
 import org.eclipse.scout.rt.shared.services.lookup.LocalLookupCall;
 import org.eclipse.scout.rt.shared.services.lookup.LookupRow;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CodeMirrorThemeLookupCall extends LocalLookupCall<String> {
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Override
