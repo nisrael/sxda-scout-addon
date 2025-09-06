@@ -11,7 +11,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {AceField} from '../../src/index';
+import {CodemirrorField} from '../../src/index';
 
 describe('CodemirrorSpec', () => {
 
