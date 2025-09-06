@@ -66,8 +66,9 @@ jobs:
 
       - uses: ./.github/actions/setup-node-pnpm
 
-      - name: Update ace npm module snapshot version
+      - name: Update the npm module snapshot version for all projects in the workspace
         run: npm run version:snapshot
+        # run from the ace directory, but this updates the version in all workspace projects
         working-directory: ./ace
 
       - name: Build ace npm module
@@ -79,10 +80,6 @@ jobs:
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update codemirror npm module snapshot version
-        run: npm run version:snapshot
-        working-directory: ./codemirror
 
       - name: Build codemirror npm module
         run: npm run build:all
