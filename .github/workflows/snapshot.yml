@@ -39,8 +39,9 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           server-id: 'github'
-          server-username: 'nisrael'
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - uses: ./.github/actions/setup-node-pnpm
 
@@ -48,6 +49,9 @@ jobs:
         run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          MAVEN_USERNAME: 'nisrael'
+          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
     runs-on: ubuntu-latest
