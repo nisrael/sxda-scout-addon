@@ -282,3 +282,4 @@ test-results
 pnpm-lock.yaml
 
 .vscode/
+/.idea/misc.xml
