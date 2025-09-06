@@ -1,3 +1,4 @@
 packages:
   - 'ace'
+  - 'codemirror'
   - 'demo'

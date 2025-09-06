@@ -26,13 +26,28 @@
     "@eclipse-scout/cli": "25.1.14",
     "@eclipse-scout/releng": "^25.1.0",
     "@eclipse-scout/tsconfig": "25.1.14",
-    "@types/jquery": "3.5.32",
+    "@types/jquery": "3.5.33",
     "live-server": "^1.2.2"
   },
   "dependencies": {
     "@eclipse-scout/core": "25.1.14",
     "jquery": "3.7.1",
-    "ace-code": "1.43.2",
-    "webpack": "~5.101.2"
+    "ace-code": "1.43.3",
+    "webpack": "~5.101.2",
+    "@codemirror/autocomplete": "^6.18.7",
+    "@codemirror/commands": "^6.8.1",
+    "@codemirror/search": "^6.5.11",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-markdown": "^6.3.4",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/language-data": "^6.5.1",
+    "@codemirror/lint": "^6.8.5",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.38.2",
+    "thememirror": "^2.0.1",
+    "@ddietr/codemirror-themes": "^1.5.2",
+    "@codemirror/theme-one-dark": "^6.1.3"
   }
 }

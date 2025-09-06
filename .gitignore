@@ -283,3 +283,4 @@ pnpm-lock.yaml
 
 .vscode/
 /.idea/misc.xml
+/.idea/

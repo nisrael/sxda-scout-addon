@@ -58,17 +58,31 @@ jobs:
 
       - uses: ./.github/actions/setup-node-pnpm
 
-      - name: Update npm module snapshot version
+      - name: Update ace npm module snapshot version
         run: npm run version:snapshot
         working-directory: ./ace
 
-      - name: Build npm module
+      - name: Build ace npm module
         run: npm run build:all
         working-directory: ./ace
 
-      - name: Publish node packages to npmjs.com
+      - name: Publish ace node packages to npmjs.com
         run: npm publish --access public --tag snapshot
         working-directory: ./ace
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update codemirror npm module snapshot version
+        run: npm run version:snapshot
+        working-directory: ./codemirror
+
+      - name: Build codemirror npm module
+        run: npm run build:all
+        working-directory: ./codemirror
+
+      - name: Publish codemirror node packages to npmjs.com
+        run: npm publish --access public --tag snapshot
+        working-directory: ./codemirror
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
