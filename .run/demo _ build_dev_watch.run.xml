@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="[demo] serve" type="js.build_tools.npm">
+  <configuration default="false" name="demo &gt; build:dev:watch" type="js.build_tools.npm" nameIsGenerated="true">
     <package-json value="$PROJECT_DIR$/demo/package.json" />
     <command value="run" />
     <scripts>
-      <script value="serve" />
+      <script value="build:dev:watch" />
     </scripts>
     <node-interpreter value="project" />
     <envs />
