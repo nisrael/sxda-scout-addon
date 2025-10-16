@@ -5,7 +5,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "nisrael"
     assignees:
@@ -22,7 +22,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "nisrael"
     assignees:
@@ -35,10 +35,20 @@ updates:
         patterns:
           - "org.eclipse.scout.rt:*"
         update-types:
-          - "minor"
           - "patch"
       maven-plugins:
         patterns:
+          - "org.apache.maven.plugins:*"
+          - "org.codehaus.mojo:*"
+          - "io.smallrye:*"
+          - "com.mycila:*"
+          - "org.sonatype.central:*"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        exclude-patterns:
+          - "org.eclipse.scout.rt:*"
           - "org.apache.maven.plugins:*"
           - "org.codehaus.mojo:*"
           - "io.smallrye:*"
@@ -56,7 +66,7 @@ updates:
     directory: "/ace"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "nisrael"
     assignees:
@@ -69,10 +79,18 @@ updates:
         patterns:
           - "@eclipse-scout/*"
         update-types:
+          - "patch"
+      ace:
+        patterns:
+          - "ace-code"
+        update-types:
           - "minor"
           - "patch"
       development:
         dependency-type: "development"
+        exclude-patterns:
+          - "@eclipse-scout/*"
+          - "ace-code"
         update-types:
           - "minor"
           - "patch"
@@ -86,7 +104,7 @@ updates:
     directory: "/codemirror"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "nisrael"
     assignees:
@@ -99,16 +117,22 @@ updates:
         patterns:
           - "@eclipse-scout/*"
         update-types:
-          - "minor"
           - "patch"
       codemirror:
         patterns:
           - "@codemirror/*"
+          - "thememirror"
+          - "@ddietr/codemirror-themes"
         update-types:
           - "minor"
           - "patch"
       development:
         dependency-type: "development"
+        exclude-patterns:
+          - "@eclipse-scout/*"
+          - "@codemirror/*"
+          - "thememirror"
+          - "@ddietr/codemirror-themes"
         update-types:
           - "minor"
           - "patch"
@@ -122,7 +146,7 @@ updates:
     directory: "/demo"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "nisrael"
     assignees:
@@ -135,11 +159,29 @@ updates:
         patterns:
           - "@eclipse-scout/*"
         update-types:
-          - "minor"
           - "patch"
       codemirror:
         patterns:
           - "@codemirror/*"
+          - "thememirror"
+          - "@ddietr/codemirror-themes"
+        update-types:
+          - "minor"
+          - "patch"
+      ace:
+        patterns:
+          - "ace-code"
+        update-types:
+          - "minor"
+          - "patch"
+      development:
+        dependency-type: "development"
+        exclude-patterns:
+          - "@eclipse-scout/*"
+          - "@codemirror/*"
+          - "thememirror"
+          - "@ddietr/codemirror-themes"
+          - "ace-code"
         update-types:
           - "minor"
           - "patch"
