@@ -1,0 +1,247 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "UTC",
+  "schedule": [
+    "before 6am on Monday"
+  ],
+  "prConcurrentLimit": 3,
+  "assignees": [
+    "nisrael"
+  ],
+  "reviewers": [
+    "nisrael"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore",
+  "separateMajorMinor": true,
+  "separateMinorPatch": false,
+  "pnpm": {
+    "supportPolicy": ["lts"]
+  },
+  "constraints": {
+    "pnpm": ">=9.15.4"
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 6am on Monday"
+    ]
+  },
+  "postUpdateOptions": [
+    "pnpmDedupe"
+  ],
+  "packageRules": [
+    {
+      "description": "GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "addLabels": [
+        "github-actions"
+      ],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Eclipse Scout Maven dependencies - patch only",
+      "matchManagers": [
+        "maven"
+      ],
+      "matchPackagePatterns": [
+        "^org\\.eclipse\\.scout\\.rt:"
+      ],
+      "addLabels": [
+        "maven"
+      ],
+      "groupName": "eclipse-scout",
+      "matchUpdateTypes": [
+        "patch"
+      ]
+    },
+    {
+      "description": "Maven plugins - minor and patch",
+      "matchManagers": [
+        "maven"
+      ],
+      "matchPackagePatterns": [
+        "^org\\.apache\\.maven\\.plugins:",
+        "^org\\.codehaus\\.mojo:",
+        "^io\\.smallrye:",
+        "^com\\.mycila:",
+        "^org\\.sonatype\\.central:"
+      ],
+      "addLabels": [
+        "maven"
+      ],
+      "groupName": "maven-plugins",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "Other Maven dependencies - minor and patch",
+      "matchManagers": [
+        "maven"
+      ],
+      "excludePackagePatterns": [
+        "^org\\.eclipse\\.scout\\.rt:",
+        "^org\\.apache\\.maven\\.plugins:",
+        "^org\\.codehaus\\.mojo:",
+        "^io\\.smallrye:",
+        "^com\\.mycila:",
+        "^org\\.sonatype\\.central:"
+      ],
+      "addLabels": [
+        "maven"
+      ],
+      "groupName": "other-dependencies",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "Eclipse Scout npm dependencies - patch only",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackagePatterns": [
+        "^@eclipse-scout/"
+      ],
+      "groupName": "eclipse-scout-npm",
+      "matchUpdateTypes": [
+        "patch"
+      ]
+    },
+    {
+      "description": "Ace editor - minor and patch",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPaths": [
+        "ace/**",
+        "demo/**"
+      ],
+      "matchPackageNames": [
+        "ace-code"
+      ],
+      "addLabels": [
+        "ace"
+      ],
+      "groupName": "ace",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "CodeMirror packages - minor and patch",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPaths": [
+        "codemirror/**",
+        "demo/**"
+      ],
+      "matchPackagePatterns": [
+        "^@codemirror/",
+        "^thememirror$",
+        "^@ddietr/codemirror-themes$"
+      ],
+      "addLabels": [
+        "codemirror"
+      ],
+      "groupName": "codemirror",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "Development dependencies for ace module",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPaths": [
+        "ace/**"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "excludePackagePatterns": [
+        "^@eclipse-scout/",
+        "^ace-code$"
+      ],
+      "addLabels": [
+        "npm",
+        "ace"
+      ],
+      "groupName": "ace development",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "Development dependencies for codemirror module",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPaths": [
+        "codemirror/**"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "excludePackagePatterns": [
+        "^@eclipse-scout/",
+        "^@codemirror/",
+        "^thememirror$",
+        "^@ddietr/codemirror-themes$"
+      ],
+      "addLabels": [
+        "npm",
+        "codemirror"
+      ],
+      "groupName": "codemirror development",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "description": "Development dependencies for demo module",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPaths": [
+        "demo/**"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "excludePackagePatterns": [
+        "^@eclipse-scout/",
+        "^@codemirror/",
+        "^thememirror$",
+        "^@ddietr/codemirror-themes$",
+        "^ace-code$"
+      ],
+      "addLabels": [
+        "npm",
+        "demo"
+      ],
+      "groupName": "demo development",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    }
+  ]
+}
