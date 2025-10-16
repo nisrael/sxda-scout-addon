@@ -39,7 +39,7 @@
 
     <sxda.build.skip-publishing>false</sxda.build.skip-publishing>
     <org.eclipse.scout.rt.version>25.1.14</org.eclipse.scout.rt.version>
-    <sxda.dependency.logback.version>1.5.18</sxda.dependency.logback.version>
+    <sxda.dependency.logback.version>1.5.19</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.9.0</sxda.plugin.central-publishing-maven-plugin.version>
     <sxda.plugin.maven-gpg-plugin.version>3.2.8</sxda.plugin.maven-gpg-plugin.version>
     <sxda.plugin.maven-compiler-plugin.version>3.14.1</sxda.plugin.maven-compiler-plugin.version>
