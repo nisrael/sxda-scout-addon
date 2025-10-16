@@ -13,5 +13,8 @@
  */
 import {JasmineScout} from '@eclipse-scout/core/testing';
 
+// Configure ACE loader to prevent "loader is not configured" errors
+import 'ace-code/esm-resolver';
+
 let context = require.context('./', true, /[sS]pec\.js$/);
 JasmineScout.runTestSuite(context);
