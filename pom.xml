@@ -40,19 +40,19 @@
     <sxda.build.skip-publishing>false</sxda.build.skip-publishing>
     <org.eclipse.scout.rt.version>25.1.14</org.eclipse.scout.rt.version>
     <sxda.dependency.logback.version>1.5.18</sxda.dependency.logback.version>
-    <sxda.plugin.central-publishing-maven-plugin.version>0.4.0</sxda.plugin.central-publishing-maven-plugin.version>
-    <sxda.plugin.maven-gpg-plugin.version>3.2.4</sxda.plugin.maven-gpg-plugin.version>
-    <sxda.plugin.maven-compiler-plugin.version>3.14.0</sxda.plugin.maven-compiler-plugin.version>
+    <sxda.plugin.central-publishing-maven-plugin.version>0.9.0</sxda.plugin.central-publishing-maven-plugin.version>
+    <sxda.plugin.maven-gpg-plugin.version>3.2.8</sxda.plugin.maven-gpg-plugin.version>
+    <sxda.plugin.maven-compiler-plugin.version>3.14.1</sxda.plugin.maven-compiler-plugin.version>
     <sxda.plugin.maven-clean-plugin.version>3.5.0</sxda.plugin.maven-clean-plugin.version>
     <sxda.plugin.maven-resources-plugin.version>3.3.1</sxda.plugin.maven-resources-plugin.version>
-    <sxda.plugin.maven-surefire-plugin.version>3.5.3</sxda.plugin.maven-surefire-plugin.version>
-    <sxda.plugin.maven-enforcer-plugin.version>3.6.1</sxda.plugin.maven-enforcer-plugin.version>
-    <sxda.plugin.maven-javadoc-plugin.version>3.11.3</sxda.plugin.maven-javadoc-plugin.version>
+    <sxda.plugin.maven-surefire-plugin.version>3.5.4</sxda.plugin.maven-surefire-plugin.version>
+    <sxda.plugin.maven-enforcer-plugin.version>3.6.2</sxda.plugin.maven-enforcer-plugin.version>
+    <sxda.plugin.maven-javadoc-plugin.version>3.12.0</sxda.plugin.maven-javadoc-plugin.version>
     <sxda.plugin.maven-source-plugin.version>3.3.1</sxda.plugin.maven-source-plugin.version>
-    <sxda.plugin.exec-maven-plugin.version>3.5.1</sxda.plugin.exec-maven-plugin.version>
-    <sxda.plugin.versions-maven-plugin.version>2.18.0</sxda.plugin.versions-maven-plugin.version>
+    <sxda.plugin.exec-maven-plugin.version>3.6.1</sxda.plugin.exec-maven-plugin.version>
+    <sxda.plugin.versions-maven-plugin.version>2.19.1</sxda.plugin.versions-maven-plugin.version>
     <!-- has to be the same minor version then the one used by Eclipse Scout -->
-    <sxda.plugin.jandex-maven-plugin.version>3.2.3</sxda.plugin.jandex-maven-plugin.version>
+    <sxda.plugin.jandex-maven-plugin.version>3.5.0</sxda.plugin.jandex-maven-plugin.version>
     <sxda.plugin.license-maven-plugin.version>4.6</sxda.plugin.license-maven-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
