@@ -21,21 +21,13 @@
   "commitMessagePrefix": "chore",
   "separateMajorMinor": true,
   "separateMinorPatch": false,
-  "pnpm": {
-    "supportPolicy": ["lts"]
-  },
-  "constraints": {
-    "pnpm": ">=9.15.4"
-  },
+  "rangeStrategy": "update-lockfile",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": [
       "before 6am on Monday"
     ]
   },
-  "postUpdateOptions": [
-    "pnpmDedupe"
-  ],
   "packageRules": [
     {
       "description": "GitHub Actions updates",
