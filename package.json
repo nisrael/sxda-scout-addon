@@ -1,0 +1,31 @@
+{
+  "name": "sxda-scout-addon-root",
+  "version": "25.1.2-SNAPSHOT",
+  "description": "Additional form fields for the Eclipse Scout framework - workspace root",
+  "private": true,
+  "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
+  "license": "EPL-2.0",
+  "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nisrael/sxda-scout-addon.git"
+  },
+  "engines": {
+    "node": ">=22.13.0",
+    "npm": ">=10.9.0",
+    "pnpm": ">=9.15.4"
+  },
+  "scripts": {
+    "pnpm-install": "pnpm install --ignore-scripts",
+    "build:all": "pnpm -r --workspace-concurrency=3 run build:all",
+    "build:dev": "pnpm -r --workspace-concurrency=3 run build:dev",
+    "build:prod": "pnpm -r --workspace-concurrency=3 run build:prod",
+    "test:all": "pnpm -r run test:ci",
+    "audit:all": "pnpm audit --recursive",
+    "cleanup:snapshots": "pnpm -r run cleanup:snapshots",
+    "version:snapshot": "pnpm -r run version:snapshot",
+    "version:snapshot:dependencies": "pnpm -r run version:snapshot:dependencies",
+    "version:release": "pnpm -r run version:release",
+    "version:release:dependencies": "pnpm -r run version:release:dependencies"
+  }
+}
