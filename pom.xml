@@ -38,7 +38,7 @@
     <maven.api.version>${sxda.build.require-maven-version}</maven.api.version>
 
     <sxda.build.skip-publishing>false</sxda.build.skip-publishing>
-    <org.eclipse.scout.rt.version>25.1.14</org.eclipse.scout.rt.version>
+    <org.eclipse.scout.rt.version>25.2.9</org.eclipse.scout.rt.version>
     <sxda.dependency.logback.version>1.5.18</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.4.0</sxda.plugin.central-publishing-maven-plugin.version>
     <sxda.plugin.maven-gpg-plugin.version>3.2.4</sxda.plugin.maven-gpg-plugin.version>
