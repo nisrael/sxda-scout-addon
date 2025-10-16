@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -12,3 +13,137 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Maven dependencies
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "nisrael"
+    assignees:
+      - "nisrael"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      eclipse-scout:
+        patterns:
+          - "org.eclipse.scout.rt:*"
+        update-types:
+          - "minor"
+          - "patch"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven.plugins:*"
+          - "org.codehaus.mojo:*"
+          - "io.smallrye:*"
+          - "com.mycila:*"
+          - "org.sonatype.central:*"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "maven"
+
+  # npm dependencies for ace module
+  - package-ecosystem: "npm"
+    directory: "/ace"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "nisrael"
+    assignees:
+      - "nisrael"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      eclipse-scout-npm:
+        patterns:
+          - "@eclipse-scout/*"
+        update-types:
+          - "minor"
+          - "patch"
+      development:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "ace"
+
+  # npm dependencies for codemirror module
+  - package-ecosystem: "npm"
+    directory: "/codemirror"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "nisrael"
+    assignees:
+      - "nisrael"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      eclipse-scout-npm:
+        patterns:
+          - "@eclipse-scout/*"
+        update-types:
+          - "minor"
+          - "patch"
+      codemirror:
+        patterns:
+          - "@codemirror/*"
+        update-types:
+          - "minor"
+          - "patch"
+      development:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "codemirror"
+
+  # npm dependencies for demo module
+  - package-ecosystem: "npm"
+    directory: "/demo"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "nisrael"
+    assignees:
+      - "nisrael"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      eclipse-scout-npm:
+        patterns:
+          - "@eclipse-scout/*"
+        update-types:
+          - "minor"
+          - "patch"
+      codemirror:
+        patterns:
+          - "@codemirror/*"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "demo"
