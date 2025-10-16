@@ -53,7 +53,7 @@
     <sxda.plugin.versions-maven-plugin.version>2.19.1</sxda.plugin.versions-maven-plugin.version>
     <!-- has to be the same minor version then the one used by Eclipse Scout -->
     <sxda.plugin.jandex-maven-plugin.version>3.5.0</sxda.plugin.jandex-maven-plugin.version>
-    <sxda.plugin.license-maven-plugin.version>4.6</sxda.plugin.license-maven-plugin.version>
+    <sxda.plugin.license-maven-plugin.version>5.0.0</sxda.plugin.license-maven-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>
