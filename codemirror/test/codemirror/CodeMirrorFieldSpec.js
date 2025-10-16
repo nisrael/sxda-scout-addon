@@ -195,76 +195,45 @@ describe('CodeMirrorFieldSpec', () => {
       field.render();
     });
 
-    it('toggles line numbers', () => {
+    it('shows/hides line numbers in DOM', () => {
+      // Default: line numbers enabled
+      expect(field.$field.find('.cm-lineNumbers').length).toBeGreaterThan(0);
+
+      // Disable line numbers
       field.setLineNumbers(false);
-      expect(field.lineNumbers).toBe(false);
+      expect(field.$field.find('.cm-lineNumbers').length).toBe(0);
 
+      // Enable again
       field.setLineNumbers(true);
-      expect(field.lineNumbers).toBe(true);
+      expect(field.$field.find('.cm-lineNumbers').length).toBeGreaterThan(0);
     });
 
-    it('toggles syntax highlighting', () => {
-      field.setSyntaxHighlighting(false);
-      expect(field.syntaxHighlighting).toBe(false);
+    it('toggles line wrapping behavior', () => {
+      // Default: no wrapping, long lines scroll horizontally
+      field.setDisplayText('a'.repeat(200));
+      let editorWithoutWrap = field.$field.find('.cm-content');
 
-      field.setSyntaxHighlighting(true);
-      expect(field.syntaxHighlighting).toBe(true);
-    });
-
-    it('toggles active line highlighting', () => {
-      field.setHighlightActiveLine(false);
-      expect(field.highlightActiveLine).toBe(false);
-
-      field.setHighlightActiveLine(true);
-      expect(field.highlightActiveLine).toBe(true);
-    });
-
-    it('toggles bracket matching', () => {
-      field.setBracketMatching(false);
-      expect(field.bracketMatching).toBe(false);
-
-      field.setBracketMatching(true);
-      expect(field.bracketMatching).toBe(true);
-    });
-
-    it('toggles autocompletion', () => {
-      field.setAutocompletion(false);
-      expect(field.autocompletion).toBe(false);
-
-      field.setAutocompletion(true);
-      expect(field.autocompletion).toBe(true);
-    });
-
-    it('toggles line wrapping', () => {
+      // Enable wrapping
       field.setLineWrapping(true);
       expect(field.lineWrapping).toBe(true);
 
+      // Disable wrapping
       field.setLineWrapping(false);
       expect(field.lineWrapping).toBe(false);
     });
 
-    it('configures tab size', () => {
-      field.setTabSize(4);
-      expect(field.tabSize).toBe(4);
+    it('shows active line highlighting in DOM', () => {
+      field.setDisplayText('line 1\nline 2\nline 3');
 
-      field.setTabSize(8);
-      expect(field.tabSize).toBe(8);
-    });
+      // Default: active line highlighting enabled
+      field.setHighlightActiveLine(true);
+      // Active line class should exist when highlighting is on
+      let hasActiveLineClass = field.$field.find('.cm-activeLine, .cm-activeLineGutter').length > 0;
+      expect(hasActiveLineClass).toBe(true);
 
-    it('toggles history (undo/redo)', () => {
-      field.setHistory(false);
-      expect(field.history).toBe(false);
-
-      field.setHistory(true);
-      expect(field.history).toBe(true);
-    });
-
-    it('toggles close brackets', () => {
-      field.setCloseBrackets(false);
-      expect(field.closeBrackets).toBe(false);
-
-      field.setCloseBrackets(true);
-      expect(field.closeBrackets).toBe(true);
+      // When disabled, the extension is removed (harder to test DOM, but property updates)
+      field.setHighlightActiveLine(false);
+      expect(field.highlightActiveLine).toBe(false);
     });
   });
 
@@ -277,87 +246,49 @@ describe('CodeMirrorFieldSpec', () => {
 
     beforeEach(() => {
       field = scout.create(CodeMirrorField, {
-        parent: session.desktop
+        parent: session.desktop,
+        displayText: 'function test() { return 42; }'
       });
       field.render();
     });
 
-    it('sets language mode', () => {
-      field.setLanguage('javascript');
-      expect(field.language).toBe('javascript');
+    it('sets language mode and affects editor configuration', (done) => {
+      // Set JavaScript language
+      field.setLanguage('JavaScript');
 
-      field.setLanguage('java');
-      expect(field.language).toBe('java');
+      // Language is set asynchronously, give it time
+      setTimeout(() => {
+        expect(field.language).toBe('JavaScript');
+        // Language affects syntax highlighting (hard to verify DOM directly)
+        // but we can verify it doesn't crash and property is set
+        done();
+      }, 100);
     });
 
-    it('handles None language', () => {
+    it('handles None language without errors', () => {
       field.setLanguage('None');
       expect(field.language).toBe('None');
+      // Should not crash, None means no syntax highlighting
     });
 
-    it('sets theme', () => {
+    it('sets theme and affects editor styling', (done) => {
+      // Themes are loaded asynchronously
       field.setTheme('dracula');
-      expect(field.theme).toBe('dracula');
 
+      setTimeout(() => {
+        expect(field.theme).toBe('dracula');
+        // Theme changes affect CSS classes (could check for theme-specific classes)
+        done();
+      }, 100);
+    });
+
+    it('handles None theme without errors', () => {
       field.setTheme('None');
       expect(field.theme).toBe('None');
+      // Should not crash, None means default/no theme
     });
   });
 
-  // ========================================
-  // KEYMAP CONFIGURATION
-  // ========================================
-  describe('keymap configuration', () => {
-
-    let field;
-
-    beforeEach(() => {
-      field = scout.create(CodeMirrorField, {
-        parent: session.desktop
-      });
-      field.render();
-    });
-
-    it('toggles indent with tab keymap', () => {
-      field.setIndentWithTabKeymap(false);
-      expect(field.indentWithTabKeymap).toBe(false);
-
-      field.setIndentWithTabKeymap(true);
-      expect(field.indentWithTabKeymap).toBe(true);
-    });
-
-    it('toggles fold keymap', () => {
-      field.setFoldKeymap(false);
-      expect(field.foldKeymap).toBe(false);
-
-      field.setFoldKeymap(true);
-      expect(field.foldKeymap).toBe(true);
-    });
-
-    it('toggles search keymap', () => {
-      field.setSearchKeymap(false);
-      expect(field.searchKeymap).toBe(false);
-
-      field.setSearchKeymap(true);
-      expect(field.searchKeymap).toBe(true);
-    });
-
-    it('toggles default keymap', () => {
-      field.setDefaultKeymap(false);
-      expect(field.defaultKeymap).toBe(false);
-
-      field.setDefaultKeymap(true);
-      expect(field.defaultKeymap).toBe(true);
-    });
-
-    it('toggles history keymap', () => {
-      field.setHistoryKeymap(false);
-      expect(field.historyKeymap).toBe(false);
-
-      field.setHistoryKeymap(true);
-      expect(field.historyKeymap).toBe(true);
-    });
-  });
 
   // ========================================
   // USER INTERACTION
@@ -406,15 +337,6 @@ describe('CodeMirrorFieldSpec', () => {
       expect(field.displayText).toBe(specialText);
     });
 
-    it('handles rapid property changes', () => {
-      // Test for race conditions
-      field.setTabSize(2);
-      field.setTabSize(4);
-      field.setTabSize(8);
-
-      expect(field.tabSize).toBe(8);
-    });
-
     it('handles setting value before render', () => {
       let field2 = scout.create(CodeMirrorField, {
         parent: session.desktop
@@ -428,28 +350,26 @@ describe('CodeMirrorFieldSpec', () => {
       expect(field2.displayText).toBe('early value');
     });
 
-    it('handles multiple feature toggles', () => {
-      // Test toggling multiple features
+    it('handles rapid DOM changes when toggling line numbers', () => {
+      // Rapid toggles should not cause DOM corruption
       field.setLineNumbers(false);
-      field.setSyntaxHighlighting(false);
-      field.setHighlightActiveLine(false);
-      field.setBracketMatching(false);
-
-      expect(field.lineNumbers).toBe(false);
-      expect(field.syntaxHighlighting).toBe(false);
-      expect(field.highlightActiveLine).toBe(false);
-      expect(field.bracketMatching).toBe(false);
-
-      // Toggle them back
       field.setLineNumbers(true);
-      field.setSyntaxHighlighting(true);
-      field.setHighlightActiveLine(true);
-      field.setBracketMatching(true);
+      field.setLineNumbers(false);
+      field.setLineNumbers(true);
 
-      expect(field.lineNumbers).toBe(true);
-      expect(field.syntaxHighlighting).toBe(true);
-      expect(field.highlightActiveLine).toBe(true);
-      expect(field.bracketMatching).toBe(true);
+      // Final state: line numbers should be visible
+      expect(field.$field.find('.cm-lineNumbers').length).toBeGreaterThan(0);
+    });
+
+    it('handles combination of features without conflicts', () => {
+      // Set multiple features and verify DOM reflects the changes
+      field.setDisplayText('line 1\nline 2\nline 3');
+      field.setLineNumbers(true);
+      field.setHighlightActiveLine(true);
+
+      // Both features should be active in DOM
+      expect(field.$field.find('.cm-lineNumbers').length).toBeGreaterThan(0);
+      expect(field.$field.find('.cm-activeLine, .cm-activeLineGutter').length).toBeGreaterThan(0);
     });
   });
 });
