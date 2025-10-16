@@ -15,16 +15,24 @@
   overflow: hidden;
 }
 
-.ace_editor {
-  background-color: @control-background-color;
-  color: @control-color;
+.ace-field{
+  .disabled-overlay{
+    background: rgba(255,255,255,0.3);
+    pointer-events: none; /* allow text selection */
+    z-index: 10;
+  }
+}
+
+.ace-field > .field {
+  //background-color: @control-background-color;
+  //color: @control-color;
   border: 1px solid @control-border-color;
   border-radius: @control-border-radius;
 
   &.disabled {
-    background-color: @control-disabled-background-color;
+    //background-color: @control-disabled-background-color;
     border-color: @control-disabled-border-color;
-    color: @control-disabled-color;
+    //color: @control-disabled-color;
   }
 
   &:focus,
@@ -38,7 +46,7 @@
 
   &.has-error {
     border-color: @error-border-color;
-    background-color: @error-background-color;
+    //background-color: @error-background-color;
   }
 
   &.has-error:focus,
@@ -48,7 +56,8 @@
   }
 
   &.read-only {
-    #scout.read-only();
+    //#scout.read-only();
     border: 1px dashed @border-color;
   }
+
 }

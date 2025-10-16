@@ -31,7 +31,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>${sxda.plugin.maven-resources-plugin.version}</version>
+        <version>${sxda.plugin.maven-source-plugin.version}</version>
         <executions>
           <execution>
             <id>attach-sources</id>

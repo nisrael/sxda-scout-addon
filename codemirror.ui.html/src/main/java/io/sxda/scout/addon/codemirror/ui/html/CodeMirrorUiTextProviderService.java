@@ -16,7 +16,7 @@ package io.sxda.scout.addon.codemirror.ui.html;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.text.AbstractDynamicNlsTextProviderService;
 
-@Order(5015)
+@Order(5016)
 public class CodeMirrorUiTextProviderService extends AbstractDynamicNlsTextProviderService {
 
   @Override

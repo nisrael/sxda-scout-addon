@@ -43,6 +43,7 @@ export default (): FormModel => ({
   rootGroupBox: {
     id: 'MainBox',
     objectType: GroupBox,
+    scrollable: true,
     fields: [
       {
         id: 'DetailBox',
@@ -56,6 +57,7 @@ export default (): FormModel => ({
             statusVisible: false,
             gridDataHints: {
               weightY: 1,
+              heightInPixel: 500,
               fillVertical: true
             },
             fieldWidget: {
@@ -69,7 +71,7 @@ export default (): FormModel => ({
       {
         id: 'ConfigurationBox',
         objectType: TabBox,
-        cssClass: 'sxda-configuration',
+        cssClass: 'jswidgets-configuration',
         selectedTab: 'PropertiesTab',
         gridDataHints: {
           weightY: 0,

@@ -279,8 +279,9 @@ dist
 
 test-results
 *.iml
-pnpm-lock.yaml
 
 .vscode/
 /.idea/misc.xml
 /.idea/
+/.log*
+/CLAUDE.md
