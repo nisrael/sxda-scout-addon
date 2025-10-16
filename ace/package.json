@@ -46,15 +46,15 @@
     "@eclipse-scout/tsconfig": "25.1.14",
     "@eclipse-scout/core": "25.1.14",
     "@types/jquery": "3.5.33",
-    "jasmine-core": "5.10.0",
+    "jasmine-core": "5.12.0",
     "jasmine-jquery": "2.1.1",
     "karma": "6.4.4",
-    "@types/jasmine": "5.1.9",
+    "@types/jasmine": "5.1.11",
     "@types/jasmine-jquery": "1.5.37",
     "webpack-bundle-analyzer": "^4.10.2",
     "jquery": "3.7.1",
     "ace-code": "^1.43.3",
-    "webpack": "~5.101.2",
+    "webpack": "~5.102.1",
     "semver": "^7.7.2"
   },
   "peerDependencies": {
