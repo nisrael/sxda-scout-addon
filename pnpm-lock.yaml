@@ -21,17 +21,17 @@ importers:
   ace:
     devDependencies:
       '@eclipse-scout/cli':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@eclipse-scout/core':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@eclipse-scout/releng':
         specifier: ^25.1.0
         version: 25.1.0(@pnpm/logger@5.2.0)
       '@eclipse-scout/tsconfig':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@jsdevtools/coverage-istanbul-loader':
         specifier: ^3.0.5
         version: 3.0.5
@@ -124,17 +124,17 @@ importers:
         specifier: ^1.5.2
         version: 1.5.2
       '@eclipse-scout/cli':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@eclipse-scout/core':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@eclipse-scout/releng':
         specifier: ^25.1.0
         version: 25.1.0(@pnpm/logger@5.2.0)
       '@eclipse-scout/tsconfig':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@jsdevtools/coverage-istanbul-loader':
         specifier: ^3.0.5
         version: 3.0.5
@@ -220,8 +220,8 @@ importers:
         specifier: ^1.5.2
         version: 1.5.2
       '@eclipse-scout/core':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       ace-code:
         specifier: 1.43.4
         version: 1.43.4
@@ -236,14 +236,14 @@ importers:
         version: 5.102.1
     devDependencies:
       '@eclipse-scout/cli':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@eclipse-scout/releng':
         specifier: ^25.1.0
         version: 25.1.0(@pnpm/logger@5.2.0)
       '@eclipse-scout/tsconfig':
-        specifier: 25.1.14
-        version: 25.1.14
+        specifier: 25.2.9
+        version: 25.2.9
       '@types/jquery':
         specifier: 3.5.33
         version: 3.5.33
@@ -857,17 +857,17 @@ packages:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
 
-  '@eclipse-scout/cli@25.1.14':
-    resolution: {integrity: sha512-5SpEcSr2Z/p+i0WXIu4bI8g9kHhn4NaFzFpJNvBYIGiKWwqkMk2JrCXrvfX8n+oNBeA/vwQyOpBWNvRdqpuSgQ==}
+  '@eclipse-scout/cli@25.2.9':
+    resolution: {integrity: sha512-4+C62v4ufznX0KEL8X0ABt9hRrajyssHtWKv1uZh/KtPGw4IbfOZu85ucizmByK5IWkkK9tbCt5EZPTTEKjBOw==}
     engines: {node: '>=22.12.0', npm: '>=10.9.0', pnpm: '>=9.15.0'}
     hasBin: true
 
-  '@eclipse-scout/core@25.1.14':
-    resolution: {integrity: sha512-HF656cbbA2MWFhygRUgRpkzeHpiXjIC4mLU9Nc6pLFAe7RZnPYe7ziFqLuph1H2tixZaRaltcKdg+t1wzCe6Tg==}
+  '@eclipse-scout/core@25.2.9':
+    resolution: {integrity: sha512-iOa4HePcuQN++tKiE7tTGzh+2YvNP4ZPiAFr2GhYgZl/MCmiPG9M2m8z/TUMMLI1pRzg0bm4ckEwVkQ2KrfAuw==}
     engines: {node: '>=22.12.0', npm: '>=10.9.0', pnpm: '>=9.15.0'}
 
-  '@eclipse-scout/karma-jasmine-scout@25.1.14':
-    resolution: {integrity: sha512-pp/EUDgkFJU2tRNCO51MG5ojbtPTxU+BgKDs4g3OmRc7o6BNMcNoV6lhU3U65IJygMJPqDEOnJGiW2sPXbX0GA==}
+  '@eclipse-scout/karma-jasmine-scout@25.2.9':
+    resolution: {integrity: sha512-7omE5jxIE1u+sqAGuTsro6IjfJRHivTbcKK+Qx7tgQgNgwRXl7eVTlrttcrmZU57L+zZAOLzLbX1Q9j1j733WQ==}
     engines: {node: '>=22.12.0', npm: '>=10.9.0', pnpm: '>=9.15.0'}
 
   '@eclipse-scout/releng@25.1.0':
@@ -875,8 +875,8 @@ packages:
     engines: {node: '>=22.12.0', npm: '>=10.9.0', pnpm: '>=9.15.0'}
     hasBin: true
 
-  '@eclipse-scout/tsconfig@25.1.14':
-    resolution: {integrity: sha512-kXMF6eRkFmm//Vil1QMyhIak4Qsl7fNjKkQBoSFCLK+YKdvOS4rDaUarO/TlByGMn4R5S7NRCjCLSqQ0cG+Ctg==}
+  '@eclipse-scout/tsconfig@25.2.9':
+    resolution: {integrity: sha512-RnSYHkI3dDgiW3diAQnWz2HxdpNZFefWsNA26qqpb5aSTxlqYC7DWalYIgBs+Ne1VzlfBz6ezEaUXQYZy8z7aA==}
     engines: {node: '>=22.12.0', npm: '>=10.9.0', pnpm: '>=9.15.0'}
 
   '@esbuild/aix-ppc64@0.24.0':
@@ -3774,6 +3774,9 @@ packages:
     resolution: {integrity: sha512-wnWtnywepjg/eHIgWR97R7UuM5i+qHLA195qdN9UPKvcMqfn60+67S8sPPW3vDlSEfYHoFkKU8IvpCNty3zQvQ==}
     engines: {node: '>=10'}
 
+  reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
+
   regenerate-unicode-properties@10.2.2:
     resolution: {integrity: sha512-m03P+zhBeQd1RGnYxrGyDAPpWX/epKirLrp8e3qevZdVkKtnCrjjWczIbYc8+xd6vcTStVlqfycTx1KR4LOr0g==}
     engines: {node: '>=4'}
@@ -5551,13 +5554,13 @@ snapshots:
 
   '@discoveryjs/json-ext@0.5.7': {}
 
-  '@eclipse-scout/cli@25.1.14':
+  '@eclipse-scout/cli@25.2.9':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@cyclonedx/webpack-plugin': 5.0.1(webpack@5.97.1(esbuild@0.24.0))
-      '@eclipse-scout/karma-jasmine-scout': 25.1.14
-      '@eclipse-scout/tsconfig': 25.1.14
+      '@eclipse-scout/karma-jasmine-scout': 25.2.9
+      '@eclipse-scout/tsconfig': 25.2.9
       '@metahub/karma-jasmine-jquery': 4.0.1(jasmine-core@5.5.0)(jasmine-jquery@2.1.1)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4)
       babel-loader: 9.2.1(@babel/core@7.26.0)(webpack@5.97.1(esbuild@0.24.0))
       copy-webpack-plugin: 12.0.2(webpack@5.97.1(esbuild@0.24.0))
@@ -5600,12 +5603,13 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@eclipse-scout/core@25.1.14':
+  '@eclipse-scout/core@25.2.9':
     dependencies:
       jquery: 3.7.1
+      reflect-metadata: 0.2.2
       sourcemapped-stacktrace: 1.1.11
 
-  '@eclipse-scout/karma-jasmine-scout@25.1.14':
+  '@eclipse-scout/karma-jasmine-scout@25.2.9':
     dependencies:
       jquery: 3.7.1
       sourcemapped-stacktrace: 1.1.11
@@ -5619,7 +5623,7 @@ snapshots:
       - '@pnpm/logger'
       - debug
 
-  '@eclipse-scout/tsconfig@25.1.14': {}
+  '@eclipse-scout/tsconfig@25.2.9': {}
 
   '@esbuild/aix-ppc64@0.24.0':
     optional: true
@@ -8843,6 +8847,8 @@ snapshots:
       picomatch: 2.3.1
 
   realpath-missing@1.1.0: {}
+
+  reflect-metadata@0.2.2: {}
 
   regenerate-unicode-properties@10.2.2:
     dependencies:

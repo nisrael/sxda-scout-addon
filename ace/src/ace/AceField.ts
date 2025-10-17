@@ -155,10 +155,6 @@ export class AceField extends BasicField<string> implements AceFieldModel {
   }
 
   protected override _renderDisplayText() {
-    if (this.$disabledCopyOverlay) {
-      // Changing the value might change the visibility of the scrollbars -> overlay size needs to be adjusted
-      this.invalidateLayoutTree(false);
-    }
     let displayText = strings.nvl(this.displayText);
     let oldDisplayText = strings.nvl(this.editor.getValue());
     if (this.editor && displayText !== oldDisplayText) {

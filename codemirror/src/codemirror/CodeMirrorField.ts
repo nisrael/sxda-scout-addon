@@ -319,10 +319,6 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   }
 
   protected override _renderDisplayText() {
-    if (this.$disabledCopyOverlay) {
-      // Changing the value might change the visibility of the scrollbars -> overlay size needs to be adjusted
-      this.invalidateLayoutTree(false);
-    }
     if (this._displayTextUpdateFromListener) {
       return;
     }

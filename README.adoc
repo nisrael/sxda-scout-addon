@@ -9,7 +9,7 @@ toc::[]
 
 == Versioning and Releases
 
-The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 25.1.x should be compatible with all Eclipse Scout 25.1.y versions.
+The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 25.2.x should be compatible with all Eclipse Scout 25.2.y versions.
 
 You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
 
@@ -33,7 +33,7 @@ The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax hi
 
 ==== Usage
 
-To use the field in an Eclipse Scout Classic 25.1.y application, add the following modules to your application:
+To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
 
 .your.app.client/pom.xml
 [source,xml]
@@ -42,7 +42,7 @@ To use the field in an Eclipse Scout Classic 25.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.client</artifactId>
-  <version>25.1.0</version>
+  <version>25.2.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -54,7 +54,7 @@ To use the field in an Eclipse Scout Classic 25.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>ace.ui.html</artifactId>
-  <version>25.1.0</version>
+  <version>25.2.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -68,7 +68,7 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-ace": "25.1.0",
+    "@sxda/scout-addon-ace": "25.2.0",
     "ace-code": "1.43.2",
     "webpack": "5.101.2"
   }
@@ -153,7 +153,7 @@ The https://codemirror.net/[CodeMirror Editor] is a modern web-based code editor
 
 ==== Usage
 
-To use the field in an Eclipse Scout Classic 25.1.y application, add the following modules to your application:
+To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
 
 .your.app.client/pom.xml
 [source,xml]
@@ -162,7 +162,7 @@ To use the field in an Eclipse Scout Classic 25.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>codemirror.client</artifactId>
-  <version>25.1.0</version>
+  <version>25.2.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -174,7 +174,7 @@ To use the field in an Eclipse Scout Classic 25.1.y application, add the followi
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>codemirror.ui.html</artifactId>
-  <version>25.1.0</version>
+  <version>25.2.0</version>
 </dependency>
 <!-- ... -->
 ----
@@ -188,7 +188,7 @@ Here are the dependencies you have to add to the `package.json` file of the ui.h
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-codemirror": "25.1.0",
+    "@sxda/scout-addon-codemirror": "25.2.0",
     "@codemirror/autocomplete": "^6.18.7",
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lang-java": "^6.0.2",
