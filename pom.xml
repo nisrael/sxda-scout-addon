@@ -275,6 +275,8 @@
                 <exclude>.run/**</exclude>
                 <exclude>**/src/main/resources/WebContent/**</exclude>
                 <exclude>**/src/main/ws-stub/**</exclude>
+                <exclude>**/coverage/**</exclude>
+                <exclude>**/coverage/**</exclude>
               </excludes>
             </licenseSet>
           </licenseSets>
@@ -375,6 +377,7 @@
                 <id>npm-build-all</id>
                 <phase>compile</phase>
                 <goals>
+                  <goal>exec</goal>
                   <goal>exec</goal>
                 </goals>
                 <configuration>
