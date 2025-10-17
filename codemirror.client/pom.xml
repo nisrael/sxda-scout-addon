@@ -23,6 +23,7 @@
     <version>25.1.2-SNAPSHOT</version>
   </parent>
 
+  <name>Scout Addon CodeMirror Client</name>
   <artifactId>codemirror.client</artifactId>
   <packaging>jar</packaging>
 

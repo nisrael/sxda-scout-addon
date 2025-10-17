@@ -24,6 +24,7 @@
     <version>25.1.2-SNAPSHOT</version>
   </parent>
 
+  <name>Scout Addon CodeMirror</name>
   <artifactId>codemirror</artifactId>
   <packaging>pom</packaging>
 

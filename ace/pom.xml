@@ -24,6 +24,7 @@
     <version>25.1.2-SNAPSHOT</version>
   </parent>
 
+  <name>Scout Addon Ace</name>
   <artifactId>ace</artifactId>
   <packaging>pom</packaging>
 

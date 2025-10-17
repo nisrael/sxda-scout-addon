@@ -23,6 +23,7 @@
     <version>25.1.2-SNAPSHOT</version>
   </parent>
 
+  <name>Scout Addon Demo Application</name>
   <artifactId>demo</artifactId>
   <packaging>pom</packaging>
 
