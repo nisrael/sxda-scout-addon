@@ -20,7 +20,7 @@
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>25.1.2-SNAPSHOT</version>
+  <version>25.1.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Scout Addon Base</name>
