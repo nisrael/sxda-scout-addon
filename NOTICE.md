@@ -68,3 +68,10 @@ Ace (Ajax.org Cloud9 Editor)
 * License: BSD-3-Clause
 * Project home: https://ace.c9.io/
 * Source: https://github.com/ajaxorg/ace and https://github.com/ajaxorg/ace-builds
+
+CodeMirror (Extensible Code Editor)
+
+* License: MIT License
+* Project home: https://codemirror.net
+* Source: https://github.com/codemirror/dev/
+
