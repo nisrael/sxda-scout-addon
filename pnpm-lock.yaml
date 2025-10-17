@@ -139,8 +139,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       '@types/jasmine':
-        specifier: 5.1.4
-        version: 5.1.4
+        specifier: 5.1.11
+        version: 5.1.11
       '@types/jasmine-jquery':
         specifier: 1.5.37
         version: 1.5.37
@@ -148,8 +148,8 @@ importers:
         specifier: 3.5.33
         version: 3.5.33
       jasmine-core:
-        specifier: 5.10.0
-        version: 5.10.0
+        specifier: 5.12.0
+        version: 5.12.0
       jasmine-jquery:
         specifier: 2.1.1
         version: 2.1.1
@@ -157,8 +157,8 @@ importers:
         specifier: 3.7.1
         version: 3.7.1
       karma:
-        specifier: 6.4.2
-        version: 6.4.2
+        specifier: 6.4.4
+        version: 6.4.4
       karma-coverage:
         specifier: ^2.2.1
         version: 2.2.1
@@ -169,8 +169,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(@codemirror/language@6.11.3)(@codemirror/state@6.5.2)(@codemirror/view@6.38.6)
       webpack:
-        specifier: ~5.101.2
-        version: 5.101.3
+        specifier: ~5.102.0
+        version: 5.102.1
       webpack-bundle-analyzer:
         specifier: ^4.10.2
         version: 4.10.2
@@ -1349,9 +1349,6 @@ packages:
 
   '@types/jasmine@5.1.11':
     resolution: {integrity: sha512-eAij9lMAsosuA8cvRcqw7p2vO+LUraktQDmOUFx2jAnya8NUchr3DryHksfhZbRzU83vzNUSZhlk1cFdoePxwA==}
-
-  '@types/jasmine@5.1.4':
-    resolution: {integrity: sha512-px7OMFO/ncXxixDe1zR13V1iycqWae0MxTaw62RpFlksUi5QuNWgQJFkTQjIOvrmutJbI7Fp2Y2N1F6D2R4G6w==}
 
   '@types/jquery@3.5.33':
     resolution: {integrity: sha512-SeyVJXlCZpEki5F0ghuYe+L+PprQta6nRZqhONt9F13dWBtR/ftoaIbdRQ7cis7womE+X2LKhsDdDtkkDhJS6g==}
@@ -2808,9 +2805,6 @@ packages:
   jasmine-core@4.6.1:
     resolution: {integrity: sha512-VYz/BjjmC3klLJlLwA4Kw8ytk0zDSmbbDLNs794VnWmkcCB7I9aAL/D48VNQtmITyPvea2C3jdUMfc3kAoy0PQ==}
 
-  jasmine-core@5.10.0:
-    resolution: {integrity: sha512-MrChbWV5LBo+EaeKwTM1eZ6oYSz1brvFExnRafraEkJkbJ9evbUxABhnIgGQimhpMxhg+BD6QmOvb/e3NXsNdg==}
-
   jasmine-core@5.12.0:
     resolution: {integrity: sha512-QqO4pX33GEML5JoGQU6BM5NHKPgEsg+TXp3jCIDek9MbfEp2JUYEFBo9EF1+hegWy/bCHS1m5nP0BOp18G6rVA==}
 
@@ -2910,11 +2904,6 @@ packages:
     engines: {node: '>= 18'}
     peerDependencies:
       webpack: ^5.0.0
-
-  karma@6.4.2:
-    resolution: {integrity: sha512-C6SU/53LB31BEgRg+omznBEMY4SjHU3ricV6zBcAe1EeILKkeScr+fZXtaI5WyDbkVowJxxAI6h73NcFPmXolQ==}
-    engines: {node: '>= 10'}
-    hasBin: true
 
   karma@6.4.4:
     resolution: {integrity: sha512-LrtUxbdvt1gOpo3gxG+VAJlJAEMhbWlM4YrFQgql98FwF7+K8K12LYO4hnDdUkNjeztYrOXEMqgTajSWgmtI/w==}
@@ -4460,16 +4449,6 @@ packages:
   webpack-sources@3.3.3:
     resolution: {integrity: sha512-yd1RBzSGanHkitROoPFd6qsrxt+oFhg/129YzheDGqeustzX0vTZJZsSsQjVQC4yzBQ56K55XU8gaNCtIzOnTg==}
     engines: {node: '>=10.13.0'}
-
-  webpack@5.101.3:
-    resolution: {integrity: sha512-7b0dTKR3Ed//AD/6kkx/o7duS8H3f1a4w3BYpIriX4BzIhjkn4teo05cptsxvLesHFKK5KObnadmCHBwGc+51A==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
-    peerDependencies:
-      webpack-cli: '*'
-    peerDependenciesMeta:
-      webpack-cli:
-        optional: true
 
   webpack@5.102.1:
     resolution: {integrity: sha512-7h/weGm9d/ywQ6qzJ+Xy+r9n/3qgp/thalBbpOi5i223dPXKi04IBtqPN9nTd+jBc7QKfvDbaBnFipYp4sJAUQ==}
@@ -6172,8 +6151,6 @@ snapshots:
 
   '@types/jasmine@5.1.11': {}
 
-  '@types/jasmine@5.1.4': {}
-
   '@types/jquery@3.5.33':
     dependencies:
       '@types/sizzle': 2.3.10
@@ -7797,8 +7774,6 @@ snapshots:
 
   jasmine-core@4.6.1: {}
 
-  jasmine-core@5.10.0: {}
-
   jasmine-core@5.12.0: {}
 
   jasmine-core@5.5.0: {}
@@ -7905,38 +7880,6 @@ snapshots:
       minimatch: 9.0.5
       webpack: 5.97.1(esbuild@0.24.0)
       webpack-merge: 4.2.2
-
-  karma@6.4.2:
-    dependencies:
-      '@colors/colors': 1.5.0
-      body-parser: 1.20.3
-      braces: 3.0.3
-      chokidar: 3.6.0
-      connect: 3.7.0
-      di: 0.0.1
-      dom-serialize: 2.2.1
-      glob: 7.2.3
-      graceful-fs: 4.2.11
-      http-proxy: 1.18.1
-      isbinaryfile: 4.0.10
-      lodash: 4.17.21
-      log4js: 6.9.1
-      mime: 2.6.0
-      minimatch: 3.1.2
-      mkdirp: 0.5.6
-      qjobs: 1.2.0
-      range-parser: 1.2.1
-      rimraf: 3.0.2
-      socket.io: 4.8.1
-      source-map: 0.6.1
-      tmp: 0.2.5
-      ua-parser-js: 0.7.41
-      yargs: 16.2.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
 
   karma@6.4.4:
     dependencies:
@@ -9392,15 +9335,6 @@ snapshots:
     optionalDependencies:
       esbuild: 0.24.0
 
-  terser-webpack-plugin@5.3.14(webpack@5.101.3):
-    dependencies:
-      '@jridgewell/trace-mapping': 0.3.31
-      jest-worker: 27.5.1
-      schema-utils: 4.3.3
-      serialize-javascript: 6.0.2
-      terser: 5.44.0
-      webpack: 5.101.3
-
   terser-webpack-plugin@5.3.14(webpack@5.102.1):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
@@ -9613,38 +9547,6 @@ snapshots:
       lodash: 4.17.21
 
   webpack-sources@3.3.3: {}
-
-  webpack@5.101.3:
-    dependencies:
-      '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.8
-      '@types/json-schema': 7.0.15
-      '@webassemblyjs/ast': 1.14.1
-      '@webassemblyjs/wasm-edit': 1.14.1
-      '@webassemblyjs/wasm-parser': 1.14.1
-      acorn: 8.15.0
-      acorn-import-phases: 1.0.4(acorn@8.15.0)
-      browserslist: 4.26.3
-      chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.3
-      es-module-lexer: 1.7.0
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.11
-      json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.1
-      mime-types: 2.1.35
-      neo-async: 2.6.2
-      schema-utils: 4.3.3
-      tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(webpack@5.101.3)
-      watchpack: 2.4.4
-      webpack-sources: 3.3.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
 
   webpack@5.102.1:
     dependencies:
