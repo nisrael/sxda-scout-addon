@@ -12,7 +12,61 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/karma-defaults');
+const path = require('path');
 
 module.exports = (config, specEntryPoint) => {
   baseConfig(config, specEntryPoint);
+
+  // Get current configuration after baseConfig has been applied
+  const currentConfig = config;
+
+  // Extend existing reporters array
+  currentConfig.reporters = currentConfig.reporters || [];
+  if (!currentConfig.reporters.includes('coverage')) {
+    currentConfig.reporters.push('coverage');
+  }
+
+  // Extend existing plugins array
+  currentConfig.plugins = currentConfig.plugins || [];
+  currentConfig.plugins.push(require('karma-coverage'));
+
+  // Add coverage configuration
+  currentConfig.coverageReporter = {
+    dir: 'target/coverage',
+    reporters: [
+      { type: 'html', subdir: 'html' },
+      { type: 'lcovonly', subdir: 'lcov' },
+      { type: 'text-summary' },
+      { type: 'json', subdir: 'json' }
+    ],
+    check: {
+      global: {
+        statements: 90,
+        branches: 75,
+        functions: 75,
+        lines: 90
+      }
+    }
+  };
+
+  // Configure webpack for coverage instrumentation
+  if (currentConfig.webpack) {
+    currentConfig.webpack.devtool = 'inline-source-map';
+
+    // Add istanbul loader for source files (not test files)
+    currentConfig.webpack.module = currentConfig.webpack.module || {};
+    currentConfig.webpack.module.rules = currentConfig.webpack.module.rules || [];
+
+    // Add post-processing rule for coverage instrumentation
+    currentConfig.webpack.module.rules.push({
+      test: /\.ts$/,
+      include: path.resolve('src/'),
+      exclude: [/node_modules/, /\.spec\.ts$/],
+      enforce: 'post',
+      use: {
+        loader: '@jsdevtools/coverage-istanbul-loader',
+        options: { esModules: true }
+      }
+    });
+  }
 };
