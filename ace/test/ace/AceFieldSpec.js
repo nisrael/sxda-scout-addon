@@ -32,6 +32,17 @@ describe('AceFieldSpec', () => {
 
   let session;
 
+  afterEach(() => {
+    // Remove all beforeunload listeners
+    // FIXME find out which plugin is responsible for the popup
+    //  "Seite verlassen? Deine Änderungen werden evtl. nicht gespeichert."
+    // which leads to
+    // Chrome 141.0.0.0 (Mac OS 10.15.7) ERROR
+    //   Some of your tests did a full page reload!
+    // and ExitStatus 3
+    window.onbeforeunload = null;
+  });
+
   beforeEach(() => {
     setFixtures(sandbox());
     session = sandboxSession();

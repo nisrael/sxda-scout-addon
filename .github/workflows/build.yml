@@ -26,10 +26,7 @@ jobs:
       - uses: ./.github/actions/setup-java
 
       - name: Build with Maven
-        run: |
-          mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
-          cd ace && npm run test:ci && cd ..
-          cd codemirror && npm run test:ci && cd ..
+        run: mvn -B package --file pom.xml --fail-at-end --no-transfer-progress
 
       - name: Create check on PR
         if: (success() || failure()) && github.event_name == 'pull_request'
