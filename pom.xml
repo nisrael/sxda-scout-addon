@@ -54,6 +54,10 @@
     <!-- has to be the same minor version then the one used by Eclipse Scout -->
     <sxda.plugin.jandex-maven-plugin.version>3.5.0</sxda.plugin.jandex-maven-plugin.version>
     <sxda.plugin.license-maven-plugin.version>5.0.0</sxda.plugin.license-maven-plugin.version>
+    <sxda.plugin.maven-toolchains-plugin.version>3.2.0</sxda.plugin.maven-toolchains-plugin.version>
+    <sxda.plugin.maven-deploy-plugin.version>3.1.3</sxda.plugin.maven-deploy-plugin.version>
+    <sxda.plugin.maven-install-plugin.version>3.1.3</sxda.plugin.maven-install-plugin.version>
+    <sxda.plugin.maven-jar-plugin.version>3.4.2</sxda.plugin.maven-jar-plugin.version>
     <!-- default for all modules, will be overwritten in profile sxda-base-module -->
     <sxda.build.package-json-present>false</sxda.build.package-json-present>
     <sxda.build.no-packagge-json-present>true</sxda.build.no-packagge-json-present>
@@ -65,6 +69,11 @@
     <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
     <sxda.build.skip-license-validation>true</sxda.build.skip-license-validation>
     <sxda.build.skip-mvn-deploy>true</sxda.build.skip-mvn-deploy>
+    <skipTests>false</skipTests>
+    <maven.deploy.skip>true</maven.deploy.skip>
+    <!-- Reproducible Builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
+    <!-- Update this timestamp with each major/minor release -->
+    <project.build.outputTimestamp>2025-10-18T00:00:00Z</project.build.outputTimestamp>
   </properties>
 
   <distributionManagement>
@@ -176,6 +185,21 @@
           <version>${sxda.plugin.maven-surefire-plugin.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${sxda.plugin.maven-deploy-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${sxda.plugin.maven-install-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${sxda.plugin.maven-jar-plugin.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>${sxda.plugin.exec-maven-plugin.version}</version>
@@ -194,6 +218,57 @@
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>${sxda.plugin.license-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${sxda.plugin.maven-gpg-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+              <configuration>
+                <!-- This is required to make sure the plugin does not stop asking for -->
+                <!-- user input on the passphrase -->
+                <gpgArguments>
+                  <arg>--pinentry-mode</arg>
+                  <arg>loopback</arg>
+                </gpgArguments>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${sxda.plugin.central-publishing-maven-plugin.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <skipPublishing>${sxda.build.skip-publishing}</skipPublishing>
+            <publishingServerId>central</publishingServerId>
+            <tokenAuth>true</tokenAuth>
+            <autoPublish>false</autoPublish>
+            <excludeArtifacts>
+              <artifact>base</artifact>
+              <artifact>demo</artifact>
+              <artifact>ace</artifact>
+              <artifact>codemirror</artifact>
+            </excludeArtifacts>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-toolchains-plugin</artifactId>
+          <version>${sxda.plugin.maven-toolchains-plugin.version}</version>
+          <configuration>
+            <toolchains>
+              <jdk>
+                <version>${jdk.min.version}</version>
+              </jdk>
+            </toolchains>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -221,6 +296,17 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>select-jdk-toolchain</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
@@ -388,6 +474,7 @@
                 </goals>
                 <phase>test</phase>
                 <configuration>
+                  <skip>${skipTests}</skip>
                   <executable>npm</executable>
                   <arguments>
                     <argument>run</argument>
@@ -481,49 +568,9 @@
         <gpg.keyname>release-bot@sxda.io</gpg.keyname>
       </properties>
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <artifactId>maven-gpg-plugin</artifactId>
-              <version>${sxda.plugin.maven-gpg-plugin.version}</version>
-              <executions>
-                <execution>
-                  <id>sign-artifacts</id>
-                  <phase>verify</phase>
-                  <goals>
-                    <goal>sign</goal>
-                  </goals>
-                  <configuration>
-                    <!-- This is required to make sure the plugin does not stop asking for -->
-                    <!-- user input on the passphrase -->
-                    <gpgArguments>
-                      <arg>--pinentry-mode</arg>
-                      <arg>loopback</arg>
-                    </gpgArguments>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.sonatype.central</groupId>
-              <artifactId>central-publishing-maven-plugin</artifactId>
-              <version>${sxda.plugin.central-publishing-maven-plugin.version}</version>
-              <extensions>true</extensions>
-              <configuration>
-                <skipPublishing>${sxda.build.skip-publishing}</skipPublishing>
-                <publishingServerId>central</publishingServerId>
-                <tokenAuth>true</tokenAuth>
-                <autoPublish>false</autoPublish>
-                <excludeArtifacts>
-                  <artifact>demo</artifact>
-                  <artifact>ace</artifact>
-                </excludeArtifacts>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
         <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
           </plugin>
           <plugin>
