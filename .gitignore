@@ -285,3 +285,4 @@ test-results
 /.idea/
 /.log*
 /CLAUDE.md
+/.tool-versions

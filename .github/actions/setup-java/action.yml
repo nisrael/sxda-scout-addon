@@ -1,6 +1,6 @@
 # .github/actions/setup-java/action.yml
 name: 'Setup Java with Maven'
-description: 'Setup Java 21 with Temurin distribution and Maven caching'
+description: 'Setup Java 25 with Temurin distribution and Maven caching'
 inputs:
   java-package:
     description: 'Java package type'
@@ -33,7 +33,7 @@ runs:
     - uses: actions/setup-java@v5
       with:
         java-package: ${{ inputs.java-package }}
-        java-version: '21'
+        java-version: '25'
         distribution: 'temurin'
         cache: maven
         check-latest: ${{ inputs.check-latest }}
