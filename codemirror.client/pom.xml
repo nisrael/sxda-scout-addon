@@ -27,6 +27,10 @@
   <artifactId>codemirror.client</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <maven.deploy.skip>false</maven.deploy.skip>
+  </properties>
+
   <build>
     <plugins>
       <plugin>

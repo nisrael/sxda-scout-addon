@@ -17,6 +17,84 @@ Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.a
 
 Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org].
 
+== Building the Project
+
+=== Requirements
+
+* Java: JDK 25 or higher
+* Maven: 3.9.9 or higher
+* Node.js: 22.13.0 or higher
+* npm: 10.9.0 or higher
+* pnpm: 9.15.4 or higher (installed via npm)
+
+=== Maven Toolchains (Optional)
+
+The project uses the Maven Toolchains plugin to ensure all Maven plugins use JDK 25. The plugin is configured to automatically scan for available JDKs when no `toolchains.xml` file is found. However, for more control over which JDK is used, you can optionally create a `~/.m2/toolchains.xml` file.
+
+Example `~/.m2/toolchains.xml`:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<toolchains xmlns="http://maven.apache.org/TOOLCHAINS/1.1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/TOOLCHAINS/1.1.0 http://maven.apache.org/xsd/toolchains-1.1.0.xsd">
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>25</version>
+      <vendor>openjdk</vendor>
+    </provides>
+    <configuration>
+      <!-- macOS example - adjust the path to your JDK 25 installation -->
+      <jdkHome>/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home</jdkHome>
+
+      <!-- Linux example:
+      <jdkHome>/usr/lib/jvm/java-25-openjdk</jdkHome>
+      -->
+
+      <!-- Windows example:
+      <jdkHome>C:\Program Files\Java\jdk-25</jdkHome>
+      -->
+    </configuration>
+  </toolchain>
+</toolchains>
+----
+
+For more information about Maven Toolchains, see: https://maven.apache.org/guides/mini/guide-using-toolchains.html
+
+=== Build Commands
+
+[source,bash]
+----
+# Build all modules (includes Maven and npm builds)
+mvn clean package
+
+# Build with license validation
+mvn clean package -Psxda.build.license-validation
+
+# Skip tests
+mvn clean package -DskipTests
+----
+
+=== Reproducible Builds
+
+This project is configured for reproducible builds, which means that building the same source code multiple times produces byte-for-byte identical artifacts. This is achieved through Maven's `project.build.outputTimestamp` property.
+
+The timestamp is set in the root `pom.xml` and represents the date of the current release cycle. During the automated release process:
+
+1. The release is built and published using the current timestamp from the POM
+2. After a successful release, the timestamp is automatically updated to the current date when preparing the next snapshot version
+3. This ensures that if a release fails, the timestamp remains unchanged and stable
+
+This approach provides:
+
+* **Security**: Users can verify that published artifacts match the source code
+* **Reproducibility**: Anyone can rebuild from source and get identical checksums
+* **Fault-tolerance**: Failed releases don't leave the timestamp in an inconsistent state
+
+For more information about reproducible builds, see: https://maven.apache.org/guides/mini/guide-reproducible-builds.html
+
 == Contributing
 
 Contributions are welcome:

@@ -91,6 +91,11 @@ jobs:
           cd ace && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
           cd codemirror && npm run version:release -- --newVersion=$NEXT_SNAPSHOT_VERSION-snapshot && npm run version:snapshot && cd ..
           mvn -U -B versions:set -D newVersion=$NEXT_SNAPSHOT_VERSION-SNAPSHOT -D generateBackupPoms=false
+
+          # update reproducible builds timestamp to current date for next release
+          export RELEASE_DATE=$(date -u +"%Y-%m-%dT00:00:00Z")
+          mvn -U -B versions:set-property -D property=project.build.outputTimestamp -D newVersion=$RELEASE_DATE -D generateBackupPoms=false
+
           git add -v ace/package.json codemirror/package.json demo/package.json ace/pom.xml codemirror/pom.xml demo/pom.xml ace.client/pom.xml codemirror.client/pom.xml ace.ui.html/pom.xml codemirror.ui.html/pom.xml pom.xml
           git commit -m "Prepare next snapshot version $NEXT_SNAPSHOT_VERSION-SNAPSHOT"
           git push
