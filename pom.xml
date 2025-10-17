@@ -65,8 +65,6 @@
     <sxda.build.no-npm-build>true</sxda.build.no-npm-build>
     <sxda.build.skip-license-validation>true</sxda.build.skip-license-validation>
     <sxda.build.skip-mvn-deploy>true</sxda.build.skip-mvn-deploy>
-
-
   </properties>
 
   <distributionManagement>
@@ -137,7 +135,6 @@
       <name>sxda-io-bot</name>
       <email>release-bot@sxda.io</email>
     </developer>
-
   </developers>
 
   <modules>
@@ -385,6 +382,21 @@
                   <arguments>
                     <argument>run</argument>
                     <argument>build:all</argument>
+                  </arguments>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm-test-karma</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>test</phase>
+                <configuration>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>test:ci</argument>
                   </arguments>
                   <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
