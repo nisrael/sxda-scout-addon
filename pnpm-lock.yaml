@@ -46,7 +46,7 @@ importers:
         version: 3.5.33
       ace-code:
         specifier: ^1.43.3
-        version: 1.43.3
+        version: 1.43.4
       babel-plugin-istanbul:
         specifier: ^7.0.1
         version: 7.0.1
@@ -223,8 +223,8 @@ importers:
         specifier: 25.1.14
         version: 25.1.14
       ace-code:
-        specifier: 1.43.3
-        version: 1.43.3
+        specifier: 1.43.4
+        version: 1.43.4
       jquery:
         specifier: 3.7.1
         version: 3.7.1
@@ -1446,8 +1446,8 @@ packages:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
 
-  ace-code@1.43.3:
-    resolution: {integrity: sha512-1sbSCxEHV2hfb/uvbx9Rw8+XUh+PV7VqD1DbUeHuouebkRhwg5S70JjvPWhQlH6jVAuKYa1gerUWYB0khbVmsA==}
+  ace-code@1.43.4:
+    resolution: {integrity: sha512-YyR6UJQp65YT5I2QwC1DZiTDzVTNOaNgCJelX9WaTu0EFSZAUtc0HyNr231m2KMKBZTaCqWxMgskqamXn6neIw==}
     engines: {node: '>= 0.6.0'}
 
   acorn-import-phases@1.0.4:
@@ -6275,7 +6275,7 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  ace-code@1.43.3: {}
+  ace-code@1.43.4: {}
 
   acorn-import-phases@1.0.4(acorn@8.15.0):
     dependencies:

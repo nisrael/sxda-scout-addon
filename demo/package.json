@@ -32,7 +32,7 @@
   "dependencies": {
     "@eclipse-scout/core": "25.1.14",
     "jquery": "3.7.1",
-    "ace-code": "1.43.3",
+    "ace-code": "1.43.4",
     "webpack": "~5.102.1",
     "@codemirror/autocomplete": "^6.18.7",
     "@codemirror/commands": "^6.8.1",
