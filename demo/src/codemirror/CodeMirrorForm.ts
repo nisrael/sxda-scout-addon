@@ -35,6 +35,10 @@ export class CodeMirrorForm extends Form {
     enableField.setValue(codeMirror.enabled);
     enableField.on('propertyChange:value', event => codeMirror.setEnabled(event.newValue));
 
+    let updateDisplayTextOnModifyField = this.widget('UpdateDisplayTextOnModifyField');
+    updateDisplayTextOnModifyField.setValue(codeMirror.updateDisplayTextOnModify);
+    updateDisplayTextOnModifyField.on('propertyChange:value', event => codeMirror.setUpdateDisplayTextOnModify(event.newValue));
+
     let setValueField = this.widget('SetValueField');
     let setValueButton = this.widget('SetValueButton');
     setValueButton.on('click', event => codeMirror.setValue(setValueField.value));
