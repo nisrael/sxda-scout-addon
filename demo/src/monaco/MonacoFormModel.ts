@@ -53,7 +53,6 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'MonacoField',
-              updateDisplayTextOnModify: true,
               objectType: MonacoField,
               language: 'javascript',
               theme: 'vs-dark',
@@ -88,7 +87,11 @@ export default (): FormModel => ({
                     id: 'EnableField',
                     objectType: CheckBoxField,
                     label: 'Enable',
-                    labelVisible: false
+                  },
+                  {
+                    id: 'UpdateDisplayTextOnModifyField',
+                    objectType: CheckBoxField,
+                    label: 'Update Display Text On Modify'
                   },
                   {
                     id: 'LanguageField',
@@ -208,6 +211,7 @@ export type MonacoFormWidgetMap = {
   'SetValueFieldBox': GroupBox;
   'SetValueButton': Button;
   'EnableField': CheckBoxField;
+  'UpdateDisplayTextOnModifyField': CheckBoxField;
   'LanguageField': SmartField<string>;
   'ThemeField': SmartField<string>;
   'LineNumbersField': CheckBoxField;

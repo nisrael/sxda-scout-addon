@@ -22,7 +22,7 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
   declare self: MonacoField;
 
   protected _editor: monaco.editor.IStandaloneCodeEditor;
-  protected _displayTextUpdateFromListener: boolean;
+  protected _isUpdatingEditorFromRenderer: boolean;
 
   language: string;
   theme: string;
@@ -55,26 +55,13 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
     this.scrollBeyondLastLine = false;
     this.formatOnPaste = false;
     this.formatOnType = false;
-    this._displayTextUpdateFromListener = false;
+    this._isUpdatingEditorFromRenderer = false;
   }
 
   protected override _render() {
     this.addContainer(this.$parent, 'monaco-field');
     this.addLabel();
-    this.addMandatoryIndicator();
-    this.addStatus();
     this.addField(this.$parent.makeDiv('monaco-editor-container'));
-  }
-
-  protected override _renderProperties() {
-    super._renderProperties();
-    this._renderMonacoEditor();
-  }
-
-  protected _renderMonacoEditor() {
-    if (this._editor) {
-      return;
-    }
 
     const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
       value: this.displayText || '',
@@ -98,28 +85,43 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
     this._editor = monaco.editor.create(this.$field[0], editorOptions);
 
     // Listen to content changes
-    this._editor.onDidChangeModelContent(() => {
-      if (!this._displayTextUpdateFromListener) {
-        const value = this._editor.getValue();
-        this.setDisplayText(value);
-        this._triggerAcceptInput(false);
-      }
-    });
+    this._editor.onDidChangeModelContent(() => this._onEditorValueChange());
+
+    this.addMandatoryIndicator();
+    this.addStatus();
   }
 
   protected override _renderDisplayText() {
-    if (!this._editor || this._displayTextUpdateFromListener) {
+    if (!this._editor || this._isUpdatingEditorFromRenderer) {
       return;
     }
-
-    this._displayTextUpdateFromListener = true;
+    this._isUpdatingEditorFromRenderer = true;
     try {
       const currentValue = this._editor.getValue();
       if (currentValue !== this.displayText) {
         this._editor.setValue(this.displayText || '');
       }
     } finally {
-      this._displayTextUpdateFromListener = false;
+      this._isUpdatingEditorFromRenderer = false;
+    }
+  }
+
+  protected override _readDisplayText(): string {
+    return this._editor ? this._editor.getValue() : '';
+  }
+
+  _onEditorValueChange() {
+    // Don't handle changes that we triggered ourselves
+    if (this._isUpdatingEditorFromRenderer) {
+      return;
+    }
+
+    // Update has-text indicator
+    this._updateHasText();
+
+    // Use Scout's built-in method for while-typing updates
+    if (this.updateDisplayTextOnModify) {
+      this._onDisplayTextModified();
     }
   }
 

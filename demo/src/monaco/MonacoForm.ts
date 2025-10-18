@@ -35,6 +35,10 @@ export class MonacoForm extends Form {
     enableField.setValue(monaco.enabled);
     enableField.on('propertyChange:value', event => monaco.setEnabled(event.newValue));
 
+    let updateDisplayTextOnModifyField = this.widget('UpdateDisplayTextOnModifyField');
+    updateDisplayTextOnModifyField.setValue(monaco.updateDisplayTextOnModify);
+    updateDisplayTextOnModifyField.on('propertyChange:value', event => monaco.setUpdateDisplayTextOnModify(event.newValue));
+
     let languageField = this.widget('LanguageField');
     languageField.setValue(monaco.language);
     languageField.on('propertyChange:value', event => {
