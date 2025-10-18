@@ -251,7 +251,6 @@
             <tokenAuth>true</tokenAuth>
             <autoPublish>false</autoPublish>
             <excludeArtifacts>
-              <artifact>base</artifact>
               <artifact>demo</artifact>
               <artifact>ace</artifact>
               <artifact>codemirror</artifact>
