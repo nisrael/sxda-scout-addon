@@ -51,7 +51,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   declare eventMap: CodeMirrorFieldEventMap;
   declare self: CodeMirrorField;
 
-  protected _displayTextUpdateFromListener: boolean;
+  protected _isUpdatingEditorFromRenderer: boolean;
 
   protected _editorView: EditorView;
   protected _keymapCompartment: Compartment;
@@ -139,6 +139,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this.historyKeymap = true;
     this.lineWrapping = false;
     this.theme = 'None'
+    this._isUpdatingEditorFromRenderer = false;
 
     this._enabledCompartment = new Compartment();
     this._syntaxHighlightingCompartment = new Compartment();
@@ -184,7 +185,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     let initialEditorState = EditorState.create({
       doc: this.displayText,
       extensions: [
-        EditorView.updateListener.of(this.handleViewUpdate),
+        EditorView.updateListener.of(this._onEditorViewUpdate),
         this._enabledCompartment.of([]),
         this._keymapCompartment.of([]),
         this._syntaxHighlightingCompartment.of([]),
@@ -220,11 +221,21 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this.addStatus();
   }
 
-  protected handleViewUpdate = (viewUpdate: ViewUpdate) => {
+  protected _onEditorViewUpdate = (viewUpdate: ViewUpdate) => {
     if (viewUpdate.docChanged) {
-      this._displayTextUpdateFromListener = true;
-      this.setDisplayText(viewUpdate.state.doc.toString());
-      this._displayTextUpdateFromListener = false;
+
+      // Don't handle changes that we triggered ourselves
+      if (this._isUpdatingEditorFromRenderer) {
+        return;
+      }
+
+      // Update has-text indicator
+      this._updateHasText();
+
+      // Use Scout's built-in method for while-typing updates
+      if (this.updateDisplayTextOnModify) {
+        this._onDisplayTextModified();
+      }
     }
   }
 
@@ -319,30 +330,38 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
   }
 
   protected override _renderDisplayText() {
-    if (this._displayTextUpdateFromListener) {
+    // Guard: prevent infinite loop when we set editor value
+    if (this._isUpdatingEditorFromRenderer) {
       return;
     }
     let displayText = strings.nvl(this.displayText);
-    let oldDisplayText = strings.nvl(this._editorView.state.doc.toString());
-    if (this._editorView && displayText !== oldDisplayText) {
-      let oldSelectionRanges = this._editorView.state.selection.ranges;
-      this._editorView.dispatch({
-        changes: {
-          from: 0,
-          to: this._editorView.state.doc.length,
-          insert: displayText
-        }
-      });
-      this._updateHasText();
-      let matches = oldDisplayText.match(StringField.TRIM_REGEXP);
-      if (matches && matches[2] === displayText && oldSelectionRanges.length == 1) {
-        let oldSelectionStart = oldSelectionRanges[0].from;
-        let oldSelectionEnd = oldSelectionRanges[0].to;
-        let newSelectionStart = Math.max(oldSelectionStart - matches[1].length, 0);
-        let newSelectionEnd = Math.min(oldSelectionEnd - matches[1].length, displayText.length);
+    let currentEditorValue = strings.nvl(this._editorView.state.doc.toString());
+    if (this._editorView && displayText !== currentEditorValue) {
+      // Set flag before setValue to prevent loop
+      this._isUpdatingEditorFromRenderer = true;
+      try {
+        let oldSelectionRanges = this._editorView.state.selection.ranges;
         this._editorView.dispatch({
-          selection: EditorSelection.range(newSelectionStart, newSelectionEnd)
+          changes: {
+            from: 0,
+            to: this._editorView.state.doc.length,
+            insert: displayText
+          }
         });
+        this._updateHasText();
+        let matches = currentEditorValue.match(StringField.TRIM_REGEXP);
+        if (matches && matches[2] === displayText && oldSelectionRanges.length == 1) {
+          let oldSelectionStart = oldSelectionRanges[0].from;
+          let oldSelectionEnd = oldSelectionRanges[0].to;
+          let newSelectionStart = Math.max(oldSelectionStart - matches[1].length, 0);
+          let newSelectionEnd = Math.min(oldSelectionEnd - matches[1].length, displayText.length);
+          this._editorView.dispatch({
+            selection: EditorSelection.range(newSelectionStart, newSelectionEnd)
+          });
+        }
+      } finally {
+        // Always clear flag
+        this._isUpdatingEditorFromRenderer = false;
       }
     }
   }
