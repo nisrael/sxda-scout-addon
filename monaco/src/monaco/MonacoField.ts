@@ -61,7 +61,10 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
   protected override _render() {
     this.addContainer(this.$parent, 'monaco-field');
     this.addLabel();
-    this.addField(this.$parent.makeDiv('monaco-editor-container'));
+
+    // Create the field container element and add it as the field
+    let $field = this.$parent.appendDiv('monaco');
+    this.addField($field);
 
     const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
       value: this.displayText || '',
@@ -82,10 +85,14 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
       formatOnType: this.formatOnType
     };
 
-    this._editor = monaco.editor.create(this.$field[0], editorOptions);
+    // Create Monaco editor in the field element
+    this._editor = monaco.editor.create($field[0], editorOptions);
 
     // Listen to content changes
     this._editor.onDidChangeModelContent(() => this._onEditorValueChange());
+
+    // Trigger layout after creation to ensure proper rendering
+    this._editor.layout();
 
     this.addMandatoryIndicator();
     this.addStatus();

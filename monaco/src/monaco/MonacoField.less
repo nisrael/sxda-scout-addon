@@ -1,12 +1,37 @@
-.monaco-field {
-  .monaco-editor-container {
-    min-height: 200px;
-    height: 100%;
-    border: 1px solid @border-color;
-    border-radius: @border-radius;
-  }
+.monaco-field > .field {
+  overflow: hidden;
+  min-height: 200px;
+  border: 1px solid @control-border-color;
+  border-radius: @control-border-radius;
 
-  &.disabled .monaco-editor-container {
+  &.disabled {
+    border-color: @control-disabled-border-color;
     opacity: 0.6;
   }
+
+  &:focus,
+  &.focused {
+    #scout.focus-border();
+    margin-bottom: 3px;
+    margin-top: 3px;
+    height: calc(100% - 6px);
+  }
+
+  &.has-error {
+    border-color: @error-border-color;
+  }
+
+  &.has-error:focus,
+  &.has-error.focused {
+    #scout.focus-box-shadow(@box-shadow-color: @error-focus-box-shadow-color);
+  }
+
+  &.read-only {
+    border: 1px dashed @border-color;
+  }
+}
+
+.monaco-field .monaco {
+  width: 100%;
+  height: 100%;
 }

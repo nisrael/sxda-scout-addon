@@ -12,7 +12,6 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/webpack-defaults');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = (env, args) => {
@@ -32,23 +31,14 @@ module.exports = (env, args) => {
     ...config.optimization
   };
 
-  // Add CSS loader for Monaco Editor's imported CSS files
   config.module.rules.push({
     test: /\.css$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      {
-        loader: require.resolve('css-loader'),
-        options: {
-          sourceMap: args.mode === 'development',
-          modules: false
-        }
-      }
-    ]
+    use: ['style-loader', 'css-loader']
+  }, {
+    test: /\.ttf$/,
+    use: ['file-loader']
   });
 
-  // Add Monaco Editor webpack plugin
-  // This automatically configures workers and handles module loading
   config.plugins.push(
     new MonacoWebpackPlugin({
       languages: ['typescript', 'javascript', 'json', 'html', 'css', 'markdown', 'java', 'python'],

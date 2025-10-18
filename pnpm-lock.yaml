@@ -259,12 +259,21 @@ importers:
       '@types/jquery':
         specifier: 3.5.33
         version: 3.5.33
+      css-loader:
+        specifier: ^7.1.2
+        version: 7.1.2(webpack@5.102.1)
+      file-loader:
+        specifier: ^6.2.0
+        version: 6.2.0(webpack@5.102.1)
       live-server:
         specifier: ^1.2.2
         version: 1.2.2
       monaco-editor-webpack-plugin:
         specifier: ^7.1.1
         version: 7.1.1(monaco-editor@0.52.2)(webpack@5.102.1)
+      style-loader:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.102.1)
 
   monaco:
     devDependencies:
@@ -2398,6 +2407,12 @@ packages:
       picomatch:
         optional: true
 
+  file-loader@6.2.0:
+    resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
+
   file-uri-to-path@1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
 
@@ -4248,6 +4263,12 @@ packages:
   strip-json-comments@2.0.1:
     resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
     engines: {node: '>=0.10.0'}
+
+  style-loader@4.0.0:
+    resolution: {integrity: sha512-1V4WqhhZZgjVAVJyt7TdDPZoPBPNHbekX4fWnCJL1yQukhCeZhJySUL+gL9y6sNdN95uEOS83Y55SqHcP7MzLA==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      webpack: ^5.27.0
 
   style-mod@4.1.3:
     resolution: {integrity: sha512-i/n8VsZydrugj3Iuzll8+x/00GH2vnYsk1eomD8QiRrSAeW6ItbCQDtfXCeJHd0iwiNagqjQkvpvREEPtW3IoQ==}
@@ -6947,6 +6968,19 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
+  css-loader@7.1.2(webpack@5.102.1):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
+      postcss-modules-scope: 3.2.1(postcss@8.5.6)
+      postcss-modules-values: 4.0.0(postcss@8.5.6)
+      postcss-value-parser: 4.2.0
+      semver: 7.7.3
+    optionalDependencies:
+      webpack: 5.102.1
+
   css-loader@7.1.2(webpack@5.97.1(esbuild@0.24.0)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
@@ -7379,6 +7413,12 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
     optional: true
+
+  file-loader@6.2.0(webpack@5.102.1):
+    dependencies:
+      loader-utils: 2.0.4
+      schema-utils: 3.3.0
+      webpack: 5.102.1
 
   file-uri-to-path@1.0.0:
     optional: true
@@ -9389,6 +9429,10 @@ snapshots:
 
   strip-json-comments@2.0.1:
     optional: true
+
+  style-loader@4.0.0(webpack@5.102.1):
+    dependencies:
+      webpack: 5.102.1
 
   style-mod@4.1.3: {}
 

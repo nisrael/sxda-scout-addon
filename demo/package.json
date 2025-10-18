@@ -27,8 +27,11 @@
     "@eclipse-scout/releng": "^25.1.0",
     "@eclipse-scout/tsconfig": "25.2.9",
     "@types/jquery": "3.5.33",
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "live-server": "^1.2.2",
-    "monaco-editor-webpack-plugin": "^7.1.1"
+    "monaco-editor-webpack-plugin": "^7.1.1",
+    "style-loader": "^4.0.0"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.7",
