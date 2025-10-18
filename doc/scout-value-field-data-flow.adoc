@@ -1,0 +1,661 @@
+= Eclipse Scout ValueField Data Flow
+:toc: left
+:toclevels: 3
+:sectnums:
+
+== Overview
+
+This document explains the data flow in Eclipse Scout fields, with focus on implementing custom editor fields that extend `BasicField`. It covers:
+
+* **Core Data Flow**: Understanding the three-layer model (DOM → displayText → value)
+* **Integration Patterns**: How to properly implement custom editor fields (AceField, CodeMirrorField, etc.)
+* **Guard Patterns**: Preventing infinite loops and ensuring correct state management
+* **Best Practices**: Leveraging Scout's built-in functionality (debouncing, validation, etc.)
+
+=== Three-Layer Data Model
+
+Understanding the relationship between:
+
+* **DOM Layer**: The actual editor's internal state (e.g., `editor.getValue()`)
+* **Field Property**: The widget's `displayText` property (what is currently shown)
+* **Model Property**: The widget's `value` property (business logic value)
+
+== Class Hierarchy
+
+[source]
+----
+FormField (base)
+  └── ValueField<TValue>
+      └── BasicField<TValue>
+          ├── StringField (extends BasicField<string>)
+          ├── AceField (custom, extends BasicField<string>)
+          └── CodeMirrorField (custom, extends BasicField<string>)
+----
+
+.File Locations
+* `ValueField.ts` - Defines value/displayText/parsing/formatting logic
+* `BasicField.ts` - Adds DOM field rendering (`$field`), debouncing, input events
+* `StringField.ts` - Adds string-specific features (trimming, obfuscation)
+* `ValueFieldAdapter.ts` - JSON adapter for server communication
+* `StringFieldAdapter.ts` - String-specific adapter
+* **Custom Fields**:
+** `AceField.ts` - Wraps Ace Editor (uses guard flag pattern)
+** `CodeMirrorField.ts` - Wraps CodeMirror 6 (uses same guard flag pattern)
+
+== Three-Layer Data Model
+
+[mermaid]
+----
+graph TB
+    A[Server Model: value] -->|JSON sync| B[Widget Property: displayText]
+    B -->|_renderDisplayText| C[DOM: input.value]
+    C -->|_readDisplayText| D[User Input]
+    D -->|acceptInput| B
+    B -->|parseValue| A
+----
+
+=== 1. DOM Layer (`$field.val()`)
+
+* The actual HTML `<input>` element's value
+* What the user sees and edits
+* Read by: `_readDisplayText()`
+* Written by: `_renderDisplayText()`
+
+=== 2. Field Property (`displayText`)
+
+* A Scout model property on the widget
+* Represents what should be displayed (formatted)
+* May differ from business value (e.g., "1,000" vs 1000)
+* Synchronized with server
+
+=== 3. Model Property (`value`)
+
+* The business logic value
+* Result of parsing `displayText`
+* May be a different type (e.g., Date object vs "2025-10-18")
+* Synchronized with server
+
+== Key Methods
+
+=== Reading from DOM
+
+[source,typescript]
+----
+_readDisplayText(): string {
+  return this.$field ? this.$field.val() as string : '';
+}
+----
+
+**Purpose**: Extract current text from the DOM input element
+
+**Called by**:
+
+* `acceptInput()` - to capture user edits
+* Selection tracking methods
+
+**Returns**: Current DOM value as string
+
+=== Writing to DOM
+
+[source,typescript]
+----
+_renderDisplayText() {
+  this.$field.val(this.displayText);
+  super._renderDisplayText();
+}
+----
+
+**Purpose**: Update DOM element to match `displayText` property
+
+**Called when**:
+
+* `displayText` property changes (automatically via Scout's property system)
+* After server sends new displayText
+* After formatting a value
+
+**Special cases** (StringField):
+
+* Obfuscated fields clear DOM when focused
+* Trimming preserves cursor position
+
+=== Accepting User Input
+
+[source,typescript]
+----
+acceptInput(whileTyping?: boolean): void {
+  let displayText = this._readDisplayText();
+
+  if (this._checkDisplayTextChanged(displayText, whileTyping)) {
+    this._setProperty('displayText', displayText);
+
+    if (!whileTyping) {
+      this.parseAndSetValue(displayText);
+    }
+
+    this._triggerAcceptInput(whileTyping);
+  }
+}
+----
+
+**Purpose**: Capture user edits from DOM and update model
+
+**Parameters**:
+
+* `whileTyping=true` - Called during typing (if `updateDisplayTextOnModify=true`)
+* `whileTyping=false` - Called on blur (always)
+
+**Called by**:
+
+* `_onFieldBlur()` - Always with `whileTyping=false`
+* `_onDisplayTextModified()` - If `updateDisplayTextOnModify=true`, with `whileTyping=true`
+* Application code - Manual calls (e.g., button clicks)
+
+**Steps**:
+
+1. Read current DOM value via `_readDisplayText()`
+2. Check if it changed with `_checkDisplayTextChanged()`
+3. Update `displayText` property (without triggering render)
+4. If not while typing: parse displayText and update `value` property
+5. Send to server via `_triggerAcceptInput()`
+
+=== Setting Value Programmatically
+
+[source,typescript]
+----
+setValue(value: TValue) {
+  this._callSetProperty('value', value);
+}
+
+_setValue(value: TValue) {
+  this.value = this.validateValue(value);
+  this._updateDisplayText();
+  this._valueChanged();
+}
+
+_updateDisplayText(value?: TValue) {
+  let formatted = this.formatValue(value);
+  this.setDisplayText(formatted);
+}
+----
+
+**Purpose**: Update business value and sync to display
+
+**Steps**:
+
+1. Validate the new value
+2. Set `this.value` property
+3. Format value to displayText
+4. Set `displayText` property (triggers `_renderDisplayText()`)
+5. DOM updated with formatted value
+6. Fire change events
+
+== Data Flow Diagrams
+
+=== Downward Flow (Server → Browser)
+
+[mermaid]
+----
+sequenceDiagram
+    participant Server
+    participant Adapter
+    participant Widget
+    participant DOM
+
+    Server->>Adapter: JSON: {displayText: "new value"}
+    Adapter->>Widget: setDisplayText("new value")
+    Widget->>Widget: _setProperty('displayText', ...)
+    Widget->>Widget: _renderDisplayText()
+    Widget->>DOM: $field.val("new value")
+    Note over DOM: <input value="new value" />
+----
+
+.Steps
+1. Server sends JSON with new `displayText`
+2. `ValueFieldAdapter._syncDisplayText()` receives it
+3. Calls `widget.setDisplayText(displayText)`
+4. Property setter triggers `_renderDisplayText()`
+5. DOM updated via `$field.val(displayText)`
+
+=== Upward Flow (Browser → Server)
+
+[mermaid]
+----
+sequenceDiagram
+    participant DOM
+    participant Widget
+    participant Adapter
+    participant Server
+
+    DOM->>Widget: 'blur' event
+    Widget->>Widget: _onFieldBlur()
+    Widget->>Widget: acceptInput(false)
+    Widget->>DOM: displayText = _readDisplayText()
+    DOM-->>Widget: "user typed text"
+    Widget->>Widget: _setProperty('displayText', ...)
+    Widget->>Widget: parseAndSetValue(displayText)
+    Widget->>Widget: setValue(parsedValue)
+    Widget->>Widget: _triggerAcceptInput(false)
+    Widget->>Adapter: trigger 'acceptInput' event
+    Adapter->>Server: JSON: {displayText, whileTyping: false}
+----
+
+.Steps
+1. User types in field, then field loses focus
+2. `blur` event fires → `_onFieldBlur()`
+3. Calls `acceptInput(false)` (not while typing)
+4. Reads DOM via `_readDisplayText()`
+5. Updates `displayText` property
+6. Parses displayText to business value
+7. Sets `value` property
+8. Sends event to server with displayText
+
+=== Value Property Change
+
+[mermaid]
+----
+sequenceDiagram
+    participant App
+    participant Widget
+    participant DOM
+
+    App->>Widget: setValue(newValue)
+    Widget->>Widget: _setValue(newValue)
+    Widget->>Widget: validateValue(newValue)
+    Widget->>Widget: this.value = validatedValue
+    Widget->>Widget: _updateDisplayText()
+    Widget->>Widget: formatted = formatValue(value)
+    Widget->>Widget: setDisplayText(formatted)
+    Widget->>Widget: _renderDisplayText()
+    Widget->>DOM: $field.val(formatted)
+    Note over DOM: Display shows formatted value
+----
+
+.Steps
+1. Application calls `setValue(newValue)`
+2. Value is validated
+3. `this.value` updated
+4. Value is formatted to displayText
+5. `displayText` property updated
+6. `_renderDisplayText()` called
+7. DOM updated with formatted value
+
+== Method Call Sequence on Field Blur
+
+[source]
+----
+1. User types in field
+2. User clicks outside field (blur)
+3. 'blur' event fires
+4. _onFieldBlur(event)
+5.   └─> acceptInput(false)
+6.       ├─> displayText = _readDisplayText()  [read from DOM]
+7.       ├─> _checkDisplayTextChanged(displayText, false)
+8.       └─> if changed:
+9.           ├─> _setProperty('displayText', displayText)
+10.          ├─> parseAndSetValue(displayText)
+11.          │   ├─> removeErrorStatus()
+12.          │   ├─> parseValue(displayText)  [uses parser function]
+13.          │   └─> setValue(parsedValue)
+14.          │       └─> _setValue(parsedValue)
+15.          │           ├─> validateValue(parsedValue)
+16.          │           ├─> this.value = validated
+17.          │           ├─> _updateDisplayText()
+18.          │           │   ├─> formatValue(this.value)
+19.          │           │   └─> setDisplayText(formatted)
+20.          │           │       └─> _renderDisplayText()
+21.          │           │           └─> $field.val(formatted)
+22.          │           └─> _valueChanged()
+23.          └─> _triggerAcceptInput(false)  [event sent to server]
+----
+
+== Property Synchronization Table
+
+[cols="1,2,2,3"]
+|===
+|Direction |Property |Trigger |Method
+
+|Down
+|`displayText`
+|Server sends new value
+|`_renderDisplayText()` updates DOM
+
+|Down
+|`value`
+|Server sends new value
+|`_updateDisplayText()` → `setDisplayText()` → DOM
+
+|Up
+|`displayText`
+|User blur or input event
+|`acceptInput()` reads DOM via `_readDisplayText()`
+
+|Up
+|`value`
+|Parsed from displayText on blur
+|Sent to server as business value
+|===
+
+== Special Behaviors
+
+=== Obfuscated Fields (Password)
+
+[source,typescript]
+----
+_renderDisplayText() {
+  if (this.inputObfuscated && this.focused) {
+    this.$field.val('');
+    return;
+  }
+  super._renderDisplayText();
+}
+----
+
+* When field is focused and obfuscated, DOM is cleared
+* New displayText is NOT shown while focused
+* Restored on blur or when value changes externally
+
+=== Text Trimming
+
+* `trimText` property controls whitespace removal
+* Trims leading/trailing spaces on accept
+* If trimming causes visible change, cursor position is preserved
+* Uses `TRIM_REGEXP = /^\s+|\s+$/g`
+
+=== updateDisplayTextOnModify
+
+When `updateDisplayTextOnModify=true`:
+
+* Triggers `_onDisplayTextModified()` on each keystroke
+* BasicField debounces calls to `acceptInput(true)` (default 250ms delay)
+* Sends display text to server while typing
+* Used for preview/suggestion features
+* Final blur still sends `acceptInput(false)` to parse value
+
+==== Important: Use _onDisplayTextModified(), not acceptInput(true) directly
+
+Custom fields should call `_onDisplayTextModified()` instead of `acceptInput(true)` directly:
+
+[source,typescript]
+----
+// GOOD - Leverages BasicField's debounce logic
+protected _onEditorValueChange() {
+  if (this._isUpdatingEditorFromRenderer) return;
+
+  this._updateHasText();
+
+  if (this.updateDisplayTextOnModify) {
+    this._onDisplayTextModified();  // ✓ Uses debounce
+  }
+}
+
+// BAD - Bypasses debounce, sends every keystroke immediately
+protected _onEditorValueChange() {
+  if (this._isUpdatingEditorFromRenderer) return;
+
+  this._updateHasText();
+  this.acceptInput(true);  // ✗ No debounce!
+}
+----
+
+**Why this matters**:
+
+* `_onDisplayTextModified()` implements debouncing via `updateDisplayTextOnModifyDelay`
+* Prevents server overload during rapid typing
+* Allows configurable delay (default 250ms)
+* Follows the pattern used by BasicField internally
+
+=== Selection Tracking
+
+* `_updateSelection()` tracks cursor position in DOM
+* Can preserve selection across re-renders
+* Controlled by `selectionTrackingEnabled` property
+* Used for rich text features
+
+== Synchronization Guarantees
+
+[cols="1,3"]
+|===
+|Layer |Source of Truth
+
+|User Input
+|**DOM** is always the source of truth - `_readDisplayText()` reads from `$field.val()`
+
+|Display
+|**displayText** property is the source of truth - `_renderDisplayText()` sets `$field.val(this.displayText)`
+
+|Business Value
+|**value** property is the source of truth - Comes from parsing displayText
+
+|Timing
+|Changes sync **on blur** or **explicit calls** - Unless `updateDisplayTextOnModify=true`
+|===
+
+== Integration Pattern for Custom Fields
+
+For editor fields like AceField or CodeMirrorField:
+
+[source,typescript]
+----
+export class AceField extends BasicField<string> {
+  editor: ace.Editor;
+  protected _isUpdatingEditorFromRenderer: boolean;
+
+  constructor() {
+    super();
+    this._isUpdatingEditorFromRenderer = false;
+  }
+
+  override _render() {
+    // Create container and initialize editor
+    this.addContainer(this.$parent, 'ace-field');
+    this.addLabel();
+
+    let $field = this.$parent.appendDiv('ace-field-content');
+    this.addField($field);
+
+    this.editor = ace.edit($field.get()[0]);
+    this.editor.setValue(this.displayText);
+
+    // Hook editor change events
+    this.editor.session.on('change', () => {
+      this._onEditorValueChange();
+    });
+
+    this.addMandatoryIndicator();
+    this.addStatus();
+  }
+
+  override _readDisplayText(): string {
+    // Read from editor instead of DOM input
+    return this.editor ? this.editor.getValue() : '';
+  }
+
+  override _renderDisplayText() {
+    // Guard: prevent infinite loop when we set editor value
+    if (this._isUpdatingEditorFromRenderer) {
+      return;
+    }
+
+    let displayText = strings.nvl(this.displayText);
+    let currentEditorValue = strings.nvl(this.editor.getValue());
+
+    // Write to editor instead of DOM input
+    if (this.editor && displayText !== currentEditorValue) {
+      // Set flag before setValue to prevent loop
+      this._isUpdatingEditorFromRenderer = true;
+      try {
+        this.editor.setValue(displayText);
+        this._updateHasText();
+      } finally {
+        // Always clear flag
+        this._isUpdatingEditorFromRenderer = false;
+      }
+    }
+  }
+
+  protected _onEditorValueChange() {
+    // Don't handle changes that we triggered ourselves
+    if (this._isUpdatingEditorFromRenderer) {
+      return;
+    }
+
+    // Update has-text indicator
+    this._updateHasText();
+
+    // Use Scout's built-in method for while-typing updates
+    if (this.updateDisplayTextOnModify) {
+      this._onDisplayTextModified();
+    }
+  }
+}
+----
+
+**Key points**:
+
+1. Override `_readDisplayText()` to read from editor's internal state
+2. Override `_renderDisplayText()` to write to editor with guard flag protection
+3. Use `_isUpdatingEditorFromRenderer` flag to prevent infinite loops
+4. Call `_onDisplayTextModified()` when users make edits (leverages BasicField's debounce logic)
+5. The rest of parsing/formatting/validation works automatically
+6. Server communication handled by inherited adapter
+
+=== Guard Flag Pattern Explained
+
+The `_isUpdatingEditorFromRenderer` flag prevents infinite loops:
+
+[mermaid]
+----
+graph TB
+    A[Server sends displayText] -->|_renderDisplayText| B[Set _isUpdatingEditorFromRenderer = true]
+    B --> C[editor.setValue]
+    C --> D[Editor fires 'change' event]
+    D --> E{_isUpdatingEditorFromRenderer?}
+    E -->|true| F[Early return - ignore]
+    E -->|false| G[_onDisplayTextModified]
+    F --> H[Clear flag in finally block]
+
+    I[User types in editor] --> J[Editor fires 'change' event]
+    J --> K{_isUpdatingEditorFromRenderer?}
+    K -->|false| L[_onDisplayTextModified]
+    K -->|true| M[Early return - ignore]
+----
+
+**Without this flag**: `_renderDisplayText()` → `editor.setValue()` → editor change event → `_onDisplayTextModified()` → `acceptInput()` → `_renderDisplayText()` → **infinite loop**
+
+**With this flag**: The change event triggered by programmatic updates is ignored, breaking the loop.
+
+== Summary: Key Takeaways for Custom Field Implementation
+
+=== Must Implement
+1. **`_readDisplayText()`** - Read current value from your editor
+2. **`_renderDisplayText()`** - Write displayText to your editor with guard flag
+3. **Editor change handler** - Hook editor events to `_onEditorValueChange()`
+4. **Guard flag** - Use `_isUpdatingEditorFromRenderer` with try-finally
+
+=== Best Practices
+1. **Use `_onDisplayTextModified()`** instead of `acceptInput(true)` - Gets debouncing for free
+2. **Initialize guard flag in constructor** - Prevents undefined behavior
+3. **Update has-text state** - Call `_updateHasText()` in both render and change handlers
+4. **Check `updateDisplayTextOnModify`** - Only call `_onDisplayTextModified()` when enabled
+5. **Preserve selection** - Handle cursor position during trimming
+6. **Call acceptInput on blur** - Let BasicField handle blur events
+
+=== Implementation Checklist
+
+When implementing a custom editor field:
+
+- [ ] Extend `BasicField<string>`
+- [ ] Add `_isUpdatingEditorFromRenderer: boolean` property
+- [ ] Initialize flag to `false` in constructor
+- [ ] Override `_render()` to create editor and hook change events
+- [ ] Override `_readDisplayText()` to read from editor
+- [ ] Override `_renderDisplayText()` with guard flag and try-finally
+- [ ] Implement `_onEditorValueChange()` with guard check
+- [ ] Call `_updateHasText()` in both directions
+- [ ] Use `_onDisplayTextModified()` for user input
+- [ ] Check `updateDisplayTextOnModify` before calling `_onDisplayTextModified()`
+- [ ] Add selection preservation logic if needed
+- [ ] Test: user typing, blur, server updates, error cases
+
+=== Pattern Template (Copy-Paste Ready)
+
+[source,typescript]
+----
+export class MyEditorField extends BasicField<string> {
+  protected _isUpdatingEditorFromRenderer: boolean;
+  protected _editor: any;
+
+  constructor() {
+    super();
+    this._isUpdatingEditorFromRenderer = false;
+  }
+
+  protected override _render() {
+    this.addContainer(this.$parent, 'my-editor-field');
+    this.addLabel();
+    let $field = this.$parent.appendDiv('editor-content');
+    this.addField($field);
+
+    this._editor = initEditor($field);
+    this._editor.setValue(this.displayText);
+    this._editor.on('change', () => this._onEditorValueChange());
+
+    this.addMandatoryIndicator();
+    this.addStatus();
+  }
+
+  protected override _readDisplayText(): string {
+    return this._editor ? this._editor.getValue() : '';
+  }
+
+  protected override _renderDisplayText() {
+    if (this._isUpdatingEditorFromRenderer) return;
+
+    let displayText = strings.nvl(this.displayText);
+    let currentValue = strings.nvl(this._editor.getValue());
+
+    if (this._editor && displayText !== currentValue) {
+      this._isUpdatingEditorFromRenderer = true;
+      try {
+        this._editor.setValue(displayText);
+        this._updateHasText();
+      } finally {
+        this._isUpdatingEditorFromRenderer = false;
+      }
+    }
+  }
+
+  protected _onEditorValueChange() {
+    if (this._isUpdatingEditorFromRenderer) return;
+    this._updateHasText();
+    if (this.updateDisplayTextOnModify) {
+      this._onDisplayTextModified();
+    }
+  }
+}
+----
+
+== References
+
+=== Eclipse Scout Sources
+
+.Eclipse Scout Core 25.2.9
+* link:https://github.com/eclipse-scout/scout.rt/blob/b419e20482d7387bc409fa8a61ecb1644a16cabc/eclipse-scout-core/src/form/fields/ValueField.ts[`ValueField.ts`] - Lines 142-586 (acceptInput, setValue, _updateDisplayText)
+* link:https://github.com/eclipse-scout/scout.rt/blob/b419e20482d7387bc409fa8a61ecb1644a16cabc/eclipse-scout-core/src/form/fields/BasicField.ts[`BasicField.ts`] - Lines 75-103 (_renderDisplayText, _onDisplayTextModified)
+* link:https://github.com/eclipse-scout/scout.rt/blob/b419e20482d7387bc409fa8a61ecb1644a16cabc/eclipse-scout-core/src/form/fields/stringfield/StringField.ts[`StringField.ts`] - Lines 76-564 (_readDisplayText, _renderDisplayText, obfuscation)
+* link:https://github.com/eclipse-scout/scout.rt/blob/b419e20482d7387bc409fa8a61ecb1644a16cabc/eclipse-scout-core/src/form/fields/ValueFieldAdapter.ts[`ValueFieldAdapter.ts`] - Lines 41-93 (_syncDisplayText, _onWidgetAcceptInput)
+* link:https://github.com/eclipse-scout/scout.rt/blob/b419e20482d7387bc409fa8a61ecb1644a16cabc/eclipse-scout-core/src/form/fields/stringfield/StringFieldAdapter.ts[`StringFieldAdapter.ts`] - Additional string-specific adapter logic
+
+=== Eclipse Scout Documentation
+
+* link:https://eclipsescout.github.io/scout-docs/25.2/technical-guide/user-interface/value-field.html[ValueField Technical Guide]
+* link:https://eclipsescout.github.io/scout-docs/25.2/howtos/scout-js/flip-card-how-to.html[How to Create a Custom Field]
+
+=== Implementation Examples
+
+* **AceField**: `/ace/src/ace/AceField.ts` - Implementation using Ace Editor
+* **CodeMirrorField**: `/codemirror/src/codemirror/CodeMirrorField.ts` - Implementation using CodeMirror 6
+* **Demo Application**: `/demo/src/` - Usage examples and integration
+
+
+

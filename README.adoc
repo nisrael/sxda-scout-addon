@@ -370,6 +370,11 @@ A Scout JS demo application is located in the link:./demo[demo directory]. An in
 
 And a demo Scout Classic application can be found at: https://github.com/nisrael/sxda-scout-apps-addondemo.
 
+== Additional Documentation
+
+* Two IntelliJ IDEA code templates for quickly adding new configuration properties to Scout fields are available in link:/doc/setup-intellij.adoc[doc/setup-intellij.adoc].
+* AA detailed description of the synchronization logic and its implementation between the editor and the Scout field, together with a template for similar custom fields, is available in link:/doc/scout-value-field-data-flow.adoc[doc/scout-value-field-data-flow.adoc].
+
 == License
 
 This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0 which is available at https://www.eclipse.org/legal/epl-2.0/
