@@ -2,6 +2,12 @@
 :toc: left
 :toclevels: 3
 :sectnums:
+ifdef::env-github[]
+:MERMAID: source, mermaid
+endif::[]
+ifndef::env-github[]
+:MERMAID: mermaid
+endif::[]
 
 == Overview
 
@@ -44,7 +50,7 @@ FormField (base)
 
 == Three-Layer Data Model
 
-[mermaid]
+[{MERMAID}]
 ----
 graph TB
     A[Server Model: value] -->|JSON sync| B[Widget Property: displayText]
@@ -193,7 +199,7 @@ _updateDisplayText(value?: TValue) {
 
 === Downward Flow (Server → Browser)
 
-[mermaid]
+[{MERMAID}]
 ----
 sequenceDiagram
     participant Server
@@ -218,7 +224,7 @@ sequenceDiagram
 
 === Upward Flow (Browser → Server)
 
-[mermaid]
+[{MERMAID}]
 ----
 sequenceDiagram
     participant DOM
@@ -251,7 +257,7 @@ sequenceDiagram
 
 === Value Property Change
 
-[mermaid]
+[{MERMAID}]
 ----
 sequenceDiagram
     participant App
@@ -523,7 +529,7 @@ export class AceField extends BasicField<string> {
 
 The `_isUpdatingEditorFromRenderer` flag prevents infinite loops:
 
-[mermaid]
+[{MERMAID}]
 ----
 graph TB
     A[Server sends displayText] -->|_renderDisplayText| B[Set _isUpdatingEditorFromRenderer = true]
