@@ -35,6 +35,10 @@ export class AceForm extends Form {
     enableField.setValue(ace.enabled);
     enableField.on('propertyChange:value', event => ace.setEnabled(event.newValue));
 
+    let updateDisplayTextOnModifyField = this.widget('UpdateDisplayTextOnModifyField');
+    updateDisplayTextOnModifyField.setValue(ace.updateDisplayTextOnModify);
+    updateDisplayTextOnModifyField.on('propertyChange:value', event => ace.setUpdateDisplayTextOnModify(event.newValue));
+
     let softTabsField = this.widget('SoftTabsField');
     softTabsField.setValue(ace.useSoftTabs);
     softTabsField.on('propertyChange:value', event => ace.setUseSoftTabs(event.newValue));

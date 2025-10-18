@@ -52,7 +52,6 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'AceField',
-              updateDisplayTextOnModify: true,
               objectType: AceField,
             }
           }
@@ -84,7 +83,11 @@ export default (): FormModel => ({
                     id: 'EnableField',
                     objectType: CheckBoxField,
                     label: 'Enable',
-                    labelVisible: false
+                  },
+                  {
+                    id: 'UpdateDisplayTextOnModifyField',
+                    objectType: CheckBoxField,
+                    label: 'Update Display Text On Modify'
                   },
                   {
                     id: 'ThemeField',
@@ -175,6 +178,7 @@ export type AceFormWidgetMap = {
   'SetValueButton': Button;
   'SelectOnSetValueField': CheckBoxField;
   'EnableField': CheckBoxField;
+  'UpdateDisplayTextOnModifyField': CheckBoxField;
   'SoftTabsField': CheckBoxField;
   'ShowPrintMarginField': CheckBoxField;
   'HighlightActiveLineField': CheckBoxField;
