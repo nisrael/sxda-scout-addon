@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {Outline, OutlineModel, PageWithNodes} from '@eclipse-scout/core';
-import {AceForm, CodeMirrorForm, DemoOutline} from '../index';
+import {AceForm, CodeMirrorForm, MonacoForm, DemoOutline} from '../index';
 
 export default (): OutlineModel => ({
   id: 'DemoOutline',
@@ -36,6 +36,16 @@ export default (): OutlineModel => ({
       text: 'CodeMirrorField',
       detailForm: {
         objectType: CodeMirrorForm,
+      },
+      detailTableVisible: false
+    },
+    {
+      objectType: PageWithNodes,
+      id: 'MonacoPage',
+      leaf: true,
+      text: 'MonacoField',
+      detailForm: {
+        objectType: MonacoForm,
       },
       detailTableVisible: false
     }

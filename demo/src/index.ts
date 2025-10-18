@@ -25,6 +25,8 @@ export * from './ace/AceFormModel'
 export * from './ace/AceForm'
 export * from './codemirror/CodeMirrorFormModel'
 export * from './codemirror/CodeMirrorForm'
+export * from './monaco/MonacoFormModel'
+export * from './monaco/MonacoForm'
 
 scout.addObjectFactories({
   'Desktop': function () {

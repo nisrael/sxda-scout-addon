@@ -222,12 +222,24 @@ importers:
       '@eclipse-scout/core':
         specifier: 25.2.9
         version: 25.2.9
+      '@sxda/scout-addon-ace':
+        specifier: workspace:*
+        version: link:../ace
+      '@sxda/scout-addon-codemirror':
+        specifier: workspace:*
+        version: link:../codemirror
+      '@sxda/scout-addon-monaco':
+        specifier: workspace:*
+        version: link:../monaco
       ace-code:
         specifier: 1.43.4
         version: 1.43.4
       jquery:
         specifier: 3.7.1
         version: 3.7.1
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
       thememirror:
         specifier: ^2.0.1
         version: 2.0.1(@codemirror/language@6.11.3)(@codemirror/state@6.5.2)(@codemirror/view@6.38.6)
@@ -5624,7 +5636,7 @@ snapshots:
       css-loader: 7.1.2(webpack@5.97.1(esbuild@0.24.0))
       css-minimizer-webpack-plugin: 7.0.0(esbuild@0.24.0)(webpack@5.97.1(esbuild@0.24.0))
       esbuild: 0.24.0
-      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0)))
+      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1))
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       jasmine-core: 5.5.0
       jasmine-jquery: 2.1.1
@@ -7412,7 +7424,7 @@ snapshots:
       signal-exit: 4.1.0
     optional: true
 
-  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))):
+  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1)):
     dependencies:
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       node-notifier: 10.0.1

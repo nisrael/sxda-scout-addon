@@ -12,6 +12,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/webpack-defaults');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = (env, args) => {
   args.resDirArray = [
     './res',
@@ -28,5 +30,21 @@ module.exports = (env, args) => {
   config.optimization = {
     ...config.optimization
   };
+
+  // Add CSS loader for Monaco Editor's imported CSS files
+  config.module.rules.push({
+    test: /\.css$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      {
+        loader: require.resolve('css-loader'),
+        options: {
+          sourceMap: args.mode === 'development',
+          modules: false
+        }
+      }
+    ]
+  });
+
   return config;
 };
