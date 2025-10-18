@@ -153,6 +153,9 @@
     <module>codemirror</module>
     <module>codemirror.client</module>
     <module>codemirror.ui.html</module>
+    <module>monaco</module>
+    <module>monaco.client</module>
+    <module>monaco.ui.html</module>
     <module>demo</module>
   </modules>
 
@@ -391,6 +394,16 @@
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
         <artifactId>codemirror.ui.html</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>monaco.client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>monaco.ui.html</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

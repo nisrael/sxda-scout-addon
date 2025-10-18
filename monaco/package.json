@@ -1,0 +1,67 @@
+{
+  "name": "@sxda/scout-addon-monaco",
+  "version": "25.2.0-snapshot.20251017163116",
+  "description": "Wrapper module for the Monaco Editor to be used as a form field for Eclipse Scout",
+  "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
+  "homepage": "https://github.com/nisrael/sxda-scout-addon#readme",
+  "repository": {
+    "url": "git+https://github.com/nisrael/sxda-scout-addon.git"
+  },
+  "license": "EPL-2.0",
+  "engines": {
+    "node": ">=22.13.0",
+    "npm": ">=10.9.0",
+    "pnpm": ">=9.15.4"
+  },
+  "keywords": [
+    "scout",
+    "eclipse-scout",
+    "monaco",
+    "monaco-editor"
+  ],
+  "main": "./dist/sxda-scout-addon-monaco.js",
+  "module": "./dist/sxda-scout-addon-monaco.esm.js",
+  "types": "./dist/d.ts/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "pnpm-install": "pnpm install --ignore-scripts",
+    "testserver:start": "scout-scripts test-server:start",
+    "testserver:stop": "scout-scripts test-server:stop",
+    "test:ci": "scout-scripts test:ci --junitReporter.outputDir=target/karma-reports --junitReporter.outputFile=test-results.xml",
+    "build:dev": "scout-scripts build:dev --run default global --progress=false --clean=false",
+    "build:prod": "scout-scripts build:prod --run default global --progress=false --clean=false",
+    "build:all": "npm run build:dev && npm run build:prod",
+    "build:dev:watch": "scout-scripts build:dev:watch",
+    "cleanup:snapshots": "releng-scripts cleanup:snapshots",
+    "version:snapshot:dependencies": "releng-scripts version:snapshot:dependencies",
+    "version:snapshot": "releng-scripts version:snapshot",
+    "version:release:dependencies": "releng-scripts version:release:dependencies",
+    "version:release": "releng-scripts version:release"
+  },
+  "devDependencies": {
+    "@eclipse-scout/cli": "25.2.9",
+    "@eclipse-scout/core": "25.2.9",
+    "@eclipse-scout/releng": "^25.1.0",
+    "@eclipse-scout/tsconfig": "25.2.9",
+    "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
+    "@types/jasmine": "5.1.11",
+    "@types/jasmine-jquery": "1.5.37",
+    "@types/jquery": "3.5.33",
+    "jasmine-core": "5.12.0",
+    "jasmine-jquery": "2.1.1",
+    "jquery": "3.7.1",
+    "karma": "6.4.4",
+    "karma-coverage": "^2.2.1",
+    "monaco-editor": "^0.52.2",
+    "semver": "^7.7.2",
+    "webpack": "~5.102.0",
+    "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "peerDependencies": {
+    "@eclipse-scout/core": ">=25.2.0",
+    "monaco-editor": ">=0.52.0"
+  }
+}

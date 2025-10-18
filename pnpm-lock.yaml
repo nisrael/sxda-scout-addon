@@ -251,6 +251,60 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
 
+  monaco:
+    devDependencies:
+      '@eclipse-scout/cli':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@eclipse-scout/core':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@eclipse-scout/releng':
+        specifier: ^25.1.0
+        version: 25.1.0(@pnpm/logger@5.2.0)
+      '@eclipse-scout/tsconfig':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@jsdevtools/coverage-istanbul-loader':
+        specifier: ^3.0.5
+        version: 3.0.5
+      '@types/jasmine':
+        specifier: 5.1.11
+        version: 5.1.11
+      '@types/jasmine-jquery':
+        specifier: 1.5.37
+        version: 1.5.37
+      '@types/jquery':
+        specifier: 3.5.33
+        version: 3.5.33
+      jasmine-core:
+        specifier: 5.12.0
+        version: 5.12.0
+      jasmine-jquery:
+        specifier: 2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: 3.7.1
+        version: 3.7.1
+      karma:
+        specifier: 6.4.4
+        version: 6.4.4
+      karma-coverage:
+        specifier: ^2.2.1
+        version: 2.2.1
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
+      semver:
+        specifier: ^7.7.2
+        version: 7.7.3
+      webpack:
+        specifier: ~5.102.0
+        version: 5.102.1
+      webpack-bundle-analyzer:
+        specifier: ^4.10.2
+        version: 4.10.2
+
 packages:
 
   '@ampproject/remapping@2.3.0':
@@ -3173,6 +3227,9 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  monaco-editor@0.52.2:
+    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
+
   moo@0.5.2:
     resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
 
@@ -5567,7 +5624,7 @@ snapshots:
       css-loader: 7.1.2(webpack@5.97.1(esbuild@0.24.0))
       css-minimizer-webpack-plugin: 7.0.0(esbuild@0.24.0)(webpack@5.97.1(esbuild@0.24.0))
       esbuild: 0.24.0
-      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1))
+      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0)))
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       jasmine-core: 5.5.0
       jasmine-jquery: 2.1.1
@@ -7355,7 +7412,7 @@ snapshots:
       signal-exit: 4.1.0
     optional: true
 
-  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1)):
+  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))):
     dependencies:
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       node-notifier: 10.0.1
@@ -8249,6 +8306,8 @@ snapshots:
   mkdirp@0.5.6:
     dependencies:
       minimist: 1.2.8
+
+  monaco-editor@0.52.2: {}
 
   moo@0.5.2:
     optional: true

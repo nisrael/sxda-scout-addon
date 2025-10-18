@@ -1,4 +1,5 @@
 packages:
   - 'ace'
   - 'codemirror'
+  - 'monaco'
   - 'demo'
