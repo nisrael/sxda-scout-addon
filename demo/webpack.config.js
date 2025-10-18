@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/webpack-defaults');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const addMonacoSupport = require('@sxda/scout-addon-monaco/webpack-monaco');
 
 module.exports = (env, args) => {
   args.resDirArray = [
@@ -31,20 +31,9 @@ module.exports = (env, args) => {
     ...config.optimization
   };
 
-  config.module.rules.push({
-    test: /\.css$/,
-    use: ['style-loader', 'css-loader']
-  }, {
-    test: /\.ttf$/,
-    use: ['file-loader']
+  // Add Monaco Editor support with custom language/feature configuration
+  return addMonacoSupport(config, {
+    languages: ['typescript', 'javascript', 'json', 'html', 'css', 'markdown', 'java', 'python'],
+    features: ['!gotoSymbol']
   });
-
-  config.plugins.push(
-    new MonacoWebpackPlugin({
-      languages: ['typescript', 'javascript', 'json', 'html', 'css', 'markdown', 'java', 'python'],
-      features: ['!gotoSymbol']
-    })
-  );
-
-  return config;
 };

@@ -58,6 +58,58 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
     this._isUpdatingEditorFromRenderer = false;
   }
 
+  setLanguage(language: string) {
+    this.setProperty('language', language);
+  }
+
+  setTheme(theme: string) {
+    this.setProperty('theme', theme);
+  }
+
+  setLineNumbers(lineNumbers: boolean) {
+    this.setProperty('lineNumbers', lineNumbers);
+  }
+
+  setMinimap(minimap: boolean) {
+    this.setProperty('minimap', minimap);
+  }
+
+  setWordWrap(wordWrap: boolean) {
+    this.setProperty('wordWrap', wordWrap);
+  }
+
+  setFontSize(fontSize: number) {
+    this.setProperty('fontSize', fontSize);
+  }
+
+  setTabSize(tabSize: number) {
+    this.setProperty('tabSize', tabSize);
+  }
+
+  setInsertSpaces(insertSpaces: boolean) {
+    this.setProperty('insertSpaces', insertSpaces);
+  }
+
+  setFolding(folding: boolean) {
+    this.setProperty('folding', folding);
+  }
+
+  setRenderWhitespace(renderWhitespace: string) {
+    this.setProperty('renderWhitespace', renderWhitespace);
+  }
+
+  setScrollBeyondLastLine(scrollBeyondLastLine: boolean) {
+    this.setProperty('scrollBeyondLastLine', scrollBeyondLastLine);
+  }
+
+  setFormatOnPaste(formatOnPaste: boolean) {
+    this.setProperty('formatOnPaste', formatOnPaste);
+  }
+
+  setFormatOnType(formatOnType: boolean) {
+    this.setProperty('formatOnType', formatOnType);
+  }
+
   protected override _render() {
     this.addContainer(this.$parent, 'monaco-field');
     this.addLabel();
@@ -99,7 +151,8 @@ export class MonacoField extends BasicField<string> implements MonacoFieldModel 
   }
 
   protected override _renderDisplayText() {
-    if (!this._editor || this._isUpdatingEditorFromRenderer) {
+    // Guard: prevent infinite loop when we set editor value
+    if (this._isUpdatingEditorFromRenderer) {
       return;
     }
     this._isUpdatingEditorFromRenderer = true;

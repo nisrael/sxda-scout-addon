@@ -12,21 +12,25 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/webpack-defaults');
+const addMonacoSupport = require('./webpack-monaco');
+
 module.exports = (env, args) => {
   const config = baseConfig(env, args);
+  const configWithMonaco = addMonacoSupport(config);
+
   return {
-    ...config,
+    ...configWithMonaco,
     entry: {
       'sxda-scout-addon-monaco': './src/index.ts',
       'monaco-theme': './src/monaco-theme.less',
       'monaco-theme-dark': './src/monaco-theme-dark.less',
     },
     optimization: {
-      ...config.optimization,
+      ...configWithMonaco.optimization,
       splitChunks: undefined // disable splitting
     },
     externals: {
-      ...config.externals,
+      ...configWithMonaco.externals,
       'jquery': 'jQuery',
       '@eclipse-scout/core': 'scout',
       'monaco-editor': 'monaco-editor'

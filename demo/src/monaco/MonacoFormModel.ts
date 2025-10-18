@@ -19,6 +19,7 @@ import {
   GroupBox,
   NumberField,
   SequenceBox,
+  SliderField,
   SmartField,
   StringField,
   TabBox,
@@ -148,7 +149,7 @@ export default (): FormModel => ({
                   },
                   {
                     id: 'FontSizeField',
-                    objectType: NumberField,
+                    objectType: SliderField,
                     label: 'Font Size',
                     minValue: 8,
                     maxValue: 32
@@ -218,7 +219,7 @@ export type MonacoFormWidgetMap = {
   'MinimapField': CheckBoxField;
   'WordWrapField': CheckBoxField;
   'FoldingField': CheckBoxField;
-  'FontSizeField': NumberField;
+  'FontSizeField': SliderField;
   'TabSizeField': NumberField;
   'ActionsTab': TabItem;
   'EventsTab': EventsTab;

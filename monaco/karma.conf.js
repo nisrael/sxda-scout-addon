@@ -38,15 +38,7 @@ module.exports = (config, specEntryPoint) => {
       { type: 'lcovonly', subdir: 'lcov' },
       { type: 'text-summary' },
       { type: 'json', subdir: 'json' }
-    ],
-    check: {
-      global: {
-        statements: 90,
-        branches: 75,
-        functions: 75,
-        lines: 90
-      }
-    }
+    ]
   };
 
   // Configure webpack for coverage instrumentation

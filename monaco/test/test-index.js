@@ -13,5 +13,15 @@
  */
 import {JasmineScout} from '@eclipse-scout/core/testing';
 
+// Configure Monaco Environment for tests
+// Monaco Editor requires this to handle web workers in test environment
+self.MonacoEnvironment = {
+  getWorkerUrl: function(moduleId, label) {
+    // Return empty blob URL to avoid network requests in tests
+    // This prevents "Cannot read properties of undefined (reading 'toUrl')" errors
+    return 'data:text/javascript;charset=utf-8,' + encodeURIComponent('self.onmessage = function() {};');
+  }
+};
+
 let context = require.context('./', true, /[sS]pec\.js$/);
 JasmineScout.runTestSuite(context);
