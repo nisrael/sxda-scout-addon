@@ -29,6 +29,8 @@ export * from './codemirror/CodeMirrorFormModel'
 export * from './codemirror/CodeMirrorForm'
 export * from './monaco/MonacoFormModel'
 export * from './monaco/MonacoForm'
+export * from './stringfield/StringFieldFormModel'
+export * from './stringfield/StringFieldForm'
 
 scout.addObjectFactories({
   'Desktop': function () {
