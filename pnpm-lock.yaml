@@ -262,6 +262,9 @@ importers:
       live-server:
         specifier: ^1.2.2
         version: 1.2.2
+      monaco-editor-webpack-plugin:
+        specifier: ^7.1.1
+        version: 7.1.1(monaco-editor@0.52.2)(webpack@5.102.1)
 
   monaco:
     devDependencies:
@@ -3239,6 +3242,12 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  monaco-editor-webpack-plugin@7.1.1:
+    resolution: {integrity: sha512-WxdbFHS3Wtz4V9hzhe/Xog5hQRSMxmDLkEEYZwqMDHgJlkZo00HVFZR0j5d0nKypjTUkkygH3dDSXERLG4757A==}
+    peerDependencies:
+      monaco-editor: '>= 0.31.0'
+      webpack: ^4.5.0 || 5.x
+
   monaco-editor@0.52.2:
     resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
 
@@ -5636,7 +5645,7 @@ snapshots:
       css-loader: 7.1.2(webpack@5.97.1(esbuild@0.24.0))
       css-minimizer-webpack-plugin: 7.0.0(esbuild@0.24.0)(webpack@5.97.1(esbuild@0.24.0))
       esbuild: 0.24.0
-      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1))
+      fork-ts-checker-notifier-webpack-plugin: 9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0)))
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       jasmine-core: 5.5.0
       jasmine-jquery: 2.1.1
@@ -7424,7 +7433,7 @@ snapshots:
       signal-exit: 4.1.0
     optional: true
 
-  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.102.1)):
+  fork-ts-checker-notifier-webpack-plugin@9.0.0(fork-ts-checker-webpack-plugin@9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))):
     dependencies:
       fork-ts-checker-webpack-plugin: 9.0.2(typescript@5.4.5)(webpack@5.97.1(esbuild@0.24.0))
       node-notifier: 10.0.1
@@ -8318,6 +8327,12 @@ snapshots:
   mkdirp@0.5.6:
     dependencies:
       minimist: 1.2.8
+
+  monaco-editor-webpack-plugin@7.1.1(monaco-editor@0.52.2)(webpack@5.102.1):
+    dependencies:
+      loader-utils: 2.0.4
+      monaco-editor: 0.52.2
+      webpack: 5.102.1
 
   monaco-editor@0.52.2: {}
 

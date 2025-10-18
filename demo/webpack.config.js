@@ -13,6 +13,7 @@
  */
 const baseConfig = require('@eclipse-scout/cli/scripts/webpack-defaults');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = (env, args) => {
   args.resDirArray = [
@@ -45,6 +46,15 @@ module.exports = (env, args) => {
       }
     ]
   });
+
+  // Add Monaco Editor webpack plugin
+  // This automatically configures workers and handles module loading
+  config.plugins.push(
+    new MonacoWebpackPlugin({
+      languages: ['typescript', 'javascript', 'json', 'html', 'css', 'markdown', 'java', 'python'],
+      features: ['!gotoSymbol']
+    })
+  );
 
   return config;
 };

@@ -17,6 +17,8 @@ import {Desktop} from './desktop/Desktop'
 import * as self from './index';
 import 'ace-code/esm-resolver'
 
+// Monaco Editor environment is automatically configured by monaco-editor-webpack-plugin
+
 export * from './desktop/Desktop'
 export * from './desktop/DemoOutline'
 export * from './common/EventsTab'
