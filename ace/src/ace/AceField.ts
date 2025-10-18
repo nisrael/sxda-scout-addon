@@ -35,7 +35,7 @@ export class AceField extends BasicField<string> implements AceFieldModel {
   highlightActiveLine: boolean;
   selectOnSetValue: boolean;
 
-  protected _editorUpdateFromRenderDisplayText: boolean;
+  protected _isUpdatingEditorFromRenderer: boolean;
 
   constructor() {
     super();
@@ -47,6 +47,7 @@ export class AceField extends BasicField<string> implements AceFieldModel {
     this.showPrintMargin = false;
     this.highlightActiveLine = true;
     this.selectOnSetValue = false;
+    this._isUpdatingEditorFromRenderer = false;
   }
 
   protected override _init(model: InitModelOf<this>) {
@@ -64,6 +65,7 @@ export class AceField extends BasicField<string> implements AceFieldModel {
   protected override _createKeyStrokeContext(): InputFieldKeyStrokeContext {
     return new InputFieldKeyStrokeContext(true);
   }
+
 
   setTheme(theme: string) {
     this.setProperty('theme', theme);
@@ -130,10 +132,6 @@ export class AceField extends BasicField<string> implements AceFieldModel {
     this.setProperty('selectOnSetValue', selectOnSetValue);
   }
 
-  override _readDisplayText(): string {
-    return this.editor.getValue();
-  }
-
   override _render() {
     // Create the container
     this.addContainer(this.$parent, 'ace-field');
@@ -146,36 +144,69 @@ export class AceField extends BasicField<string> implements AceFieldModel {
 
     this.editor = ace.edit($field.get()[0]);
 
-    // value was set before editor was created
+    // value was set before the editor was created
     this.editor.setValue(this.displayText);
+
+    this.editor.session.on('change', () => {
+      this._onEditorValueChange();
+    });
 
     // Add other required form field elements
     this.addMandatoryIndicator();
     this.addStatus();
   }
 
+  protected override _readDisplayText(): string {
+    return this.editor ? this.editor.getValue() : '';
+  }
+
   protected override _renderDisplayText() {
+    // Guard: prevent infinite loop when we set editor value
+    if (this._isUpdatingEditorFromRenderer) {
+      return;
+    }
+
     let displayText = strings.nvl(this.displayText);
-    let oldDisplayText = strings.nvl(this.editor.getValue());
-    if (this.editor && displayText !== oldDisplayText) {
-      this._editorUpdateFromRenderDisplayText = true;
-      let oldSelectionRange = this.editor.getSelectionRange();
-      this.editor.setValue(displayText,this.selectOnSetValue ? 0 : 1);
-      this._updateHasText();
-      // Try to keep the current selection for cases where the old and new display
-      // text only differ because of the automatic trimming.
-      if (oldDisplayText !== displayText) {
-        let matches = oldDisplayText.match(StringField.TRIM_REGEXP);
-        if (!this.selectOnSetValue && matches && matches[2] === displayText) {
-          let oldSelectionStart = this.editor.session.doc.positionToIndex(oldSelectionRange.start, 0);
-          let oldSelectionEnd = this.editor.session.doc.positionToIndex(oldSelectionRange.end, 0);
-          this.editor.selection.setRange(Range.fromPoints(
-            this.editor.session.doc.indexToPosition(Math.max(oldSelectionStart - matches[1].length, 0), 0),
-            this.editor.session.doc.indexToPosition(Math.min(oldSelectionEnd - matches[1].length, displayText.length), 0)
-          ));
+    let currentEditorValue = strings.nvl(this.editor.getValue());
+    if (this.editor && displayText !== currentEditorValue) {
+      // Set flag before setValue to prevent loop
+      this._isUpdatingEditorFromRenderer = true;
+      try {
+        let currentSelectionRange = this.editor.getSelectionRange();
+        this.editor.setValue(displayText, this.selectOnSetValue ? 0 : 1);
+        this._updateHasText();
+        // Try to keep the current selection for cases where the old and new display
+        // text only differs because of the automatic trimming.
+        if (currentEditorValue !== displayText) {
+          let matches = currentEditorValue.match(StringField.TRIM_REGEXP);
+          if (!this.selectOnSetValue && matches && matches[2] === displayText) {
+            let currentSelectionStart = this.editor.session.doc.positionToIndex(currentSelectionRange.start, 0);
+            let currentSelectionEnd = this.editor.session.doc.positionToIndex(currentSelectionRange.end, 0);
+            this.editor.selection.setRange(Range.fromPoints(
+              this.editor.session.doc.indexToPosition(Math.max(currentSelectionStart - matches[1].length, 0), 0),
+              this.editor.session.doc.indexToPosition(Math.min(currentSelectionEnd - matches[1].length, displayText.length), 0)
+            ));
+          }
         }
-        this._editorUpdateFromRenderDisplayText = false;
+      } finally {
+        // Always clear flag
+        this._isUpdatingEditorFromRenderer = false;
       }
+    }
+  }
+
+  _onEditorValueChange() {
+    // Don't handle changes that we triggered ourselves
+    if (this._isUpdatingEditorFromRenderer) {
+      return;
+    }
+
+    // Update has-text indicator
+    this._updateHasText();
+
+    // Use Scout's built-in method for while-typing updates
+    if (this.updateDisplayTextOnModify) {
+      this._onDisplayTextModified();
     }
   }
 

@@ -17,18 +17,17 @@ import {
   CheckBoxField,
   FormModel,
   GroupBox,
+  NumberField,
   SequenceBox,
-  SmartField,
   StringField,
   TabBox,
   TabItem,
   WidgetField
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {AceField, AceThemeLookupCall, AceModeLookupCall} from "../../../ace/src";
 
 export default (): FormModel => ({
-  id: 'sxda.AceForm',
+  id: 'sxda.StringFieldForm',
   displayHint: 'view',
   rootGroupBox: {
     id: 'MainBox',
@@ -51,8 +50,10 @@ export default (): FormModel => ({
               fillVertical: true
             },
             fieldWidget: {
-              id: 'AceField',
-              objectType: AceField,
+              id: 'StringField',
+              objectType: StringField,
+              multilineText: true,
+              label: 'Multi-line StringField'
             }
           }
         ]
@@ -90,41 +91,39 @@ export default (): FormModel => ({
                     label: 'Update Display Text On Modify'
                   },
                   {
-                    id: 'ThemeField',
-                    objectType: SmartField<string>,
-                    label: 'Theme',
-                    lookupCall: AceThemeLookupCall
-                  },
-                  {
-                    id: 'ModeField',
-                    objectType: SmartField<string>,
-                    label: 'Mode',
-                    lookupCall: AceModeLookupCall
-                  },
-                  {
-                    id: 'SoftTabsField',
+                    id: 'MultilineField',
                     objectType: CheckBoxField,
-                    label: 'Soft Tabs'
+                    label: 'Multiline Text'
                   },
                   {
-                    id: 'WrapModeField',
+                    id: 'SpellCheckEnabledField',
                     objectType: CheckBoxField,
-                    label: 'Wrap Mode'
+                    label: 'Spell Check Enabled'
                   },
                   {
-                    id: 'ShowPrintMarginField',
+                    id: 'TrimTextField',
                     objectType: CheckBoxField,
-                    label: 'Show Print Margin'
+                    label: 'Trim Text'
                   },
                   {
-                    id: 'HighlightActiveLineField',
+                    id: 'WrapTextField',
                     objectType: CheckBoxField,
-                    label: 'Highlight Active Line'
+                    label: 'Wrap Text'
                   },
                   {
-                    id: 'SelectOnSetValueField',
+                    id: 'SelectionTrackingEnabledField',
                     objectType: CheckBoxField,
-                    label: 'Select on Set Value'
+                    label: 'Selection Tracking Enabled'
+                  },
+                  {
+                    id: 'InputMaskedField',
+                    objectType: CheckBoxField,
+                    label: 'Input Masked (Password)'
+                  },
+                  {
+                    id: 'MaxLengthField',
+                    objectType: NumberField,
+                    label: 'Max Length'
                   },
                   {
                     id: 'SetValueFieldBox',
@@ -146,11 +145,9 @@ export default (): FormModel => ({
                           weightX: 0,
                           useUiWidth: true
                         }
-                      },
-
+                      }
                     ]
-                  },
-
+                  }
                 ]
               }
             ]
@@ -165,26 +162,26 @@ export default (): FormModel => ({
   }
 });
 
-export type AceFormWidgetMap = {
+export type StringFieldFormWidgetMap = {
   'MainBox': GroupBox;
   'DetailBox': GroupBox;
   'WidgetField': WidgetField;
-  'AceField': AceField;
+  'StringField': StringField;
   'SetValueField': StringField;
   'ConfigurationBox': TabBox;
   'PropertiesTab': TabItem;
   'PropertiesBox': GroupBox;
   'SetValueFieldBox': GroupBox;
   'SetValueButton': Button;
-  'SelectOnSetValueField': CheckBoxField;
+  'SelectionTrackingEnabledField': CheckBoxField;
+  'InputMaskedField': CheckBoxField;
   'EnableField': CheckBoxField;
   'UpdateDisplayTextOnModifyField': CheckBoxField;
-  'SoftTabsField': CheckBoxField;
-  'ShowPrintMarginField': CheckBoxField;
-  'HighlightActiveLineField': CheckBoxField;
-  'WrapModeField': CheckBoxField;
-  'ThemeField': SmartField<string>;
-  'ModeField': SmartField<string>;
+  'MultilineField': CheckBoxField;
+  'SpellCheckEnabledField': CheckBoxField;
+  'TrimTextField': CheckBoxField;
+  'WrapTextField': CheckBoxField;
+  'MaxLengthField': NumberField;
   'ActionsTab': TabItem;
   'EventsTab': EventsTab;
 } & EventsTabWidgetMap;

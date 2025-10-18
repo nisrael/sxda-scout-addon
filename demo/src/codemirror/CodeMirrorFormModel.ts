@@ -62,7 +62,6 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'CodeMirrorField',
-              updateDisplayTextOnModify: true,
               objectType: CodeMirrorField,
             }
           }
@@ -94,7 +93,11 @@ export default (): FormModel => ({
                     id: 'EnableField',
                     objectType: CheckBoxField,
                     label: 'Enable',
-                    labelVisible: false
+                  },
+                  {
+                    id: 'UpdateDisplayTextOnModifyField',
+                    objectType: CheckBoxField,
+                    label: 'Update Display Text On Modify'
                   },
                   {
                     id: 'LanguageField',
@@ -294,6 +297,7 @@ export type CodeMirrorFormWidgetMap = {
   'SetValueFieldBox': GroupBox;
   'SetValueButton': Button;
   'EnableField': CheckBoxField;
+  'UpdateDisplayTextOnModifyField': CheckBoxField;
   'SyntaxHighlightingField': CheckBoxField;
   'HighlightActiveLineField': CheckBoxField;
   'LanguageField': SmartField<string>;
