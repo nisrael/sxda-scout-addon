@@ -80,3 +80,17 @@ Monaco (A browser based code editor)
 * License: MIT License
 * Project home: https://microsoft.github.io/monaco-editor/
 * Source: https://github.com/microsoft/monaco-editor
+
+Antora Default UI (Documentation UI bundle)
+
+* License: Mozilla Public License 2.0 (MPL-2.0)
+* Project home: https://docs.antora.org
+* Source: https://gitlab.com/antora/antora-ui-default
+* Note: The documentation build uses Antora's supplemental UI feature to extend the default UI bundle with a custom Highlight.js bundle that includes additional language support
+
+Bonita Documentation Theme (Antora UI theme with dark mode support)
+
+* License: Mozilla Public License 2.0 (MPL-2.0)
+* Project home: https://github.com/bonitasoft/bonita-documentation-theme
+* Source: https://github.com/bonitasoft/bonita-documentation-theme
+* Note: The theme switcher implementation and CSS variable structure for dark mode support (vars.scss) are based on the Bonita Documentation Theme approach

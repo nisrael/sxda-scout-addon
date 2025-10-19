@@ -1,0 +1,111 @@
+/* Custom styling for Scout Addon Documentation */
+
+/* Kroki Diagram Background for Dark Mode */
+html[data-theme='dark'] .imageblock.kroki {
+  background-color: var(--color-gray-50);
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+/* Theme Switcher Button */
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--navbar-font-color);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-switcher:hover {
+  color: var(--navbar-font-color);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-switcher .theme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-switcher .theme-label {
+  font-size: 0.875rem;
+}
+
+/* Smooth theme transitions */
+body.theme-transition,
+body.theme-transition *,
+body.theme-transition *::before,
+body.theme-transition *::after {
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+/* Theme override classes for highlight.js */
+/* These override the @media queries when user manually selects a theme */
+
+/* Force light theme */
+html.theme-light .hljs {
+  /* Light theme styles will be applied */
+}
+
+/* Force dark theme */
+html.theme-dark .hljs {
+  /* Dark theme styles will be applied */
+}
+
+/* Navbar customization - use Scout blue color */
+.navbar {
+  background-color: var(--color-blue-scout);
+}
+
+.navbar-end > a.navbar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--navbar-font-color);
+}
+
+/* Ensure text in navbar remains readable */
+.navbar .navbar-brand,
+.navbar .navbar-nav .nav-link {
+  color: var(--color-white);
+}
+
+.navbar .navbar-nav .nav-link:hover {
+  color: var(--color-link-hover);
+}
+
+/* Style the GitHub icon link in navbar */
+.navbar .github-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--navbar-font-color);
+  text-decoration: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.navbar .github-link:hover {
+  color: var(--navbar-font-color);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar .github-link svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.home-link {
+  background-image: none;
+  mask: url('../img/home-o.svg');
+  background-color: var(--toolbar-font-color);
+}
+
+.home-link:hover,
+.home-link.is-current{
+  background-image: none;
+  mask: url('../img/home.svg');
+  background-color: var(--toolbar-font-color);
+}

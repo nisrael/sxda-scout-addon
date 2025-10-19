@@ -1,0 +1,256 @@
+/* Based on Bonita Theme colors */
+:root {
+  // Light color set
+  --color-white: #fff;
+  --color-text-light: #556;
+  --color-smoke-10: #fefefe;
+  --color-smoke-30: #fafafa;
+  --color-smoke-50: #f5f5f5;
+  --color-smoke-70: #f0f0f0;
+  --color-smoke-90: #e1e1e1;
+  --color-gray-10: #c1c1c1;
+  --color-gray-30: #8e8e8e;
+  --color-gray-50: #808080;
+  --color-gray-70: #5d5d5d;
+  --color-jet-20: #4a4a4a;
+  --color-jet-30: #424242;
+  --color-jet-50: #333;
+  --color-jet-70: #222;
+  --color-jet-80: #191919;
+  --color-black: #000;
+  --color-blue-bonita: #1e3a5f;
+  //--color-blue-bonita: #19465f;
+  --color-blue-scout: #1e3a5f;
+  --color-unfocused: #ffffffc2;
+  --color-focused: #fff;
+  --color-link: #104d92;
+  --color-admonition-link: #0077ff;
+  --color-link-hover: #1565c0;
+  --color-nav-item: var(--color-blue-bonita);
+  --color-nav-item-hover-background: #ebf2f2;
+  --color-admonition-note: #217de7;
+  --color-admonition-note-bg: #217de72a;
+  --color-admonition-note-text: #0250a9;
+  --color-admonition-tip: #41af46;
+  --color-admonition-tip-bg: #41af462a;
+  --color-admonition-tip-text: #2d7a30;
+  --color-admonition-important: #d32f2f;
+  --color-admonition-important-bg: #d32f2f2a;
+  --color-admonition-important-text: #912020;
+  --color-admonition-warning: #e7ba07;
+  --color-admonition-warning-bg: #e7ba072a;
+  --color-admonition-warning-text: #ab8800;
+  --color-admonition-caution: #a0439c;
+  --color-admonition-caution-bg: #a0439c2a;
+  --color-admonition-caution-text: #5c1759;
+  --color-blue-bright: #0fe;
+  --color-card-shadow: #876c6c;
+  --color-higlight: var(--color-blue-bonita);
+  --color-higlight-link: #005889;
+  --color-footer: #e6e6e6;
+  --color-card-border: #ebf2f2;
+  --color-code-background: var(--pre-background);
+  --color-code-font: #c7254e;
+  --color-troubleshooting-border: var(--color-admonition-important-bg);
+  --color-pagination-border: #dadde1;
+
+  // Search colors
+  --docsearch-primary-color: var(--color-blue-bonita);
+  --docsearch-logo-color: var(--color-blue-bonita);
+  --docsearch-highlight-color: var(--docsearch-primary-color);
+  --color-search-mark-highlight: #518bcd;
+  --color-search-hit-source-highlight: var(--docsearch-highlight-color);
+
+  --docsearch-hit-color: rgb(68, 73, 80);
+  --docsearch-hit-active-color: #fff;
+  --docsearch-hit-background: #fff;
+  --docsearch-hit-shadow: 0 1px 3px 0 rgb(212, 217, 225);
+
+  // End of color definition
+  --rem-base: 18;
+  --body-font-size: 1.0625em;
+  --body-font-size--desktop: 1.125em;
+  --body-font-size--print: 0.9375em;
+  --body-line-height: 1.15;
+  --body-font-color: var(--color-jet-70);
+  --body-font-family: "Open Sans", sans-serif;
+  --body-font-weight-bold: 550;
+  --monospace-font-family: "Roboto Mono", monospace;
+  --monospace-font-weight-bold: 700;
+  --body-background: var(--color-white);
+  --panel-background: var(--color-smoke-30);
+  --panel-border-color: var(--color-gray-10);
+  //--panel-border-color: var(--color-smoke-90);
+  --scrollbar-thumb-color: var(--color-gray-10);
+  --navbar-background: var(--color-blue-bonita);
+  --navbar-font-color: var(--color-focused);
+  --navbar-unfocused-font-color: var(--color-unfocused);
+  --navbar-focused-font-color: var(--color-focused);
+  --navbar_hover-background: var(--color-black);
+  --navbar-button-background: var(--color-white);
+  --navbar-button-border-color: var(--panel-border-color);
+  --navbar-button-font-color: var(--body-font-color);
+  --navbar-menu-border-color: var(--panel-border-color);
+  --navbar-menu-background: var(--color-white);
+  --navbar-menu-font-color: var(--body-font-color);
+  --navbar-menu_hover-background: var(--color-smoke-50);
+  --nav-background: var(--panel-background);
+  --nav-border-color: var(--color-gray-10);
+  --nav-line-height: 1.35;
+  --nav-heading-font-color: var(--color-jet-30);
+  --nav-muted-color: var(--color-gray-70);
+  --nav-panel-divider-color: var(--color-smoke-90);
+  --nav-secondary-background: var(--color-smoke-70);
+  --nav-hover-background: var(--color-nav-item-hover-background);
+  --toolbar-background: var(--panel-background);
+  --toolbar-border-color: var(--panel-border-color);
+  --toolbar-font-color: var(--color-gray-70);
+  --toolbar-muted-color: var(--color-gray-30);
+  --page-version-menu-background: var(--color-smoke-70);
+  --page-version-missing-font-color: var(--color-gray-30);
+  --toc-font-color: var(--nav-muted-color);
+  --toc-heading-font-color: var(--color-higlight);
+  --toc-border-color: var(--panel-border-color);
+  --toc-active-background-color: var(--color-smoke-90);
+  --toc-line-height: 1.2;
+  --doc-font-color: var(--color-jet-50);
+  --docsearch-text-color: var(--doc-font-color);
+  --doc-font-size: inherit;
+  --doc-font-size--desktop: calc(17 / var(--rem-base) * 1rem);
+  --doc-line-height: 1.6;
+  --doc-margin: 0 auto;
+  --doc-margin--desktop: 0 2rem;
+  --heading-font-color: var(--color-jet-80);
+  --heading-font-weight: normal;
+  --alt-heading-font-weight: var(--body-font-weight-bold);
+  --section-divider-color: var(--panel-border-color);
+  --link-font-color: var(--color-link);
+  --link_hover-font-color: var(--color-link-hover);
+  --link_unresolved-font-color: var(--important-color);
+  --abstract-background: var(--color-smoke-70);
+  --abstract-font-color: var(--color-jet-20);
+  --abstract-border-color: var(--panel-border-color);
+  --admonition-background: var(--color-smoke-70);
+  --admonition-label-font-weight: var(--body-font-weight-bold);
+  --caption-font-color: var(--color-gray-70);
+  --caption-font-weight: var(--body-font-weight-bold);
+  --code-background: var(--color-code-background);
+  --code-font-color: var(--color-code-font);
+  --example-background: var(--color-white);
+  --example-border-color: var(--color-gray-70);
+  --kbd-background: var(--panel-background);
+  --kbd-border-color: var(--color-gray-10);
+  --pre-background: var(--panel-background);
+  --pre-border-color: var(--panel-border-color);
+  --pre-annotation-font-color: var(--color-gray-50);
+  --quote-background: var(--panel-background);
+  --quote-border-color: var(--color-gray-70);
+  --quote-font-color: var(--color-gray-70);
+  --quote-attribution-font-color: var(--color-gray-30);
+  --sidebar-background: var(--color-smoke-90);
+  --table-border-color: var(--panel-border-color);
+  --footer-line-height: var(--doc-line-height);
+  --footer-background: var(--color-smoke-90);
+  --footer-font-color: var(--color-gray-70);
+  --footer-link-font-color: var(--color-jet-80);
+  --navbar-height: calc(63 / var(--rem-base) * 1rem);
+  --toolbar-height: calc(45 / var(--rem-base) * 1rem);
+  --header-message-height: calc(85 / var(--rem-base) * 1rem);
+  --drawer-height: var(--toolbar-height);
+  --body-top: var(--navbar-height);
+  --body-min-height: calc(100vh - var(--body-top));
+  --nav-height: calc(var(--body-min-height) - var(--toolbar-height));
+  --nav-height--desktop: var(--body-min-height);
+  --nav-panel-height: calc(var(--nav-height) - var(--drawer-height));
+  --nav-panel-height--desktop: calc(var(--nav-height--desktop) - var(--drawer-height));
+  --nav-width: calc(270 / var(--rem-base) * 1rem);
+  --toc-top: calc(var(--body-top) + var(--toolbar-height));
+  --toc-top-with-message-block: calc(var(--toc-top) + var(--header-message-height));
+  --toc-height: calc(100vh - var(--toc-top) - 2.5rem);
+  --toc-height-with-message-block: calc(var(--toc-height) - var(--header-message-height));
+  --toc-width: calc(162 / var(--rem-base) * 1rem);
+  --toc-width--widescreen: calc(216 / var(--rem-base) * 1rem);
+  --doc-max-width: calc(720 / var(--rem-base) * 1rem);
+  --doc-max-width: 100%;
+  --doc-max-width--desktop: 100%;
+  --z-index-toolbar: 1;
+  --z-index-nav: 2;
+  --z-index-page-version-menu: 3;
+  --z-index-navbar: 4;
+  --z-index-mobile-menu: 5;
+  --border-radius: 0.3rem;
+
+
+  //Icon filter definitions, generated from https://codepen.io/sosuke/pen/Pjoqqp
+  // Light icon set
+  --filter-icon: invert(0%) sepia(98%) saturate(9%) hue-rotate(152deg) brightness(100%) contrast(102%); // black
+  --filter-logo-footer: invert(0); // keep it as it is
+  --filter-fire-icon: invert(9%) sepia(91%) saturate(5800%) hue-rotate(2deg) brightness(101%) contrast(115%);
+}
+
+
+html[data-theme='dark'] {
+  --color-white: #151a25;
+  --color-text-light: #556;
+  --color-smoke-10: #141a28;
+  --color-smoke-30: #161c29;
+  --color-smoke-50: #212a3f;
+  --color-smoke-70: #27314a;
+  --color-smoke-90: #2b3652;
+  --color-gray-10: #5d5d5d;
+  --color-gray-30: #808080;
+  --color-gray-50: #8e8e8e;
+  --color-gray-70: #c1c1c1;
+  --color-jet-20: #aaa;
+  --color-jet-30: #b0b0b0;
+  --color-jet-50: #ccc;
+  --color-jet-70: #ddd;
+  --color-jet-80: #eee;
+  --color-black: #fff;
+  --color-blue-bonita: #1e3a5f;
+  //--color-blue-bonita: #2a2f43;
+  --color-blue-scout: #1e3a5f;
+  --color-unfocused: #dcdcdcc2;
+  --color-focused: #fff;
+  --color-link: #00d9ff;
+  --color-admonition-link: var(--color-link);
+  --color-link-hover: #00d9ffb5;
+  --color-nav-item: var(--color-black);
+  --color-admonition-note: #11386a;
+  --color-admonition-note-bg: #11386a4f;
+  --color-admonition-note-text: #8abbfb;
+  --color-admonition-tip: #265b37;
+  --color-admonition-tip-bg: #265b374f;
+  --color-admonition-tip-text: #7be1b2;
+  --color-admonition-important: #642d2d;
+  --color-admonition-important-bg: #642d2d4f;
+  --color-admonition-important-text: #fb8a8a;
+  --color-admonition-warning: #8b6e25;
+  --color-admonition-warning-bg: #8b6e254f;
+  --color-admonition-warning-text: #d4ca73;
+  --color-admonition-caution: #652e7c;
+  --color-admonition-caution-bg: #652e7c4f;
+  --color-admonition-caution-text: #fb8af6;
+  --color-blue-bright: #0fe;
+  --color-card-shadow: #2e2e2e;
+  --color-higlight: #9ed4ff;
+  --color-higlight-link: var(--color-higlight);
+  --color-footer: var(--color-blue-bonita);
+  --color-card-border: #9ba9c6;
+  --color-code-background: #30334b;
+  --color-code-font: #f7962e;
+  --color-nav-item-hover-background: #262a2d;
+  --color-troubleshooting-border: #f5c80071;
+
+  //Icon filter definitions, generated from https://codepen.io/sosuke/pen/Pjoqqp
+  // Dark icon set
+  --filter-icon: invert(100%) sepia(0%) saturate(7500%) hue-rotate(39deg) brightness(112%) contrast(112%); // white
+  --filter-icon-search: invert(100%) sepia(0%) saturate(7500%) hue-rotate(39deg) brightness(112%) contrast(112%); // White
+  --filter-logo-footer: brightness(0) invert(1); // full white
+  --filter-fire-icon: invert(72%) sepia(92%) saturate(1187%) hue-rotate(3deg) brightness(100%) contrast(100%);
+
+  // Search colors
+  --color-search-mark-highlight: var(--color-higlight);
+  --color-search-hit-source-highlight: var(--color-higlight);
+  --docsearch-searchbox-background: var(--body-background);
+}

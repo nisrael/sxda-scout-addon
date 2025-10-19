@@ -289,3 +289,11 @@ test-results
 
 # Antora generated docs
 build/site
+
+# Generated highlight.js bundle
+docs/supplemental-ui/js/vendor/highlight.js
+docs/supplemental-ui/js/vendor/highlight.temp.js
+scripts/highlight-entry.js
+
+# Generated CSS from SCSS
+docs/supplemental-ui/css/vars.css
