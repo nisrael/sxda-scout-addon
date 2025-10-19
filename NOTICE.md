@@ -75,3 +75,8 @@ CodeMirror (Extensible Code Editor)
 * Project home: https://codemirror.net
 * Source: https://github.com/codemirror/dev/
 
+Monaco (A browser based code editor)
+
+* License: MIT License
+* Project home: https://microsoft.github.io/monaco-editor/
+* Source: https://github.com/microsoft/monaco-editor

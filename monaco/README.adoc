@@ -1,0 +1,326 @@
+= Monaco Editor Field for Eclipse Scout
+
+This module provides a wrapper for the link:https://microsoft.github.io/monaco-editor/[Monaco Editor] as an Eclipse Scout form field. Monaco is the powerful code editor that powers Visual Studio Code, offering advanced features like IntelliSense, rich language support, and a familiar VS Code editing experience.
+
+This is part of the link:https://github.com/nisrael/sxda-scout-addon[sxda-scout-addon] project.
+
+== Features
+
+- Full-featured code editor with syntax highlighting
+- IntelliSense (autocomplete) support
+- Multiple language support (JavaScript, TypeScript, JSON, HTML, CSS, Java, Python, and many more)
+- Configurable themes (VS, VS Dark, High Contrast)
+- Line numbers, minimap, code folding
+- Word wrap, format on paste/type
+- Find and replace functionality
+- Multiple cursor support
+- Diff editor capabilities
+
+== Usage
+
+=== Maven Dependencies
+
+Add the following dependencies to your Eclipse Scout application:
+
+**your.app.client/pom.xml**
+
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>monaco.client</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+**your.app.ui.html/pom.xml**
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>monaco.ui.html</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+=== npm Dependencies
+
+**Important:** The `@sxda/scout-addon-monaco` module does **not** redistribute the `monaco-editor` library. You must add it as a dependency yourself along with the required webpack plugin and loaders. This allows you to use newer versions of Monaco without waiting for addon updates.
+
+Add to **your.app.ui.html/package.json**:
+[source,json]
+----
+{
+  "dependencies": {
+    "@sxda/scout-addon-monaco": "25.2.0",
+    "monaco-editor": "^0.52.2",
+    "monaco-editor-webpack-plugin": "^7.1.1",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0"
+  }
+}
+----
+
+=== Webpack Configuration
+
+The Monaco editor requires special webpack configuration to properly bundle its language workers and assets. You have two options:
+
+**Option 1: Use the provided helper (recommended)**
+
+**your.app.ui.html/webpack.config.js**
+[source,javascript]
+----
+module.exports = (env, args) => {
+  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
+  config.entry = {
+    'your-app': './src/main/js/index.ts',
+    'your-app-theme': './src/main/js/index.less',
+    'your-app-theme-dark': './src/main/js/index-dark.less'
+  };
+
+  // Add Monaco editor webpack plugin with default configuration
+  require('@sxda/scout-addon-monaco/webpack-monaco')(config);
+
+  return config;
+};
+----
+
+**Option 2: Manual configuration**
+
+**your.app.ui.html/webpack.config.js**
+[source,javascript]
+----
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
+module.exports = (env, args) => {
+  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
+  config.entry = {
+    'your-app': './src/main/js/index.ts',
+    'your-app-theme': './src/main/js/index.less',
+    'your-app-theme-dark': './src/main/js/index-dark.less'
+  };
+
+  // Add Monaco editor webpack plugin
+  config.plugins.push(new MonacoWebpackPlugin({
+    languages: ['javascript', 'typescript', 'java', 'json', 'markdown', 'xml', 'html', 'css'],
+    features: [
+      'bracketMatching',
+      'clipboard',
+      'find',
+      'folding',
+      'format',
+      'hover',
+      'inPlaceReplace',
+      'indentation',
+      'linesOperations',
+      'multicursor',
+      'suggest',
+      // ... add other features as needed
+    ]
+  }));
+
+  return config;
+};
+----
+
+=== Integration
+
+**your.app.ui.html/src/main/js/index.ts**
+[source,typescript]
+----
+import '@sxda/scout-addon-monaco';
+----
+
+**your.app.ui.html/src/main/js/index.less**
+[source,less]
+----
+@import "@sxda/scout-addon-monaco/dist/monaco-theme.css";
+----
+
+**your.app.ui.html/src/main/js/index-dark.less**
+[source,less]
+----
+@import "@sxda/scout-addon-monaco/dist/monaco-theme-dark.css";
+----
+
+=== Creating a Form Field
+
+[source,java]
+----
+import io.sxda.scout.addon.monaco.client.monacofield.AbstractMonacoField;
+
+@Order(1000)
+public class CodeField extends AbstractMonacoField {
+  @Override
+  protected int getConfiguredGridW() {
+    return 2;
+  }
+
+  @Override
+  protected String getConfiguredLabel() {
+    return TEXTS.get("Code");
+  }
+
+  @Override
+  protected String getConfiguredLanguage() {
+    return "java";
+  }
+
+  @Override
+  protected String getConfiguredTheme() {
+    return "vs-dark";
+  }
+
+  @Override
+  protected int getConfiguredTabSize() {
+    return 2;
+  }
+
+  @Override
+  protected boolean getConfiguredLineNumbers() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredMinimap() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredWordWrap() {
+    return false;
+  }
+
+  @Override
+  protected boolean getConfiguredFolding() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredInsertSpaces() {
+    return true;
+  }
+}
+----
+
+== Configuration Properties
+
+The `AbstractMonacoField` supports the following configuration properties:
+
+[cols="1,1,1,3",options="header"]
+|===
+| Property | Type | Default | Description
+
+| `language`
+| String
+| `"plaintext"`
+| Programming language for syntax highlighting
+
+| `theme`
+| String
+| `"vs"`
+| Editor theme (`"vs"`, `"vs-dark"`, `"hc-black"`)
+
+| `lineNumbers`
+| boolean
+| `true`
+| Show line numbers
+
+| `minimap`
+| boolean
+| `true`
+| Show minimap overview
+
+| `wordWrap`
+| boolean
+| `false`
+| Enable word wrapping
+
+| `fontSize`
+| int
+| `14`
+| Font size in pixels
+
+| `tabSize`
+| int
+| `4`
+| Number of spaces per tab
+
+| `insertSpaces`
+| boolean
+| `true`
+| Insert spaces instead of tabs
+
+| `automaticLayout`
+| boolean
+| `true`
+| Automatically resize editor
+
+| `folding`
+| boolean
+| `true`
+| Enable code folding
+
+| `renderWhitespace`
+| String
+| `"none"`
+| How to render whitespace (`"none"`, `"boundary"`, `"selection"`, `"trailing"`, `"all"`)
+
+| `scrollBeyondLastLine`
+| boolean
+| `false`
+| Allow scrolling beyond last line
+
+| `formatOnPaste`
+| boolean
+| `false`
+| Format code when pasting
+
+| `formatOnType`
+| boolean
+| `false`
+| Format code while typing
+
+| `readOnly`
+| boolean
+| `false`
+| Make editor read-only
+|===
+
+
+== Supported Languages
+
+Monaco Editor supports syntax highlighting and IntelliSense for many languages. You can specify the language using its identifier string:
+
+- **Web Technologies**: `javascript`, `typescript`, `json`, `html`, `css`, `scss`, `less`, `xml`
+- **Programming Languages**: `java`, `csharp`, `cpp`, `python`, `go`, `rust`, `php`, `ruby`
+- **Markup & Data**: `markdown`, `yaml`, `toml`, `ini`
+- **Database**: `sql`, `mysql`, `pgsql`, `redis`
+- **Shell & Config**: `shell`, `bash`, `powershell`, `dockerfile`
+- **And many more...**
+
+The language support depends on which languages you include in your webpack configuration (see Webpack Configuration section above).
+
+== Themes
+
+Monaco Editor comes with three built-in themes:
+
+- `"vs"` - Visual Studio Light theme (default)
+- `"vs-dark"` - Visual Studio Dark theme
+- `"hc-black"` - High Contrast Black theme (for accessibility)
+
+== Architecture
+
+The Monaco module follows Scout's three-tier architecture:
+
+1. **Java Client** (`monaco.client`): Contains `IMonacoField` interface and `AbstractMonacoField` base class
+2. **Java HTML UI** (`monaco.ui.html`): Contains `JsonMonacoField` adapter for JSON serialization
+3. **TypeScript Module** (`@sxda/scout-addon-monaco`): Contains `MonacoField` widget that integrates with Monaco Editor
+
+Changes flow bidirectionally between Java and the browser through JSON messages over WebSocket.
+
+== License
+
+Eclipse Public License 2.0 - https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0

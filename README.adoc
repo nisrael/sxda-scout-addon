@@ -1,602 +1,80 @@
-= Additional form fields for Eclipse Scout
-:toc: macro
-:toc-title: Table of Contents
-:toclevels: 4
+= Additional Form Fields for Eclipse Scout
 
-The modules in this project provide wrapper modules for commonly used open source form field elements as extensions to the https://eclipse.dev/scout/[Eclipse Scout] framework.
+This project provides wrapper modules for popular open-source web widgets as form field extensions for the https://eclipse.dev/scout/[Eclipse Scout] framework. The modules wrap browser-based widgets into Scout form fields, following Scout's client-server architecture and providing a familiar Scout API for Java developers.
 
-toc::[]
+== Available Modules
 
-== Versioning and Releases
+* **Ace Editor** - Wrapper for the https://ace.c9.io[Ace Code Editor]
+* **CodeMirror** - Wrapper for https://codemirror.net/[CodeMirror 6]
+* **Monaco Editor** - Wrapper for the https://microsoft.github.io/monaco-editor/[Monaco Editor] (VS Code editor)
 
-The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 25.2.x should be compatible with all Eclipse Scout 25.2.y versions.
+The project is not limited to code editors and can be extended with wrappers for any open-source web widget (charts, rich text editors, data grids, calendars, etc.).
 
-You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
+== Documentation
 
-Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org]. The version number of the release is always the same for both repositories.
+📚 **Full documentation is available at:** https://nisrael.github.io/sxda-scout-addon/
 
-Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org].
+The documentation includes:
 
-== Building the Project
+* Getting started guides for each module
+* Installation instructions (Maven and npm)
+* Usage examples and API documentation
+* Developer guides for building from source and creating custom fields
+* IntelliJ IDEA setup with live templates
 
-=== Requirements
+== Quick Start
 
-* Java: JDK 25 or higher
-* Maven: 3.9.9 or higher
-* Node.js: 22.13.0 or higher
-* npm: 10.9.0 or higher
-* pnpm: 9.15.4 or higher (installed via npm)
-
-=== Maven Toolchains (Optional)
-
-The project uses the Maven Toolchains plugin to ensure all Maven plugins use JDK 25. The plugin is configured to automatically scan for available JDKs when no `toolchains.xml` file is found. However, for more control over which JDK is used, you can optionally create a `~/.m2/toolchains.xml` file.
-
-Example `~/.m2/toolchains.xml`:
-
+**Maven dependencies** (add to your `pom.xml`):
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
-<toolchains xmlns="http://maven.apache.org/TOOLCHAINS/1.1.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://maven.apache.org/TOOLCHAINS/1.1.0 http://maven.apache.org/xsd/toolchains-1.1.0.xsd">
-  <toolchain>
-    <type>jdk</type>
-    <provides>
-      <version>25</version>
-      <vendor>openjdk</vendor>
-    </provides>
-    <configuration>
-      <!-- macOS example - adjust the path to your JDK 25 installation -->
-      <jdkHome>/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home</jdkHome>
-
-      <!-- Linux example:
-      <jdkHome>/usr/lib/jvm/java-25-openjdk</jdkHome>
-      -->
-
-      <!-- Windows example:
-      <jdkHome>C:\Program Files\Java\jdk-25</jdkHome>
-      -->
-    </configuration>
-  </toolchain>
-</toolchains>
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.client</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.ui.html</artifactId>
+</dependency>
 ----
 
-For more information about Maven Toolchains, see: https://maven.apache.org/guides/mini/guide-using-toolchains.html
+**npm package** (add to your `package.json`):
+[source,bash]
+----
+npm install @sxda/scout-addon-ace
+----
 
-=== Build Commands
+For complete installation and usage instructions, see the https://nisrael.github.io/sxda-scout-addon/[documentation].
+
+== Versioning
+
+This project's major.minor version matches Eclipse Scout's version. For example, version 25.2.x is compatible with Eclipse Scout 25.2.y.
+
+Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[Maven Central] and https://www.npmjs.com/[npmjs.org].
+
+== Building from Source
+
+To build the project from source:
 
 [source,bash]
 ----
-# Build all modules (includes Maven and npm builds)
 mvn clean package
-
-# Build with license validation
-mvn clean package -Psxda.build.license-validation
-
-# Skip tests
-mvn clean package -DskipTests
 ----
 
-=== Reproducible Builds
+For detailed build instructions, requirements, and Maven configuration, see the https://nisrael.github.io/sxda-scout-addon/building-from-source.html[Building from Source] guide.
 
-This project is configured for reproducible builds, which means that building the same source code multiple times produces byte-for-byte identical artifacts. This is achieved through Maven's `project.build.outputTimestamp` property.
+== Demo
 
-The timestamp is set in the root `pom.xml` and represents the date of the current release cycle. During the automated release process:
+Try the live demo: https://nisrael.github.io/sxda-scout-addon/
 
-1. The release is built and published using the current timestamp from the POM
-2. After a successful release, the timestamp is automatically updated to the current date when preparing the next snapshot version
-3. This ensures that if a release fails, the timestamp remains unchanged and stable
-
-This approach provides:
-
-* **Security**: Users can verify that published artifacts match the source code
-* **Reproducibility**: Anyone can rebuild from source and get identical checksums
-* **Fault-tolerance**: Failed releases don't leave the timestamp in an inconsistent state
-
-For more information about reproducible builds, see: https://maven.apache.org/guides/mini/guide-reproducible-builds.html
+The demo showcases all available modules with various configurations.
 
 == Contributing
 
 Contributions are welcome:
 
 * If you found a bug, please open an issue or, if you are able to fix it, open a pull request.
-* If you have an idea for a new form field element or an improvement of the existing one(s), please open an issue or even better a pull request.
+* If you have an idea for a new widget wrapper or an improvement of the existing one(s), please open an issue or even better a pull request.
 * If you have a question, please open an issue.
-
-== Elements
-
-=== Ace Code Editor
-
-The https://ace.c9.io[Ace Code Editor] is a web based code editor with syntax highlighting and code completion for many programming languages. The wrapper is implemented as  `AbstractAceField extends AbstractValueField<String>` and can be used in a form like any other value field.
-
-==== Usage
-
-To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
-
-.your.app.client/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>ace.client</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-.your.app.ui.html/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>ace.ui.html</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-The node module `@sxda/scout-addon-ace` does not redistribute the transitive dependency `ace-builds`. This means that if there is a new version of the ace code editor, you can use that right away (assuming compatibility) and don't have to wait for a new release of the addon modules. The disadvantage is, that you have to add the ace code editor as a dependency yourself in addition to the `@sxda/scout-addon-ace` module.
-
-Here are the dependencies you have to add to the `package.json` file of the ui.html module of your application :
-
-.your.app.ui.html/packages.json
-[source,json]
-----
-{
-  "dependencies": {
-    "@sxda/scout-addon-ace": "25.2.0",
-    "ace-code": "1.43.2",
-    "webpack": "5.101.2"
-  }
-}
-----
-
-In the `index.ts` file of the ui.html module, the loader for the Ace mode and theme files have to be defined by importing the `ace-code/esm-resolver` module. You also need to import the addon package to register it with Scout's ObjectFactory.
-
-.your.app.ui.html/src/main/js/index.ts
-[source,typescript]
-----
-import 'ace-code/esm-resolver';
-import '@sxda/scout-addon-ace';
-----
-
-.your.app.ui.html/src/main/js/index.less
-[source,less]
-----
-@import "@sxda/scout-addon-ace/dist/ace-theme.css";
-----
-
-.your.app.ui.html/src/main/js/index-dark.less
-[source,less]
-----
-@import "@sxda/scout-addon-ace/dist/ace-theme-dark.css";
-----
-
-Finally, the ace code editor can be used in a form:
-
-.SomeForm.java
-[source,java]
-----
-/* */
-  @Order(1000)
-  public class CodeField extends AbstractAceField {
-    @Override
-    protected int getConfiguredGridW() {
-      return 2;
-    }
-
-    @Override
-    protected String getConfiguredLabel() {
-      return TEXTS.get("Code");
-    }
-
-    @Override
-    protected String getConfiguredTheme() {
-      return AceTheme.TWILIGHT.getConfigTerm();
-    }
-
-    @Override
-    protected boolean getConfiguredShowPrintMargin() {
-      return true;
-    }
-
-    @Override
-    protected int getConfiguredTabSize() {
-      return 2;
-    }
-
-    @Override
-    protected boolean getConfiguredHighlightActiveLine() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredUseSoftTabs() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredUseWrapMode() {
-      return false;
-    }
-  }
-/* */
-----
-
-=== CodeMirror Editor
-
-The https://codemirror.net/[CodeMirror Editor] is a modern web-based code editor built for the browser, with syntax highlighting and language support for many programming languages. The wrapper is implemented as `AbstractCodeMirrorField extends AbstractBasicField<String>` and can be used in a form like any other value field.
-
-==== Usage
-
-To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
-
-.your.app.client/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>codemirror.client</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-.your.app.ui.html/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>codemirror.ui.html</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-The node module `@sxda/scout-addon-codemirror` does not redistribute the transitive dependencies from `@codemirror/*` packages. This means that if there is a new version of the CodeMirror editor, you can use that right away (assuming compatibility) and don't have to wait for a new release of the addon modules. The disadvantage is, that you have to add the CodeMirror packages as dependencies yourself in addition to the `@sxda/scout-addon-codemirror` module.
-
-Here are the dependencies you have to add to the `package.json` file of the ui.html module of your application:
-
-.your.app.ui.html/packages.json
-[source,json]
-----
-{
-  "dependencies": {
-    "@sxda/scout-addon-codemirror": "25.2.0",
-    "@codemirror/autocomplete": "^6.18.7",
-    "@codemirror/commands": "^6.8.1",
-    "@codemirror/lang-java": "^6.0.2",
-    "@codemirror/lang-javascript": "^6.2.4",
-    "@codemirror/lang-json": "^6.0.2",
-    "@codemirror/lang-markdown": "^6.3.4",
-    "@codemirror/language": "^6.11.3",
-    "@codemirror/language-data": "^6.5.1",
-    "@codemirror/lint": "^6.8.5",
-    "@codemirror/search": "^6.5.11",
-    "@codemirror/state": "^6.5.2",
-    "@codemirror/theme-one-dark": "^6.1.3",
-    "@codemirror/view": "^6.38.2",
-    "@ddietr/codemirror-themes": "^1.5.2",
-    "@uiw/codemirror-extensions-basic-setup": "^4.25.1",
-    "thememirror": "^2.0.1",
-    "webpack": "5.101.2"
-  }
-}
-----
-
-In the `index.ts` file of the ui.html module, you need to import the addon package to register it with Scout's ObjectFactory.
-
-.your.app.ui.html/src/main/js/index.ts
-[source,typescript]
-----
-import '@sxda/scout-addon-codemirror';
-----
-
-.your.app.ui.html/src/main/js/index.less
-[source,less]
-----
-@import "@sxda/scout-addon-codemirror/dist/codemirror-theme.css";
-----
-
-.your.app.ui.html/src/main/js/index-dark.less
-[source,less]
-----
-@import "@sxda/scout-addon-codemirror/dist/codemirror-theme-dark.css";
-----
-
-Finally, the CodeMirror editor can be used in a form:
-
-.SomeForm.java
-[source,java]
-----
-/* */
-  @Order(1000)
-  public class CodeField extends AbstractCodeMirrorField {
-    @Override
-    protected int getConfiguredGridW() {
-      return 2;
-    }
-
-    @Override
-    protected String getConfiguredLabel() {
-      return TEXTS.get("Code");
-    }
-
-    @Override
-    protected String getConfiguredTheme() {
-      return CodeMirrorTheme.AYU_LIGHT.getConfigTerm();
-    }
-
-    @Override
-    protected String getConfiguredLanguage() {
-      return CodeMirrorLanguage.JAVA.getConfigTerm();
-    }
-
-    @Override
-    protected int getConfiguredTabSize() {
-      return 2;
-    }
-
-    @Override
-    protected boolean getConfiguredHighlightActiveLine() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredLineNumbers() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredSyntaxHighlighting() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredLineWrapping() {
-      return false;
-    }
-  }
-/* */
-----
-
-=== Monaco Editor
-
-The https://microsoft.github.io/monaco-editor/[Monaco Editor] is a powerful web-based code editor developed by Microsoft, powering VS Code. The wrapper is implemented as `AbstractMonacoField extends AbstractBasicField<String>` and can be used in a form like any other value field.
-
-==== Usage
-
-To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
-
-.your.app.client/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>monaco.client</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-.your.app.ui.html/pom.xml
-[source,xml]
-----
-<!-- ... -->
-<dependency>
-  <groupId>io.sxda.scout.addon</groupId>
-  <artifactId>monaco.ui.html</artifactId>
-  <version>25.2.0</version>
-</dependency>
-<!-- ... -->
-----
-
-The node module `@sxda/scout-addon-monaco` does not redistribute the transitive dependencies from `monaco-editor` and `monaco-editor-webpack-plugin`. This means that if there is a new version of the Monaco editor, you can use that right away (assuming compatibility) and don't have to wait for a new release of the addon modules. The disadvantage is, that you have to add the Monaco editor packages as dependencies yourself in addition to the `@sxda/scout-addon-monaco` module.
-
-Here are the dependencies you have to add to the `package.json` file of the ui.html module of your application:
-
-.your.app.ui.html/packages.json
-[source,json]
-----
-{
-  "dependencies": {
-    "@sxda/scout-addon-monaco": "25.2.0",
-    "monaco-editor": "^0.52.2",
-    "monaco-editor-webpack-plugin": "^7.1.1",
-    "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0",
-    "webpack": "5.101.2"
-  }
-}
-----
-
-The Monaco editor requires special webpack configuration to properly bundle its language workers and assets. You need to configure the `monaco-editor-webpack-plugin` in your webpack configuration:
-
-.your.app.ui.html/webpack.config.js
-[source,javascript]
-----
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-
-module.exports = (env, args) => {
-  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
-  config.entry = {
-    'your-app': './src/main/js/index.ts',
-    'your-app-theme': './src/main/js/index.less',
-    'your-app-theme-dark': './src/main/js/index-dark.less'
-  };
-
-  // Add Monaco editor webpack plugin
-  config.plugins.push(new MonacoWebpackPlugin({
-    languages: ['javascript', 'typescript', 'java', 'json', 'markdown', 'xml', 'html', 'css'],
-    features: [
-      'bracketMatching',
-      'clipboard',
-      'codeAction',
-      'codelens',
-      'colorPicker',
-      'comment',
-      'contextmenu',
-      'coreCommands',
-      'cursorUndo',
-      'dnd',
-      'documentSymbols',
-      'find',
-      'folding',
-      'fontZoom',
-      'format',
-      'gotoError',
-      'gotoLine',
-      'gotoSymbol',
-      'hover',
-      'inPlaceReplace',
-      'indentation',
-      'inlineHints',
-      'inspectTokens',
-      'iPadShowKeyboard',
-      'linesOperations',
-      'linkedEditing',
-      'links',
-      'multicursor',
-      'parameterHints',
-      'quickCommand',
-      'quickHelp',
-      'quickOutline',
-      'referenceSearch',
-      'rename',
-      'smartSelect',
-      'snippets',
-      'suggest',
-      'toggleHighContrast',
-      'toggleTabFocusMode',
-      'transpose',
-      'unusualLineTerminators',
-      'viewportSemanticTokens',
-      'wordHighlighter',
-      'wordOperations',
-      'wordPartOperations'
-    ]
-  }));
-
-  return config;
-};
-----
-
-Alternatively, you can use a simpler configuration that includes all languages and features by importing the provided webpack helper:
-
-.your.app.ui.html/webpack.config.js
-[source,javascript]
-----
-module.exports = (env, args) => {
-  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
-  config.entry = {
-    'your-app': './src/main/js/index.ts',
-    'your-app-theme': './src/main/js/index.less',
-    'your-app-theme-dark': './src/main/js/index-dark.less'
-  };
-
-  // Add Monaco editor webpack plugin with default configuration
-  require('@sxda/scout-addon-monaco/webpack-monaco')(config);
-
-  return config;
-};
-----
-
-In the `index.ts` file of the ui.html module, you need to import the addon package to register it with Scout's ObjectFactory.
-
-.your.app.ui.html/src/main/js/index.ts
-[source,typescript]
-----
-import '@sxda/scout-addon-monaco';
-----
-
-.your.app.ui.html/src/main/js/index.less
-[source,less]
-----
-@import "@sxda/scout-addon-monaco/dist/monaco-theme.css";
-----
-
-.your.app.ui.html/src/main/js/index-dark.less
-[source,less]
-----
-@import "@sxda/scout-addon-monaco/dist/monaco-theme-dark.css";
-----
-
-Finally, the Monaco editor can be used in a form:
-
-.SomeForm.java
-[source,java]
-----
-/* */
-  @Order(1000)
-  public class CodeField extends AbstractMonacoField {
-    @Override
-    protected int getConfiguredGridW() {
-      return 2;
-    }
-
-    @Override
-    protected String getConfiguredLabel() {
-      return TEXTS.get("Code");
-    }
-
-    @Override
-    protected String getConfiguredLanguage() {
-      return "java";
-    }
-
-    @Override
-    protected String getConfiguredTheme() {
-      return "vs"; // or "vs-dark" or "hc-black"
-    }
-
-    @Override
-    protected int getConfiguredTabSize() {
-      return 2;
-    }
-
-    @Override
-    protected boolean getConfiguredLineNumbers() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredMinimap() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredWordWrap() {
-      return false;
-    }
-
-    @Override
-    protected boolean getConfiguredFolding() {
-      return true;
-    }
-
-    @Override
-    protected boolean getConfiguredInsertSpaces() {
-      return true;
-    }
-  }
-/* */
-----
-
-== Demo
-
-A Scout JS demo application is located in the link:./demo[demo directory]. An instance of the latest snapshot version is available at: https://nisrael.github.io/sxda-scout-addon/.
-
-And a demo Scout Classic application can be found at: https://github.com/nisrael/sxda-scout-apps-addondemo.
-
-== Additional Documentation
-
-* Two IntelliJ IDEA code templates for quickly adding new configuration properties to Scout fields are available in link:/doc/setup-intellij.adoc[doc/setup-intellij.adoc].
-* AA detailed description of the synchronization logic and its implementation between the editor and the Scout field, together with a template for similar custom fields, is available in link:/doc/scout-value-field-data-flow.adoc[doc/scout-value-field-data-flow.adoc].
 
 == License
 

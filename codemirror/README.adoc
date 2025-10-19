@@ -1,0 +1,256 @@
+= CodeMirror Field for Eclipse Scout
+
+This module provides a wrapper for https://codemirror.net/[CodeMirror 6] as an Eclipse Scout form field. CodeMirror is a modern, extensible code editor component for the web with syntax highlighting and language support for many programming languages.
+
+This is part of the https://github.com/nisrael/sxda-scout-addon[sxda-scout-addon] project.
+
+== Features
+
+* Modern, fast code editor built for the web
+* Syntax highlighting for many programming languages
+* Extensible theming system with dozens of built-in themes
+* Line numbers and active line highlighting
+* Configurable tab size and line wrapping
+* Search and replace functionality
+* Autocomplete support
+* Code folding and linting support
+
+== Usage
+
+=== Maven Dependencies
+
+Add the following dependencies to your Eclipse Scout application:
+
+.*your.app.client/pom.xml*
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>codemirror.client</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+.*your.app.ui.html/pom.xml*
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>codemirror.ui.html</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+=== npm Dependencies
+
+[IMPORTANT]
+====
+The `@sxda/scout-addon-codemirror` module does *not* redistribute the `@codemirror/*` packages. You must add them as dependencies yourself. This allows you to use newer versions of CodeMirror without waiting for addon updates.
+====
+
+Add to *your.app.ui.html/package.json*:
+[source,json]
+----
+{
+  "dependencies": {
+    "@sxda/scout-addon-codemirror": "25.2.0",
+    "@codemirror/autocomplete": "^6.18.7",
+    "@codemirror/commands": "^6.8.1",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-markdown": "^6.3.4",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/language-data": "^6.5.1",
+    "@codemirror/lint": "^6.8.5",
+    "@codemirror/search": "^6.5.11",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@codemirror/view": "^6.38.2",
+    "@ddietr/codemirror-themes": "^1.5.2",
+    "@uiw/codemirror-extensions-basic-setup": "^4.25.1",
+    "thememirror": "^2.0.1"
+  }
+}
+----
+
+=== Integration
+
+.*your.app.ui.html/src/main/js/index.ts*
+[source,typescript]
+----
+import '@sxda/scout-addon-codemirror';
+----
+
+.*your.app.ui.html/src/main/js/index.less*
+[source,less]
+----
+@import "@sxda/scout-addon-codemirror/dist/codemirror-theme.css";
+----
+
+.*your.app.ui.html/src/main/js/index-dark.less*
+[source,less]
+----
+@import "@sxda/scout-addon-codemirror/dist/codemirror-theme-dark.css";
+----
+
+=== Creating a Form Field
+
+[source,java]
+----
+import io.sxda.scout.addon.codemirror.client.codemirrorfield.AbstractCodeMirrorField;
+import io.sxda.scout.addon.codemirror.client.codemirrorfield.CodeMirrorLanguage;
+import io.sxda.scout.addon.codemirror.client.codemirrorfield.CodeMirrorTheme;
+
+@Order(1000)
+public class CodeField extends AbstractCodeMirrorField {
+  @Override
+  protected int getConfiguredGridW() {
+    return 2;
+  }
+
+  @Override
+  protected String getConfiguredLabel() {
+    return TEXTS.get("Code");
+  }
+
+  @Override
+  protected String getConfiguredLanguage() {
+    return CodeMirrorLanguage.JAVA.getConfigTerm();
+  }
+
+  @Override
+  protected String getConfiguredTheme() {
+    return CodeMirrorTheme.AYU_LIGHT.getConfigTerm();
+  }
+
+  @Override
+  protected int getConfiguredTabSize() {
+    return 2;
+  }
+
+  @Override
+  protected boolean getConfiguredHighlightActiveLine() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredLineNumbers() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredSyntaxHighlighting() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredLineWrapping() {
+    return false;
+  }
+}
+----
+
+== Configuration Properties
+
+The `AbstractCodeMirrorField` supports the following configuration properties:
+
+[cols="1,1,1,3"]
+|===
+|Property |Type |Default |Description
+
+|`language`
+|String
+|`null`
+|Programming language for syntax highlighting
+
+|`theme`
+|String
+|`"default"`
+|Editor theme
+
+|`tabSize`
+|int
+|`4`
+|Number of spaces per tab
+
+|`lineNumbers`
+|boolean
+|`true`
+|Show line numbers
+
+|`lineWrapping`
+|boolean
+|`false`
+|Enable line wrapping
+
+|`highlightActiveLine`
+|boolean
+|`false`
+|Highlight the current line
+
+|`syntaxHighlighting`
+|boolean
+|`true`
+|Enable syntax highlighting
+
+|`readOnly`
+|boolean
+|`false`
+|Make editor read-only
+|===
+
+== Supported Languages
+
+The `CodeMirrorLanguage` enum provides constants for supported programming languages:
+
+* `ANGULAR` - Angular templates
+* `CPP` - C/C++
+* `CSS` - CSS stylesheets
+* `HTML` - HTML markup
+* `JAVA` - Java source code
+* `JAVASCRIPT` - JavaScript/ECMAScript
+* `JSON` - JSON data
+* `JSX` - React JSX
+* `LEZER` - Lezer grammar language
+* `LIQUID` - Liquid templates
+* `MARKDOWN` - Markdown
+* `PHP` - PHP
+* `PYTHON` - Python
+* `RUST` - Rust
+* `SASS` - Sass/SCSS
+* `SQL` - SQL
+* `TSX` - TypeScript JSX
+* `TYPESCRIPT` - TypeScript
+* `VUE` - Vue templates
+* `WAST` - WebAssembly text format
+* `XML` - XML markup
+
+== Supported Themes
+
+The `CodeMirrorTheme` enum provides constants for built-in themes. Themes are categorized by type:
+
+=== Light Themes
+`AYU_LIGHT`, `BARF`, `BASIC_LIGHT`, `GITHUB_LIGHT`, `GRUVBOX_LIGHT`, `NOCTIS_LILAC`, `SOLARIZED_LIGHT`, `TOKYO_NIGHT_DAY`
+
+=== Dark Themes
+`ANDROID_STUDIO`, `ANDROMEDA`, `ATOM_ONE`, `AURA`, `BASIC_DARK`, `BBEDIT`, `BESPIN`, `DARCULA`, `DRACULA`, `DUOTONE_DARK`, `ECLIPSE`, `GITHUB_DARK`, `GRUVBOX_DARK`, `KIMBIE`, `MATERIAL_DARK`, `MONOKAI`, `MONOKAI_DIMMED`, `NOCTIS_LILAC`, `NORD`, `OBSIDIAN`, `ONE_DARK`, `SOLARIZED_DARK`, `SUBLIME`, `TOKYO_NIGHT`, `TOKYO_NIGHT_STORM`, `TOMORROW_NIGHT_BLUE`, `VSCODEDARK`, `XCODE_DARK`
+
+=== High Contrast
+`BASIC_HIGH_CONTRAST_DARK`, `BASIC_HIGH_CONTRAST_LIGHT`
+
+== Architecture
+
+The CodeMirror module follows Scout's three-tier architecture:
+
+1. *Java Client* (`codemirror.client`): Contains `ICodeMirrorField` interface and `AbstractCodeMirrorField` base class
+2. *Java HTML UI* (`codemirror.ui.html`): Contains `JsonCodeMirrorField` adapter for JSON serialization
+3. *TypeScript Module* (`@sxda/scout-addon-codemirror`): Contains `CodeMirrorField` widget that integrates with CodeMirror 6
+
+Changes flow bidirectionally between Java and the browser through JSON messages over WebSocket.
+
+== License
+
+Eclipse Public License 2.0 - https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0

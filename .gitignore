@@ -286,3 +286,6 @@ test-results
 /.log*
 /CLAUDE.md
 /.tool-versions
+
+# Antora generated docs
+build/site

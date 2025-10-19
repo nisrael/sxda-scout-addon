@@ -1,0 +1,52 @@
+= Documentation Directory
+
+This directory contains the Antora-based documentation for the Scout Addon project.
+
+== Structure
+
+The documentation is organized into Antora modules:
+
+* *ROOT*: Main documentation and landing page
+* *ace*: Ace Editor module documentation
+* *codemirror*: CodeMirror module documentation
+* *monaco*: Monaco Editor module documentation
+
+Each module uses the Antora collector extension to include the README.adoc files from their respective source directories (`ace/`, `codemirror/`, `monaco/`).
+
+== Building the Documentation
+
+Install dependencies:
+[source,bash]
+----
+npm run pnpm-install
+----
+
+Build the documentation site:
+[source,bash]
+----
+npm run docs:build
+----
+
+The generated site will be in `build/site/`.
+
+== Serving Locally
+
+To preview the documentation site locally:
+[source,bash]
+----
+npm run docs:serve
+----
+
+Then open http://localhost:8080 in your browser.
+
+== Configuration
+
+* *antora-playbook.yml*: Main Antora configuration at project root
+* *docs/antora.yml*: Component descriptor
+* *docs/modules/*/&#8203;.collector-config.yml*: Collector extension configuration for each module
+
+== Features
+
+* Kroki integration for diagrams using the public Kroki server (https://kroki.io)
+* Collector extension to include README files as partials
+* Tracks the `main` branch and `25.2.*` tags for versioning

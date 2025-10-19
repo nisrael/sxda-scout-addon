@@ -1,7 +1,8 @@
-= Eclipse Scout ValueField Data Flow
+= Scout Value Field Data Flow: Developer Guide
 :toc: left
 :toclevels: 3
 :sectnums:
+:description: Comprehensive guide for implementing custom editor fields that extend Eclipse Scout's BasicField, with detailed data flow explanations and implementation patterns.
 ifdef::env-github[]
 :MERMAID: source, mermaid
 endif::[]
@@ -9,14 +10,15 @@ ifndef::env-github[]
 :MERMAID: mermaid
 endif::[]
 
-== Overview
+This guide explains the data flow in Eclipse Scout fields, with focus on implementing custom editor fields that extend `BasicField`. It provides detailed explanations, implementation patterns, and copy-paste templates for creating robust custom fields like AceField and CodeMirrorField.
 
-This document explains the data flow in Eclipse Scout fields, with focus on implementing custom editor fields that extend `BasicField`. It covers:
+== What You'll Learn
 
 * **Core Data Flow**: Understanding the three-layer model (DOM → displayText → value)
 * **Integration Patterns**: How to properly implement custom editor fields (AceField, CodeMirrorField, etc.)
 * **Guard Patterns**: Preventing infinite loops and ensuring correct state management
 * **Best Practices**: Leveraging Scout's built-in functionality (debouncing, validation, etc.)
+* **Copy-Paste Templates**: Ready-to-use code templates for implementing your own custom fields
 
 === Three-Layer Data Model
 
