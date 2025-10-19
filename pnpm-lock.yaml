@@ -222,12 +222,27 @@ importers:
       '@eclipse-scout/core':
         specifier: 25.2.9
         version: 25.2.9
+      '@sxda/scout-addon-ace':
+        specifier: workspace:*
+        version: link:../ace
+      '@sxda/scout-addon-codemirror':
+        specifier: workspace:*
+        version: link:../codemirror
+      '@sxda/scout-addon-monaco':
+        specifier: workspace:*
+        version: link:../monaco
       ace-code:
         specifier: 1.43.4
         version: 1.43.4
       jquery:
         specifier: 3.7.1
         version: 3.7.1
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
+      monaco-editor-webpack-plugin:
+        specifier: ^7.1.1
+        version: 7.1.1(monaco-editor@0.52.2)(webpack@5.102.1)
       thememirror:
         specifier: ^2.0.1
         version: 2.0.1(@codemirror/language@6.11.3)(@codemirror/state@6.5.2)(@codemirror/view@6.38.6)
@@ -247,9 +262,81 @@ importers:
       '@types/jquery':
         specifier: 3.5.33
         version: 3.5.33
+      css-loader:
+        specifier: ^7.1.2
+        version: 7.1.2(webpack@5.102.1)
+      file-loader:
+        specifier: ^6.2.0
+        version: 6.2.0(webpack@5.102.1)
       live-server:
         specifier: ^1.2.2
         version: 1.2.2
+      style-loader:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.102.1)
+
+  monaco:
+    devDependencies:
+      '@eclipse-scout/cli':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@eclipse-scout/core':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@eclipse-scout/releng':
+        specifier: ^25.1.0
+        version: 25.1.0(@pnpm/logger@5.2.0)
+      '@eclipse-scout/tsconfig':
+        specifier: 25.2.9
+        version: 25.2.9
+      '@jsdevtools/coverage-istanbul-loader':
+        specifier: ^3.0.5
+        version: 3.0.5
+      '@types/jasmine':
+        specifier: 5.1.11
+        version: 5.1.11
+      '@types/jasmine-jquery':
+        specifier: 1.5.37
+        version: 1.5.37
+      '@types/jquery':
+        specifier: 3.5.33
+        version: 3.5.33
+      css-loader:
+        specifier: ^7.1.2
+        version: 7.1.2(webpack@5.102.1)
+      jasmine-core:
+        specifier: 5.12.0
+        version: 5.12.0
+      jasmine-jquery:
+        specifier: 2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: 3.7.1
+        version: 3.7.1
+      karma:
+        specifier: 6.4.4
+        version: 6.4.4
+      karma-coverage:
+        specifier: ^2.2.1
+        version: 2.2.1
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
+      monaco-editor-webpack-plugin:
+        specifier: ^7.1.1
+        version: 7.1.1(monaco-editor@0.52.2)(webpack@5.102.1)
+      semver:
+        specifier: ^7.7.2
+        version: 7.7.3
+      style-loader:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.102.1)
+      webpack:
+        specifier: ~5.102.0
+        version: 5.102.1
+      webpack-bundle-analyzer:
+        specifier: ^4.10.2
+        version: 4.10.2
 
 packages:
 
@@ -2329,6 +2416,12 @@ packages:
       picomatch:
         optional: true
 
+  file-loader@6.2.0:
+    resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
+
   file-uri-to-path@1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
 
@@ -3172,6 +3265,15 @@ packages:
   mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
+
+  monaco-editor-webpack-plugin@7.1.1:
+    resolution: {integrity: sha512-WxdbFHS3Wtz4V9hzhe/Xog5hQRSMxmDLkEEYZwqMDHgJlkZo00HVFZR0j5d0nKypjTUkkygH3dDSXERLG4757A==}
+    peerDependencies:
+      monaco-editor: '>= 0.31.0'
+      webpack: ^4.5.0 || 5.x
+
+  monaco-editor@0.52.2:
+    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
 
   moo@0.5.2:
     resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
@@ -4170,6 +4272,12 @@ packages:
   strip-json-comments@2.0.1:
     resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
     engines: {node: '>=0.10.0'}
+
+  style-loader@4.0.0:
+    resolution: {integrity: sha512-1V4WqhhZZgjVAVJyt7TdDPZoPBPNHbekX4fWnCJL1yQukhCeZhJySUL+gL9y6sNdN95uEOS83Y55SqHcP7MzLA==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      webpack: ^5.27.0
 
   style-mod@4.1.3:
     resolution: {integrity: sha512-i/n8VsZydrugj3Iuzll8+x/00GH2vnYsk1eomD8QiRrSAeW6ItbCQDtfXCeJHd0iwiNagqjQkvpvREEPtW3IoQ==}
@@ -6869,6 +6977,19 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
+  css-loader@7.1.2(webpack@5.102.1):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
+      postcss-modules-scope: 3.2.1(postcss@8.5.6)
+      postcss-modules-values: 4.0.0(postcss@8.5.6)
+      postcss-value-parser: 4.2.0
+      semver: 7.7.3
+    optionalDependencies:
+      webpack: 5.102.1
+
   css-loader@7.1.2(webpack@5.97.1(esbuild@0.24.0)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
@@ -7301,6 +7422,12 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
     optional: true
+
+  file-loader@6.2.0(webpack@5.102.1):
+    dependencies:
+      loader-utils: 2.0.4
+      schema-utils: 3.3.0
+      webpack: 5.102.1
 
   file-uri-to-path@1.0.0:
     optional: true
@@ -8249,6 +8376,14 @@ snapshots:
   mkdirp@0.5.6:
     dependencies:
       minimist: 1.2.8
+
+  monaco-editor-webpack-plugin@7.1.1(monaco-editor@0.52.2)(webpack@5.102.1):
+    dependencies:
+      loader-utils: 2.0.4
+      monaco-editor: 0.52.2
+      webpack: 5.102.1
+
+  monaco-editor@0.52.2: {}
 
   moo@0.5.2:
     optional: true
@@ -9303,6 +9438,10 @@ snapshots:
 
   strip-json-comments@2.0.1:
     optional: true
+
+  style-loader@4.0.0(webpack@5.102.1):
+    dependencies:
+      webpack: 5.102.1
 
   style-mod@4.1.3: {}
 

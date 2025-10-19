@@ -13,9 +13,9 @@ The major and minor version of the modules in this repository match the major an
 
 You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
 
-Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org]. The version number of the release is always the same for both repositories.
+Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org]. The version number of the release is always the same for both repositories.
 
-Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org].
+Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org].
 
 == Building the Project
 
@@ -359,6 +359,229 @@ Finally, the CodeMirror editor can be used in a form:
     @Override
     protected boolean getConfiguredLineWrapping() {
       return false;
+    }
+  }
+/* */
+----
+
+=== Monaco Editor
+
+The https://microsoft.github.io/monaco-editor/[Monaco Editor] is a powerful web-based code editor developed by Microsoft, powering VS Code. The wrapper is implemented as `AbstractMonacoField extends AbstractBasicField<String>` and can be used in a form like any other value field.
+
+==== Usage
+
+To use the field in an Eclipse Scout Classic 25.2.y application, add the following modules to your application:
+
+.your.app.client/pom.xml
+[source,xml]
+----
+<!-- ... -->
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>monaco.client</artifactId>
+  <version>25.2.0</version>
+</dependency>
+<!-- ... -->
+----
+
+.your.app.ui.html/pom.xml
+[source,xml]
+----
+<!-- ... -->
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>monaco.ui.html</artifactId>
+  <version>25.2.0</version>
+</dependency>
+<!-- ... -->
+----
+
+The node module `@sxda/scout-addon-monaco` does not redistribute the transitive dependencies from `monaco-editor` and `monaco-editor-webpack-plugin`. This means that if there is a new version of the Monaco editor, you can use that right away (assuming compatibility) and don't have to wait for a new release of the addon modules. The disadvantage is, that you have to add the Monaco editor packages as dependencies yourself in addition to the `@sxda/scout-addon-monaco` module.
+
+Here are the dependencies you have to add to the `package.json` file of the ui.html module of your application:
+
+.your.app.ui.html/packages.json
+[source,json]
+----
+{
+  "dependencies": {
+    "@sxda/scout-addon-monaco": "25.2.0",
+    "monaco-editor": "^0.52.2",
+    "monaco-editor-webpack-plugin": "^7.1.1",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "webpack": "5.101.2"
+  }
+}
+----
+
+The Monaco editor requires special webpack configuration to properly bundle its language workers and assets. You need to configure the `monaco-editor-webpack-plugin` in your webpack configuration:
+
+.your.app.ui.html/webpack.config.js
+[source,javascript]
+----
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
+module.exports = (env, args) => {
+  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
+  config.entry = {
+    'your-app': './src/main/js/index.ts',
+    'your-app-theme': './src/main/js/index.less',
+    'your-app-theme-dark': './src/main/js/index-dark.less'
+  };
+
+  // Add Monaco editor webpack plugin
+  config.plugins.push(new MonacoWebpackPlugin({
+    languages: ['javascript', 'typescript', 'java', 'json', 'markdown', 'xml', 'html', 'css'],
+    features: [
+      'bracketMatching',
+      'clipboard',
+      'codeAction',
+      'codelens',
+      'colorPicker',
+      'comment',
+      'contextmenu',
+      'coreCommands',
+      'cursorUndo',
+      'dnd',
+      'documentSymbols',
+      'find',
+      'folding',
+      'fontZoom',
+      'format',
+      'gotoError',
+      'gotoLine',
+      'gotoSymbol',
+      'hover',
+      'inPlaceReplace',
+      'indentation',
+      'inlineHints',
+      'inspectTokens',
+      'iPadShowKeyboard',
+      'linesOperations',
+      'linkedEditing',
+      'links',
+      'multicursor',
+      'parameterHints',
+      'quickCommand',
+      'quickHelp',
+      'quickOutline',
+      'referenceSearch',
+      'rename',
+      'smartSelect',
+      'snippets',
+      'suggest',
+      'toggleHighContrast',
+      'toggleTabFocusMode',
+      'transpose',
+      'unusualLineTerminators',
+      'viewportSemanticTokens',
+      'wordHighlighter',
+      'wordOperations',
+      'wordPartOperations'
+    ]
+  }));
+
+  return config;
+};
+----
+
+Alternatively, you can use a simpler configuration that includes all languages and features by importing the provided webpack helper:
+
+.your.app.ui.html/webpack.config.js
+[source,javascript]
+----
+module.exports = (env, args) => {
+  const config = require('@eclipse-scout/cli/scripts/webpack-defaults');
+  config.entry = {
+    'your-app': './src/main/js/index.ts',
+    'your-app-theme': './src/main/js/index.less',
+    'your-app-theme-dark': './src/main/js/index-dark.less'
+  };
+
+  // Add Monaco editor webpack plugin with default configuration
+  require('@sxda/scout-addon-monaco/webpack-monaco')(config);
+
+  return config;
+};
+----
+
+In the `index.ts` file of the ui.html module, you need to import the addon package to register it with Scout's ObjectFactory.
+
+.your.app.ui.html/src/main/js/index.ts
+[source,typescript]
+----
+import '@sxda/scout-addon-monaco';
+----
+
+.your.app.ui.html/src/main/js/index.less
+[source,less]
+----
+@import "@sxda/scout-addon-monaco/dist/monaco-theme.css";
+----
+
+.your.app.ui.html/src/main/js/index-dark.less
+[source,less]
+----
+@import "@sxda/scout-addon-monaco/dist/monaco-theme-dark.css";
+----
+
+Finally, the Monaco editor can be used in a form:
+
+.SomeForm.java
+[source,java]
+----
+/* */
+  @Order(1000)
+  public class CodeField extends AbstractMonacoField {
+    @Override
+    protected int getConfiguredGridW() {
+      return 2;
+    }
+
+    @Override
+    protected String getConfiguredLabel() {
+      return TEXTS.get("Code");
+    }
+
+    @Override
+    protected String getConfiguredLanguage() {
+      return "java";
+    }
+
+    @Override
+    protected String getConfiguredTheme() {
+      return "vs"; // or "vs-dark" or "hc-black"
+    }
+
+    @Override
+    protected int getConfiguredTabSize() {
+      return 2;
+    }
+
+    @Override
+    protected boolean getConfiguredLineNumbers() {
+      return true;
+    }
+
+    @Override
+    protected boolean getConfiguredMinimap() {
+      return true;
+    }
+
+    @Override
+    protected boolean getConfiguredWordWrap() {
+      return false;
+    }
+
+    @Override
+    protected boolean getConfiguredFolding() {
+      return true;
+    }
+
+    @Override
+    protected boolean getConfiguredInsertSpaces() {
+      return true;
     }
   }
 /* */
