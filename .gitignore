@@ -286,8 +286,3 @@ test-results
 /.log*
 /CLAUDE.md
 /.tool-versions
-
-# Generated README.md files from AsciiDoc source
-ace/README.md
-codemirror/README.md
-monaco/README.md
