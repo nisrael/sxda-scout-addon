@@ -1,0 +1,26 @@
+site:
+  title: SXDA Scout Addon Documentation
+  url: https://nisrael.github.io/sxda-scout-addon
+  start_page: ROOT::index.adoc
+
+content:
+  sources:
+    - url: .
+      branches: main
+      tags: 25.2.*
+      start_path: docs
+
+asciidoc:
+  attributes:
+    kroki-server-url: https://kroki.io
+    kroki-fetch-diagram: true
+  extensions:
+    - '@antora/collector-extension'
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+
+output:
+  dir: build/site

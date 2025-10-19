@@ -1,0 +1,15 @@
+= SXDA Scout Addon
+
+Welcome to the SXDA Scout Addon documentation.
+
+This project provides additional form field extensions for the Eclipse Scout framework, offering wrapper modules for code editors as Eclipse Scout form fields.
+
+== Available Modules
+
+* xref:ace:index.adoc[Ace Editor] - Ace code editor integration
+* xref:codemirror:index.adoc[CodeMirror Editor] - CodeMirror 6 integration
+* xref:monaco:index.adoc[Monaco Editor] - Monaco Editor integration
+
+== Getting Started
+
+Choose one of the editor modules above to learn more about integration and usage.

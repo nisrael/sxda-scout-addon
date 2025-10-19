@@ -26,9 +26,14 @@
     "version:snapshot": "pnpm -r run version:snapshot",
     "version:snapshot:dependencies": "pnpm -r run version:snapshot:dependencies",
     "version:release": "pnpm -r run version:release",
-    "version:release:dependencies": "pnpm -r run version:release:dependencies"
+    "version:release:dependencies": "pnpm -r run version:release:dependencies",
+    "docs:build": "antora antora-playbook.yml",
+    "docs:serve": "npx http-server build/site -p 8080"
   },
   "devDependencies": {
+    "@antora/collector-extension": "^1.0.0",
+    "@antora/cli": "^3.1.9",
+    "@antora/site-generator": "^3.1.9",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "babel-plugin-istanbul": "^7.0.1",
     "downdoc": "^1.0.2-stable",

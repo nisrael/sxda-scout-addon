@@ -1,0 +1,5 @@
+name: ROOT
+title: SXDA Scout Addon
+version: main
+nav:
+  - modules/ROOT/nav.adoc

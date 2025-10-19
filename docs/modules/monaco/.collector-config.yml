@@ -1,0 +1,6 @@
+version: '1'
+scan:
+  dir: ../../../monaco
+examples:
+  - path: README.adoc
+    tags: []

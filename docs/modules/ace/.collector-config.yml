@@ -1,0 +1,6 @@
+version: '1'
+scan:
+  dir: ../../../ace
+examples:
+  - path: README.adoc
+    tags: []
