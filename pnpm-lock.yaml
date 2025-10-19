@@ -14,6 +14,9 @@ importers:
       babel-plugin-istanbul:
         specifier: ^7.0.1
         version: 7.0.1
+      downdoc:
+        specifier: ^1.0.2-stable
+        version: 1.0.2-stable
       karma-coverage:
         specifier: ^2.2.1
         version: 2.2.1
@@ -2205,6 +2208,11 @@ packages:
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
+
+  downdoc@1.0.2-stable:
+    resolution: {integrity: sha512-eYTOmnYp3a6ibweDWLO72Y2NxWtw5YVA5rpfS4+vjWh6K1F9bD3TrwxYxfjfudqwBtYeeIYkn7b9UXN22NkZSw==}
+    engines: {node: '>=16.17.0'}
+    hasBin: true
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -7173,6 +7181,8 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+
+  downdoc@1.0.2-stable: {}
 
   dunder-proto@1.0.1:
     dependencies:

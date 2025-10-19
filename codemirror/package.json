@@ -34,6 +34,8 @@
     "build:prod": "scout-scripts build:prod --run default global --progress=false --clean=false",
     "build:all": "npm run build:dev && npm run build:prod",
     "build:dev:watch": "scout-scripts build:dev:watch",
+    "docs:convert": "downdoc README.adoc",
+    "prepublishOnly": "npm run docs:convert",
     "cleanup:snapshots": "releng-scripts cleanup:snapshots",
     "version:snapshot:dependencies": "releng-scripts version:snapshot:dependencies",
     "version:snapshot": "releng-scripts version:snapshot",

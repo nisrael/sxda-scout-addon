@@ -1,0 +1,270 @@
+= Ace Editor Field for Eclipse Scout
+
+This module provides a wrapper for the https://ace.c9.io[Ace Code Editor] as an Eclipse Scout form field. Ace is a web-based code editor with syntax highlighting and code completion for many programming languages.
+
+This is part of the https://github.com/nisrael/sxda-scout-addon[sxda-scout-addon] project.
+
+== Features
+
+* Syntax highlighting for 100+ programming languages
+* Multiple themes (light and dark variants)
+* Code folding and line wrapping
+* Configurable tab size and indentation
+* Print margin and active line highlighting
+* Search and replace functionality
+* Keyboard shortcuts and commands
+
+== Usage
+
+=== Maven Dependencies
+
+Add the following dependencies to your Eclipse Scout application:
+
+.*your.app.client/pom.xml*
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.client</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+.*your.app.ui.html/pom.xml*
+[source,xml]
+----
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.ui.html</artifactId>
+  <version>25.2.0</version>
+</dependency>
+----
+
+=== npm Dependencies
+
+[IMPORTANT]
+====
+The `@sxda/scout-addon-ace` module does *not* redistribute the `ace-code` library. You must add it as a dependency yourself. This allows you to use newer versions of Ace without waiting for addon updates.
+====
+
+Add to *your.app.ui.html/package.json*:
+[source,json]
+----
+{
+  "dependencies": {
+    "@sxda/scout-addon-ace": "25.2.0",
+    "ace-code": "1.43.2"
+  }
+}
+----
+
+=== Integration
+
+.*your.app.ui.html/src/main/js/index.ts*
+[source,typescript]
+----
+import 'ace-code/esm-resolver';
+import '@sxda/scout-addon-ace';
+----
+
+.*your.app.ui.html/src/main/js/index.less*
+[source,less]
+----
+@import "@sxda/scout-addon-ace/dist/ace-theme.css";
+----
+
+.*your.app.ui.html/src/main/js/index-dark.less*
+[source,less]
+----
+@import "@sxda/scout-addon-ace/dist/ace-theme-dark.css";
+----
+
+=== Creating a Form Field
+
+[source,java]
+----
+import io.sxda.scout.addon.ace.client.acefield.AbstractAceField;
+import io.sxda.scout.addon.ace.client.acefield.AceMode;
+import io.sxda.scout.addon.ace.client.acefield.AceTheme;
+
+@Order(1000)
+public class CodeField extends AbstractAceField {
+  @Override
+  protected int getConfiguredGridW() {
+    return 2;
+  }
+
+  @Override
+  protected String getConfiguredLabel() {
+    return TEXTS.get("Code");
+  }
+
+  @Override
+  protected String getConfiguredAceMode() {
+    return AceMode.JAVA.getModeTerm();
+  }
+
+  @Override
+  protected String getConfiguredTheme() {
+    return AceTheme.TWILIGHT.getConfigTerm();
+  }
+
+  @Override
+  protected int getConfiguredTabSize() {
+    return 2;
+  }
+
+  @Override
+  protected boolean getConfiguredUseSoftTabs() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredShowPrintMargin() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredHighlightActiveLine() {
+    return true;
+  }
+
+  @Override
+  protected boolean getConfiguredUseWrapMode() {
+    return false;
+  }
+}
+----
+
+== Configuration Properties
+
+The `AbstractAceField` supports the following configuration properties:
+
+[cols="1,1,1,3"]
+|===
+|Property |Type |Default |Description
+
+|`aceMode`
+|String
+|`"text"`
+|Programming language/syntax mode
+
+|`theme`
+|String
+|`"textmate"`
+|Editor theme
+
+|`tabSize`
+|int
+|`4`
+|Number of spaces per tab
+
+|`useSoftTabs`
+|boolean
+|`true`
+|Use spaces instead of tabs
+
+|`showPrintMargin`
+|boolean
+|`false`
+|Show vertical print margin line
+
+|`printMarginColumn`
+|int
+|`80`
+|Column number for print margin
+
+|`highlightActiveLine`
+|boolean
+|`false`
+|Highlight the current line
+
+|`useWrapMode`
+|boolean
+|`false`
+|Enable line wrapping
+
+|`showInvisibles`
+|boolean
+|`false`
+|Show invisible characters (spaces, tabs)
+
+|`showGutter`
+|boolean
+|`true`
+|Show line numbers gutter
+
+|`showFoldWidgets`
+|boolean
+|`true`
+|Show code folding widgets
+
+|`fadeFoldWidgets`
+|boolean
+|`false`
+|Fade fold widgets when not in use
+
+|`fontSize`
+|int
+|`12`
+|Font size in pixels
+
+|`readOnly`
+|boolean
+|`false`
+|Make editor read-only
+|===
+
+== Supported Modes
+
+The `AceMode` enum provides constants for common programming languages:
+
+* `ABAP`, `ABC`, `ACTIONSCRIPT`, `ADA`, `APACHE_CONF`, `APEX`
+* `APPLESCRIPT`, `ASL`, `ASSEMBLY_X86`, `AUTOHOTKEY`, `BATCHFILE`
+* `C9SEARCH`, `C_CPP`, `CIRRU`, `CLOJURE`, `COBOL`, `COFFEE`
+* `COLDFUSION`, `CSHARP`, `CSOUND_DOCUMENT`, `CSOUND_ORCHESTRA`
+* `CSS`, `CURLY`, `D`, `DART`, `DIFF`, `DJANGO`, `DOCKERFILE`
+* `DOT`, `DROOLS`, `EDIFACT`, `EIFFEL`, `EJS`, `ELIXIR`, `ELM`
+* `ERLANG`, `FORTH`, `FORTRAN`, `FSHARP`, `FSL`, `FTL`, `GCODE`
+* `GHERKIN`, `GITIGNORE`, `GLSL`, `GOBSTONES`, `GOLANG`
+* `GRAPHQLSCHEMA`, `GROOVY`, `HAML`, `HANDLEBARS`, `HASKELL`
+* `HAXE`, `HJSON`, `HTML`, `HTML_ELIXIR`, `HTML_RUBY`, `INI`
+* `IO`, `JACK`, `JADE`, `JAVA`, `JAVASCRIPT`, `JSON`, `JSONIQ`
+* `JSP`, `JSSM`, `JSX`, `JULIA`, `KOTLIN`, `LATEX`, `LESS`
+* `LIQUID`, `LISP`, `LIVESCRIPT`, `LOGIQL`, `LOGTALK`, `LSL`
+* `LUA`, `LUAPAGE`, `LUCENE`, `MAKEFILE`, `MARKDOWN`, `MASK`
+* `MATLAB`, `MAZE`, `MEL`, `MIXAL`, `MUSHCODE`, `MYSQL`, `NSIS`
+* `OBJECTIVEC`, `OCAML`, `PASCAL`, `PERL`, `PGSQL`, `PHP`
+* `PHP_LARAVEL_BLADE`, `PIG`, `PLAIN_TEXT`, `POWERSHELL`
+* `PRAAT`, `PROLOG`, `PROPERTIES`, `PROTOBUF`, `PUPPET`
+* `PYTHON`, `R`, `RAZOR`, `RDOC`, `RED`, `RHTML`, `RST`, `RUBY`
+* `RUST`, `SASS`, `SCAD`, `SCALA`, `SCHEME`, `SCSS`, `SH`
+* `SJS`, `SLIM`, `SMARTY`, `SNIPPETS`, `SOY_TEMPLATE`, `SPACE`
+* `SQL`, `SQLSERVER`, `STYLUS`, `SVG`, `SWIFT`, `TCL`, `TERRAFORM`
+* `TEX`, `TEXT`, `TEXTILE`, `TOML`, `TSX`, `TWIG`, `TYPESCRIPT`
+* `VALA`, `VBSCRIPT`, `VELOCITY`, `VERILOG`, `VHDL`, `VISUALFORCE`
+* `WOLLOK`, `XML`, `XQUERY`, `YAML`
+
+== Supported Themes
+
+The `AceTheme` enum provides constants for built-in themes:
+
+*Light Themes:* `CHROME`, `CLOUDS`, `CRIMSON_EDITOR`, `DAWN`, `DREAMWEAVER`, `ECLIPSE`, `GITHUB`, `IPLASTIC`, `KATZENMILCH`, `KUROIR`, `SOLARIZED_LIGHT`, `SQLSERVER`, `TEXTMATE`, `TOMORROW`, `XCODE`
+
+*Dark Themes:* `AMBIANCE`, `CHAOS`, `CLOUDS_MIDNIGHT`, `COBALT`, `DRACULA`, `GOB`, `GRUVBOX`, `IDLE_FINGERS`, `KR_THEME`, `MERBIVORE`, `MERBIVORE_SOFT`, `MONO_INDUSTRIAL`, `MONOKAI`, `NORD_DARK`, `PASTEL_ON_DARK`, `SOLARIZED_DARK`, `TERMINAL`, `TOMORROW_NIGHT`, `TOMORROW_NIGHT_BLUE`, `TOMORROW_NIGHT_BRIGHT`, `TOMORROW_NIGHT_EIGHTIES`, `TWILIGHT`, `VIBRANT_INK`
+
+== Architecture
+
+The Ace module follows Scout's three-tier architecture:
+
+1. *Java Client* (`ace.client`): Contains `IAceField` interface and `AbstractAceField` base class
+2. *Java HTML UI* (`ace.ui.html`): Contains `JsonAceField` adapter for JSON serialization
+3. *TypeScript Module* (`@sxda/scout-addon-ace`): Contains `AceField` widget that integrates with the Ace editor
+
+Changes flow bidirectionally between Java and the browser through JSON messages over WebSocket.
+
+== License
+
+Eclipse Public License 2.0 - https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0

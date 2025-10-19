@@ -31,6 +31,7 @@
   "devDependencies": {
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "babel-plugin-istanbul": "^7.0.1",
+    "downdoc": "^1.0.2-stable",
     "karma-coverage": "^2.2.1"
   }
 }
