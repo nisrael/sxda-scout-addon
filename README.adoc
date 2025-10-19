@@ -1,159 +1,72 @@
-= Additional form fields for Eclipse Scout
-:toc: macro
-:toc-title: Table of Contents
-:toclevels: 4
+= Additional Form Fields for Eclipse Scout
 
 This project provides wrapper modules for popular open-source web widgets as form field extensions for the https://eclipse.dev/scout/[Eclipse Scout] framework. The modules wrap browser-based widgets into Scout form fields, following Scout's client-server architecture and providing a familiar Scout API for Java developers.
 
-toc::[]
+== Available Modules
 
-== Overview
-
-The project currently provides wrapper modules for three code editor components:
-
-* **Ace Editor** (`ace.client`, `ace.ui.html`, `@sxda/scout-addon-ace`) - Wrapper for the https://ace.c9.io[Ace Code Editor]
-* **CodeMirror** (`codemirror.client`, `codemirror.ui.html`, `@sxda/scout-addon-codemirror`) - Wrapper for the https://codemirror.net/[CodeMirror 6 Editor]
-* **Monaco Editor** (`monaco.client`, `monaco.ui.html`, `@sxda/scout-addon-monaco`) - Wrapper for the https://microsoft.github.io/monaco-editor/[Monaco Editor] (VS Code editor)
-
-Each module follows Scout's layered architecture with:
-
-* A Java client module (`*.client`) containing the form field interface and base implementation
-* A Java HTML UI module (`*.ui.html`) containing the JSON adapter for browser communication
-* A TypeScript/JavaScript module (`@sxda/scout-addon-*`) providing the browser-side editor integration
+* **Ace Editor** - Wrapper for the https://ace.c9.io[Ace Code Editor]
+* **CodeMirror** - Wrapper for https://codemirror.net/[CodeMirror 6]
+* **Monaco Editor** - Wrapper for the https://microsoft.github.io/monaco-editor/[Monaco Editor] (VS Code editor)
 
 The project is not limited to code editors and can be extended with wrappers for any open-source web widget (charts, rich text editors, data grids, calendars, etc.).
 
-**Important:** The external component libraries (`ace-code`, `@codemirror/*`, `monaco-editor`) are *not* redistributed with these addons. Consumers must add them as dependencies in their own projects. This allows you to use newer component versions without waiting for addon updates. See the individual module READMEs for detailed setup instructions.
+== Documentation
 
-== Versioning and Releases
+📚 **Full documentation is available at:** https://nisrael.github.io/sxda-scout-addon/
 
-The major and minor version of the modules in this repository match the major and minor version of the Eclipse Scout release they are intended to be used with. The patch version is incremented for every release of the addon modules. This means, that for example the sxda-scout-addon version 25.2.x should be compatible with all Eclipse Scout 25.2.y versions.
+The documentation includes:
 
-You should override the property `org.eclipse.scout.rt.version` in your root pom.xml to the version of the Eclipse Scout release you are using. For the npm modules, you should be fine because the dependency to the Eclipse Scout runtime is defined as a peer dependency.
+* Getting started guides for each module
+* Installation instructions (Maven and npm)
+* Usage examples and API documentation
+* Developer guides for building from source and creating custom fields
+* IntelliJ IDEA setup with live templates
 
-Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[central.sonatype.com] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org]. The version number of the release is always the same for both repositories.
+== Quick Start
 
-Snapshot versions are published to https://github.com/nisrael?tab=packages&repo_name=sxda-scout-addon[GitHub Packages] and https://www.npmjs.com/package/@sxda/scout-addon-ace[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-codemirror[npmjs.org] / https://www.npmjs.com/package/@sxda/scout-addon-monaco[npmjs.org].
-
-== Building the Project
-
-=== Requirements
-
-* Java: JDK 25 or higher
-* Maven: 3.9.9 or higher
-* Node.js: 22.13.0 or higher
-* npm: 10.9.0 or higher
-* pnpm: 9.15.4 or higher (installed via npm)
-
-=== Maven Toolchains (Optional)
-
-The project uses the Maven Toolchains plugin to ensure all Maven plugins use JDK 25. The plugin is configured to automatically scan for available JDKs when no `toolchains.xml` file is found. However, for more control over which JDK is used, you can optionally create a `~/.m2/toolchains.xml` file.
-
-Example `~/.m2/toolchains.xml`:
-
+**Maven dependencies** (add to your `pom.xml`):
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
-<toolchains xmlns="http://maven.apache.org/TOOLCHAINS/1.1.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://maven.apache.org/TOOLCHAINS/1.1.0 http://maven.apache.org/xsd/toolchains-1.1.0.xsd">
-  <toolchain>
-    <type>jdk</type>
-    <provides>
-      <version>25</version>
-      <vendor>openjdk</vendor>
-    </provides>
-    <configuration>
-      <!-- macOS example - adjust the path to your JDK 25 installation -->
-      <jdkHome>/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home</jdkHome>
-
-      <!-- Linux example:
-      <jdkHome>/usr/lib/jvm/java-25-openjdk</jdkHome>
-      -->
-
-      <!-- Windows example:
-      <jdkHome>C:\Program Files\Java\jdk-25</jdkHome>
-      -->
-    </configuration>
-  </toolchain>
-</toolchains>
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.client</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.sxda.scout.addon</groupId>
+  <artifactId>ace.ui.html</artifactId>
+</dependency>
 ----
 
-For more information about Maven Toolchains, see: https://maven.apache.org/guides/mini/guide-using-toolchains.html
+**npm package** (add to your `package.json`):
+[source,bash]
+----
+npm install @sxda/scout-addon-ace
+----
 
-=== Build Commands
+For complete installation and usage instructions, see the https://nisrael.github.io/sxda-scout-addon/[documentation].
+
+== Versioning
+
+This project's major.minor version matches Eclipse Scout's version. For example, version 25.2.x is compatible with Eclipse Scout 25.2.y.
+
+Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[Maven Central] and https://www.npmjs.com/[npmjs.org].
+
+== Building from Source
+
+To build the project from source:
 
 [source,bash]
 ----
-# Build all modules (includes Maven and npm builds)
 mvn clean package
-
-# Build with license validation
-mvn clean package -Psxda.build.license-validation
-
-# Skip tests
-mvn clean package -DskipTests
 ----
 
-=== Reproducible Builds
+For detailed build instructions, requirements, and Maven configuration, see the https://nisrael.github.io/sxda-scout-addon/building-from-source.html[Building from Source] guide.
 
-This project is configured for reproducible builds, which means that building the same source code multiple times produces byte-for-byte identical artifacts. This is achieved through Maven's `project.build.outputTimestamp` property.
+== Demo
 
-The timestamp is set in the root `pom.xml` and represents the date of the current release cycle. During the automated release process:
+Try the live demo: https://nisrael.github.io/sxda-scout-addon/
 
-1. The release is built and published using the current timestamp from the POM
-2. After a successful release, the timestamp is automatically updated to the current date when preparing the next snapshot version
-3. This ensures that if a release fails, the timestamp remains unchanged and stable
-
-This approach provides:
-
-* **Security**: Users can verify that published artifacts match the source code
-* **Reproducibility**: Anyone can rebuild from source and get identical checksums
-* **Fault-tolerance**: Failed releases don't leave the timestamp in an inconsistent state
-
-For more information about reproducible builds, see: https://maven.apache.org/guides/mini/guide-reproducible-builds.html
-
-== Modules
-
-=== Ace Editor
-
-* **npm**: `@sxda/scout-addon-ace`
-* **Maven**: `io.sxda.scout.addon:ace.client`, `io.sxda.scout.addon:ace.ui.html`
-* **Documentation**: link:./ace/README.md[ace/README.md]
-
-Wrapper for the https://ace.c9.io[Ace Code Editor], providing syntax highlighting and code completion for many programming languages.
-
-=== CodeMirror Editor
-
-* **npm**: `@sxda/scout-addon-codemirror`
-* **Maven**: `io.sxda.scout.addon:codemirror.client`, `io.sxda.scout.addon:codemirror.ui.html`
-* **Documentation**: link:./codemirror/README.md[codemirror/README.md]
-
-Wrapper for https://codemirror.net/[CodeMirror 6], a modern web-based code editor with extensive language support.
-
-=== Monaco Editor
-
-* **npm**: `@sxda/scout-addon-monaco`
-* **Maven**: `io.sxda.scout.addon:monaco.client`, `io.sxda.scout.addon:monaco.ui.html`
-* **Documentation**: link:./monaco/README.md[monaco/README.md]
-
-Wrapper for the https://microsoft.github.io/monaco-editor/[Monaco Editor], the powerful code editor that powers VS Code.
-
-== Demo Application
-
-The link:./demo[demo directory] contains a Scout JS demo application that showcases the available component modules. The demo serves two purposes:
-
-* **Demonstration**: Live examples of the wrapped components with various configurations
-* **Development playground**: Easy testing environment during development of the addon modules
-
-A deployed instance of the latest snapshot version is available at: https://nisrael.github.io/sxda-scout-addon/
-
-For a Scout Classic demo application, see: https://github.com/nisrael/sxda-scout-apps-addondemo
-
-== Additional Documentation
-
-* link:./doc/setup-intellij.adoc[IntelliJ IDEA Setup] - Code templates for quickly adding new configuration properties to Scout fields
-* link:./doc/scout-value-field-data-flow.adoc[Scout Value Field Data Flow] - Detailed description of the synchronization logic between the editor and Scout field, with templates for similar custom fields
+The demo showcases all available modules with various configurations.
 
 == Contributing
 

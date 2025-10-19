@@ -1,3 +1,1 @@
-= CodeMirror Editor Field
-
-include::example$codemirror-readme.adoc[]
+include::codemirror:partial$README.adoc[]

@@ -1,6 +1,6 @@
 = Documentation Directory
 
-This directory contains the Antora-based documentation for the SXDA Scout Addon project.
+This directory contains the Antora-based documentation for the Scout Addon project.
 
 == Structure
 

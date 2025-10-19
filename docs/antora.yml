@@ -1,5 +1,28 @@
 name: ROOT
-title: SXDA Scout Addon
+title: Scout Addon
 version: main
 nav:
   - modules/ROOT/nav.adoc
+
+ext:
+  collector:
+    - scan:
+      - dir: ace
+        files: 'README.adoc'
+        into: modules/ace/partials
+      - dir: codemirror
+        files: 'README.adoc'
+        into: modules/codemirror/partials
+      - dir: monaco
+        files: 'README.adoc'
+        into: modules/monaco/partials
+    - run:
+        - cd demo
+        - npm run build:all
+      scan:
+        clean: true
+        dir: demo/dist/
+        into: modules/ROOT/attachments/demo
+
+
+

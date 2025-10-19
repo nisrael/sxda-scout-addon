@@ -1,4 +1,9 @@
-* xref:index.adoc[Home]
-* xref:ace:index.adoc[Ace Editor]
-* xref:codemirror:index.adoc[CodeMirror Editor]
-* xref:monaco:index.adoc[Monaco Editor]
+* Developer Guides
+** xref:building-from-source.adoc[Building from Source]
+** xref:scout-value-field-data-flow.adoc[Scout Value Field Data Flow]
+** xref:setup-intellij.adoc[IntelliJ IDEA Setup]
+* Modules
+** xref:ace:index.adoc[Ace Editor]
+** xref:codemirror:index.adoc[CodeMirror Editor]
+** xref:monaco:index.adoc[Monaco Editor]
+* xref:ROOT:attachment$demo/index.html[Demo Application]

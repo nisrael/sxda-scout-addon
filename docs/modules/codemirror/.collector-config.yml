@@ -1,6 +1,0 @@
-version: '1'
-scan:
-  dir: ../../../codemirror
-examples:
-  - path: README.adoc
-    tags: []

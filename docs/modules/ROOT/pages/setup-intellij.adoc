@@ -1,0 +1,119 @@
+= IntelliJ IDEA Setup: Live Templates for Scout Development
+:description: Live templates for IntelliJ IDEA to quickly add configuration properties to Scout form fields in both Java and TypeScript.
+
+This page provides IntelliJ IDEA live templates that accelerate Scout field development by auto-generating boilerplate code for adding configuration properties.
+
+== Live Templates for Scout Properties
+
+The following templates help you quickly add new configuration properties to Scout form fields. They generate the complete property implementation including getters, setters, and configured methods.
+
+=== Installation
+
+To install these templates in IntelliJ IDEA:
+
+1. Open *Settings* (Preferences on macOS) → *Editor* → *Live Templates*
+2. Click the *+* button → *Template Group* → Create a new group named "Scout"
+3. Select the "Scout" group → Click *+* → *Live Template*
+4. Copy and paste the template XML below into the template editor
+5. Define the context (Java or TypeScript) as shown in each template
+
+=== Java Property Template (`scoutprop`)
+
+[source,xml]
+----
+<template name="scoutprop" value="  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public void set$Prop$($Type$ $prop$) {&#10;    propertySupport.setProperty$Type$(PROP_$PROP$, $prop$);&#10;  }&#10;&#10;  @Override&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  public $Type$ get$Prop$() {&#10;    return propertySupport.getProperty$Type$(PROP_$PROP$);&#10;  }&#10;&#10;  @ConfigProperty(ConfigProperty.$TYPE$)&#10;  protected $Type$ getConfigured$Prop$() {&#10;    return $default$;&#10;  }" toReformat="false" toShortenFQNames="true">
+  <variable name="TYPE" expression="" defaultValue="STRING" alwaysStopAt="true" />
+  <variable name="Prop" expression="" defaultValue="Name" alwaysStopAt="true" />
+  <variable name="Type" expression="" defaultValue="String" alwaysStopAt="true" />
+  <variable name="prop" expression="" defaultValue="name" alwaysStopAt="true" />
+  <variable name="PROP" expression="" defaultValue="NAME" alwaysStopAt="true" />
+  <variable name="default" expression="" defaultValue="&quot;default&quot;" alwaysStopAt="true" />
+  <context>
+    <option name="JAVA_CODE" value="true" />
+  </context>
+</template>
+----
+
+**Usage in Java:**
+
+1. Position cursor in a Scout field class (e.g., `AbstractAceField`)
+2. Type `scoutprop` and press Tab
+3. Fill in the template variables:
+   - `TYPE`: Property type constant (e.g., `STRING`, `BOOLEAN`, `INTEGER`)
+   - `Prop`: Property name in PascalCase (e.g., `ShowGutter`)
+   - `Type`: Java type (e.g., `boolean`, `String`, `int`)
+   - `prop`: Property name in camelCase (e.g., `showGutter`)
+   - `PROP`: Property constant name (e.g., `SHOW_GUTTER`)
+   - `default`: Default value (e.g., `true`, `"default"`, `0`)
+
+**Example output:**
+[source,java]
+----
+@Override
+@ConfigProperty(ConfigProperty.BOOLEAN)
+public void setShowGutter(boolean showGutter) {
+  propertySupport.setPropertyBool(PROP_SHOW_GUTTER, showGutter);
+}
+
+@Override
+@ConfigProperty(ConfigProperty.BOOLEAN)
+public boolean isShowGutter() {
+  return propertySupport.getPropertyBool(PROP_SHOW_GUTTER);
+}
+
+@ConfigProperty(ConfigProperty.BOOLEAN)
+protected boolean getConfiguredShowGutter() {
+  return true;
+}
+----
+
+=== TypeScript Property Template (`scoutprop`)
+
+[source,xml]
+----
+<template name="scoutprop" value="set$Varname$($varname$: $type$) {&#10;    this.setProperty('$varname$', $varname$);&#10;  }&#10;&#10;  _set$Varname$($varname$: $type$){&#10;    this.$varname$ = $varname$;&#10;  }&#10;&#10;  get$Varname$(): $type${&#10;    return this.$varname$;&#10;  }&#10;&#10;  _render$Varname$(){&#10;    this.editor.session.set$Varname$(this.$varname$);&#10;  }" toReformat="false" toShortenFQNames="true">
+  <variable name="Varname" expression="capitalize($varname$)" defaultValue="" alwaysStopAt="true" />
+  <variable name="varname" expression="" defaultValue="" alwaysStopAt="true" />
+  <variable name="type" expression="" defaultValue="" alwaysStopAt="true" />
+  <context>
+    <option name="JAVA_SCRIPT" value="true" />
+    <option name="TS_CLASS" value="false" />
+    <option name="TS_EXPRESSION" value="false" />
+    <option name="TS_STATEMENT" value="false" />
+    <option name="TypeScript" value="true" />
+  </context>
+</template>
+----
+
+**Usage in TypeScript:**
+
+1. Position cursor in a Scout field TypeScript class (e.g., `AceField`)
+2. Type `scoutprop` and press Tab
+3. Fill in the template variables:
+   - `varname`: Property name in camelCase (e.g., `showGutter`)
+   - `Varname`: Property name in PascalCase (auto-generated from `varname`)
+   - `type`: TypeScript type (e.g., `boolean`, `string`, `number`)
+
+**Example output:**
+[source,typescript]
+----
+setShowGutter(showGutter: boolean) {
+  this.setProperty('showGutter', showGutter);
+}
+
+_setShowGutter(showGutter: boolean){
+  this.showGutter = showGutter;
+}
+
+getShowGutter(): boolean{
+  return this.showGutter;
+}
+
+_renderShowGutter(){
+  this.editor.session.setShowGutter(this.showGutter);
+}
+----
+
+== Additional Resources
+
+For a detailed explanation of how properties flow through Scout's field architecture, see xref:scout-value-field-data-flow.adoc[Scout Value Field Data Flow].
