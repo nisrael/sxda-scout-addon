@@ -365,6 +365,7 @@
                 <exclude>**/src/main/ws-stub/**</exclude>
                 <exclude>**/coverage/**</exclude>
                 <exclude>**/coverage/**</exclude>
+                <exclude>docs/**</exclude>
               </excludes>
             </licenseSet>
           </licenseSets>

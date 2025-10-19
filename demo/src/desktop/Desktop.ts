@@ -81,7 +81,7 @@ export class Desktop extends ScoutDesktop {
     let form = scout.create(Form, {
       parent: this,
       resizable: false,
-      title: 'sxda-scut-addon Demo Application',
+      title: 'Scout Addon Demo Application',
       rootGroupBox: {
         objectType: GroupBox,
         borderDecoration: 'empty',
