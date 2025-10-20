@@ -154,8 +154,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       '@types/jasmine':
-        specifier: 5.1.11
-        version: 5.1.11
+        specifier: 5.1.12
+        version: 5.1.12
       '@types/jasmine-jquery':
         specifier: 1.5.37
         version: 1.5.37
@@ -1546,6 +1546,9 @@ packages:
 
   '@types/jasmine@5.1.11':
     resolution: {integrity: sha512-eAij9lMAsosuA8cvRcqw7p2vO+LUraktQDmOUFx2jAnya8NUchr3DryHksfhZbRzU83vzNUSZhlk1cFdoePxwA==}
+
+  '@types/jasmine@5.1.12':
+    resolution: {integrity: sha512-1BzPxNsFDLDfj9InVR3IeY0ZVf4o9XV+4mDqoCfyPkbsA7dYyKAPAb2co6wLFlHcvxPlt1wShm7zQdV7uTfLGA==}
 
   '@types/jquery@3.5.33':
     resolution: {integrity: sha512-SeyVJXlCZpEki5F0ghuYe+L+PprQta6nRZqhONt9F13dWBtR/ftoaIbdRQ7cis7womE+X2LKhsDdDtkkDhJS6g==}
@@ -6878,6 +6881,8 @@ snapshots:
       '@types/jquery': 3.5.33
 
   '@types/jasmine@5.1.11': {}
+
+  '@types/jasmine@5.1.12': {}
 
   '@types/jquery@3.5.33':
     dependencies:
