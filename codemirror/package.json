@@ -64,7 +64,7 @@
     "@eclipse-scout/releng": "^25.1.0",
     "@eclipse-scout/tsconfig": "25.2.9",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
-    "@types/jasmine": "5.1.11",
+    "@types/jasmine": "5.1.12",
     "@types/jasmine-jquery": "1.5.37",
     "@types/jquery": "3.5.33",
     "jasmine-core": "5.12.0",
