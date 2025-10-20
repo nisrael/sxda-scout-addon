@@ -27,7 +27,10 @@
     "version:snapshot:dependencies": "pnpm -r run version:snapshot:dependencies",
     "version:release": "pnpm -r run version:release",
     "version:release:dependencies": "pnpm -r run version:release:dependencies",
-    "docs:build": "antora antora-playbook.yml",
+    "docs:build": "npm run docs:build:css && npm run docs:build:highlight && antora antora-playbook.yml",
+    "docs:build:css": "sass docs/supplemental-ui/css/vars.scss docs/supplemental-ui/css/vars.css --no-source-map",
+    "docs:build:highlight": "node scripts/build-highlight.mjs",
+    "docs:update-theme": "node scripts/update-highlight-theme.mjs",
     "docs:serve": "npx http-server build/site -p 8080"
   },
   "devDependencies": {
@@ -36,8 +39,12 @@
     "@antora/lunr-extension": "1.0.0-alpha.10",
     "@antora/site-generator": "^3.1.9",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
+    "asciidoctor-kroki": "^0.18.1",
     "babel-plugin-istanbul": "^7.0.1",
     "downdoc": "^1.0.2-stable",
-    "karma-coverage": "^2.2.1"
+    "esbuild": "^0.20.2",
+    "highlight.js": "^11.10.0",
+    "karma-coverage": "^2.2.1",
+    "sass": "^1.77.0"
   }
 }

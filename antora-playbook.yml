@@ -14,17 +14,14 @@ asciidoc:
   attributes:
     kroki-server-url: https://kroki.io
     kroki-fetch-diagram: true
+  extensions:
+    - asciidoctor-kroki
 
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
-  supplemental_files:
-    - path: ui.yml
-      contents: |
-        static_files:
-        - .nojekyll
-    - path: .nojekyll
+  supplemental_files: docs/supplemental-ui
 
 output:
   dir: target/site

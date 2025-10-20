@@ -23,6 +23,3 @@ ext:
         clean: true
         dir: demo/dist/
         into: modules/ROOT/attachments/demo
-
-
-
