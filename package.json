@@ -42,7 +42,7 @@
     "asciidoctor-kroki": "^0.18.1",
     "babel-plugin-istanbul": "^7.0.1",
     "downdoc": "^1.0.2-stable",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.25.0",
     "highlight.js": "^11.10.0",
     "karma-coverage": "^2.2.1",
     "sass": "^1.77.0"
