@@ -75,6 +75,10 @@ jobs:
         run: npm run build:all
         working-directory: ./ace
 
+      - name: Prepare ace for publishing
+        run: npm run prepublishOnly
+        working-directory: ./ace
+
       - name: Publish ace node packages to npmjs.com
         run: npm publish --access public --tag snapshot
         working-directory: ./ace
@@ -85,6 +89,10 @@ jobs:
         run: npm run build:all
         working-directory: ./codemirror
 
+      - name: Prepare codemirror for publishing
+        run: npm run prepublishOnly
+        working-directory: ./codemirror
+
       - name: Publish codemirror node packages to npmjs.com
         run: npm publish --access public --tag snapshot
         working-directory: ./codemirror
@@ -93,6 +101,10 @@ jobs:
 
       - name: Build monaco npm module
         run: npm run build:all
+        working-directory: ./monaco
+
+      - name: Prepare monaco for publishing
+        run: npm run prepublishOnly
         working-directory: ./monaco
 
       - name: Publish monaco node packages to npmjs.com

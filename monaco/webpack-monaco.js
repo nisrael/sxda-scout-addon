@@ -66,5 +66,41 @@ module.exports = function addMonacoSupport(config, options = {}) {
     new MonacoWebpackPlugin(monacoOptions)
   );
 
+  // Exclude Monaco Editor from source-map-loader to prevent missing source map warnings
+  // Monaco's ESM distribution references source maps that don't exist in the published package
+  config.module.rules = config.module.rules.map(rule => {
+    let hasSourceMapLoader = false;
+
+    // Check if this rule uses source-map-loader in various forms
+    if (rule.use && Array.isArray(rule.use)) {
+      hasSourceMapLoader = rule.use.some(loader => {
+        if (typeof loader === 'string') {
+          return loader.includes('source-map-loader');
+        }
+        if (typeof loader === 'object' && loader.loader) {
+          return loader.loader.includes('source-map-loader');
+        }
+        return false;
+      });
+    }
+
+    // Check for loader property (string form)
+    if (rule.loader && rule.loader.includes('source-map-loader')) {
+      hasSourceMapLoader = true;
+    }
+
+    if (hasSourceMapLoader) {
+      return {
+        ...rule,
+        exclude: [
+          ...(Array.isArray(rule.exclude) ? rule.exclude : rule.exclude ? [rule.exclude] : []),
+          /node_modules[\\/]monaco-editor/
+        ]
+      };
+    }
+
+    return rule;
+  });
+
   return config;
 };
