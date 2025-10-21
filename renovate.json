@@ -56,6 +56,16 @@
       ]
     },
     {
+      "description": "Exclude jandex-maven-plugin - must match Eclipse Scout version",
+      "matchManagers": [
+        "maven"
+      ],
+      "matchPackageNames": [
+        "io.smallrye:jandex-maven-plugin"
+      ],
+      "enabled": false
+    },
+    {
       "description": "Maven plugins - minor and patch",
       "matchManagers": [
         "maven"
@@ -66,6 +76,9 @@
         "^io\\.smallrye:",
         "^com\\.mycila:",
         "^org\\.sonatype\\.central:"
+      ],
+      "excludePackageNames": [
+        "io.smallrye:jandex-maven-plugin"
       ],
       "addLabels": [
         "maven"
