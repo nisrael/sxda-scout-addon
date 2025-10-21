@@ -44,15 +44,15 @@
       "matchManagers": [
         "maven"
       ],
-      "matchPackagePatterns": [
-        "^org\\.eclipse\\.scout\\.rt:"
-      ],
       "addLabels": [
         "maven"
       ],
       "groupName": "eclipse-scout",
       "matchUpdateTypes": [
         "patch"
+      ],
+      "matchPackageNames": [
+        "/^org\\.eclipse\\.scout\\.rt:/"
       ]
     },
     {
@@ -70,16 +70,6 @@
       "matchManagers": [
         "maven"
       ],
-      "matchPackagePatterns": [
-        "^org\\.apache\\.maven\\.plugins:",
-        "^org\\.codehaus\\.mojo:",
-        "^io\\.smallrye:",
-        "^com\\.mycila:",
-        "^org\\.sonatype\\.central:"
-      ],
-      "excludePackageNames": [
-        "io.smallrye:jandex-maven-plugin"
-      ],
       "addLabels": [
         "maven"
       ],
@@ -87,20 +77,20 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "/^org\\.apache\\.maven\\.plugins:/",
+        "/^org\\.codehaus\\.mojo:/",
+        "/^io\\.smallrye:/",
+        "/^com\\.mycila:/",
+        "/^org\\.sonatype\\.central:/",
+        "!io.smallrye:jandex-maven-plugin"
       ]
     },
     {
       "description": "Other Maven dependencies - minor and patch",
       "matchManagers": [
         "maven"
-      ],
-      "excludePackagePatterns": [
-        "^org\\.eclipse\\.scout\\.rt:",
-        "^org\\.apache\\.maven\\.plugins:",
-        "^org\\.codehaus\\.mojo:",
-        "^io\\.smallrye:",
-        "^com\\.mycila:",
-        "^org\\.sonatype\\.central:"
       ],
       "addLabels": [
         "maven"
@@ -109,6 +99,14 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "!/^org\\.eclipse\\.scout\\.rt:/",
+        "!/^org\\.apache\\.maven\\.plugins:/",
+        "!/^org\\.codehaus\\.mojo:/",
+        "!/^io\\.smallrye:/",
+        "!/^com\\.mycila:/",
+        "!/^org\\.sonatype\\.central:/"
       ]
     },
     {
@@ -116,12 +114,12 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPackagePatterns": [
-        "^@eclipse-scout/"
-      ],
       "groupName": "eclipse-scout-npm",
       "matchUpdateTypes": [
         "patch"
+      ],
+      "matchPackageNames": [
+        "/^@eclipse-scout//"
       ]
     },
     {
@@ -129,7 +127,7 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "ace/**",
         "demo/**"
       ],
@@ -150,14 +148,9 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "codemirror/**",
         "demo/**"
-      ],
-      "matchPackagePatterns": [
-        "^@codemirror/",
-        "^thememirror$",
-        "^@ddietr/codemirror-themes$"
       ],
       "addLabels": [
         "codemirror"
@@ -166,6 +159,11 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "/^@codemirror//",
+        "/^thememirror$/",
+        "/^@ddietr/codemirror-themes$/"
       ]
     },
     {
@@ -173,15 +171,11 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "ace/**"
       ],
       "matchDepTypes": [
         "devDependencies"
-      ],
-      "excludePackagePatterns": [
-        "^@eclipse-scout/",
-        "^ace-code$"
       ],
       "addLabels": [
         "npm",
@@ -191,6 +185,10 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "!/^@eclipse-scout//",
+        "!/^ace-code$/"
       ]
     },
     {
@@ -198,17 +196,11 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "codemirror/**"
       ],
       "matchDepTypes": [
         "devDependencies"
-      ],
-      "excludePackagePatterns": [
-        "^@eclipse-scout/",
-        "^@codemirror/",
-        "^thememirror$",
-        "^@ddietr/codemirror-themes$"
       ],
       "addLabels": [
         "npm",
@@ -218,6 +210,12 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "!/^@eclipse-scout//",
+        "!/^@codemirror//",
+        "!/^thememirror$/",
+        "!/^@ddietr/codemirror-themes$/"
       ]
     },
     {
@@ -225,18 +223,11 @@
       "matchManagers": [
         "npm"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "demo/**"
       ],
       "matchDepTypes": [
         "devDependencies"
-      ],
-      "excludePackagePatterns": [
-        "^@eclipse-scout/",
-        "^@codemirror/",
-        "^thememirror$",
-        "^@ddietr/codemirror-themes$",
-        "^ace-code$"
       ],
       "addLabels": [
         "npm",
@@ -246,6 +237,13 @@
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ],
+      "matchPackageNames": [
+        "!/^@eclipse-scout//",
+        "!/^@codemirror//",
+        "!/^thememirror$/",
+        "!/^@ddietr/codemirror-themes$/",
+        "!/^ace-code$/"
       ]
     }
   ]
