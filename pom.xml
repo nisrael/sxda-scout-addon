@@ -29,7 +29,10 @@
 
   <properties>
     <jdk.min.version>25</jdk.min.version>
-    <jdk.source.version>25</jdk.source.version>
+    <jdk.source.version>21</jdk.source.version>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.release>25</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
@@ -52,7 +55,7 @@
     <sxda.plugin.exec-maven-plugin.version>3.6.1</sxda.plugin.exec-maven-plugin.version>
     <sxda.plugin.versions-maven-plugin.version>2.19.1</sxda.plugin.versions-maven-plugin.version>
     <!-- has to be the same minor version then the one used by Eclipse Scout -->
-    <sxda.plugin.jandex-maven-plugin.version>3.5.0</sxda.plugin.jandex-maven-plugin.version>
+    <sxda.plugin.jandex-maven-plugin.version>3.2.3</sxda.plugin.jandex-maven-plugin.version>
     <sxda.plugin.license-maven-plugin.version>5.0.0</sxda.plugin.license-maven-plugin.version>
     <sxda.plugin.maven-toolchains-plugin.version>3.2.0</sxda.plugin.maven-toolchains-plugin.version>
     <sxda.plugin.maven-deploy-plugin.version>3.1.3</sxda.plugin.maven-deploy-plugin.version>

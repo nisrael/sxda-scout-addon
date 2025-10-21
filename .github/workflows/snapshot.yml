@@ -91,3 +91,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Build monaco npm module
+        run: npm run build:all
+        working-directory: ./monaco
+
+      - name: Publish monaco node packages to npmjs.com
+        run: npm publish --access public --tag snapshot
+        working-directory: ./monaco
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
