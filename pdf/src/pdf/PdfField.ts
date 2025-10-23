@@ -156,15 +156,15 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
       const context = canvas.getContext('2d');
       
       let viewport;
+      let scale = this._currentScale;
       
       if (this.zoomLevel === 'auto') {
         const defaultViewport = page.getViewport({scale: 1.0});
         const containerWidth = this._$canvas.parent().width();
-        this._currentScale = (containerWidth - 20) / defaultViewport.width;
-        viewport = page.getViewport({scale: this._currentScale});
-      } else {
-        viewport = page.getViewport({scale: this._currentScale});
+        scale = (containerWidth - 20) / defaultViewport.width;
       }
+      
+      viewport = page.getViewport({scale: scale});
 
       canvas.width = viewport.width;
       canvas.height = viewport.height;
@@ -202,15 +202,13 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
   }
 
   protected _zoomIn() {
-    this.zoomLevel = 'manual';
     this._currentScale *= 1.2;
-    this._renderPage(this.pageNumber);
+    this.setZoomLevel('manual');
   }
 
   protected _zoomOut() {
-    this.zoomLevel = 'manual';
     this._currentScale /= 1.2;
-    this._renderPage(this.pageNumber);
+    this.setZoomLevel('manual');
   }
 
   protected _print() {
@@ -241,9 +239,6 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
   }
 
   _renderZoomLevel() {
-    if (this.zoomLevel === 'auto') {
-      this._currentScale = 1.0;
-    }
     if (this._pdfDocument) {
       this._renderPage(this.pageNumber);
     }
