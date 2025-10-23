@@ -155,11 +155,14 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
       const canvas = this._$canvas[0] as HTMLCanvasElement;
       const context = canvas.getContext('2d');
       
-      let viewport = page.getViewport({scale: this._currentScale});
+      let viewport;
       
       if (this.zoomLevel === 'auto') {
+        const defaultViewport = page.getViewport({scale: 1.0});
         const containerWidth = this._$canvas.parent().width();
-        this._currentScale = containerWidth / viewport.width;
+        this._currentScale = (containerWidth - 20) / defaultViewport.width;
+        viewport = page.getViewport({scale: this._currentScale});
+      } else {
         viewport = page.getViewport({scale: this._currentScale});
       }
 
