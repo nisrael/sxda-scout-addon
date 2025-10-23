@@ -202,11 +202,13 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
   }
 
   protected _zoomIn() {
+    this.zoomLevel = 'manual';
     this._currentScale *= 1.2;
     this._renderPage(this.pageNumber);
   }
 
   protected _zoomOut() {
+    this.zoomLevel = 'manual';
     this._currentScale /= 1.2;
     this._renderPage(this.pageNumber);
   }
