@@ -27,6 +27,8 @@ export * from './codemirror/CodeMirrorFormModel'
 export * from './codemirror/CodeMirrorForm'
 export * from './monaco/MonacoFormModel'
 export * from './monaco/MonacoForm'
+export * from './pdf/PdfFormModel'
+export * from './pdf/PdfForm'
 export * from './stringfield/StringFieldFormModel'
 export * from './stringfield/StringFieldForm'
 
