@@ -159,6 +159,9 @@
     <module>monaco</module>
     <module>monaco.client</module>
     <module>monaco.ui.html</module>
+    <module>pdf</module>
+    <module>pdf.client</module>
+    <module>pdf.ui.html</module>
     <module>demo</module>
   </modules>
 
@@ -407,6 +410,16 @@
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
         <artifactId>monaco.ui.html</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>pdf.client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>pdf.ui.html</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
