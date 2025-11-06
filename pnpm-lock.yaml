@@ -78,8 +78,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1
       jasmine-core:
-        specifier: 5.12.0
-        version: 5.12.0
+        specifier: 5.12.1
+        version: 5.12.1
       jasmine-jquery:
         specifier: 2.1.1
         version: 2.1.1
