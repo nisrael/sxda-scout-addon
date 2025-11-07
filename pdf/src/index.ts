@@ -14,11 +14,15 @@
 import {ObjectFactory} from '@eclipse-scout/core';
 
 import {PdfField} from './pdf/PdfField';
+import {PdfGroupBox} from './pdf/PdfGroupBox';
 
 ObjectFactory.get().registerNamespace('sxda', {
-  PdfField
+  PdfField,
+  PdfGroupBox
 });
 
 export * from './pdf/PdfField';
 export * from './pdf/PdfFieldModel';
 export * from './pdf/PdfFieldEventMap';
+export * from './pdf/PdfGroupBox';
+export * from './pdf/PdfGroupBoxModel';

@@ -17,8 +17,5 @@ export interface PdfFieldModel extends BasicFieldModel<string> {
   pdfSource?: string;
   zoomLevel?: string;
   pageNumber?: number;
-  showToolbar?: boolean;
-  showSidebar?: boolean;
-  enablePrint?: boolean;
-  enableDownload?: boolean;
+  totalPages?: number;
 }

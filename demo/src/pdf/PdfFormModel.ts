@@ -20,11 +20,10 @@ import {
   SequenceBox,
   StringField,
   TabBox,
-  TabItem,
-  WidgetField
+  TabItem
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {PdfField} from "../../../pdf/src";
+import {PdfGroupBox} from "../../../pdf/src";
 
 export default (): FormModel => ({
   id: 'sxda.PdfForm',
@@ -35,27 +34,15 @@ export default (): FormModel => ({
     scrollable: true,
     fields: [
       {
-        id: 'DetailBox',
-        objectType: GroupBox,
-        gridColumnCount: 1,
-        fields: [
-          {
-            id: 'WidgetField',
-            objectType: WidgetField,
-            labelVisible: false,
-            statusVisible: false,
-            gridDataHints: {
-              weightY: 1,
-              heightInPixel: 600,
-              fillVertical: true
-            },
-            fieldWidget: {
-              id: 'PdfField',
-              objectType: PdfField,
-              pdfSource: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
-            }
-          }
-        ]
+        id: 'PdfGroupBox',
+        objectType: PdfGroupBox,
+        label: 'PDF Viewer',
+        gridDataHints: {
+          weightY: 1,
+          heightInPixel: 600,
+          fillVertical: true
+        },
+        pdfSource: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
       },
       {
         id: 'ConfigurationBox',
@@ -138,9 +125,7 @@ export default (): FormModel => ({
 
 export type PdfFormWidgetMap = {
   'MainBox': GroupBox;
-  'DetailBox': GroupBox;
-  'WidgetField': WidgetField;
-  'PdfField': PdfField;
+  'PdfGroupBox': PdfGroupBox;
   'PdfSourceField': StringField;
   'ConfigurationBox': TabBox;
   'PropertiesTab': TabItem;

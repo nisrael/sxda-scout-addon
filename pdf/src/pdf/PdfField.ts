@@ -24,16 +24,11 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
   pdfSource: string;
   zoomLevel: string;
   pageNumber: number;
-  showToolbar: boolean;
-  showSidebar: boolean;
-  enablePrint: boolean;
-  enableDownload: boolean;
+  totalPages: number;
 
   protected _pdfDocument: any;
   protected _currentScale: number;
   protected _$canvas: JQuery;
-  protected _$toolbar: JQuery;
-  protected _$pageDisplay: JQuery;
   protected _renderingTask: any;
 
   constructor() {
@@ -41,10 +36,7 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     this.pdfSource = null;
     this.zoomLevel = 'auto';
     this.pageNumber = 1;
-    this.showToolbar = true;
-    this.showSidebar = false;
-    this.enablePrint = true;
-    this.enableDownload = true;
+    this.totalPages = 0;
     this._currentScale = 1.0;
     
     pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -66,20 +58,8 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     this.setProperty('pageNumber', pageNumber);
   }
 
-  setShowToolbar(showToolbar: boolean) {
-    this.setProperty('showToolbar', showToolbar);
-  }
-
-  setShowSidebar(showSidebar: boolean) {
-    this.setProperty('showSidebar', showSidebar);
-  }
-
-  setEnablePrint(enablePrint: boolean) {
-    this.setProperty('enablePrint', enablePrint);
-  }
-
-  setEnableDownload(enableDownload: boolean) {
-    this.setProperty('enableDownload', enableDownload);
+  setTotalPages(totalPages: number) {
+    this.setProperty('totalPages', totalPages);
   }
 
   override _render() {
@@ -87,12 +67,6 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     this.addLabel();
 
     let $fieldContainer = this.$parent.appendDiv('pdf-field-container');
-    
-    if (this.showToolbar) {
-      this._$toolbar = $fieldContainer.appendDiv('pdf-toolbar');
-      this._renderToolbar();
-    }
-
     this._$canvas = $fieldContainer.appendElement('<canvas>', 'pdf-canvas');
     this.addField(this._$canvas);
 
@@ -104,32 +78,6 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     }
   }
 
-  protected _renderToolbar() {
-    let $prevBtn = this._$toolbar.appendDiv('pdf-btn').text('◀');
-    $prevBtn.on('click', () => this._previousPage());
-
-    this._$pageDisplay = this._$toolbar.appendDiv('pdf-page-display');
-    
-    let $nextBtn = this._$toolbar.appendDiv('pdf-btn').text('▶');
-    $nextBtn.on('click', () => this._nextPage());
-
-    let $zoomOutBtn = this._$toolbar.appendDiv('pdf-btn').text('−');
-    $zoomOutBtn.on('click', () => this._zoomOut());
-
-    let $zoomInBtn = this._$toolbar.appendDiv('pdf-btn').text('+');
-    $zoomInBtn.on('click', () => this._zoomIn());
-
-    if (this.enablePrint) {
-      let $printBtn = this._$toolbar.appendDiv('pdf-btn').text('🖨');
-      $printBtn.on('click', () => this._print());
-    }
-
-    if (this.enableDownload) {
-      let $downloadBtn = this._$toolbar.appendDiv('pdf-btn').text('⬇');
-      $downloadBtn.on('click', () => this._download());
-    }
-  }
-
   protected async _loadPdf() {
     if (!this.pdfSource) {
       return;
@@ -138,6 +86,7 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     try {
       const loadingTask = pdfjsLib.getDocument(this.pdfSource);
       this._pdfDocument = await loadingTask.promise;
+      this.setTotalPages(this._pdfDocument.numPages);
       await this._renderPage(this.pageNumber);
     } catch (error) {
       console.error('Error loading PDF:', error);
@@ -177,47 +126,29 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
       this._renderingTask = page.render(renderContext);
       await this._renderingTask.promise;
       this._renderingTask = null;
-
-      if (this._$pageDisplay) {
-        this._$pageDisplay.text(`${pageNum} / ${this._pdfDocument.numPages}`);
-      }
     } catch (error) {
       console.error('Error rendering page:', error);
       this._renderingTask = null;
     }
   }
 
-  protected _previousPage() {
-    if (this.pageNumber <= 1) {
-      return;
-    }
-    this.setPageNumber(this.pageNumber - 1);
-  }
-
-  protected _nextPage() {
-    if (!this._pdfDocument || this.pageNumber >= this._pdfDocument.numPages) {
-      return;
-    }
-    this.setPageNumber(this.pageNumber + 1);
-  }
-
-  protected _zoomIn() {
+  zoomIn() {
     this._currentScale *= 1.2;
     this.setZoomLevel('manual');
   }
 
-  protected _zoomOut() {
+  zoomOut() {
     this._currentScale /= 1.2;
     this.setZoomLevel('manual');
   }
 
-  protected _print() {
+  print() {
     if (this._pdfDocument) {
       window.print();
     }
   }
 
-  protected _download() {
+  download() {
     if (this.pdfSource) {
       const link = document.createElement('a');
       link.href = this.pdfSource;
@@ -244,18 +175,10 @@ export class PdfField extends BasicField<string> implements PdfFieldModel {
     }
   }
 
-  _renderShowToolbar() {
-    if (this.rendered) {
-      this._remove();
-      this._render();
-    }
-  }
-
   protected override _renderProperties() {
     super._renderProperties();
     this._renderPdfSource();
     this._renderPageNumber();
     this._renderZoomLevel();
-    this._renderShowToolbar();
   }
 }

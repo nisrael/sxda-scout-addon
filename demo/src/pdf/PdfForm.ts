@@ -29,30 +29,30 @@ export class PdfForm extends Form {
   protected override _init(model: InitModelOf<this>) {
     super._init(model);
 
-    let pdf = this.widget('PdfField');
+    let pdfGroupBox = this.widget('PdfGroupBox');
 
     let enableField = this.widget('EnableField');
-    enableField.setValue(pdf.enabled);
-    enableField.on('propertyChange:value', event => pdf.setEnabled(event.newValue));
+    enableField.setValue(pdfGroupBox.enabled);
+    enableField.on('propertyChange:value', event => pdfGroupBox.setEnabled(event.newValue));
 
     let showToolbarField = this.widget('ShowToolbarField');
-    showToolbarField.setValue(pdf.showToolbar);
-    showToolbarField.on('propertyChange:value', event => pdf.setShowToolbar(event.newValue));
+    showToolbarField.setValue(pdfGroupBox.menuBarVisible);
+    showToolbarField.on('propertyChange:value', event => pdfGroupBox.setMenuBarVisible(event.newValue));
 
     let enablePrintField = this.widget('EnablePrintField');
-    enablePrintField.setValue(pdf.enablePrint);
-    enablePrintField.on('propertyChange:value', event => pdf.setEnablePrint(event.newValue));
+    enablePrintField.setValue(pdfGroupBox.enablePrint);
+    enablePrintField.on('propertyChange:value', event => pdfGroupBox.setEnablePrint(event.newValue));
 
     let enableDownloadField = this.widget('EnableDownloadField');
-    enableDownloadField.setValue(pdf.enableDownload);
-    enableDownloadField.on('propertyChange:value', event => pdf.setEnableDownload(event.newValue));
+    enableDownloadField.setValue(pdfGroupBox.enableDownload);
+    enableDownloadField.on('propertyChange:value', event => pdfGroupBox.setEnableDownload(event.newValue));
 
     let pdfSourceField = this.widget('PdfSourceField');
-    pdfSourceField.setValue(pdf.pdfSource);
+    pdfSourceField.setValue(pdfGroupBox.pdfSource);
     
     let loadPdfButton = this.widget('LoadPdfButton');
-    loadPdfButton.on('click', event => pdf.setPdfSource(pdfSourceField.value));
+    loadPdfButton.on('click', event => pdfGroupBox.setPdfSource(pdfSourceField.value));
 
-    this.widget('EventsTab').setField(pdf);
+    this.widget('EventsTab').setField(pdfGroupBox.pdfField);
   }
 }
