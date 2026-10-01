@@ -74,7 +74,7 @@
     "karma-coverage": "^2.2.1",
     "semver": "^7.7.2",
     "thememirror": "^2.0.1",
-    "webpack": "~5.102.0",
+    "webpack": "~5.104.0",
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "peerDependencies": {
