@@ -56,6 +56,6 @@
     "monaco-editor": "^0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.1",
     "thememirror": "^2.0.1",
-    "webpack": "~5.102.1"
+    "webpack": "~5.104.0"
   }
 }
