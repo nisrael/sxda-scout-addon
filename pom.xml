@@ -20,7 +20,7 @@
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>25.2.0-SNAPSHOT</version>
+  <version>26.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Scout Addon Base</name>
@@ -41,7 +41,7 @@
     <maven.api.version>${sxda.build.require-maven-version}</maven.api.version>
 
     <sxda.build.skip-publishing>false</sxda.build.skip-publishing>
-    <org.eclipse.scout.rt.version>25.2.9</org.eclipse.scout.rt.version>
+    <org.eclipse.scout.rt.version>26.2.6</org.eclipse.scout.rt.version>
     <sxda.dependency.logback.version>1.5.20</sxda.dependency.logback.version>
     <sxda.plugin.central-publishing-maven-plugin.version>0.9.0</sxda.plugin.central-publishing-maven-plugin.version>
     <sxda.plugin.maven-gpg-plugin.version>3.2.8</sxda.plugin.maven-gpg-plugin.version>
@@ -55,7 +55,7 @@
     <sxda.plugin.exec-maven-plugin.version>3.6.2</sxda.plugin.exec-maven-plugin.version>
     <sxda.plugin.versions-maven-plugin.version>2.19.1</sxda.plugin.versions-maven-plugin.version>
     <!-- has to be the same minor version then the one used by Eclipse Scout -->
-    <sxda.plugin.jandex-maven-plugin.version>3.2.3</sxda.plugin.jandex-maven-plugin.version>
+    <sxda.plugin.jandex-maven-plugin.version>3.5.2</sxda.plugin.jandex-maven-plugin.version>
     <sxda.plugin.license-maven-plugin.version>5.0.0</sxda.plugin.license-maven-plugin.version>
     <sxda.plugin.maven-toolchains-plugin.version>3.2.0</sxda.plugin.maven-toolchains-plugin.version>
     <sxda.plugin.maven-deploy-plugin.version>3.1.4</sxda.plugin.maven-deploy-plugin.version>
@@ -76,7 +76,7 @@
     <maven.deploy.skip>true</maven.deploy.skip>
     <!-- Reproducible Builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <!-- Update this timestamp with each major/minor release -->
-    <project.build.outputTimestamp>2025-10-18T00:00:00Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-10-07T00:00:00Z</project.build.outputTimestamp>
   </properties>
 
   <distributionManagement>

@@ -27,7 +27,7 @@ Add the following dependencies to your Eclipse Scout application:
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>codemirror.client</artifactId>
-  <version>25.2.0</version>
+  <version>26.2.0</version>
 </dependency>
 ----
 
@@ -37,7 +37,7 @@ Add the following dependencies to your Eclipse Scout application:
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>codemirror.ui.html</artifactId>
-  <version>25.2.0</version>
+  <version>26.2.0</version>
 </dependency>
 ----
 
@@ -53,7 +53,7 @@ Add to *your.app.ui.html/package.json*:
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-codemirror": "25.2.0",
+    "@sxda/scout-addon-codemirror": "26.2.0",
     "@codemirror/autocomplete": "^6.18.7",
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lang-java": "^6.0.2",

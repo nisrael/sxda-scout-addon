@@ -1,6 +1,6 @@
 {
   "name": "sxda-scout-addon-root",
-  "version": "25.1.2-SNAPSHOT",
+  "version": "26.2.0-SNAPSHOT",
   "description": "Additional form fields for the Eclipse Scout framework - workspace root",
   "private": true,
   "author": "Nils Israel <nils@sxda.io> (https://github.com/nisrael)",
@@ -11,9 +11,9 @@
     "url": "git+https://github.com/nisrael/sxda-scout-addon.git"
   },
   "engines": {
-    "node": ">=22.13.0",
-    "npm": ">=10.9.0",
-    "pnpm": ">=9.15.4"
+    "node": ">=24.12.0",
+    "npm": ">=11.6.2",
+    "pnpm": ">=10.26.1"
   },
   "scripts": {
     "pnpm-install": "pnpm install --ignore-scripts",
