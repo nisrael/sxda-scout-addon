@@ -11,8 +11,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {Extension} from "@codemirror/state";
-import {defaultHighlightStyle, HighlightStyle} from "@codemirror/language";
+import {Extension} from '@codemirror/state';
+import {defaultHighlightStyle, HighlightStyle} from '@codemirror/language';
 
 export class ThemeDescription {
   readonly id: string;
@@ -34,7 +34,10 @@ export class ThemeDescription {
   }
 
   load(): Promise<Extension> {
-    return this.loading || (this.loading = this.loadFunc().then(extension => this.extension = extension, err => {
+    return this.loading || (this.loading = this.loadFunc().then(extension => {
+      this.extension = extension;
+      return extension;
+    }, err => {
       this.loading = null;
       throw err;
     }));
@@ -46,12 +49,13 @@ export class ThemeDescription {
     dark: boolean;
     load?: () => Promise<Extension>;
     extension?: Extension;
-    syntaxHighlightStyle?: HighlightStyle
+    syntaxHighlightStyle?: HighlightStyle;
   }) {
     let {load, extension} = spec;
     if (!load) {
-      if (!extension)
-        throw new RangeError("Must pass either 'load' or 'extension' to ThemeDescription.of");
+      if (!extension) {
+        throw new RangeError('Must pass either \'load\' or \'extension\' to ThemeDescription.of');
+      }
       load = () => Promise.resolve(extension);
     }
     let name = spec.name ? spec.name : spec.id;

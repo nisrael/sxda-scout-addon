@@ -12,8 +12,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {BasicFieldModel, ValueFieldModel} from '@eclipse-scout/core';
-import {AceTheme} from "./themes/AceTheme";
-import {AceMode} from "./modes/AceMode";
+import {AceTheme} from './themes/AceTheme';
+import {AceMode} from './modes/AceMode';
 
 export interface AceFieldModel extends BasicFieldModel<string> {
   theme?: string;

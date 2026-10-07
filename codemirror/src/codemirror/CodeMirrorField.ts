@@ -11,9 +11,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {BasicField, StringField, strings} from "@eclipse-scout/core";
-import {CodeMirrorFieldModel} from "./CodeMirrorFieldModel";
-import {CodeMirrorFieldEventMap} from "./CodeMirrorFieldEventMap";
+import {BasicField, StringField, strings} from '@eclipse-scout/core';
+import {CodeMirrorFieldModel} from './CodeMirrorFieldModel';
+import {CodeMirrorFieldEventMap} from './CodeMirrorFieldEventMap';
 import {
   crosshairCursor,
   drawSelection,
@@ -28,7 +28,7 @@ import {
   ViewUpdate
 } from '@codemirror/view';
 import {Compartment, EditorSelection, EditorState} from '@codemirror/state';
-import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/commands'
+import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/commands';
 import {CodeMirrorFieldBackspaceKeyStroke} from './CodeMirrorFieldBackspaceKeyStroke';
 import {
   bracketMatching,
@@ -44,7 +44,7 @@ import {languages} from '@codemirror/language-data';
 import {autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete';
 import {highlightSelectionMatches, searchKeymap} from '@codemirror/search';
 import {lintKeymap} from '@codemirror/lint';
-import {ThemeList} from "./themes/Themes";
+import {ThemeList} from './themes/Themes';
 
 export class CodeMirrorField extends BasicField<string> implements CodeMirrorFieldModel {
   declare model: CodeMirrorFieldModel;
@@ -138,7 +138,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     this.defaultKeymap = true;
     this.historyKeymap = true;
     this.lineWrapping = false;
-    this.theme = 'None'
+    this.theme = 'None';
     this._isUpdatingEditorFromRenderer = false;
 
     this._enabledCompartment = new Compartment();
@@ -214,7 +214,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
 
     this._editorView = new EditorView({
       parent: $field.get()[0],
-      state: initialEditorState,
+      state: initialEditorState
     });
 
     this.addMandatoryIndicator();
@@ -237,7 +237,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
         this._onDisplayTextModified();
       }
     }
-  }
+  };
 
   protected override _renderEnabled() {
     super._renderEnabled();
@@ -248,7 +248,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
     super._renderProperties();
     this._renderLanguage();
     this._renderTheme();
-    this._renderSyntaxHighlighting()
+    this._renderSyntaxHighlighting();
     this._renderHighlightActiveLine();
     this._renderLineNumbers();
     this._renderHighlightActiveLineGutter();
@@ -310,11 +310,11 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
 
   protected async _renderTheme() {
     this._editorView.dispatch({
-        effects: [
-          this._themeCompartment.reconfigure(await this.getThemeExtension()),
-          this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlightStyle())] : [])
-        ]
-      }
+      effects: [
+        this._themeCompartment.reconfigure(await this.getThemeExtension()),
+        this._syntaxHighlightingCompartment.reconfigure(this.syntaxHighlighting ? [syntaxHighlighting(this.getSyntaxHighlightStyle())] : [])
+      ]
+    }
     );
   }
 
@@ -350,7 +350,7 @@ export class CodeMirrorField extends BasicField<string> implements CodeMirrorFie
         });
         this._updateHasText();
         let matches = currentEditorValue.match(StringField.TRIM_REGEXP);
-        if (matches && matches[2] === displayText && oldSelectionRanges.length == 1) {
+        if (matches && matches[2] === displayText && oldSelectionRanges.length === 1) {
           let oldSelectionStart = oldSelectionRanges[0].from;
           let oldSelectionEnd = oldSelectionRanges[0].to;
           let newSelectionStart = Math.max(oldSelectionStart - matches[1].length, 0);

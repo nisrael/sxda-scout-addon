@@ -24,7 +24,7 @@ export default defineConfig([
   globalIgnores([
     '.git',
     '.idea',
-'**/dist/',
+    '**/dist/',
     '**/target/',
     '*/src/main/resources',
     '*/src/test/resources',

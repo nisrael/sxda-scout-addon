@@ -83,7 +83,7 @@ export default (): FormModel => ({
                   {
                     id: 'EnableField',
                     objectType: CheckBoxField,
-                    label: 'Enable',
+                    label: 'Enable'
                   },
                   {
                     id: 'UpdateDisplayTextOnModifyField',

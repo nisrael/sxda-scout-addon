@@ -12,8 +12,8 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {StaticLookupCall} from '@eclipse-scout/core';
-import {AceThemes} from "./AceThemes";
-import {AceTheme} from "./AceTheme";
+import {AceThemes} from './AceThemes';
+import {AceTheme} from './AceTheme';
 
 export class AceThemeLookupCall extends StaticLookupCall<string> {
   protected override _data(): any[] {

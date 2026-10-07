@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {keys, KeyStroke, ScoutKeyboardEvent} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+import {AceField} from './AceField';
 
 export class AceFieldEnterKeyStroke extends KeyStroke {
   declare field: AceField;

@@ -11,10 +11,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {AceForm} from "../ace/AceForm";
-import {Desktop} from "./Desktop";
-import {DemoOutline} from "../index";
-import {Menu} from "@eclipse-scout/core";
+import {AceForm} from '../ace/AceForm';
+import {Desktop} from './Desktop';
+import {DemoOutline} from '../index';
+import {Menu} from '@eclipse-scout/core';
 
 
 export default () => ({

@@ -33,9 +33,9 @@ import {
   WidgetField
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {CodeMirrorField} from "../../../codemirror/src";
-import {LanguagesLookupCall} from "../../../codemirror/src/codemirror/languages/LanguagesLookupCall";
-import {ThemesLookupCall} from "../../../codemirror/src/codemirror/themes/ThemesLookupCall";
+import {CodeMirrorField} from '../../../codemirror/src';
+import {LanguagesLookupCall} from '../../../codemirror/src/codemirror/languages/LanguagesLookupCall';
+import {ThemesLookupCall} from '../../../codemirror/src/codemirror/themes/ThemesLookupCall';
 
 export default (): FormModel => ({
   id: 'sxda.CodeMirrorForm',
@@ -62,7 +62,7 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'CodeMirrorField',
-              objectType: CodeMirrorField,
+              objectType: CodeMirrorField
             }
           }
         ]
@@ -92,7 +92,7 @@ export default (): FormModel => ({
                   {
                     id: 'EnableField',
                     objectType: CheckBoxField,
-                    label: 'Enable',
+                    label: 'Enable'
                   },
                   {
                     id: 'UpdateDisplayTextOnModifyField',
@@ -266,10 +266,10 @@ export default (): FormModel => ({
                           weightX: 0,
                           useUiWidth: true
                         }
-                      },
+                      }
 
                     ]
-                  },
+                  }
 
                 ]
               }

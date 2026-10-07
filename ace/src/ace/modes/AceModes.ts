@@ -11,7 +11,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {AceMode} from "./AceMode";
+import {AceMode} from './AceMode';
 
 export class AceModes {
   private static instance: AceModes;

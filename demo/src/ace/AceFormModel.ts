@@ -25,7 +25,7 @@ import {
   WidgetField
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {AceField, AceThemeLookupCall, AceModeLookupCall} from "../../../ace/src";
+import {AceField, AceThemeLookupCall, AceModeLookupCall} from '../../../ace/src';
 
 export default (): FormModel => ({
   id: 'sxda.AceForm',
@@ -52,7 +52,7 @@ export default (): FormModel => ({
             },
             fieldWidget: {
               id: 'AceField',
-              objectType: AceField,
+              objectType: AceField
             }
           }
         ]
@@ -82,7 +82,7 @@ export default (): FormModel => ({
                   {
                     id: 'EnableField',
                     objectType: CheckBoxField,
-                    label: 'Enable',
+                    label: 'Enable'
                   },
                   {
                     id: 'UpdateDisplayTextOnModifyField',
@@ -146,10 +146,10 @@ export default (): FormModel => ({
                           weightX: 0,
                           useUiWidth: true
                         }
-                      },
+                      }
 
                     ]
-                  },
+                  }
 
                 ]
               }

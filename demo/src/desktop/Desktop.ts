@@ -20,7 +20,7 @@ import {
   models,
   scout
 } from '@eclipse-scout/core';
-import {APP_VERSION} from "../version";
+import {APP_VERSION} from '../version';
 import DesktopModel, {DesktopWidgetMap} from './DesktopModel';
 
 export class Desktop extends ScoutDesktop {

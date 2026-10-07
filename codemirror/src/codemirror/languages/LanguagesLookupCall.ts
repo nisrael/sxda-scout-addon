@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {StaticLookupCall} from '@eclipse-scout/core';
-import {languages} from "@codemirror/language-data";
+import {languages} from '@codemirror/language-data';
 
 export class LanguagesLookupCall extends StaticLookupCall<string> {
   protected override _data(): any[] {

@@ -12,26 +12,26 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {App, ObjectFactory, scout} from '@eclipse-scout/core';
-import {Desktop} from './desktop/Desktop'
+import {Desktop} from './desktop/Desktop';
 
 import * as self from './index';
-import 'ace-code/esm-resolver'
+import 'ace-code/esm-resolver';
 
-export * from './desktop/Desktop'
-export * from './desktop/DemoOutline'
-export * from './common/EventsTab'
-export * from './common/EventsTabModel'
-export * from './ace/AceFormModel'
-export * from './ace/AceForm'
-export * from './codemirror/CodeMirrorFormModel'
-export * from './codemirror/CodeMirrorForm'
-export * from './monaco/MonacoFormModel'
-export * from './monaco/MonacoForm'
-export * from './stringfield/StringFieldFormModel'
-export * from './stringfield/StringFieldForm'
+export * from './desktop/Desktop';
+export * from './desktop/DemoOutline';
+export * from './common/EventsTab';
+export * from './common/EventsTabModel';
+export * from './ace/AceFormModel';
+export * from './ace/AceForm';
+export * from './codemirror/CodeMirrorFormModel';
+export * from './codemirror/CodeMirrorForm';
+export * from './monaco/MonacoFormModel';
+export * from './monaco/MonacoForm';
+export * from './stringfield/StringFieldFormModel';
+export * from './stringfield/StringFieldForm';
 
 scout.addObjectFactories({
-  'Desktop': function () {
+  'Desktop': function() {
     return new Desktop();
   }
 });
