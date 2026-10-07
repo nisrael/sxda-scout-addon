@@ -25,7 +25,7 @@ export default (): OutlineModel => ({
       leaf: true,
       text: 'AceField',
       detailForm: {
-        objectType: AceForm,
+        objectType: AceForm
       },
       detailTableVisible: false
     },
@@ -35,7 +35,7 @@ export default (): OutlineModel => ({
       leaf: true,
       text: 'CodeMirrorField',
       detailForm: {
-        objectType: CodeMirrorForm,
+        objectType: CodeMirrorForm
       },
       detailTableVisible: false
     },
@@ -45,7 +45,7 @@ export default (): OutlineModel => ({
       leaf: true,
       text: 'MonacoField',
       detailForm: {
-        objectType: MonacoForm,
+        objectType: MonacoForm
       },
       detailTableVisible: false
     },
@@ -55,7 +55,7 @@ export default (): OutlineModel => ({
       leaf: true,
       text: 'StringField (Reference)',
       detailForm: {
-        objectType: StringFieldForm,
+        objectType: StringFieldForm
       },
       detailTableVisible: false
     }

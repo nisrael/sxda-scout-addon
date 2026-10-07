@@ -7,7 +7,7 @@ on:
 jobs:
   validate:
     name: Validate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: read
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           # we need the full history to validate license headers
           fetch-depth: 0
@@ -26,7 +26,7 @@ jobs:
         run: mvn -U -B license:check -P sxda.build.license-validation
 
   publish-maven:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: validate
 
     permissions:
@@ -34,7 +34,7 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: ./.github/actions/setup-java
         with:
@@ -54,7 +54,7 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: validate
 
     permissions:
@@ -62,7 +62,7 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: ./.github/actions/setup-node-pnpm
 

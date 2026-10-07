@@ -11,7 +11,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {AceTheme} from "./AceTheme";
+import {AceTheme} from './AceTheme';
 
 export class AceThemes{
   private static instance: AceThemes;

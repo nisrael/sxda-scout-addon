@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {BasicFieldAdapter} from '@eclipse-scout/core';
-import {AceField} from "./AceField";
+import {AceField} from './AceField';
 
 export class AceFieldAdapter extends BasicFieldAdapter {
   declare widget: AceField;

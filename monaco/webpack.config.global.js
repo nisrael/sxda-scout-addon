@@ -23,7 +23,7 @@ module.exports = (env, args) => {
     entry: {
       'sxda-scout-addon-monaco': './src/index.ts',
       'monaco-theme': './src/monaco-theme.less',
-      'monaco-theme-dark': './src/monaco-theme-dark.less',
+      'monaco-theme-dark': './src/monaco-theme-dark.less'
     },
     optimization: {
       ...configWithMonaco.optimization,

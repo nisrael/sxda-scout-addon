@@ -23,8 +23,8 @@
 
 import https from 'https';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import {fileURLToPath} from 'url';
+import {dirname, join} from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,15 +41,19 @@ function downloadTheme(themeName) {
     const themeUrl = `${baseUrl}/${themeName}.css`;
     console.log(`Downloading theme: ${themeName}...`);
 
-    https.get(themeUrl, (res) => {
+    https.get(themeUrl, res => {
       if (res.statusCode !== 200) {
         reject(new Error(`Failed to download theme '${themeName}': HTTP ${res.statusCode}`));
         return;
       }
 
       let cssContent = '';
-      res.on('data', (chunk) => { cssContent += chunk; });
-      res.on('end', () => { resolve(cssContent); });
+      res.on('data', chunk => {
+        cssContent += chunk;
+      });
+      res.on('end', () => {
+        resolve(cssContent);
+      });
     }).on('error', reject);
   });
 }
@@ -59,7 +63,7 @@ async function main() {
   try {
     if (darkTheme) {
       // Dual theme mode
-      console.log(`Setting up dual theme mode:`);
+      console.log('Setting up dual theme mode:');
       console.log(`  Light mode: ${lightTheme}`);
       console.log(`  Dark mode: ${darkTheme}`);
 
@@ -112,10 +116,10 @@ ${darkCss}
 }
 `;
 
-      fs.mkdirSync(dirname(outputPath), { recursive: true });
+      fs.mkdirSync(dirname(outputPath), {recursive: true});
       fs.writeFileSync(outputPath, header, 'utf8');
 
-      console.log(`✓ Dual themes configured successfully!`);
+      console.log('✓ Dual themes configured successfully!');
       console.log(`✓ Light theme: ${lightTheme}`);
       console.log(`✓ Dark theme: ${darkTheme}`);
       console.log(`✓ Saved to: ${outputPath}`);
@@ -151,7 +155,7 @@ ${darkCss}
 ${cssContent}
 `;
 
-      fs.mkdirSync(dirname(outputPath), { recursive: true });
+      fs.mkdirSync(dirname(outputPath), {recursive: true});
       fs.writeFileSync(outputPath, header, 'utf8');
 
       console.log(`✓ Theme '${lightTheme}' downloaded successfully!`);
@@ -159,13 +163,13 @@ ${cssContent}
       console.log(`✓ Size: ${(header.length / 1024).toFixed(2)} KB`);
     }
 
-    console.log(`\nRebuild your docs to see the new theme:`);
-    console.log(`  npm run docs:build`);
+    console.log('\nRebuild your docs to see the new theme:');
+    console.log('  npm run docs:build');
 
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    console.error(`Make sure the theme name is valid.`);
-    console.error(`See available themes at: https://github.com/highlightjs/highlight.js/tree/main/src/styles`);
+    console.error('Make sure the theme name is valid.');
+    console.error('See available themes at: https://github.com/highlightjs/highlight.js/tree/main/src/styles');
     process.exit(1);
   }
 }

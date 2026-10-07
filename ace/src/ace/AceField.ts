@@ -12,13 +12,13 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {BasicField, InitModelOf, InputFieldKeyStrokeContext, StringField, strings} from '@eclipse-scout/core';
-import {AceFieldModel} from "./AceFieldModel";
-import {AceFieldEventMap} from "./AceFieldEventMap";
-import * as ace from "ace-code";
-import {Range} from "ace-code";
-import {AceThemes} from "./themes/AceThemes";
-import {AceModes} from "./modes/AceModes";
-import {AceFieldEnterKeyStroke} from "./AceFieldEnterKeyStroke";
+import {AceFieldModel} from './AceFieldModel';
+import {AceFieldEventMap} from './AceFieldEventMap';
+import * as ace from 'ace-code';
+import {Range} from 'ace-code';
+import {AceThemes} from './themes/AceThemes';
+import {AceModes} from './modes/AceModes';
+import {AceFieldEnterKeyStroke} from './AceFieldEnterKeyStroke';
 
 export class AceField extends BasicField<string> implements AceFieldModel {
   declare model: AceFieldModel;
@@ -80,7 +80,7 @@ export class AceField extends BasicField<string> implements AceFieldModel {
   }
 
   _renderAceMode() {
-    this.editor.setOption("mode", AceModes.getInstance().get(this.aceMode).path);
+    this.editor.setOption('mode', AceModes.getInstance().get(this.aceMode).path);
   }
 
   setTabSize(tabSize: number) {

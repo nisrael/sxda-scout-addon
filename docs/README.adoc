@@ -49,4 +49,4 @@ Then open http://localhost:8080 in your browser.
 
 * Kroki integration for diagrams using the public Kroki server (https://kroki.io)
 * Collector extension to include README files as partials
-* Tracks the `main` branch and `25.2.*` tags for versioning
+* Tracks the `main` branch and `26.2.*` tags for versioning

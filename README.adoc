@@ -47,7 +47,7 @@ For complete installation and usage instructions, see the https://nisrael.github
 
 == Versioning
 
-This project's major.minor version matches Eclipse Scout's version. For example, version 25.2.x is compatible with Eclipse Scout 25.2.y.
+This project's major.minor version matches Eclipse Scout's version. For example, version 26.2.x is compatible with Eclipse Scout 26.2.y.
 
 Releases are published to https://central.sonatype.com/namespace/io.sxda.scout.addon[Maven Central] and https://www.npmjs.com/[npmjs.org].
 

@@ -85,7 +85,7 @@ describe('AceModeLookupCallSpec', () => {
 
   describe('lookup execution', () => {
 
-    it('executes lookup and returns results', (done) => {
+    it('executes lookup and returns results', done => {
       // Scout LookupCalls must be cloned before execution
       lookupCall.cloneForAll()
         .execute()
@@ -98,7 +98,7 @@ describe('AceModeLookupCallSpec', () => {
         .catch(done.fail);
     });
 
-    it('lookup rows have key and text', (done) => {
+    it('lookup rows have key and text', done => {
       lookupCall.cloneForAll()
         .execute()
         .then(result => {
@@ -111,7 +111,7 @@ describe('AceModeLookupCallSpec', () => {
         .catch(done.fail);
     });
 
-    it('can look up specific mode by key', (done) => {
+    it('can look up specific mode by key', done => {
       lookupCall.cloneForKey('java')
         .execute()
         .then(result => {
@@ -123,7 +123,7 @@ describe('AceModeLookupCallSpec', () => {
         .catch(done.fail);
     });
 
-    it('can search modes by text', (done) => {
+    it('can search modes by text', done => {
       lookupCall.cloneForText('Java')
         .execute()
         .then(result => {

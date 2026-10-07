@@ -27,7 +27,7 @@ import {
   WidgetField
 } from '@eclipse-scout/core';
 import {EventsTab, EventsTabWidgetMap} from '../index';
-import {MonacoField} from "../../../monaco/src";
+import {MonacoField} from '../../../monaco/src';
 
 export default (): FormModel => ({
   id: 'sxda.MonacoForm',
@@ -57,7 +57,7 @@ export default (): FormModel => ({
               objectType: MonacoField,
               language: 'javascript',
               theme: 'vs-dark',
-              value: `// Welcome to Monaco Editor!\nfunction greet(name) {\n  console.log('Hello, ' + name + '!');\n}\n\ngreet('World');`
+              value: '// Welcome to Monaco Editor!\nfunction greet(name) {\n  console.log(\'Hello, \' + name + \'!\');\n}\n\ngreet(\'World\');'
             }
           }
         ]
@@ -87,7 +87,7 @@ export default (): FormModel => ({
                   {
                     id: 'EnableField',
                     objectType: CheckBoxField,
-                    label: 'Enable',
+                    label: 'Enable'
                   },
                   {
                     id: 'UpdateDisplayTextOnModifyField',
@@ -181,10 +181,10 @@ export default (): FormModel => ({
                           weightX: 0,
                           useUiWidth: true
                         }
-                      },
+                      }
 
                     ]
-                  },
+                  }
 
                 ]
               }

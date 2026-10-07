@@ -22,7 +22,7 @@ module.exports = (env, args) => {
     entry: {
       'sxda-scout-addon-ace': './src/index.ts',
       'ace-theme': './src/ace-theme.less',
-      'ace-theme-dark': './src/ace-theme-dark.less',
+      'ace-theme-dark': './src/ace-theme-dark.less'
     },
     optimization: {
       ...config.optimization,

@@ -19,7 +19,7 @@ module.exports = (env, args) => {
     entry: {
       'sxda-scout-addon-codemirror': './src/index.ts',
       'codemirror-theme': './src/codemirror-theme.less',
-      'codemirror-theme-dark': './src/codemirror-theme-dark.less',
+      'codemirror-theme-dark': './src/codemirror-theme-dark.less'
     },
     optimization: {
       ...config.optimization,
@@ -40,7 +40,7 @@ module.exports = (env, args) => {
       'thememirror': 'thememirror',
       '@codemirror/lint': 'lint',
       '@codemirror/state': 'state',
-      '@codemirror/view"': 'view',
+      '@codemirror/view"': 'view'
     }
   };
 };

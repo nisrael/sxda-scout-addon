@@ -280,7 +280,7 @@ describe('CodeMirrorFieldSpec', () => {
       field.render();
     });
 
-    it('sets language mode and affects editor configuration', (done) => {
+    it('sets language mode and affects editor configuration', done => {
       // Set JavaScript language
       field.setLanguage('JavaScript');
 
@@ -301,7 +301,7 @@ describe('CodeMirrorFieldSpec', () => {
       // Should not crash, None means no syntax highlighting
     });
 
-    it('sets theme and affects editor styling', (done) => {
+    it('sets theme and affects editor styling', done => {
       // Themes are loaded asynchronously
       field.setTheme('dracula');
 

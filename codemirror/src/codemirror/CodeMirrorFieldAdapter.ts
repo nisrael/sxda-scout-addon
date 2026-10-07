@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {BasicFieldAdapter} from '@eclipse-scout/core';
-import {CodeMirrorField} from "./CodeMirrorField";
+import {CodeMirrorField} from './CodeMirrorField';
 
 export class CodeMirrorFieldAdapter extends BasicFieldAdapter {
   declare widget: CodeMirrorField;

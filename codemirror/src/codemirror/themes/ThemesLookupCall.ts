@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {StaticLookupCall} from '@eclipse-scout/core';
-import {ThemeList} from "./Themes";
+import {ThemeList} from './Themes';
 
 export class ThemesLookupCall extends StaticLookupCall<string> {
   protected override _data(): any[] {

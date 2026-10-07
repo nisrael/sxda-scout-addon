@@ -13,10 +13,10 @@
  *   npm run docs:build:highlight
  */
 
-import { build } from 'esbuild';
+import {build} from 'esbuild';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import {fileURLToPath} from 'url';
+import {dirname, join} from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,7 +24,7 @@ const rootDir = join(__dirname, '..');
 
 // Ensure output directory exists
 const outputDir = join(rootDir, 'docs', 'supplemental-ui', 'js', 'vendor');
-fs.mkdirSync(outputDir, { recursive: true });
+fs.mkdirSync(outputDir, {recursive: true});
 
 // Create entry point file with all languages
 const entryContent = `

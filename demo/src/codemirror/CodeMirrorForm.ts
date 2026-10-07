@@ -13,7 +13,7 @@
  */
 import {Form, FormModel, InitModelOf, models} from '@eclipse-scout/core';
 import {CodeMirrorFormWidgetMap} from '../index';
-import CodeMirrorFormModel from "./CodeMirrorFormModel";
+import CodeMirrorFormModel from './CodeMirrorFormModel';
 
 export class CodeMirrorForm extends Form {
   declare widgetMap: CodeMirrorFormWidgetMap;

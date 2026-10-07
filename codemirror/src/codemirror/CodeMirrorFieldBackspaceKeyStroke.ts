@@ -12,7 +12,7 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 import {keys, KeyStroke, ScoutKeyboardEvent} from '@eclipse-scout/core';
-import {CodeMirrorField} from "./CodeMirrorField";
+import {CodeMirrorField} from './CodeMirrorField';
 
 export class CodeMirrorFieldBackspaceKeyStroke extends KeyStroke {
   declare field: CodeMirrorField;

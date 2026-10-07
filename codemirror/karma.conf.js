@@ -34,10 +34,10 @@ module.exports = (config, specEntryPoint) => {
   currentConfig.coverageReporter = {
     dir: 'target/coverage',
     reporters: [
-      { type: 'html', subdir: 'html' },
-      { type: 'lcovonly', subdir: 'lcov' },
-      { type: 'text-summary' },
-      { type: 'json', subdir: 'json' }
+      {type: 'html', subdir: 'html'},
+      {type: 'lcovonly', subdir: 'lcov'},
+      {type: 'text-summary'},
+      {type: 'json', subdir: 'json'}
     ],
     check: {
       global: {
@@ -65,7 +65,7 @@ module.exports = (config, specEntryPoint) => {
       enforce: 'post',
       use: {
         loader: '@jsdevtools/coverage-istanbul-loader',
-        options: { esModules: true }
+        options: {esModules: true}
       }
     });
   }

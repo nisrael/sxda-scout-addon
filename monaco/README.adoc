@@ -29,7 +29,7 @@ Add the following dependencies to your Eclipse Scout application:
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>monaco.client</artifactId>
-  <version>25.2.0</version>
+  <version>26.2.0</version>
 </dependency>
 ----
 
@@ -39,7 +39,7 @@ Add the following dependencies to your Eclipse Scout application:
 <dependency>
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>monaco.ui.html</artifactId>
-  <version>25.2.0</version>
+  <version>26.2.0</version>
 </dependency>
 ----
 
@@ -52,7 +52,7 @@ Add to **your.app.ui.html/package.json**:
 ----
 {
   "dependencies": {
-    "@sxda/scout-addon-monaco": "25.2.0",
+    "@sxda/scout-addon-monaco": "26.2.0",
     "monaco-editor": "^0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.1",
     "css-loader": "^7.1.2",
