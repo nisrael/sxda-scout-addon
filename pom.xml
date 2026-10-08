@@ -20,7 +20,7 @@
 
   <groupId>io.sxda.scout.addon</groupId>
   <artifactId>base</artifactId>
-  <version>26.2.0-SNAPSHOT</version>
+  <version>26.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Scout Addon Base</name>
@@ -76,7 +76,7 @@
     <maven.deploy.skip>true</maven.deploy.skip>
     <!-- Reproducible Builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <!-- Update this timestamp with each major/minor release -->
-    <project.build.outputTimestamp>2026-10-07T00:00:00Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-10-08T00:00:00Z</project.build.outputTimestamp>
   </properties>
 
   <distributionManagement>
