@@ -23,7 +23,7 @@ inputs:
   gpg-private-key:
     description: 'GPG private key for signing'
     required: false
-  gpg-passphrase:
+  gpg-passphrase-env-var:
     description: 'GPG passphrase environment variable'
     required: false
 
@@ -41,4 +41,4 @@ runs:
         server-username: ${{ inputs.server-username }}
         server-password: ${{ inputs.server-password }}
         gpg-private-key: ${{ inputs.gpg-private-key }}
-        gpg-passphrase: ${{ inputs.gpg-passphrase }}
+        gpg-passphrase-env-var: ${{ inputs.gpg-passphrase-env-var }}

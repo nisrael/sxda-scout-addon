@@ -260,6 +260,7 @@
               <artifact>demo</artifact>
               <artifact>ace</artifact>
               <artifact>codemirror</artifact>
+              <artifact>monaco</artifact>
             </excludeArtifacts>
           </configuration>
         </plugin>

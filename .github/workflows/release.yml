@@ -60,7 +60,7 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-passphrase-env-var: MAVEN_GPG_PASSPHRASE
 
       - name: Prepare and tag
         run: |
@@ -73,13 +73,14 @@ jobs:
           mvn -U -B versions:set -D newVersion=$RELEASE_VERSION -D generateBackupPoms=false
 
           # publish to maven central and npm
-          mvn -U -B clean deploy -P sxda.build.release
+          # the demo application is not part of the published artifacts, so keep it out of the reactor
+          mvn -U -B clean deploy -P sxda.build.release -pl '!demo'
           cd ace && npm run build:all && npm run prepublishOnly && npm stage publish --access public && cd ..
           cd codemirror && npm run build:all && npm run prepublishOnly && npm stage publish --access public && cd ..
           cd monaco && npm run build:all && npm run prepublishOnly && npm stage publish --access public && cd ..
 
           # commit and tag the release
-          git add -v ace/package.json demo/package.json ace/pom.xml demo/pom.xml ace.client/pom.xml ace.ui.html/pom.xml pom.xml
+          git add -v ace/package.json codemirror/package.json monaco/package.json demo/package.json ace/pom.xml codemirror/pom.xml monaco/pom.xml demo/pom.xml ace.client/pom.xml codemirror.client/pom.xml monaco.client/pom.xml ace.ui.html/pom.xml codemirror.ui.html/pom.xml monaco.ui.html/pom.xml pom.xml
           git commit -m "Release $RELEASE_VERSION"
           git tag -a v$RELEASE_VERSION -m "Release $RELEASE_VERSION"
           echo "TAG_NAME=v$RELEASE_VERSION" >> $GITHUB_ENV
