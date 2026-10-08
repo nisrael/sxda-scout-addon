@@ -14,10 +14,10 @@ inputs:
     description: 'Maven server ID'
     required: false
     default: 'github'
-  server-username:
+  server-username-env-var:
     description: 'Maven server username environment variable'
     required: false
-  server-password:
+  server-password-env-var:
     description: 'Maven server password environment variable'
     required: false
   gpg-private-key:
@@ -26,6 +26,17 @@ inputs:
   gpg-passphrase-env-var:
     description: 'GPG passphrase environment variable'
     required: false
+  maven-version:
+    description: 'Maven version to install'
+    required: false
+    # Maven 3.10 writes maven-metadata-local.xml / _remote.repositories into the central-publishing
+    # staging dir, which makes Maven Central reject the bundle. Stay on 3.9.x until the plugin supports 3.10.
+    # https://github.com/mavenplugins/central-publishing-maven-plugin/issues/78
+    default: '3.9.16'
+  maven-sha512:
+    description: 'SHA-512 of the apache-maven-<version>-bin.tar.gz archive'
+    required: false
+    default: '831a8591fe20c8243b1dbe7d71e3244f31d1665b0804b2e825e38cbbe5ce0cafb8338851f90780735568773e0a6cd07bbec107cda0b896b008b861075358b6f6'
 
 runs:
   using: 'composite'
@@ -38,7 +49,21 @@ runs:
         cache: maven
         check-latest: ${{ inputs.check-latest }}
         server-id: ${{ inputs.server-id }}
-        server-username: ${{ inputs.server-username }}
-        server-password: ${{ inputs.server-password }}
+        server-username-env-var: ${{ inputs.server-username-env-var }}
+        server-password-env-var: ${{ inputs.server-password-env-var }}
         gpg-private-key: ${{ inputs.gpg-private-key }}
         gpg-passphrase-env-var: ${{ inputs.gpg-passphrase-env-var }}
+
+    - name: Install Maven ${{ inputs.maven-version }}
+      shell: bash
+      env:
+        MAVEN_VERSION: ${{ inputs.maven-version }}
+        MAVEN_SHA512: ${{ inputs.maven-sha512 }}
+      run: |
+        archive="apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+        curl -sSfL -o "$RUNNER_TEMP/$archive" \
+          "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/${archive}"
+        echo "${MAVEN_SHA512}  $RUNNER_TEMP/$archive" | sha512sum -c -
+        tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
+        echo "$RUNNER_TEMP/apache-maven-${MAVEN_VERSION}/bin" >> "$GITHUB_PATH"
+        "$RUNNER_TEMP/apache-maven-${MAVEN_VERSION}/bin/mvn" -v
