@@ -80,7 +80,7 @@ jobs:
         working-directory: ./ace
 
       - name: Publish ace node packages to npmjs.com
-        run: npm publish --access public --tag snapshot
+        run: npm stage publish --access public --tag snapshot
         working-directory: ./ace
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -94,7 +94,7 @@ jobs:
         working-directory: ./codemirror
 
       - name: Publish codemirror node packages to npmjs.com
-        run: npm publish --access public --tag snapshot
+        run: npm stage publish --access public --tag snapshot
         working-directory: ./codemirror
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -108,7 +108,7 @@ jobs:
         working-directory: ./monaco
 
       - name: Publish monaco node packages to npmjs.com
-        run: npm publish --access public --tag snapshot
+        run: npm stage publish --access public --tag snapshot
         working-directory: ./monaco
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
