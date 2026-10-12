@@ -69,14 +69,14 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(supports-color@8.1.1)
       '@types/jasmine':
-        specifier: 5.1.12
-        version: 5.1.12
+        specifier: 5.1.15
+        version: 5.1.15
       '@types/jasmine-jquery':
         specifier: 1.5.37
         version: 1.5.37
       '@types/jquery':
-        specifier: 3.5.33
-        version: 3.5.33
+        specifier: 3.5.34
+        version: 3.5.34
       ace-code:
         specifier: ^1.44.0
         version: 1.44.0
@@ -102,8 +102,8 @@ importers:
         specifier: ^7.7.2
         version: 7.8.5
       webpack:
-        specifier: ~5.104.1
-        version: 5.104.1(esbuild@0.27.2)(uglify-js@3.19.3)
+        specifier: ~5.111.0
+        version: 5.111.1(cssnano@7.1.9(postcss@8.5.29))(csso@5.0.5)(esbuild@0.27.2)(postcss@8.5.29)(svgo@4.1.0)(uglify-js@3.19.3)
       webpack-bundle-analyzer:
         specifier: ^4.10.2
         version: 4.10.2
@@ -9248,8 +9248,8 @@ snapshots:
 
   '@types/jasmine-jquery@1.5.37':
     dependencies:
-      '@types/jasmine': 5.1.12
-      '@types/jquery': 3.5.33
+      '@types/jasmine': 5.1.15
+      '@types/jquery': 3.5.34
 
   '@types/jasmine@5.1.12': {}
 
