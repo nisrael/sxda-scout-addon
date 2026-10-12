@@ -13,7 +13,7 @@ importers:
         version: 3.1.14
       '@antora/collector-extension':
         specifier: ^1.0.0
-        version: 1.0.2
+        version: 1.0.3
       '@antora/lunr-extension':
         specifier: 1.0.0-alpha.10
         version: 1.0.0-alpha.10
@@ -382,8 +382,8 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@antora/collector-extension@1.0.2':
-    resolution: {integrity: sha512-lHXG918k7/b26g66dHHl50WDUBe4qUPxtw15hnRYwPJAQPasHGemVY0m9020Pvq2WcKY3Dyc0k4IK4jzLQY1yw==}
+  '@antora/collector-extension@1.0.3':
+    resolution: {integrity: sha512-ji/6AAL2BL1CNogYhiCy4IErkGvAAmQtJZW4UwVlgwIv4LRC9xTeJJpstC4u5nMkvAHAKxSpja4bNEjMotklAw==}
     engines: {node: '>=16.0.0'}
 
   '@antora/content-aggregator@3.1.14':
@@ -6496,7 +6496,7 @@ snapshots:
       '@antora/user-require-helper': 3.0.0
       commander: 11.1.0
 
-  '@antora/collector-extension@1.0.2':
+  '@antora/collector-extension@1.0.3':
     dependencies:
       '@antora/expand-path-helper': 3.0.0
       '@antora/run-command-helper': 1.0.2
