@@ -50,9 +50,9 @@
     "@eclipse-scout/releng": "~26.2.0",
     "@eclipse-scout/tsconfig": "26.2.6",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
-    "@types/jasmine": "5.1.12",
+    "@types/jasmine": "5.1.15",
     "@types/jasmine-jquery": "1.5.37",
-    "@types/jquery": "3.5.33",
+    "@types/jquery": "3.5.34",
     "ace-code": "^1.44.0",
     "babel-plugin-istanbul": "^7.0.1",
     "jasmine-core": "5.13.0",
@@ -61,7 +61,7 @@
     "karma": "6.4.4",
     "karma-coverage": "^2.2.1",
     "semver": "^7.7.2",
-    "webpack": "~5.104.1",
+    "webpack": "~5.111.0",
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "peerDependencies": {
